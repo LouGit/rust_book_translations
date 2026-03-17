@@ -1215,7 +1215,6 @@ msgstr ""
 # TODO eventually, put this sentence back with the rust-lang-translations.org URL
 
 # }}}
-# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 # Traduction des termes: {{{
 #
 # Page non existante dans la version anglaise
@@ -4600,12 +4599,10 @@ msgstr ""
 "apprendre dès le début vous procurera de solides bases pour débuter."
 
 #: src/ch03-00-common-programming-concepts.md:13
-#, fuzzy
 msgid "Keywords"
-msgstr "Avant-propos"
+msgstr "Mots-clés"
 
 #: src/ch03-00-common-programming-concepts.md:15
-#, fuzzy
 msgid ""
 "The Rust language has a set of _keywords_ that are reserved for use by the "
 "language only, much as in other languages. Keep in mind that you cannot use "
@@ -4626,8 +4623,10 @@ msgstr ""
 "ajoutés plus tard à Rust. Vous pouvez trouver la liste de ces mots-clés "
 "dans > [l'annexe A](appendix-01-keywords.md)<!-- ignore -->."
 
+# }}}
+# Les variables et la mutabilité {{{
+
 #: src/ch03-01-variables-and-mutability.md:3
-#, fuzzy
 msgid ""
 "As mentioned in the [“Storing Values with Variables”](ch02-00-guessing-game-"
 "tutorial.html#storing-values-with-variables)<!-- ignore --> section, by "
@@ -4647,7 +4646,6 @@ msgstr ""
 "pourriez choisir d'y renoncer."
 
 #: src/ch03-01-variables-and-mutability.md:11
-#, fuzzy
 msgid ""
 "When a variable is immutable, once a value is bound to a name, you can’t "
 "change that value. To illustrate this, generate a new project called "
@@ -4659,7 +4657,6 @@ msgstr ""
 "répertoire _projects_ en utilisant `cargo new variables`."
 
 #: src/ch03-01-variables-and-mutability.md:15
-#, fuzzy
 msgid ""
 "Then, in your new _variables_ directory, open _src/main.rs_ and replace its "
 "code with the following code, which won’t compile just yet:"
@@ -4676,7 +4673,7 @@ msgstr ""
 #: src/ch03-03-how-functions-work.md:74 src/ch03-03-how-functions-work.md:272
 #: src/ch03-03-how-functions-work.md:311 src/ch03-03-how-functions-work.md:329
 msgid "\"The value of x is: {x}\""
-msgstr ""
+msgstr "\"La valeur de x est : {x}\""
 
 #: src/ch03-01-variables-and-mutability.md:29
 msgid ""
@@ -4711,9 +4708,29 @@ msgid ""
 "error\n"
 "```"
 msgstr ""
+"```console\n"
+"$ cargo run\n"
+"   Compiling variables v0.1.0 (file:///projects/variables)\n"
+"error[E0384]: cannot assign twice to immutable variable `x`\n"
+" --> src/main.rs:4:5\n"
+"  |\n"
+"2 |     let x = 5;\n"
+"  |         - first assignment to `x`\n"
+"3 |     println!(\"La valeur de x est : {x}\");\n"
+"4 |     x = 6;\n"
+"  |     ^^^^^ cannot assign twice to immutable variable\n"
+"  |\n"
+"help: consider making this binding mutable\n"
+"  |\n"
+"2 |     let mut x = 5;\n"
+"  |         +++\n"
+"\n"
+"For more information about this error, try `rustc --explain E0384`.\n"
+"error: could not compile `variables` (bin \"variables\") due to 1 previous "
+"error\n"
+"```"
 
 #: src/ch03-01-variables-and-mutability.md:53
-#, fuzzy
 msgid ""
 "This example shows how the compiler helps you find errors in your programs. "
 "Compiler errors can be frustrating, but really they only mean your program "
@@ -4741,7 +4758,6 @@ msgstr ""
 "variable immuable  `x`."
 
 #: src/ch03-01-variables-and-mutability.md:60
-#, fuzzy
 msgid ""
 "It’s important that we get compile-time errors when we attempt to change a "
 "value that’s designated as immutable, because this very situation can lead "
@@ -4767,7 +4783,6 @@ msgstr ""
 "soucier. Votre code est ainsi plus facile à maîtriser."
 
 #: src/ch03-01-variables-and-mutability.md:71
-#, fuzzy
 msgid ""
 "But mutability can be very useful and can make code more convenient to "
 "write. Although variables are immutable by default, you can make them "
@@ -4786,13 +4801,12 @@ msgstr ""
 "code que d'autres parties du code vont modifier la valeur de cette variable."
 
 #: src/ch03-01-variables-and-mutability.md:78
-#, fuzzy
 msgid "For example, let’s change _src/main.rs_ to the following:"
 msgstr "Par exemple, modifions _src/main.rs_ ainsi :"
 
 #: src/ch03-01-variables-and-mutability.md:91
 msgid "When we run the program now, we get this:"
-msgstr ""
+msgstr "Lorsque nous exécutons le programme, nous obtenons :"
 
 #: src/ch03-01-variables-and-mutability.md:93
 msgid ""
@@ -4822,11 +4836,11 @@ msgid "<a id=\"constants\"></a>"
 msgstr ""
 
 #: src/ch03-01-variables-and-mutability.md:109
+#~ msgid "<a id=\"constants\"></a>   <!-- ### Declaring Constants"
 msgid "Declaring Constants"
-msgstr ""
+msgstr "Déclaration des constantes"
 
 #: src/ch03-01-variables-and-mutability.md:111
-#, fuzzy
 msgid ""
 "Like immutable variables, _constants_ are values that are bound to a name "
 "and are not allowed to change, but there are a few differences between "
@@ -4837,7 +4851,6 @@ msgstr ""
 "différences entre les constantes et les variables."
 
 #: src/ch03-01-variables-and-mutability.md:115
-#, fuzzy
 msgid ""
 "First, you aren’t allowed to use `mut` with constants. Constants aren’t just "
 "immutable by default—they’re always immutable. You declare constants using "
@@ -4880,7 +4893,6 @@ msgid "Here’s an example of a constant declaration:"
 msgstr ""
 
 #: src/ch03-01-variables-and-mutability.md:134
-#, fuzzy
 msgid ""
 "The constant’s name is `THREE_HOURS_IN_SECONDS`, and its value is set to the "
 "result of multiplying 60 (the number of seconds in a minute) by 60 (the "
@@ -4893,7 +4905,9 @@ msgid ""
 "on constant evaluation](../reference/const_eval.html) for more information "
 "on what operations can be used when declaring constants."
 msgstr ""
-"Le nom de la constante est `TROIS_HEURES_EN_SECONDES` et sa valeur est "
+"Le nom de la constante est `"
+"THREE_HOURS_IN_SECONDS"
+"` et sa valeur est "
 "définie comme étant le résultat de la multiplication de 60 (le nombre de "
 "secondes dans une minute) par 60 (le nombre de minutes dans une heure) par 3 "
 "(le nombre d'heures que nous voulons calculer dans ce programme). En Rust, "
@@ -4906,6 +4920,13 @@ msgstr ""
 "(../reference/const_eval.html) pour en "
 "savoir plus sur les opérations qui peuvent être utilisées pour déclarer des "
 "constantes."
+
+# @# FIXME: URL above (../reference/const_eval.htm) points to a 404 page
+
+
+# "TROIS_HEURES_EN_SECONDES"
+# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
+
 
 #: src/ch03-01-variables-and-mutability.md:145
 msgid ""
@@ -4936,12 +4957,10 @@ msgstr ""
 "cette valeur codée en dur doit être mise à jour à l'avenir."
 
 #: src/ch03-01-variables-and-mutability.md:156
-#, fuzzy
 msgid "Shadowing"
 msgstr "Le masquage"
 
 #: src/ch03-01-variables-and-mutability.md:158
-#, fuzzy
 msgid ""
 "As you saw in the guessing game tutorial in [Chapter 2](ch02-00-guessing-"
 "game-tutorial.html#comparing-the-guess-to-the-secret-number)<!-- ignore -->, "
@@ -4967,9 +4986,9 @@ msgstr ""
 #: src/ch03-01-variables-and-mutability.md:178
 msgid "\"The value of x in the inner scope is: {x}\""
 msgstr ""
+"\"La valeur de x dans la portée interne est : {x}\""
 
 #: src/ch03-01-variables-and-mutability.md:185
-#, fuzzy
 msgid ""
 "This program first binds `x` to a value of `5`. Then, it creates a new "
 "variable `x` by repeating `let x =`, taking the original value and adding "
@@ -5000,6 +5019,14 @@ msgid ""
 "The value of x is: 6\n"
 "```"
 msgstr ""
+"```console\n"
+"$ cargo run\n"
+"   Compiling variables v0.1.0 (file:///projects/variables)\n"
+"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
+"     Running `target/debug/variables`\n"
+"La valeur de x dans la portée interne est : 12\n"
+"La valeur de x est : 6\n"
+"```"
 
 #: src/ch03-01-variables-and-mutability.md:202
 msgid ""
@@ -5046,16 +5073,33 @@ msgid ""
 "reuse the simpler `spaces` name. However, if we try to use `mut` for this, "
 "as shown here, we’ll get a compile-time error:"
 msgstr ""
-"La première variable `espaces` est du type chaîne de caractères _(string)_ "
-"et la seconde variable `espaces` est du type nombre. L'utilisation du "
-"masquage nous évite ainsi d'avoir à trouver des noms différents, comme "
-"`espaces_str` et `espaces_num` ; nous pouvons plutôt simplement réutiliser "
-"le nom `espaces`. Cependant, si nous essayons d'utiliser `mut` pour faire "
+"La première variable `"
+"spaces"
+"` est du type chaîne de caractères _(string)_ "
+"et la seconde variable `"
+"spaces"
+"` est du type nombre. L'utilisation du "
+"masquage nous évite ainsi d'avoir à trouver des noms différents, comme `"
+"spaces_str"
+"` et `"
+"spaces_num"
+"` ; nous pouvons plutôt simplement réutiliser le nom `"
+"spaces"
+"`. Cependant, si nous essayons d'utiliser `mut` pour faire "
 "ceci, comme ci-dessous, nous avons une erreur de compilation :"
+
+# "espaces"
+# "espaces"
+# "espaces_str"
+# "espaces_num"
+# "espaces"
+# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
+
 
 #: src/ch03-01-variables-and-mutability.md:234
 msgid "The error says we’re not allowed to mutate a variable’s type:"
 msgstr ""
+"L'erreur indique que nous ne pouvons pas muter le type d'une variable :"
 
 #: src/ch03-01-variables-and-mutability.md:236
 msgid ""
@@ -5085,6 +5129,7 @@ msgstr ""
 "étudions les types de données qu'elles peuvent prendre."
 
 # }}}
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 # Les types de données {{{
 
 #: src/ch03-02-data-types.md:3
@@ -54255,9 +54300,6 @@ msgstr ""
 #~ msgstr ""
 #~ "```console {{#include ../listings/ch03-common-programming-concepts/no-"
 #~ "listing-02-adding-mut/output.txt}} ```"
-
-#~ msgid "<a id=\"constants\"></a>   <!-- ### Declaring Constants"
-#~ msgstr "### Déclaration des constantes"
 
 #~ msgid "```rust const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3; ```"
 #~ msgstr "```rust const TROIS_HEURES_EN_SECONDES: u32 = 60 * 60 * 3; ```"
