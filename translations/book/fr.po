@@ -4911,7 +4911,9 @@ msgstr ""
 #: src/ch02-00-guessing-game-tutorial.md:1311
 msgid ""
 "At this point, you’ve successfully built the guessing game. Congratulations!"
-msgstr ""
+msgstr "
+"Si vous êtes arrivé jusqu'ici, c'est que vous avez construit avec succès le jeu"
+"du plus ou du moins. Félicitations !"
 
 #: src/ch02-00-guessing-game-tutorial.md:1315
 msgid ""
