@@ -4761,6 +4761,7 @@ msgstr ""
 # }}}
 # Chapitre 3: {{{
 # Les concepts courants de programmation {{{
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 
 #: src/ch03-00-common-programming-concepts.md:3
 msgid ""
@@ -7124,6 +7125,9 @@ msgstr ""
 "saisi au nombre secret”]"
 "(ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number)"
 "<!-- ignore --> du chapitre 2."
+
+# NOTE: arms => bras, rather than branches? Double-check
+
 
 #: src/ch03-05-control-flow.md:41
 msgid ""
