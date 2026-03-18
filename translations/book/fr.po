@@ -1776,9 +1776,6 @@ msgstr ""
 msgid "On Windows, enter the command `.\\main` instead of `./main`:"
 msgstr "Sur Windows, écrivez la commande `.\\main.exe` à la place de `./main` :"
 
-msgid "> .\\main"
-msgstr "> .\\main.exe"
-
 # <!--
 # @# TODO there's a misteack in the upstream English version: make a PR to correct it
 # On Windows, enter the command `.\main` instead of `./main`:
@@ -4732,9 +4729,15 @@ msgstr ""
 #: src/ch02-00-guessing-game-tutorial.md:1311
 msgid ""
 "At this point, you’ve successfully built the guessing game. Congratulations!"
+<<<<<<< HEAD
 msgstr ""
 "Si vous êtes arrivé jusqu'ici, c'est que vous avez construit avec succès le "
 "jeu du plus ou du moins. Félicitations !"
+=======
+msgstr "
+"Si vous êtes arrivé jusqu'ici, c'est que vous avez construit avec succès le jeu"
+"du plus ou du moins. Félicitations !"
+>>>>>>> 5ff7094 (Added a missing translation to chapter 02-00; fix merge conflict)
 
 #: src/ch02-00-guessing-game-tutorial.md:1315
 msgid ""
