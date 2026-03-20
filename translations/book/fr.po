@@ -6183,7 +6183,7 @@ msgstr ""
 
 #: src/ch03-02-data-types.md:280 src/ch03-03-how-functions-work.md:232
 msgid "\"The value of y is: {y}\""
-msgstr "\"println!("La valeur de y est : {y}\"
+msgstr "\"println!(\"La valeur de y est : {y}\""
 
 #: src/ch03-02-data-types.md:284
 msgid ""
@@ -6296,8 +6296,6 @@ msgstr ""
 msgid "\"January\""
 msgstr ""
 "\"Janvier\""
-
-# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 
 #: src/ch03-02-data-types.md:349
 msgid "\"February\""
@@ -6531,7 +6529,7 @@ msgstr ""
 
 #: src/ch03-03-how-functions-work.md:22
 msgid "\"Another function.\""
-msgstr ""
+msgstr "\"Une autre fonction.\""
 
 #: src/ch03-03-how-functions-work.md:26
 msgid ""
@@ -6583,6 +6581,14 @@ msgid ""
 "Another function.\n"
 "```"
 msgstr ""
+"```console\n"
+"$ cargo run\n"
+"   Compiling functions v0.1.0 (file:///projects/functions)\n"
+"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.28s\n"
+"     Running `target/debug/functions`\n"
+"Hello, world!\n"
+"Une autre fonction.\n"
+"```"
 
 #: src/ch03-03-how-functions-work.md:50
 msgid ""
@@ -6595,7 +6601,6 @@ msgstr ""
 "`une_autre_fonction` est appelée et son message est affiché."
 
 #: src/ch03-03-how-functions-work.md:54
-#, fuzzy
 msgid "Parameters"
 msgstr "Les paramètres"
 
@@ -6621,10 +6626,12 @@ msgstr ""
 #: src/ch03-03-how-functions-work.md:64
 msgid "In this version of `another_function` we add a parameter:"
 msgstr ""
+"Dans cette version de une_autre_fonction, nous ajoutons un paramètre :"
 
 #: src/ch03-03-how-functions-work.md:78
 msgid "Try running this program; you should get the following output:"
 msgstr ""
+"En exécutant ce programme, vous devriez obtenir ceci :"
 
 #: src/ch03-03-how-functions-work.md:80
 msgid ""
@@ -6636,6 +6643,13 @@ msgid ""
 "The value of x is: 5\n"
 "```"
 msgstr ""
+"```console\n"
+"$ cargo run\n"
+"   Compiling functions v0.1.0 (file:///projects/functions)\n"
+"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.21s\n"
+"     Running `target/debug/functions`\n"
+"La valeur de x est : 5\n"
+"```"
 
 #: src/ch03-03-how-functions-work.md:88
 msgid ""
@@ -6644,10 +6658,18 @@ msgid ""
 "`println!` macro puts `5` where the pair of curly brackets containing `x` "
 "was in the format string."
 msgstr ""
-"La déclaration de `une_autre_fonction` a un paramètre nommé `x`. Le type de "
-"`x` a été déclaré comme `i32`. Quand nous passons `5` à "
-"`une_autre_fonction`, la macro `println!` place `5` là où la paire "
+"La déclaration de `"
+"another_function"
+"` a un paramètre nommé `x`. Le type de "
+"`x` a été déclaré comme `i32`. Quand nous passons `5` à `"
+"another_function"
+"`, la macro `println!` place `5` là où la paire "
 "d'accolades contenant `x` était placée dans la chaîne de formatage."
+
+# "une_autre_fonction"
+# "une_autre_fonction"
+# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
+
 
 #: src/ch03-03-how-functions-work.md:93
 msgid ""
@@ -6680,7 +6702,11 @@ msgstr ""
 
 #: src/ch03-03-how-functions-work.md:110
 msgid "\"The measurement is: {value}{unit_label}\""
-msgstr ""
+msgstr "\"La mesure est : {value}{unit_label}\""
+
+# msgstr "\"La mesure est : {valeur}{unite}\""
+# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
+
 
 #: src/ch03-03-how-functions-work.md:114
 msgid ""
@@ -6689,10 +6715,29 @@ msgid ""
 "is named `unit_label` and is type `char`. The function then prints text "
 "containing both the `value` and the `unit_label`."
 msgstr ""
-"Cet exemple crée la fonction `afficher_mesure_avec_unite` qui a deux "
-"paramètres. Le premier paramètre s'appelle `valeur` et est un `i32`. Le "
-"second, `unite`, est de type `char`. La fonction affiche ensuite le texte "
-"qui contient les valeurs de `valeur` et de `unite`."
+"Cet exemple crée la fonction `"
+"print_labeled_measurement"
+"` qui a deux "
+"paramètres. Le premier paramètre s'appelle `"
+"value"
+"` et est un `i32`. Le "
+"second, `"
+"unit_label"
+"`, est de type `char`. La fonction affiche ensuite le texte "
+"qui contient les valeurs de `"
+"value"
+"` et de `"
+"unit_label"
+"`."
+
+# "afficher_mesure_avec_unite"
+# "valeur"
+# "valeur"
+# "unite"
+# "unite"
+# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
+# NOTE: it's getting touchy to untranslate only parts of strings...
+
 
 #: src/ch03-03-how-functions-work.md:119
 msgid ""
@@ -6714,6 +6759,13 @@ msgid ""
 "The measurement is: 5h\n"
 "```"
 msgstr ""
+"```console\n"
+"$ cargo run\n"
+"   Compiling functions v0.1.0 (file:///projects/functions)\n"
+"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
+"     Running `target/debug/functions`\n"
+"La mesure est : 5h\n"
+"```"
 
 #: src/ch03-03-how-functions-work.md:131
 msgid ""
@@ -6724,7 +6776,6 @@ msgstr ""
 "`'h'` pour `unite`, la sortie de ce programme contient ces valeurs."
 
 #: src/ch03-03-how-functions-work.md:134
-#, fuzzy
 msgid "Statements and Expressions"
 msgstr "Instructions et expressions"
 
@@ -6748,21 +6799,21 @@ msgstr ""
 "influent sur le corps des fonctions."
 
 #: src/ch03-03-how-functions-work.md:144
-#, fuzzy
 msgid ""
 "_Statements_ are instructions that perform some action and do not return a "
 "value."
 msgstr ""
-"- Les _instructions_ effectuent des actions et ne retournent aucune valeur. "
-"- Les _expressions_ sont évaluées pour retourner une valeur comme résultat."
+"Les _instructions_ effectuent des actions et ne retournent aucune valeur. "
 
 #: src/ch03-03-how-functions-work.md:146
 msgid "_Expressions_ evaluate to a resultant value."
 msgstr ""
+"Les _expressions_ sont évaluées pour retourner une valeur comme résultat."
 
 #: src/ch03-03-how-functions-work.md:148
 msgid "Let’s look at some examples."
 msgstr ""
+"Voyons quelques exemples."
 
 #: src/ch03-03-how-functions-work.md:150
 msgid ""
@@ -6795,9 +6846,11 @@ msgstr ""
 "assigner le résultat d'une instruction `let` à une autre variable, comme le "
 "code suivant essaye de le faire, car vous obtiendrez une erreur :"
 
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 #: src/ch03-03-how-functions-work.md:179
 msgid "When you run this program, the error you’ll get looks like this:"
 msgstr ""
+"Quand vous exécutez ce programme, l'erreur que vous obtenez devrait ressembler à ceci :"
 
 #: src/ch03-03-how-functions-work.md:181
 msgid ""
@@ -6867,7 +6920,7 @@ msgstr ""
 
 #: src/ch03-03-how-functions-work.md:236
 msgid "This expression:"
-msgstr ""
+msgstr "L'expression suivante…"
 
 #: src/ch03-03-how-functions-work.md:245
 msgid ""
@@ -6889,7 +6942,6 @@ msgstr ""
 "retour des fonctions ainsi que les expressions."
 
 #: src/ch03-03-how-functions-work.md:252
-#, fuzzy
 msgid "Functions with Return Values"
 msgstr "Les fonctions qui retournent des valeurs"
 
@@ -6920,10 +6972,15 @@ msgid ""
 "Try running this code; the output should look like this:"
 msgstr ""
 "Il n'y a pas d'appel de fonction, de macro, ni même d'instruction `let` dans "
-"la fonction `cinq` — uniquement le nombre `5` tout seul. C'est une fonction "
+"la fonction `"
+"five"
+"` — uniquement le nombre `5` tout seul. C'est une fonction "
 "parfaitement valide avec Rust. Remarquez que le type de retour de la "
 "fonction a été précisé aussi, avec `-> i32`. Essayez d'exécuter ce code ; le "
 "résultat devrait ressembler à ceci :"
+
+# "cinq"
+# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
 
 #: src/ch03-03-how-functions-work.md:281
 msgid ""
@@ -6944,11 +7001,23 @@ msgid ""
 "value of a function to initialize a variable. Because the function `five` "
 "returns a `5`, that line is the same as the following:"
 msgstr ""
-"Le `5` dans `cinq` est la valeur de retour de la fonction, ce qui explique "
+"Le `5` dans `"
+"five"
+"` est la valeur de retour de la fonction, ce qui explique "
 "le type de retour de `i32`. Regardons cela plus en détail. Il y a deux "
-"éléments importants : premièrement, la ligne `let x = cinq();` dit que nous "
+"éléments importants : premièrement, la ligne `let x = "
+"five"
+"();` dit que nous "
 "utilisons la valeur de retour de la fonction pour initialiser la variable. "
-"Comme la fonction `cinq` retourne un `5`, cette ligne revient à faire ceci :"
+"Comme la fonction `"
+"five"
+"` retourne un `5`, cette ligne revient à faire ceci :"
+
+# "cinq"
+# "cinq"
+# "cinq"
+# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
+
 
 #: src/ch03-03-how-functions-work.md:299
 msgid ""
@@ -6956,13 +7025,20 @@ msgid ""
 "return value, but the body of the function is a lonely `5` with no semicolon "
 "because it’s an expression whose value we want to return."
 msgstr ""
-"Deuxièmement, la fonction `cinq` n'a pas de paramètre et déclare le type de "
+"Deuxièmement, la fonction `"
+"five"
+"` n'a pas de paramètre et déclare le type de "
 "valeur de retour, mais le corps de la fonction est un simple `5` sans point-"
 "virgule car c'est une expression dont nous voulons retourner la valeur."
+
+# "cinq"
+# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
+
 
 #: src/ch03-03-how-functions-work.md:303
 msgid "Let’s look at another example:"
 msgstr ""
+"Regardons un autre exemple :"
 
 #: src/ch03-03-how-functions-work.md:319
 msgid ""
