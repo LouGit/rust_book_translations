@@ -5203,7 +5203,7 @@ msgid "<a id=\"constants\"></a>"
 msgstr ""
 
 #: src/ch03-01-variables-and-mutability.md:109
-#~ msgid "<a id=\"constants\"></a>   <!-- ### Declaring Constants"
+# #~ msgid "<a id=\"constants\"></a>   <!-- ### Declaring Constants"
 msgid "Declaring Constants"
 msgstr "Déclaration des constantes"
 
