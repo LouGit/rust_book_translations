@@ -2717,15 +2717,13 @@ msgstr ""
 "vous avez créé au chapitre 1 et utilisez Cargo pour créer votre projet, "
 "comme ceci :"
 
-# Terminal output: {{{
+# Terminal output: 
 
 msgid "$ cargo new guessing_game"
 msgstr "$ cargo new jeu_du_plus_ou_du_moins"
 
 msgid "$ cd guessing_game"
 msgstr "$ cd jeu_du_plus_ou_du_moins"
-
-# }}}
 
 #: src/ch02-00-guessing-game-tutorial.md:26
 msgid ""
@@ -2734,9 +2732,7 @@ msgid ""
 "new project’s directory."
 msgstr ""
 "La première commande, `cargo new`, prend comme premier argument le nom de "
-"notre projet (`"
-"jeu_du_plus_ou_du_moins"
-"`). La seconde commande nous déplace "
+"notre projet (`jeu_du_plus_ou_du_moins`). La seconde commande nous déplace "
 "dans le répertoire de notre nouveau projet créé par Cargo."
 
 #: src/ch02-00-guessing-game-tutorial.md:30
@@ -2782,7 +2778,7 @@ msgstr ""
 
 #: src/ch02-00-guessing-game-tutorial.md:66
 msgid "   Compiling guessing_game v0.1.0 (file:///projects/guessing_game)"
-msgstr "   Compiling guessing_game v0.1.0 (file:///projects/jeu_du_plus_ou_du_moins)"
+msgstr "   Compiling jeu_du_plus_ou_du_moins v0.1.0 (file:///projects/jeu_du_plus_ou_du_moins)"
 
 msgid "     Running `target/debug/guessing_game`"
 msgstr "     Running `target/debug/jeu_du_plus_ou_du_moins`"
@@ -3402,19 +3398,11 @@ msgstr ""
 
 #: src/ch02-00-guessing-game-tutorial.md:430
 msgid "\"x = {x} and y + 2 = {}\""
-msgstr ""
-
-# msgstr "\"x = {x} et y + 2 = {}\""
-# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
-
+msgstr "\"x = {x} et y + 2 = {}\""
 
 #: src/ch02-00-guessing-game-tutorial.md:433
 msgid "This code would print `x = 5 and y + 2 = 12`."
-msgstr "Ce code afficherait `x = 5 and y + 2 = 12`."
-
-# msgstr "Ce code afficherait `x = 5 et y + 2 = 12`."
-# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
-
+msgstr "Ce code afficherait `x = 5 et y + 2 = 12`."
 
 #: src/ch02-00-guessing-game-tutorial.md:435
 msgid "Testing the First Part"
@@ -3575,34 +3563,8 @@ msgstr ""
 "compilation du projet, comme dans l'encart 2-2 :"
 
 #: src/ch02-00-guessing-game-tutorial.md:525
-msgid ""
-"```console\n"
-"$ cargo build\n"
-"  Updating crates.io index\n"
-"   Locking 15 packages to latest Rust 1.85.0 compatible versions\n"
-"    Adding rand v0.8.5 (available: v0.9.0)\n"
-" Compiling proc-macro2 v1.0.93\n"
-" Compiling unicode-ident v1.0.17\n"
-" Compiling libc v0.2.170\n"
-" Compiling cfg-if v1.0.0\n"
-" Compiling byteorder v1.5.0\n"
-" Compiling getrandom v0.2.15\n"
-" Compiling rand_core v0.6.4\n"
-" Compiling quote v1.0.38\n"
-" Compiling syn v2.0.98\n"
-" Compiling zerocopy-derive v0.7.35\n"
-" Compiling zerocopy v0.7.35\n"
-" Compiling ppv-lite86 v0.2.20\n"
-" Compiling rand_chacha v0.3.1\n"
-" Compiling rand v0.8.5\n"
-" Compiling guessing_game v0.1.0 (file:///projects/guessing_game)\n"
-"  Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.48s\n"
-"```"
-msgstr ""
-
-# " Compiling jeu_du_plus_ou_du_moins v0.1.0 (file:///projects/guessing_game)\n"
-# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
-
+msgid " Compiling guessing_game v0.1.0 (file:///projects/guessing_game)\n"
+msgstr " Compiling jeu_du_plus_ou_du_moins v0.1.0 (file:///projects/jeu_du_plus_ou_du_moins)\n"
 
 #: src/ch02-00-guessing-game-tutorial.md:550
 msgid ""
