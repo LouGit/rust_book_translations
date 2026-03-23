@@ -9,19 +9,29 @@
 //   - prompt symbols ($)
 // may fail to match if not normalised.
 
+
+
 use mdbook_driver::book::{Book, BookItem};
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
 use anyhow::Result;
 use std::path::Path;
 use std::collections::HashMap;
 
+/// CodeTranslator is a mdBook preprocessor that translates lines
+/// inside code blocks using gettext `.po` files.
+///
+/// Implementation notes:
+/// - We precompute a HashMap<msgid, msgstr>
+///   to avoid scanning the full catalog for each line
+///   (catalog can be large for the Rust book)
+/// - Matching is exact (no normalisation)
+///   -> faster, but sensitive to whitespace differences
 pub struct CodeTranslator {
     // We precompute a HashMap to avoid O(n*m) lookup when
     // translating each line of code blocks (catalog can be
     // large for the Rust book).
     translations: HashMap<String, String>,
 }
-
 
 impl CodeTranslator{
     pub fn new(po_file: &Path) -> Result<Self> {
@@ -41,6 +51,9 @@ impl CodeTranslator{
     }
 
     fn translate_line(&self, line: &str) -> String {
+    // Exact match lookup:
+    // we deliberately avoid trimming or normalizing,
+    // because `.po` entries must match the original source exactly.
         self.translations
             .get(line)
             .cloned()
@@ -68,3 +81,12 @@ impl Preprocessor for CodeTranslator {
 
 }
 
+/*
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    // fn 
+}
+*/

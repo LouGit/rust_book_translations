@@ -4,6 +4,18 @@
 // We deliberately keep code block parsing independent from mdBook
 // so it can be unit-tested without the mdBook runtime.
 
+/// Process Markdown input and apply a transformation function only
+/// inside fenced code blocks (```).
+///
+/// Design choices:
+/// - We use a simple state machine (in_code: bool)
+/// - We do NOT parse full Markdown (intentionally lightweight)
+/// - Fence detection is naive (`starts_with("```")`)
+///
+/// Limitations:
+/// - Does not support nested fences
+/// - Assumes fences are well-formed
+/// - Language tags after ``` are ignored
 pub fn process_code_blocks<F>(input: &str, mut translate: F) -> String
 where
     F: FnMut(&str) -> String,
@@ -12,10 +24,9 @@ where
     let mut in_code = false;
 
     for line in input.lines() {
+        // Toggle state when encountering a fence.
+        // This assumes well-formed Markdown (paired ```).
         if line.starts_with("```") {
-            // We are in a block of code, which is
-            // surrounded by triple backticks, or we
-            // just left a block of code:
             in_code = !in_code;
             output.push_str(line);
             output.push('\n');
@@ -49,8 +60,7 @@ mod tests {
 
     #[test]
     fn translates_lines_inside_code_blocks() {
-        // 
-        let input = "```Hello\nWorld!\n```";
+        let input = "```\nHello\nWorld!\n```";
 
         let output = process_code_blocks(input, |line| {
             match line {
@@ -58,7 +68,7 @@ mod tests {
                 "World!" => "Monde!".to_string(),
                 _       => line.to_string(),
             }
-    });
+        });
 
     assert_eq!(output, "```\nBonjour\nMonde!\n```\n");
     }
@@ -71,7 +81,7 @@ mod tests {
             match line {
                 "hello" => "bonjour".to_string(),
                 "world" => "monde".to_string(),
-                _ => line.to_string(),
+                _       => line.to_string(),
             }
         });
 
@@ -93,8 +103,7 @@ mod tests {
 
         let output = process_code_blocks(input, |line| line.to_string());
 
-        assert!(output.ends_with("```"));
+        assert!(output.ends_with("```\n"));
     }
-    /*
-    */
 }
+
