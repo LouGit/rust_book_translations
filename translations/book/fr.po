@@ -3250,7 +3250,7 @@ msgstr ""
 "` pour la rendre "
 "mutable. (Le chapitre 4 expliquera plus en détail les références.)"
 
-#: src/ch02-00-guessing-game-tutorial.md:303
+# #: src/ch02-00-guessing-game-tutorial.md:303
 # #, fuzzy
 # msgid "<a id=\"handling-potential-failure-with-the-result-type\"></a>"
 # msgstr "<a id=\"gérer-les-erreurs-potentielles-avec-result\"></a>"
@@ -3816,7 +3816,7 @@ msgstr ""
 "comme ceci (ne faites pas réellement ce changement, car les exemples "
 "suivants supposent que vous utilisez `rand` 0.8) :"
 
-#: src/ch02-00-guessing-game-tutorial.md:644
+# #: src/ch02-00-guessing-game-tutorial.md:644
 # msgid ""
 # "```toml\n"
 # "[dependencies]\n"

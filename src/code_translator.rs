@@ -9,8 +9,6 @@
 //   - prompt symbols ($)
 // may fail to match if not normalised.
 
-
-
 use mdbook_driver::book::{Book, BookItem};
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
 use anyhow::Result;
@@ -51,9 +49,9 @@ impl CodeTranslator{
     }
 
     fn translate_line(&self, line: &str) -> String {
-    // Exact match lookup:
-    // we deliberately avoid trimming or normalizing,
-    // because `.po` entries must match the original source exactly.
+        // Exact match lookup:
+        // we deliberately avoid trimming or normalizing,
+        // because `.po` entries must match the original source exactly.
         self.translations
             .get(line)
             .cloned()
@@ -69,6 +67,7 @@ impl Preprocessor for CodeTranslator {
     fn run(&self, _ctx: &PreprocessorContext, mut book: Book) -> Result<Book> {
         for item in &mut book.items {
             if let BookItem::Chapter(chapter) = item {
+                // Here we call process_code_blocks in a separate
                 chapter.content = crate::listings::process_code_blocks(
                     &chapter.content,
                     |line| {
@@ -81,12 +80,45 @@ impl Preprocessor for CodeTranslator {
 
 }
 
-/*
 #[cfg(test)]
 mod tests {
     use super::*;
 
     #[test]
-    // fn 
+    fn builds_translation_map_from_catalog() {
+        let mut translation_map = HashMap::new();
+        translation_map.insert("Hello".to_string(), "Salut".to_string());
+        translation_map.insert("World".to_string(), "Monde".to_string());
+
+        let translator = CodeTranslator { translations: translation_map };
+
+        assert_eq!(translator.translate_line("Hello"), "Salut");
+        assert_eq!(translator.translate_line("World"), "Monde");
+    }
+
+    #[test]
+    fn returns_original_line_if_translation_not_found() {
+        let translator = CodeTranslator { translations: HashMap::new() };
+
+        assert_eq!(translator.translate_line("Whatever unknown line"),
+                                             "Whatever unknown line");
+    }
+
+    #[test]
+    fn translates_code_block_via_closure() {
+        let mut translation_map = HashMap::new();
+        translation_map.insert("hello".to_string(), "salut".to_string());
+
+        let translator = CodeTranslator{ translations: translation_map};
+
+        let input = "```\nhello\n```";
+
+        let output = crate::listings::process_code_blocks(
+            input,
+            |line| translator.translate_line(line),
+        );
+
+        assert_eq!(output, "```\nsalut\n```\n");
+    }
 }
-*/
+
