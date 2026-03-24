@@ -74,7 +74,7 @@ mod tests {
     }
 
     #[test]
-    fn test_translates_lines_inside_code_block() {
+    fn translates_lines_inside_code_block() {
         let input = "```\nhello\nworld\n```";
 
         let output = process_code_blocks(input, |line| {
@@ -89,7 +89,7 @@ mod tests {
     }
 
     #[test]
-    fn test_handles_empty_code_blocks() {
+    fn handles_empty_code_blocks() {
         let input = "```\n```";
 
         let output = process_code_blocks(input, |line| line.to_string());
