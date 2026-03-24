@@ -96,30 +96,54 @@ pub fn build_book(
         mdbook.config.set("output.html.site-url", "/").unwrap();
     }
 
+    // Two modes:
+    // - serve: build a single language (dev mode, live preview)
+    // - build: build all translations (production mode)
     if let Some(lang_id) = serve {
+        // ** Dev mode (mdbook serve) **
+        // Only one language is built, identified by `lang_id`
+
         let gettext = Gettext;
 
-        // Add into the process a translation of code:
-        let code_translator = CodeTranslator::new(&po_path.join(format!("{lang_id}.po")))?;
+        // Add into the process a translation of code, for this specific language
+        let code_translator =
+            CodeTranslator::new(&po_path.join(format!("{lang_id}.po")))?;
 
+        // Order matters:
+        // 1. gettext translates normal Markdown text
+        // 2. code_translator translates inside code blocks
         mdbook.with_preprocessor(gettext);
         mdbook.with_preprocessor(code_translator);
+
         mdbook.config.build.build_dir = dst_path.join(lang_id);
         mdbook.config.set("book.language", lang_id)?;
 
         info!("build {name} for {lang_id}");
         mdbook.build()?;
     } else {
-        info!("build {name}");
+        // ** Full build mode (all languages) **
+
+        // First build: original (English)
+        // No gettext, no code translation
+        info!("build {name} (original)");
         mdbook.build()?;
 
-        let gettext = Gettext;
-
-        // Add into the process a translation of code:
-        mdbook.with_preprocessor(gettext);
+        // Then build each translation independently:
         for lang in &book.translations {
-            let code_translator = CodeTranslator::new(&po_path.join(format!("{}.po", lang.id)))?;
+            // Important:
+            // Reset mdbook: reload a new MDBook for each language; the reason
+            // is that mdbook.with_preprocessor() accumulates preprocessors.
+            // Without reset, preprocessors would stack across iterations, which
+            // results in unwanted preprocessors accumulation:
+            let mut mdbook = MDBook::load(&src_path)?;
 
+            let gettext = Gettext;
+
+            // Add into the process a translation of code lines for this language:
+            let code_translator =
+                CodeTranslator::new(&po_path.join(format!("{}.po", lang.id)))?;
+
+            mdbook.with_preprocessor(gettext);
             mdbook.with_preprocessor(code_translator);
 
             mdbook.config.build.build_dir = dst_path.join(&lang.id);
