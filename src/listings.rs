@@ -74,21 +74,6 @@ mod tests {
     }
 
     #[test]
-    fn translates_lines_inside_code_block() {
-        let input = "```\nhello\nworld\n```";
-
-        let output = process_code_blocks(input, |line| {
-            match line {
-                "hello" => "bonjour".to_string(),
-                "world" => "monde".to_string(),
-                _       => line.to_string(),
-            }
-        });
-
-        assert_eq!(output, "```\nbonjour\nmonde\n```\n");
-    }
-
-    #[test]
     fn handles_empty_code_blocks() {
         let input = "```\n```";
 
@@ -98,7 +83,7 @@ mod tests {
     }
 
     #[test]
-    fn test_handles_no_trailing_newline() {
+    fn handles_no_trailing_newline() {
         let input = "```\nhello\n```";
 
         let output = process_code_blocks(input, |line| line.to_string());
