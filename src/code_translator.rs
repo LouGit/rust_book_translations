@@ -63,10 +63,8 @@ impl CodeTranslator{
             }
         }
 
-        self.translations
-            .get(line)
-            .cloned()
-            .unwrap_or_else(|| line.to_string())
+        // Default: return unchanged line:
+        line.to_string()
     }
 }
 
