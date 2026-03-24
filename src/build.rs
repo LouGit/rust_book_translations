@@ -116,10 +116,12 @@ pub fn build_book(
         let gettext = Gettext;
 
         // Add into the process a translation of code:
-        let code_translator = CodeTranslator::new(&po_path.join(format!("{lang_id}.po")))?;
         mdbook.with_preprocessor(gettext);
-        mdbook.with_preprocessor(code_translator);
         for lang in &book.translations {
+            let code_translator = CodeTranslator::new(&po_path.join(format!("{}.po", lang.id)))?;
+
+            mdbook.with_preprocessor(code_translator);
+
             mdbook.config.build.build_dir = dst_path.join(&lang.id);
             mdbook.config.set("book.language", &lang.id)?;
 
