@@ -49,9 +49,20 @@ impl CodeTranslator{
     }
 
     fn translate_line(&self, line: &str) -> String {
-        // Exact match lookup:
+        // Case 1: exact match lookup:
         // we deliberately avoid trimming or normalizing,
         // because `.po` entries must match the original source exactly.
+        if let Some(translated) = self.translations.get(line) {
+            return translated.clone();
+        }
+
+        // Case 2: hidden Rust code (lines starting with "# "):
+        if let Some(stripped) = line.strip_prefix("# ") {
+            if let Some(translated) = self.translations.get(stripped) {
+                return format!("# {}", translated);
+            }
+        }
+
         self.translations
             .get(line)
             .cloned()
@@ -120,5 +131,21 @@ mod tests {
 
         assert_eq!(output, "```\nsalut\n```\n");
     }
-}
 
+    #[test]
+    fn translates_hidden_code_lines() {
+        let mut translation_map = HashMap::new();
+        translation_map.insert("let x = 5;".to_string(), "let x = cinq;".to_string());
+
+        let translator = super::CodeTranslator { translations: translation_map };
+
+        let input = "```\n# let x = 5;\n```";
+
+        let output = crate::listings::process_code_blocks(
+            input,
+            |line| translator.translate_line(line),
+        );
+
+        assert_eq!(output, "```\n# let x = cinq;\n```\n");
+    }
+}
