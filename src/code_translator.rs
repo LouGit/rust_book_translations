@@ -1,33 +1,13 @@
-// A preprocessor mdBook, so as to treat the data flow to translate, when
-// necessary, items contained inside code blocks.
-//
-// // IMPORTANT:
-// Translation is done on a per-line exact match basis.
-// This means that:
-//   - trailing spaces
-//   - indentation
-//   - prompt symbols ($)
-// may fail to match if not normalised.
-
 use mdbook_driver::book::{Book, BookItem};
 use mdbook_preprocessor::{Preprocessor, PreprocessorContext};
 use anyhow::Result;
 use std::path::Path;
 use std::collections::HashMap;
 
-/// CodeTranslator is a mdBook preprocessor that translates lines
-/// inside code blocks using gettext `.po` files.
-///
-/// Implementation notes:
-/// - We precompute a HashMap<msgid, msgstr>
-///   to avoid scanning the full catalog for each line
-///   (catalog can be large for the Rust book)
-/// - Matching is exact (no normalisation)
-///   -> faster, but sensitive to whitespace differences
+/// A preprocessor mdBook, so as to treat the data flow to translate, when
+/// necessary, items contained inside code blocks.
+/// Translation is done on a per-line exact match basis.
 pub struct CodeTranslator {
-    // We precompute a HashMap to avoid O(n*m) lookup when
-    // translating each line of code blocks (catalog can be
-    // large for the Rust book).
     translations: HashMap<String, String>,
 }
 
@@ -50,8 +30,6 @@ impl CodeTranslator{
 
     fn translate_line(&self, line: &str) -> String {
         // Case 1: exact match lookup:
-        // we deliberately avoid trimming or normalizing,
-        // because `.po` entries must match the original source exactly.
         if let Some(translated) = self.translations.get(line) {
             return translated.clone();
         }
@@ -63,7 +41,6 @@ impl CodeTranslator{
             }
         }
 
-        // Default: return unchanged line:
         line.to_string()
     }
 }
@@ -76,7 +53,6 @@ impl Preprocessor for CodeTranslator {
     fn run(&self, _ctx: &PreprocessorContext, mut book: Book) -> Result<Book> {
         for item in &mut book.items {
             if let BookItem::Chapter(chapter) = item {
-                // Here we call process_code_blocks in a separate
                 chapter.content = crate::listings::process_code_blocks(
                     &chapter.content,
                     |line| {
@@ -167,14 +143,12 @@ mod tests {
     #[test]
     fn translates_code_in_subchapter() {
         use mdbook_driver::book::{Book, BookItem, Chapter};
-        // Content with code block in a subchapter:
         let subchapter_content = r#"
 ```rust
 const TMP: u32 = 32;
 ```
 "#;
 
-        // Subchapter:
         let subchapter = Chapter::new(
             "Sub",
             subchapter_content.to_string(),
@@ -182,7 +156,6 @@ const TMP: u32 = 32;
             Vec::new(),
         );
 
-        // Parent chapter:
         let mut chapter = Chapter::new(
             "Main",
             "".to_string(),
@@ -196,7 +169,6 @@ const TMP: u32 = 32;
         let mut book = Book::new();
         book.items.push(BookItem::Chapter(chapter));
 
-        // false translator:
         let translator = |line: &str| {
             if line.contains("const TMP") {
                 "const TEMP: u32 = 64;".to_string()
@@ -205,12 +177,10 @@ const TMP: u32 = 32;
             }
         };
 
-        // Execution:
         for item in &mut book.items {
             process_item(item, &translator);
         }
 
-        // Check:
         if let BookItem::Chapter(ch) = &book.items[0] {
             if let BookItem::Chapter(sub) = &ch.sub_items[0] {
                 assert!(sub.content.contains("const TEMP: u32 = 64"));
@@ -221,7 +191,4 @@ const TMP: u32 = 32;
             panic!("Expected chapter");
         }
     }
-    /*
-    */
 }
-
