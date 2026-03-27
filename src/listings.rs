@@ -1,11 +1,7 @@
-// Treat case when portions of code are also translated: not just strings, but
-// also variable names, structs, etc.; called before mdbook.build():
-
-// We deliberately keep code block parsing independent from mdBook
-// so it can be unit-tested without the mdBook runtime.
-
 /// Process Markdown input and apply a transformation function only
 /// inside fenced code blocks (```).
+/// This addresses the case where portions of code are also translated: not just
+/// strings, but also variable names, structs, etc.; called before mdbook.build():
 ///
 /// Design choices:
 /// - We use a simple state machine (in_code: bool)
@@ -16,6 +12,9 @@
 /// - Does not support nested fences
 /// - Assumes fences are well-formed
 /// - Language tags after ``` are ignored
+///
+/// We deliberately keep code block parsing independent from mdBook
+/// so it can be unit-tested without the mdBook runtime.
 pub fn process_code_blocks<F>(input: &str, mut translate: F) -> String
 where
     F: FnMut(&str) -> String,
