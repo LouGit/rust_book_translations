@@ -82,12 +82,30 @@ impl Preprocessor for CodeTranslator {
                     |line| {
                         self.translate_line(line)
                 });
+                process_item(item, &|line| self.translate_line(line));
             };
         }
         Ok(book)
     }
-
 }
+
+fn process_item<F>(item: &mut BookItem, f: &F)
+where
+    F: Fn(&str) -> String,
+{
+    if let BookItem::Chapter(chapter) = item {
+        chapter.content = crate::listings::process_code_blocks(
+            &chapter.content,
+            |line| f(line),
+        );
+
+        for sub in &mut chapter.sub_items {
+
+            process_item(sub, f);
+        }
+    }
+}
+
 
 #[cfg(test)]
 mod tests {
@@ -146,4 +164,64 @@ mod tests {
 
         assert_eq!(output, "```\n# let x = cinq;\n```\n");
     }
+    #[test]
+    fn translates_code_in_subchapter() {
+        use mdbook_driver::book::{Book, BookItem, Chapter};
+        // Content with code block in a subchapter:
+        let subchapter_content = r#"
+```rust
+const TMP: u32 = 32;
+```
+"#;
+
+        // Subchapter:
+        let subchapter = Chapter::new(
+            "Sub",
+            subchapter_content.to_string(),
+            "sub.md",
+            Vec::new(),
+        );
+
+        // Parent chapter:
+        let mut chapter = Chapter::new(
+            "Main",
+            "".to_string(),
+            "main.md",
+            Vec::new(),
+        );
+
+        chapter.sub_items.push(BookItem::Chapter(subchapter));
+
+
+        let mut book = Book::new();
+        book.items.push(BookItem::Chapter(chapter));
+
+        // false translator:
+        let translator = |line: &str| {
+            if line.contains("const TMP") {
+                "const TEMP: u32 = 64;".to_string()
+            } else {
+                line.to_string()
+            }
+        };
+
+        // Execution:
+        for item in &mut book.items {
+            process_item(item, &translator);
+        }
+
+        // Check:
+        if let BookItem::Chapter(ch) = &book.items[0] {
+            if let BookItem::Chapter(sub) = &ch.sub_items[0] {
+                assert!(sub.content.contains("const TEMP: u32 = 64"));
+            } else {
+                panic!("Expected subchapter");
+            }
+        } else {
+            panic!("Expected chapter");
+        }
+    }
+    /*
+    */
 }
+
