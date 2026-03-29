@@ -830,12 +830,12 @@ msgid ""
 "browser."
 msgstr ""
 "Des centaines d'entreprises, petites et grosses, utilisent Rust en "
-"production pour différentes missions. Ils l'utilisent pour des outils en "
+"production pour différentes tâches, lesquelles incluent des outils en "
 "ligne de commande, des services web, des outils DevOps, des systèmes "
 "embarqués, de l'analyse et de la conversion audio et vidéo, des "
 "cryptomonnaies, de la bio-informatique, des moteurs de recherche, de "
-"l'Internet des objets *(IoT)*, de l'apprentissage automatique *(machine "
-"learning)*, et même des parties importantes du navigateur internet Firefox."
+"l'Internet des objets (_IoT_), de l'apprentissage automatique (_machine "
+"learning_), et même des parties importantes du navigateur internet Firefox."
 
 #: src/ch00-00-introduction.md:64
 msgid "Open Source Developers"
@@ -1991,7 +1991,6 @@ msgstr ""
 "$ ./main # ou .\\main.exe sous Windows"
 
 # TODO add .exe extension in English source Book (if necessary)
-# }}}
 
 #: src/ch01-02-hello-world.md:195
 msgid ""
@@ -2068,7 +2067,7 @@ msgid ""
 "a project using Cargo, adding dependencies will be much easier to do."
 msgstr ""
 "Des programmes Rust très simples, comme le petit que nous avons écrit "
-"précédemment, n'ont pas de dépendance. Donc si nous avions compilé le projet "
+"précédemment, n'ont pas de dépendance. Si nous avions compilé le projet "
 "“Hello, world!” avec Cargo, cela n'aurait fait appel qu'à la fonctionnalité "
 "de Cargo qui s'occupe de la compilation de votre code. Quand vous écrirez "
 "des programmes Rust plus complexes, vous ajouterez des dépendances, et si "
@@ -3783,7 +3782,7 @@ msgstr ""
 "constater un changement dans le fichier _Cargo.lock_ indiquant que la "
 "version de la _crate_ `rand` que vous utilisez maintenant est la `0.8.6`. "
 "Pour utiliser `rand` en version `0.999.0` ou toute autre version dans la "
-"série des `0.999.x`, il vous faut mettre à jour le fichier _Cargo.toml_ "
+"série des `0.999._x_`, il vous faut mettre à jour le fichier _Cargo.toml_ "
 "comme ceci (ne faites pas réellement ce changement, car les exemples "
 "suivants supposent que vous utilisez `rand` 0.8) :"
 
