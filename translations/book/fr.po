@@ -5197,8 +5197,8 @@ msgstr ""
 "étudions les types de données qu'elles peuvent prendre."
 
 # }}}
-# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 # Les types de données {{{
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 
 #: src/ch03-02-data-types.md:3
 msgid ""
@@ -5236,13 +5236,9 @@ msgstr ""
 # @# FIXME: URL above (ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number) does not lead to the adequate paragraph
 
 
-#: src/ch03-02-data-types.md:16
-msgid "\"42\""
-msgstr ""
+msgid "let guess: u32 = \"42\".parse().expect(\"Not a number!\");"
+msgstr "let supposition: u32 = \"42\".parse().expect(\"Ce n'est pas un nombre !\");"
 
-#: src/ch03-02-data-types.md:16
-msgid "\"Not a number!\""
-msgstr "\"Ce n'est pas un nombre !\""
 
 #: src/ch03-02-data-types.md:19
 msgid ""
@@ -5285,14 +5281,14 @@ msgstr ""
 "error[E0284]: type annotations needed\n"
 " --> src/main.rs:2:9\n"
 "  |\n"
-"2 |     let guess = \"42\".parse().expect(\"Ce n'est pas un nombre !\");\n"
-"  |         ^^^^^        ----- type must be known at this point\n"
+"2 |     let supposition = \"42\".parse().expect(\"Ce n'est pas un nombre !\");\n"
+"  |         ^^^^^^^^^^^        ----- type must be known at this point\n"
 "  |\n"
 "  = note: cannot satisfy `<_ as FromStr>::Err == _`\n"
 "help: consider giving `guess` an explicit type\n"
 "  |\n"
-"2 |     let guess: /* Type */ = \"42\".parse().expect(\"Ce n'est pas un nombre  !\");\n"
-"  |              ++++++++++++\n"
+"2 |     let supposition: /* Type */ = \"42\".parse().expect(\"Ce n'est pas un nombre  !\");\n"
+"  |                    ++++++++++++\n"
 "\n"
 "For more information about this error, try `rustc --explain E0284`.\n"
 "error: could not compile `no_type_annotations` (bin \"no_type_annotations\") "
