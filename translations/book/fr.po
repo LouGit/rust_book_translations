@@ -5286,8 +5286,8 @@ msgstr ""
 "étudions les types de données qu'elles peuvent prendre."
 
 # }}}
-# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 # Les types de données {{{
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 
 #: src/ch03-02-data-types.md:3
 msgid ""
