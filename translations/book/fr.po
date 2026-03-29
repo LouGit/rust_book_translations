@@ -2903,6 +2903,49 @@ msgstr "        .read_line(&mut supposition)"
 msgid "\"You guessed: {guess}\""
 msgstr "\"Votre nombre : {supposition}\""
 
+
+
+# Various attempts to translate listing's legend: {{{
+
+# <figcaption><a href="#listing-2-1">Listing 2-1</a>: Code that gets a guess from the user and prints it</figcaption>
+msgid ""
+"<span class=\"caption\">Listing 2-1: Code that gets a guess from the user "
+"and prints it</span>"
+msgstr ""
+"<span class=\"caption\">Encart 2-1 : Code permettant de récupérer une "
+"saisie utilisateur et de l'afficher</span>"
+
+msgid "# <figcaption><a href=\"#listing-2-1\">Listing 2-1</a>: Code that gets a guess from the user and prints it</figcaption>"
+msgstr "# <figcaption><a href=\"#listing-2-1\">Encart 2-1</a> : Code permettant de récupérer une saisie utilisateur et de l'afficher</figcaption>"
+
+
+msgid "<a href=\"#listing-2-1\">Listing 2-1</a>: Code that gets a guess from the user and prints it"
+msgstr " : Code permettant de récupérer une saisie utilisateur et de l'afficher"
+
+msgid "<a href=\"#listing-2-1\">Listing 2-1</a>"
+msgstr "<a href=\"#listing-2-1\">Encart 2-1</a>"
+
+msgid "Listing 2-1"
+msgstr "Encart 2-1"
+
+#: Code that gets a guess from the user and prints it"
+
+msgid "Code that gets a guess from the user and prints it"
+msgstr " : Code permettant de récupérer une saisie utilisateur et de l'afficher"
+
+
+msgid "<Listing number=\"2-1\" file-name=\"src/main.rs\" caption=\"Code that gets a guess from the user and prints it\">"
+msgstr "<Listing number=\"2-1\" file-name=\"src/main.rs\" caption=\" : Code permettant de récupérer une saisie utilisateur et de l'afficher"
+
+msgid ": Code that gets a guess from the user and prints it"
+msgstr " : Code permettant de récupérer une saisie utilisateur et de l'afficher"
+
+
+# FIXME find a way to translate these legends
+
+# }}}
+
+
 #: src/ch02-00-guessing-game-tutorial.md:109
 msgid ""
 "This code contains a lot of information, so let’s go over it line by line. "
@@ -54161,12 +54204,6 @@ msgstr ""
 #~ "```rust,ignore {{#rustdoc_include ../listings/ch02-guessing-game-tutorial/"
 #~ "listing-02-01/src/main.rs:all}} ```"
 
-#~ msgid ""
-#~ "<span class=\"caption\">Listing 2-1: Code that gets a guess from the user "
-#~ "and prints it</span>"
-#~ msgstr ""
-#~ "<span class=\"caption\">Encart 2-1 : Code permettant de récupérer une "
-#~ "saisie utilisateur et de l'afficher</span>"
 
 #~ msgid ""
 #~ "```rust,ignore {{#rustdoc_include ../listings-sources/ch02-guessing-game-"
