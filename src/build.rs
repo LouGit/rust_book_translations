@@ -8,6 +8,7 @@ use std::fs::OpenOptions;
 use std::io::Write;
 use std::path::{Path, PathBuf};
 use tera::Tera;
+use crate::code_translator::CodeTranslator;
 
 pub fn build_book(
     name: &str,
@@ -52,7 +53,7 @@ pub fn build_book(
 
     let js_file: toml::Value = "theme/language-picker.js".into();
     let css_file: toml::Value = "theme/language-picker.css".into();
-    let po_path: toml::Value = po_path.to_string_lossy().into_owned().into();
+    let po_path_toml: toml::Value = po_path.to_string_lossy().into_owned().into();
 
     if let Some(additional_css) = mdbook
         .config
@@ -82,7 +83,7 @@ pub fn build_book(
             .config
             .set("output.html.additional-js", vec![js_file])?;
     }
-    mdbook.config.set("preprocessor.gettext.po-dir", po_path)?;
+    mdbook.config.set("preprocessor.gettext.po-dir", po_path_toml)?;
     mdbook.config.set(
         "output.html.git-repository-url",
         "https://github.com/rust-lang-translations/project",
@@ -97,19 +98,40 @@ pub fn build_book(
 
     if let Some(lang_id) = serve {
         let gettext = Gettext;
+
+        // Add into the process a translation of code, for this specific language
+        let code_translator =
+            CodeTranslator::new(&po_path.join(format!("{lang_id}.po")))?;
+
         mdbook.with_preprocessor(gettext);
+        mdbook.with_preprocessor(code_translator);
+
         mdbook.config.build.build_dir = dst_path.join(lang_id);
         mdbook.config.set("book.language", lang_id)?;
 
         info!("build {name} for {lang_id}");
         mdbook.build()?;
     } else {
-        info!("build {name}");
+        // First build: original (English)
+        // No gettext, no code translation
+        info!("build {name} (original)");
         mdbook.build()?;
 
-        let gettext = Gettext;
-        mdbook.with_preprocessor(gettext);
         for lang in &book.translations {
+            // Reset mdbook: reload a new MDBook for each language; the reason
+            // is that mdbook.with_preprocessor() accumulates preprocessors.
+            // Without reset, preprocessors would stack across iterations, which
+            // results in unwanted preprocessors accumulation:
+            let mut mdbook = MDBook::load(&src_path)?;
+
+            let gettext = Gettext;
+
+            let code_translator =
+                CodeTranslator::new(&po_path.join(format!("{}.po", lang.id)))?;
+
+            mdbook.with_preprocessor(gettext);
+            mdbook.with_preprocessor(code_translator);
+
             mdbook.config.build.build_dir = dst_path.join(&lang.id);
             mdbook.config.set("book.language", &lang.id)?;
 
