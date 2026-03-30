@@ -1154,6 +1154,9 @@ msgstr ""
 # FIXME text above does not translate
 
 
+# FIXME text above does not translate
+
+
 #: src/ch00-00-introduction.md:189
 msgid "This code does not compile!"
 msgstr "Ce code ne compile pas !"
@@ -2596,6 +2599,7 @@ msgstr ""
 "n'avez qu'à saisir les commandes suivantes pour télécharger le code avec "
 "Git, vous déplacer dans le répertoire projet et compiler :"
 
+<<<<<<< HEAD
 # #~ msgid ""
 # #~ "```console $ git clone example.org/someproject $ cd someproject $ cargo "
 # #~ "build ```"
@@ -2603,6 +2607,8 @@ msgstr ""
 # #~ "```console $ git clone example.org/projet_quelconque $ cd "
 # #~ "projet_quelconque $ cargo build ```"
 
+=======
+>>>>>>> 59ab9a0 (Check and corrections to chapter 03-02, work in progress; resolve conflicts when rebasing)
 msgid "$ git clone example.org/someproject"
 msgstr "$ git clone example.org/projet_quelconque"
 
@@ -2931,10 +2937,13 @@ msgid "\"You guessed: {guess}\""
 msgstr "\"Votre nombre : {supposition}\""
 
 
+<<<<<<< HEAD
 
 # Various attempts to translate listing's legend: {{{
 
 # <figcaption><a href="#listing-2-1">Listing 2-1</a>: Code that gets a guess from the user and prints it</figcaption>
+=======
+>>>>>>> 59ab9a0 (Check and corrections to chapter 03-02, work in progress; resolve conflicts when rebasing)
 msgid ""
 "<span class=\"caption\">Listing 2-1: Code that gets a guess from the user "
 "and prints it</span>"
@@ -2944,6 +2953,7 @@ msgstr ""
 
 # FIXME legend above does not translate
 
+<<<<<<< HEAD
 msgid "# <figcaption><a href=\"#listing-2-1\">Listing 2-1</a>: Code that gets a guess from the user and prints it</figcaption>"
 msgstr "# <figcaption><a href=\"#listing-2-1\">Encart 2-1</a> : Code permettant de récupérer une saisie utilisateur et de l'afficher</figcaption>"
 
@@ -2974,6 +2984,8 @@ msgstr " : Code permettant de récupérer une saisie utilisateur et de l'affich
 
 # }}}
 
+=======
+>>>>>>> 59ab9a0 (Check and corrections to chapter 03-02, work in progress; resolve conflicts when rebasing)
 
 #: src/ch02-00-guessing-game-tutorial.md:109
 msgid ""
@@ -4716,6 +4728,7 @@ msgstr ""
 "le `println!` qui affiche le nombre secret. L'encart 2-6 représente le code "
 "final."
 
+<<<<<<< HEAD
 # #~ msgid ""
 # #~ "<span class=\"caption\">Listing 2-6: Complete guessing game code</span>"
 # #~ msgstr ""
@@ -4725,6 +4738,13 @@ msgid ""
 "Listing 2-6: Complete guessing game code"
 msgstr ""
 "Encart 2-6 : Code complet du jeu du plus ou du moins"
+=======
+msgid ""
+"<span class=\"caption\">Listing 2-6: Complete guessing game code</span>"
+msgstr ""
+"<span class=\"caption\">Encart 2-6 : Code complet du jeu du plus ou du "
+"moins </span>"
+>>>>>>> 59ab9a0 (Check and corrections to chapter 03-02, work in progress; resolve conflicts when rebasing)
 
 # FIXME legend above does not translate
 
@@ -4761,7 +4781,6 @@ msgstr ""
 # }}}
 # Chapitre 3: {{{
 # Les concepts courants de programmation {{{
-# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 
 #: src/ch03-00-common-programming-concepts.md:3
 msgid ""
@@ -5170,9 +5189,20 @@ msgstr ""
 # msgid "        println!(\"The value of x in the inner scope is: {x}\");"
 # msgstr "        println!(\"La valeur de x dans la portée interne est : {x}\");"
 
+<<<<<<< HEAD
 msgid "\"The value of x in the inner scope is: {x}\""
 msgstr ""
 "\"La valeur de x dans la portée interne est : {x}\""
+=======
+# FIXME the paragraph above is not translated
+
+msgid "\"The value of x in the inner scope is: {x}\""
+msgstr ""
+"\"La valeur de x dans la portée interne est : {x}\""
+
+# @# VOIR ÇA!
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
+>>>>>>> 59ab9a0 (Check and corrections to chapter 03-02, work in progress; resolve conflicts when rebasing)
 
 #: src/ch03-01-variables-and-mutability.md:185
 msgid ""
@@ -5323,6 +5353,7 @@ msgstr ""
 "annotation de type, comme ceci :"
 
 # @# FIXME: URL above (ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number) does not lead to the adequate paragraph
+<<<<<<< HEAD
 
 
 #: src/ch03-02-data-types.md:16
@@ -5334,6 +5365,19 @@ msgstr ""
 # msgstr "\"Ce n'est pas un nombre !\""
 
 msgid "let guess: u32 = \"42\".parse().expect(\"Not a number!\");"
+=======
+
+
+# #: src/ch03-02-data-types.md:16
+# msgid "\"42\""
+# msgstr ""
+
+# #: src/ch03-02-data-types.md:16
+# msgid "\"Not a number!\""
+# msgstr "\"Ce n'est pas un nombre !\""
+
+msgid "let guess: u32 = "42".parse().expect(\"Not a number!\");"
+>>>>>>> 59ab9a0 (Check and corrections to chapter 03-02, work in progress; resolve conflicts when rebasing)
 msgstr "let supposition: u32 = \"42\".parse().expect(\"Ce n'est pas un nombre !\");"
 
 #: src/ch03-02-data-types.md:19
@@ -5348,6 +5392,7 @@ msgstr ""
 "utiliser :"
 
 #: src/ch03-02-data-types.md:23
+<<<<<<< HEAD
 # msgid ""
 # "```console\n"
 # "$ cargo build\n"
@@ -5370,6 +5415,54 @@ msgstr ""
 # "due to 1 previous error\n"
 # "```"
 # msgstr ""
+=======
+msgid ""
+"```console\n"
+"$ cargo build\n"
+"   Compiling no_type_annotations v0.1.0 (file:///projects/"
+"no_type_annotations)\n"
+"error[E0284]: type annotations needed\n"
+" --> src/main.rs:2:9\n"
+"  |\n"
+"2 |     let guess = \"42\".parse().expect(\"Ce n'est pas un nombre !\");\n"
+"  |         ^^^^^        ----- type must be known at this point\n"
+"  |\n"
+"  = note: cannot satisfy `<_ as FromStr>::Err == _`\n"
+"help: consider giving `guess` an explicit type\n"
+"  |\n"
+"2 |     let guess: /* Type */ = \"42\".parse().expect(\"Ce n'est pas un nombre !\");\n"
+"  |              ++++++++++++\n"
+"\n"
+"For more information about this error, try `rustc --explain E0284`.\n"
+"error: could not compile `no_type_annotations` (bin \"no_type_annotations\") "
+"due to 1 previous error\n"
+"```"
+msgstr ""
+"```console\n"
+"$ cargo build\n"
+"   Compiling no_type_annotations v0.1.0 (file:///projects/"
+"no_type_annotations)\n"
+"error[E0284]: type annotations needed\n"
+" --> src/main.rs:2:9\n"
+"  |\n"
+"2 |     let guess = \"42\".parse().expect(\"Ce n'est pas un nombre !\");\n"
+"  |         ^^^^^        ----- type must be known at this point\n"
+"  |\n"
+"  = note: cannot satisfy `<_ as FromStr>::Err == _`\n"
+"help: consider giving `guess` an explicit type\n"
+"  |\n"
+"2 |     let guess: /* Type */ = \"42\".parse().expect(\"Ce n'est pas un nombre  !\");\n"
+"  |              ++++++++++++\n"
+"\n"
+"For more information about this error, try `rustc --explain E0284`.\n"
+"error: could not compile `no_type_annotations` (bin \"no_type_annotations\") "
+"due to 1 previous error\n"
+"```"
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
+
+# # {{{
+# 
+>>>>>>> 59ab9a0 (Check and corrections to chapter 03-02, work in progress; resolve conflicts when rebasing)
 
 msgid "2 |     let guess = \"42\".parse().expect(\"Not a number!\");"
 msgstr "2 |     let supposition = \"42\".parse().expect(\"Ce n'est pas un nombre !\");"
@@ -5377,11 +5470,33 @@ msgstr "2 |     let supposition = \"42\".parse().expect(\"Ce n'est pas un nombre
 msgid "  |         ^^^^^        ----- type must be known at this point"
 msgstr "  |         ^^^^^^^^^^^        ----- type must be known at this point"
 
+<<<<<<< HEAD
 msgid "2 |     let guess: /* Type */ = \"42\".parse().expect(\"Not a number!\");"
 msgstr "2 |     let supposition: /* Type */ = \"42\".parse().expect(\"Ce n'est pas un nombre !\");"
 
 msgid "  |              ++++++++++++"
 msgstr "  |                    ++++++++++++"
+=======
+msgid "2 |     let guess: /* Type */ = "42".parse().expect("Not a number!");"
+msgstr "2 |     let supposition: /* Type */ = "42".parse().expect(\"Ce n'est pas un nombre !\");"
+
+msgid "  |              ++++++++++++"
+msgstr "  |                    ++++++++++++"
+
+
+
+# "  |\n"
+# "  = note: cannot satisfy `<_ as FromStr>::Err == _`\n"
+# "help: consider giving `guess` an explicit type\n"
+# "  |\n"
+# "2 |     let guess: /* Type */ = \"42\".parse().expect(\"Ce n'est pas un nombre !\");\n"
+# "  |              ++++++++++++\n"
+# 
+# 
+# "2 |     let guess = \"42\".parse().expect(\"Not a number!\");"
+#   |         ^^^^^        ----- type must be known at this point
+# }}}
+>>>>>>> 59ab9a0 (Check and corrections to chapter 03-02, work in progress; resolve conflicts when rebasing)
 
 #: src/ch03-02-data-types.md:42
 msgid "You’ll see different type annotations for other data types."
