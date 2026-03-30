@@ -6217,7 +6217,6 @@ msgstr "    let indice: usize = indice"
 msgid "    let element = a[index];"
 msgstr "    let element = a[indice];"
 
-# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 
 #: src/ch03-02-data-types.md:413
 msgid "\"Please enter an array index.\""
@@ -6312,6 +6311,12 @@ msgstr ""
 #: src/ch03-03-how-functions-work.md:22
 msgid "\"Another function.\""
 msgstr "\"Une autre fonction.\""
+
+msgid "    another_function();"
+msgstr "    une_autre_fonction();"
+
+msgid "fn another_function() {"
+msgstr "fn une_autre_fonction() {"
 
 #: src/ch03-03-how-functions-work.md:26
 msgid ""
@@ -6410,6 +6415,14 @@ msgid "In this version of `another_function` we add a parameter:"
 msgstr ""
 "Dans cette version de une_autre_fonction, nous ajoutons un paramètre :"
 
+msgid "    another_function(5);"
+msgstr "    une_autre_fonction(5);"
+
+msgid "fn another_function(x: i32) {"
+msgstr "fn une_autre_fonction(x: i32) {"
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
+
+
 #: src/ch03-03-how-functions-work.md:78
 msgid "Try running this program; you should get the following output:"
 msgstr ""
@@ -6430,7 +6443,7 @@ msgstr ""
 "   Compiling functions v0.1.0 (file:///projects/functions)\n"
 "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 1.21s\n"
 "     Running `target/debug/functions`\n"
-"La valeur de x est : 5\n"
+"La valeur de x est : 5\n"
 "```"
 
 #: src/ch03-03-how-functions-work.md:88
@@ -6477,6 +6490,13 @@ msgstr ""
 #: src/ch03-03-how-functions-work.md:110
 msgid "\"The measurement is: {value}{unit_label}\""
 msgstr "\"La mesure est : {valeur}{unite}\""
+
+msgid "    print_labeled_measurement(5, 'h');"
+msgstr "    afficher_mesure_avec_unite(5, 'h');"
+
+msgid "fn print_labeled_measurement(value: i32, unit_label: char) {"
+msgstr "fn afficher_mesure_avec_unite(valeur: i32, unite: char) {"
+
 
 #: src/ch03-03-how-functions-work.md:114
 msgid ""
@@ -6542,7 +6562,7 @@ msgid ""
 msgstr ""
 "Les corps de fonctions sont constitués d'une série d'instructions qui se "
 "termine éventuellement par une expression. Jusqu'à présent, les fonctions "
-"que nous avons vu n'avaient pas d'expression à la fin, mais vous avez déjà "
+"que nous avons vues n'avaient pas d'expression à la fin, mais vous avez déjà "
 "vu une expression faire partie d'une instruction. Comme Rust est un langage "
 "basé sur des expressions, il est important de faire la distinction. D'autres "
 "langages ne font pas de telles distinctions, donc penchons-nous sur ce que "
@@ -6714,6 +6734,12 @@ msgstr ""
 "retourner implicitement la dernière expression. Voici un exemple d'une "
 "fonction qui retourne une valeur :"
 
+msgid "fn five() -> i32 {"
+msgstr "fn cinq() -> i32 {"
+
+msgid "    let x = five();"
+msgstr "    let x = cinq();"
+
 #: src/ch03-03-how-functions-work.md:276
 msgid ""
 "There are no function calls, macros, or even `let` statements in the `five` "
@@ -6767,6 +6793,12 @@ msgid "Let’s look at another example:"
 msgstr ""
 "Regardons un autre exemple :"
 
+msgid "    let x = plus_one(5);"
+msgstr "    let x = plus_un(5);"
+
+msgid "fn plus_one(x: i32) -> i32 {"
+msgstr "fn plus_un(x: i32) -> i32 {"
+
 #: src/ch03-03-how-functions-work.md:319
 msgid ""
 "Running this code will print `The value of x is: 6`. But what happens if we "
@@ -6779,7 +6811,13 @@ msgstr ""
 
 #: src/ch03-03-how-functions-work.md:337
 msgid "Compiling this code will produce an error, as follows:"
-msgstr ""
+msgstr "Compiler ce code va produire une erreur, comme ci-dessous :"
+
+msgid "7 | fn plus_one(x: i32) -> i32 {"
+msgstr "7 | fn plus_un(x: i32) -> i32 {"
+
+msgid "  |    --------            ^^^ expected `i32`, found `()`"
+msgstr "  |    -------            ^^^ expected `i32`, found `()`"
 
 #: src/ch03-03-how-functions-work.md:339
 msgid ""
