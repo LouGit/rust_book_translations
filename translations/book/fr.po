@@ -5240,7 +5240,6 @@ msgstr ""
 
 # }}}
 # Les types de données {{{
-# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 
 #: src/ch03-02-data-types.md:3
 msgid ""
@@ -5383,7 +5382,7 @@ msgstr ""
 
 #: src/ch03-02-data-types.md:59
 msgid "<span class=\"caption\">Table 3-1: Integer Types in Rust</span>"
-msgstr ""
+msgstr "<span class=\"caption\">Tableau 3-1 : les types d'entiers en Rust</span>"
 
 #: src/ch03-02-data-types.md:61
 msgid "Length"
@@ -5539,7 +5538,7 @@ msgstr ""
 
 #: src/ch03-02-data-types.md:96
 msgid "<span class=\"caption\">Table 3-2: Integer Literals in Rust</span>"
-msgstr "Tableau 3-2 : les littéraux d'entiers en Rust"
+msgstr "<span class=\"caption\">Tableau 3-2 : les littéraux d'entiers en Rust</span>"
 
 #: src/ch03-02-data-types.md:98
 msgid "Number literals"
@@ -5752,6 +5751,9 @@ msgstr ""
 msgid "// addition\n"
 msgstr ""
 
+msgid "    let sum = 5 + 10;"
+msgstr "    let somme = 5 + 10;"
+
 #: src/ch03-02-data-types.md:178
 msgid "// subtraction\n"
 msgstr "// soustraction\n"
@@ -5760,17 +5762,27 @@ msgstr "// soustraction\n"
 msgid "// multiplication\n"
 msgstr ""
 
+msgid "    let product = 4 * 30;"
+msgstr "    let produit = 4 * 30;"
+
 #: src/ch03-02-data-types.md:184
 msgid "// division\n"
 msgstr ""
 
-#: src/ch03-02-data-types.md:186
-msgid "// Results in -1\n"
-msgstr "// retournera -1"
+# msgid "    let truncated = -5 / 3; // retournera -1"
+msgid "    let truncated = -5 / 3; // Results in -1"
+msgstr "    let partie_entiere = -5 / 3; // retournera -1"
+
+# #: src/ch03-02-data-types.md:186
+# msgid "// Results in -1\n"
+# msgstr "// retournera -1"
 
 #: src/ch03-02-data-types.md:188
-msgid "// remainder\n"
-msgstr "// modulo"
+msgid "    // remainder"
+msgstr "   // modulo"
+
+msgid "    let remainder = 43 % 5;"
+msgstr "    let reste = 43 % 5;"
 
 #: src/ch03-02-data-types.md:193
 msgid ""
@@ -5804,6 +5816,9 @@ msgstr ""
 msgid "// with explicit type annotation\n"
 msgstr "// avec une annotation de type explicite\n"
 
+msgid "    let heart_eyed_cat = '😻';"
+msgstr "    let chat_aux_yeux_de_coeur = '😻';"
+
 #: src/ch03-02-data-types.md:214
 msgid ""
 "The main way to use Boolean values is through conditionals, such as an `if` "
@@ -5812,8 +5827,7 @@ msgid ""
 msgstr ""
 "Les valeurs booléennes sont principalement utilisées par les structures "
 "conditionnelles, comme l'expression `if`. Nous aborderons le fonctionnement "
-"de `if` en Rust dans la section [“Les structures de contrôle”][control-"
-"flow]<!-- ignore -->."
+"de `if` en Rust dans la section [“Les structures de contrôle”](ch03-05-control-flow.html#control-flow)<!-- ignore -->."
 
 #: src/ch03-02-data-types.md:218
 msgid "The Character Type"
@@ -5923,7 +5937,7 @@ msgstr ""
 
 #: src/ch03-02-data-types.md:280 src/ch03-03-how-functions-work.md:232
 msgid "\"The value of y is: {y}\""
-msgstr "\"println!(\"La valeur de y est : {y}\""
+msgstr "\"La valeur de y est : {y}\""
 
 #: src/ch03-02-data-types.md:284
 msgid ""
@@ -5947,6 +5961,15 @@ msgstr ""
 "Nous pouvons aussi accéder directement à chaque élément du tuple en "
 "utilisant un point (`.`) suivi de l'indice de la valeur que nous souhaitons "
 "obtenir. Par exemple :"
+
+msgid "    let five_hundred = x.0;"
+msgstr "    let cinq_cents = x.0;"
+
+msgid "    let six_point_four = x.1;"
+msgstr "    let six_virgule_quatre = x.1;"
+
+msgid "    let one = x.2;"
+msgstr "    let un = x.2;"
 
 #: src/ch03-02-data-types.md:307
 msgid ""
@@ -6032,65 +6055,71 @@ msgstr ""
 "utiliser un tableau plutôt qu'un vecteur car vous savez qu'il contient "
 "toujours 12 éléments :"
 
-#: src/ch03-02-data-types.md:349
-msgid "\"January\""
-msgstr ""
-"\"Janvier\""
+# #: src/ch03-02-data-types.md:349
+# msgid "\"January\""
+# msgstr ""
+# "\"Janvier\""
+# 
+# #: src/ch03-02-data-types.md:349
+# msgid "\"February\""
+# msgstr ""
+# "\"Février\""
+# 
+# #: src/ch03-02-data-types.md:349
+# msgid "\"March\""
+# msgstr ""
+# "\"Mars\""
+# 
+# #: src/ch03-02-data-types.md:349
+# msgid "\"April\""
+# msgstr ""
+# "\"Avril\""
+# 
+# #: src/ch03-02-data-types.md:349
+# msgid "\"May\""
+# msgstr ""
+# "\"Mai\""
+# 
+# #: src/ch03-02-data-types.md:349
+# msgid "\"June\""
+# msgstr ""
+# "\"Juin\""
+# 
+# #: src/ch03-02-data-types.md:349
+# msgid "\"July\""
+# msgstr ""
+# "\"Juillet\""
+# 
+# #: src/ch03-02-data-types.md:350
+# msgid "\"August\""
+# msgstr ""
+# "\"Août\""
+# 
+# #: src/ch03-02-data-types.md:350
+# msgid "\"September\""
+# msgstr ""
+# "\"Septembre\""
+# 
+# #: src/ch03-02-data-types.md:350
+# msgid "\"October\""
+# msgstr ""
+# "\"Octobre\""
+# 
+# #: src/ch03-02-data-types.md:350
+# msgid "\"November\""
+# msgstr ""
+# "\"Novembre\""
+# 
+# #: src/ch03-02-data-types.md:350
+# msgid "\"December\""
+# msgstr ""
+# "\"Décembre\""
 
-#: src/ch03-02-data-types.md:349
-msgid "\"February\""
-msgstr ""
-"\"Février\""
+msgid "let months = [\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\","
+msgstr "let mois = [\"Janvier\", \"Février\", \"Mars\", \"Avril\", \"Mai\", \"Juin\", \"Juillet\","
 
-#: src/ch03-02-data-types.md:349
-msgid "\"March\""
-msgstr ""
-"\"Mars\""
-
-#: src/ch03-02-data-types.md:349
-msgid "\"April\""
-msgstr ""
-"\"Avril\""
-
-#: src/ch03-02-data-types.md:349
-msgid "\"May\""
-msgstr ""
-"\"Mai\""
-
-#: src/ch03-02-data-types.md:349
-msgid "\"June\""
-msgstr ""
-"\"Juin\""
-
-#: src/ch03-02-data-types.md:349
-msgid "\"July\""
-msgstr ""
-"\"Juillet\""
-
-#: src/ch03-02-data-types.md:350
-msgid "\"August\""
-msgstr ""
-"\"Août\""
-
-#: src/ch03-02-data-types.md:350
-msgid "\"September\""
-msgstr ""
-"\"Septembre\""
-
-#: src/ch03-02-data-types.md:350
-msgid "\"October\""
-msgstr ""
-"\"Octobre\""
-
-#: src/ch03-02-data-types.md:350
-msgid "\"November\""
-msgstr ""
-"\"Novembre\""
-
-#: src/ch03-02-data-types.md:350
-msgid "\"December\""
-msgstr ""
-"\"Décembre\""
+msgid "              \"August\", \"September\", \"October\", \"November\", \"December\"];"
+msgstr "            \"Août\", \"Septembre\", \"Octobre\", \"Novembre\", \"Décembre\"];"
 
 #: src/ch03-02-data-types.md:353
 msgid ""
@@ -6146,6 +6175,9 @@ msgstr ""
 "être alloué sur la pile. Vous pouvez accéder aux éléments d'un tableau en "
 "utilisant l'indexation, comme ceci :"
 
+msgid "    let first = a[0];"
+msgstr "    let premier = a[0];"
+
 #: src/ch03-02-data-types.md:395
 msgid ""
 "In this example, the variable named `first` will get the value `1` because "
@@ -6173,6 +6205,20 @@ msgstr ""
 "le code suivant, similaire au jeu du plus ou du moins du chapitre 2, pour "
 "demander un indice de tableau à l'utilisateur :"
 
+msgid "    let mut index = String::new();"
+msgstr "    let mut indice = String::new();"
+
+msgid "        .read_line(&mut index)"
+msgstr "        .read_line(&mut indice)"
+
+msgid "    let index: usize = index"
+msgstr "    let indice: usize = indice"
+
+msgid "    let element = a[index];"
+msgstr "    let element = a[indice];"
+
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
+
 #: src/ch03-02-data-types.md:413
 msgid "\"Please enter an array index.\""
 msgstr "\"Veuillez entrer un indice de tableau.\""
@@ -6183,7 +6229,7 @@ msgstr "\"L'indice entré n'est pas un nombre\""
 
 #: src/ch03-02-data-types.md:428
 msgid "\"The value of the element at index {index} is: {element}\""
-msgstr "\"La valeur de l'élément d'indice {indice} est : {element}\""
+msgstr "\"La valeur de l'élément d'indice {indice} est : {element}\""
 
 #: src/ch03-02-data-types.md:432
 msgid ""
