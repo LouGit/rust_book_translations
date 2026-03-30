@@ -127,7 +127,7 @@ msgstr "Les fonctions"
 
 #: src/SUMMARY.md:18 src/ch03-04-comments.md:1
 msgid "Comments"
-msgstr "Commentaires"
+msgstr "Les commentaires"
 
 #: src/SUMMARY.md:19 src/ch03-05-control-flow.md:1
 msgid "Control Flow"
@@ -6420,8 +6420,6 @@ msgstr "    une_autre_fonction(5);"
 
 msgid "fn another_function(x: i32) {"
 msgstr "fn une_autre_fonction(x: i32) {"
-# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
-
 
 #: src/ch03-03-how-functions-work.md:78
 msgid "Try running this program; you should get the following output:"
@@ -6819,6 +6817,7 @@ msgstr "7 | fn plus_un(x: i32) -> i32 {"
 msgid "  |    --------            ^^^ expected `i32`, found `()`"
 msgstr "  |    -------            ^^^ expected `i32`, found `()`"
 
+
 #: src/ch03-03-how-functions-work.md:339
 msgid ""
 "```console\n"
@@ -6864,7 +6863,6 @@ msgstr ""
 # Commentaires{{{
 
 #: src/ch03-04-comments.md:3
-#, fuzzy
 msgid ""
 "All programmers strive to make their code easy to understand, but sometimes "
 "extra explanation is warranted. In these cases, programmers leave _comments_ "
@@ -6879,12 +6877,12 @@ msgstr ""
 
 #: src/ch03-04-comments.md:8
 msgid "Here’s a simple comment:"
-msgstr ""
+msgstr "Voici un simple commentaire :"
 
-#: src/ch03-04-comments.md:11
-#, fuzzy
-msgid "// hello, world\n"
-msgstr "```rust // hello, world ```"
+# #: src/ch03-04-comments.md:11
+# #, fuzzy
+# msgid "// hello, world\n"
+# msgstr "```rust // hello, world ```"
 
 #: src/ch03-04-comments.md:14
 msgid ""
@@ -6894,49 +6892,104 @@ msgid ""
 msgstr ""
 "Avec Rust, les commentaires classiques commencent avec deux barres obliques "
 "et continuent jusqu'à la fin de la ligne. Pour les commentaires qui font "
-"plus d'une seule ligne, vous aurez besoin d'ajouter `//` sur chaque ligne, "
+"plus d'une seule ligne, vous pouvez ajouter `//` au début de chaque ligne, "
 "comme ceci :"
 
 #: src/ch03-04-comments.md:19
-#, fuzzy
 msgid ""
 "// So we're doing something complicated here, long enough that we need\n"
 "// multiple lines of comments to do it! Whew! Hopefully, this comment will\n"
 "// explain what's going on.\n"
 msgstr ""
-"```rust // Donc ici on fait quelque chose de compliqué, tellement long que "
-"nous avons // besoin de plusieurs lignes de commentaires pour le faire ! "
-"Heureusement, // ce commentaire va expliquer ce qui se passe. ```"
+"// Donc ici on fait quelque chose de compliqué, tellement long que nous avons\n"
+"// besoin de plusieurs lignes de commentaires pour le faire ! Heureusement,\n"
+"// ce commentaire va expliquer ce qui se passe.\n"
 
 #: src/ch03-04-comments.md:24
 msgid "Comments can also be placed at the end of lines containing code:"
 msgstr ""
+"Les commentaires peuvent aussi être aussi ajoutés à la fin d'une ligne qui "
+"contient du code :"
 
-#: src/ch03-04-comments.md:30 src/ch03-04-comments.md:41
-msgid "// I'm feeling lucky today\n"
-msgstr ""
+# #: src/ch03-04-comments.md:30 src/ch03-04-comments.md:41
+# msgid "// I'm feeling lucky today\n"
+# msgstr "// Je me sens chanceux aujourd'hui\n"
+
+msgid "    let lucky_number = 7; // I'm feeling lucky today"
+msgstr "    let nombre_chanceux = 7; // Je me sens chanceux aujourd'hui"
+
+msgid "    let lucky_number = 7;"
+msgstr "    let nombre_chanceux = 7;"
+
+msgid "    // I'm feeling lucky today"
+msgstr "    // Je me sens chanceux aujourd'hui"
 
 #: src/ch03-04-comments.md:34
 msgid ""
 "But you’ll more often see them used in this format, with the comment on a "
 "separate line above the code it’s annotating:"
 msgstr ""
-"Mais parfois, vous pourrez les voir utilisés de cette manière, avec le "
+"Mais le plus souvent, vous les verrez utilisés de cette manière, avec le "
 "commentaire sur une ligne séparée au-dessus du code qu'il annote :"
 
+# TODO: the following paragraph about /* */ comments should be added to the 
+#       English upstream version
+# TODO: set the erroneous code snippet with the adequate Ferris picture
 #: src/ch03-04-comments.md:46
-#, fuzzy
 msgid ""
 "Rust also has another kind of comment, documentation comments, which we’ll "
 "discuss in the [“Publishing a Crate to Crates.io”](ch14-02-publishing-to-"
 "crates-io.html)<!-- ignore --> section of Chapter 14."
-msgstr ""
-"Rust a aussi un autre type de commentaire, les commentaires de "
+msgstr "<!-- Insertion of C-like comments paragraphs -->"
+"Pour les commentaires qui font plusieurs lignes, Rust offre également la "
+"même syntaxe que les commentaires du langage C, en encadrant les commentaires "
+"par ` /*` et `*/`, comme dans l'exemple suivant :"
+"\n```rust\n"
+"/*\n"
+"Donc ici on fait quelque chose de compliqué, tellement long que nous avons\n"
+"besoin de plusieurs lignes de commentaires pour le faire ! Heureusement,\n"
+"ce commentaire va expliquer ce qui se passe.\n*/"
+"\n```\n"
+"Une caractéristique intéressante est que Rust permet l'imbrication de ce "
+"type de commentaires : cela s'avère particulièrement utile durant la phase de "
+"débogage du code, car cela permet d'\"annuler\" temporairement des portions "
+"de code qui peuvent elles-même comporter des commentaires imbriqués, comme "
+"dans l'exemple suivant : voici un code manifestement problématique, qui ne "
+"compile pas :"
+"\n```rust\n"
+"fn main() {\n"
+"    let nombre_chanceux = 7;\n"
+"    /*\n"
+"    Incrémentation du nombre chanceux :\n"
+"    */\n"
+"    nombre_chanceux = nombre_chanceux + 2;\n"
+"    println!(\"Mon nombre chanceux est {nombre_chanceux}\");\n"
+"}\n"
+"\n```\n"
+"Et voici le même code, avec une partie commentée, ce qui permet la "
+"compilation :"
+"\n```rust\n"
+"fn main() {\n"
+"    let nombre_chanceux = 7;\n"
+"    /* Neutralisation du code ne fonctionnant pas :\n"
+"    /*\n"
+"    Incrémentation du nombre chanceux :\n"
+"    */\n"
+"    nombre_chanceux = nombre_chanceux + 2;\n"
+"    */\n"
+"    println!(\"Mon nombre chanceux est {nombre_chanceux}\");\n"
+"}\n"
+"\n```\n"
+"Notez l'imbrication des commentaires, par rapport au fonctionnement des "
+"commentaires en C.\n"
+"<!-- End of additional paragraph -->"
+"Enfin, Rust a aussi un autre type de commentaire, les commentaires de "
 "documentation, que nous aborderons dans la partie "
 "[\"Publier une crate sur crates.io\"](ch14-02-publishing-to-crates-io.html) "
 "du chapitre 14."
 
 # }}}
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 # Les structures de contrôle {{{
 #: src/ch03-05-control-flow.md:3
 #, fuzzy
