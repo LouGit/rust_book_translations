@@ -127,7 +127,7 @@ msgstr "Les fonctions"
 
 #: src/SUMMARY.md:18 src/ch03-04-comments.md:1
 msgid "Comments"
-msgstr "Commentaires"
+msgstr "Les commentaires"
 
 #: src/SUMMARY.md:19 src/ch03-05-control-flow.md:1
 msgid "Control Flow"
@@ -252,7 +252,7 @@ msgstr "Les types génériques, les traits et les durées de vie"
 
 #: src/SUMMARY.md:54 src/ch10-01-syntax.md:1
 msgid "Generic Data Types"
-msgstr "Les types de données"
+msgstr "Les types de données génériques"
 
 #: src/SUMMARY.md:55 src/ch10-02-traits.md:5
 msgid "Defining Shared Behavior with Traits"
@@ -446,7 +446,10 @@ msgstr ""
 
 #: src/SUMMARY.md:104
 msgid "Futures, Tasks, and Threads"
-msgstr ""
+msgstr "Futures, tâches et fils"
+
+# TODO: double-check translation of title above
+
 
 #: src/SUMMARY.md:106
 msgid "Object Oriented Programming Features"
@@ -530,27 +533,27 @@ msgstr "Annexe A : les mots-clés"
 
 #: src/SUMMARY.md:130
 msgid "B - Operators and Symbols"
-msgstr ""
+msgstr "Annexe B : opérateurs et symboles"
 
 #: src/SUMMARY.md:131
 msgid "C - Derivable Traits"
-msgstr ""
+msgstr "Annexe C : traits dérivables"
 
 #: src/SUMMARY.md:132
 msgid "D - Useful Development Tools"
-msgstr ""
+msgstr "Annexe D : outils de développement utiles"
 
 #: src/SUMMARY.md:133
 msgid "E - Editions"
-msgstr ""
+msgstr "Annexe E : éditions"
 
 #: src/SUMMARY.md:134
 msgid "F - Translations of the Book"
-msgstr ""
+msgstr "Annexe F : traduction du Livre"
 
 #: src/SUMMARY.md:135
 msgid "G - How Rust is Made and “Nightly Rust”"
-msgstr ""
+msgstr "Annexe G : comment Rust est fabriqué, et “Nightly Rust”"
 
 # }}}
 # Avant-propos: {{{
@@ -827,7 +830,7 @@ msgid ""
 "browser."
 msgstr ""
 "Des centaines d'entreprises, petites et grosses, utilisent Rust en "
-"production pour différentes missions. Ils l'utilisent pour des outils en "
+"production pour différentes tâches, lesquelles incluent des outils en "
 "ligne de commande, des services web, des outils DevOps, des systèmes "
 "embarqués, de l'analyse et de la conversion audio et vidéo, des "
 "cryptomonnaies, de la bio-informatique, des moteurs de recherche, de "
@@ -1107,7 +1110,7 @@ msgstr ""
 "précédents si vous éprouvez des difficultés. Mais faites comme bon vous "
 "semble."
 
-# #: src/ch00-00-introduction.md:175
+#: src/ch00-00-introduction.md:175
 # msgid "<span id=\"ferris\"></span>"
 # msgstr ""
 
@@ -1143,28 +1146,28 @@ msgid "Meaning"
 msgstr "Signification"
 
 #: src/ch00-00-introduction.md:189
-# msgid ""
-# "<img src=\"img/ferris/does_not_compile.svg\" class=\"ferris-explain\" "
-# "alt=\"Ferris with a question mark\"/>"
-# msgstr ""
-# "<img src=\"img/ferris/does_not_compile.svg\" class=\"ferris-explain\" "
-# "alt=\"Ferris avec un point d'interrogation\"/>"
-msgid "Ferris with a question mark"
-msgstr "Ferris avec un point d'interrogation"
+msgid ""
+"<img src=\"img/ferris/does_not_compile.svg\" class=\"ferris-explain\" "
+"alt=\"Ferris with a question mark\"/>"
+msgstr ""
+"<img src=\"img/ferris/does_not_compile.svg\" class=\"ferris-explain\" "
+"alt=\"Ferris avec un point d'interrogation\"/>"
+
 
 #: src/ch00-00-introduction.md:189
 msgid "This code does not compile!"
 msgstr "Ce code ne compile pas !"
 
 #: src/ch00-00-introduction.md:190
-# msgid ""
-# "<img src=\"img/ferris/panics.svg\" class=\"ferris-explain\" alt=\"ferris "
-# "throwing up their hands\"/>"
-# msgstr ""
-# "<img src=\"img/ferris/panics.svg\" class=\"ferris-explain\" alt=\"ferris "
-# "qui lève ses bras\"/>"
 msgid ""
-"ferris throwing up their hands"
+"<img src=\"img/ferris/panics.svg\" class=\"ferris-explain\" alt=\"Ferris "
+"throwing up their hands\"/>"
+msgstr ""
+"<img src=\"img/ferris/panics.svg\" class=\"ferris-explain\" alt=\"Ferris qui lève ses bras\"/>"
+
+
+msgid ""
+"Ferris throwing up their hands"
 msgstr ""
 "Ferris qui lève ses bras"
 
@@ -1176,12 +1179,13 @@ msgid "This code panics!"
 msgstr "Ce code panique !"
 
 #: src/ch00-00-introduction.md:191
-# msgid ""
-# "<img src=\"img/ferris/not_desired_behavior.svg\" class=\"ferris-explain\" "
-# "alt=\"Ferris with one claw up, shrugging\"/>"
-# msgstr ""
-# "<img src=\"img/ferris/not_desired_behavior.svg\" class=\"ferris-explain\" "
-# "alt=\"Ferris avec une pince en l'air, haussant les épaules\"/>"
+msgid ""
+"<img src=\"img/ferris/not_desired_behavior.svg\" class=\"ferris-explain\" "
+"alt=\"Ferris with one claw up, shrugging\"/>"
+msgstr ""
+"<img src=\"img/ferris/not_desired_behavior.svg\" class=\"ferris-explain\" "
+"alt=\"Ferris avec une pince en l'air, haussant les épaules\"/>"
+
 msgid "Ferris with one claw up, shrugging"
 msgstr "Ferris avec une pince en l'air, haussant les épaules"
 
@@ -1254,6 +1258,7 @@ msgstr "L'écriture d'un programme qui affiche `Hello, world!`"
 #: src/ch01-00-getting-started.md:8
 msgid "Using `cargo`, Rust’s package manager and build system"
 msgstr "L'utilisation de `cargo`, le gestionnaire de paquets et système de compilation"
+"compilation"
 
 # }}}
 # Installation: {{{
@@ -54084,15 +54089,9 @@ msgstr ""
 #~ "programmation orientée objet, que vous connaissez peut-être."
 
 #~ msgid ""
-#~ "<!-- | "
-#~ "Ferris                                                                                                           "
-#~ "| Meaning                                          | "
-#~ "|------------------------------------------------------------------------------------------------------------------|--------------------------------------------------| "
 #~ "| <img src=\"img/ferris/does_not_compile.svg\" class=\"ferris-explain\" "
 #~ "alt=\"Ferris with a question mark\"/>            | This code does not "
-#~ "compile!                      | | <img src=\"img/ferris/panics.svg\" "
-#~ "class=\"ferris-explain\" alt=\"Ferris throwing up their hands\"/"
-#~ ">                   | This code panics!                                | "
+#~ "compile!                      | | "
 #~ "| <img src=\"img/ferris/not_desired_behavior.svg\" class=\"ferris-"
 #~ "explain\" alt=\"Ferris with one claw up, shrugging\"/> | This code does "
 #~ "not produce the desired behavior. |"
