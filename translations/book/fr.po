@@ -7042,7 +7042,6 @@ msgstr "<!-- Insertion of C-like comments paragraphs -->"
 # }}}
 # Les structures de contrôle {{{
 #: src/ch03-05-control-flow.md:3
-#, fuzzy
 msgid ""
 "The ability to run some code depending on whether a condition is `true` and "
 "the ability to run some code repeatedly while a condition is `true` are "
@@ -7057,7 +7056,6 @@ msgstr ""
 "`if` et les boucles."
 
 #: src/ch03-05-control-flow.md:9
-#, fuzzy
 msgid "`if` Expressions"
 msgstr "Les expressions `if`"
 
@@ -7073,7 +7071,6 @@ msgstr ""
 "n'est pas remplie, ne pas exécuter ce bloc de code.”"
 
 #: src/ch03-05-control-flow.md:15
-#, fuzzy
 msgid ""
 "Create a new project called _branches_ in your _projects_ directory to "
 "explore the `if` expression. In the _src/main.rs_ file, input the following:"
@@ -7082,16 +7079,21 @@ msgstr ""
 "pour découvrir les expressions `if`. Dans le fichier _src/main.rs_, écrivez "
 "ceci :"
 
+msgid "    let number = 3;"
+msgstr "    let nombre = 3;"
+
+msgid "    if number < 5 {"
+msgstr "    if nombre < 5 {"
+
 #: src/ch03-05-control-flow.md:25 src/ch03-05-control-flow.md:65
 msgid "\"condition was true\""
-msgstr ""
+msgstr "\"La condition est vérifiée\""
 
 #: src/ch03-05-control-flow.md:27 src/ch03-05-control-flow.md:67
 msgid "\"condition was false\""
-msgstr ""
+msgstr "\"La condition n'est pas vérifiée\""
 
 #: src/ch03-05-control-flow.md:32
-#, fuzzy
 msgid ""
 "All `if` expressions start with the keyword `if`, followed by a condition. "
 "In this case, the condition checks whether or not the variable `number` has "
@@ -7108,14 +7110,13 @@ msgstr ""
 "une valeur inférieure à 5. Nous ajoutons le bloc de code à exécuter si la "
 "condition est vérifiée immédiatement après la condition entre des accolades. "
 "Les blocs de code associés à une condition dans une expression `if` sont "
-"parfois appelés des *branches*, exactement comme les branches dans les "
+"parfois appelés des _branches_, exactement comme les branches dans les "
 "expressions `match` que nous avons vu dans la section [“Comparer le nombre "
 "saisi au nombre secret”]"
 "(ch02-00-guessing-game-tutorial.html#comparing-the-guess-to-the-secret-number)"
 "<!-- ignore --> du chapitre 2."
 
 #: src/ch03-05-control-flow.md:41
-#, fuzzy
 msgid ""
 "Optionally, we can also include an `else` expression, which we chose to do "
 "here, to give the program an alternative block of code to execute should the "
@@ -7132,18 +7133,21 @@ msgstr ""
 
 #: src/ch03-05-control-flow.md:47
 msgid "Try running this code; you should see the following output:"
-msgstr ""
+msgstr "Essayez d'exécuter ce code ; vous verrez ceci :"
 
 #: src/ch03-05-control-flow.md:49
-msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling branches v0.1.0 (file:///projects/branches)\n"
-"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
-"     Running `target/debug/branches`\n"
-"condition was true\n"
-"```"
-msgstr ""
+# msgid ""
+# "```console\n"
+# "$ cargo run\n"
+# "   Compiling branches v0.1.0 (file:///projects/branches)\n"
+# "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
+# "     Running `target/debug/branches`\n"
+# "condition was true\n"
+# "```"
+# msgstr ""
+
+msgid "condition was true"
+msgstr "La condition est vérifiée"
 
 #: src/ch03-05-control-flow.md:57
 msgid ""
@@ -7153,35 +7157,43 @@ msgstr ""
 "Essayons de changer la valeur de `nombre` pour une valeur qui rend la "
 "condition non vérifiée pour voir ce qui se passe :"
 
+msgid "    let number = 7;"
+msgstr "    let nombre = 7;"
+
 #: src/ch03-05-control-flow.md:72
 msgid "Run the program again, and look at the output:"
-msgstr ""
+msgstr "Exécutez à nouveau le programme, et regardez le résultat :"
 
 #: src/ch03-05-control-flow.md:74
-msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling branches v0.1.0 (file:///projects/branches)\n"
-"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
-"     Running `target/debug/branches`\n"
-"condition was false\n"
-"```"
-msgstr ""
+# msgid ""
+# "```console\n"
+# "$ cargo run\n"
+# "   Compiling branches v0.1.0 (file:///projects/branches)\n"
+# "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
+# "     Running `target/debug/branches`\n"
+# "condition was false\n"
+# "```"
+# msgstr ""
+
+msgid "condition was false"
+msgstr "La condition n'est pas vérifiée"
 
 #: src/ch03-05-control-flow.md:82
-#, fuzzy
 msgid ""
 "It’s also worth noting that the condition in this code _must_ be a `bool`. "
 "If the condition isn’t a `bool`, we’ll get an error. For example, try "
 "running the following code:"
 msgstr ""
-"Il est aussi intéressant de noter que la condition dans ce code *doit* être "
+"Il est aussi intéressant de noter que la condition dans ce code _doit_ être "
 "un `bool`. Si la condition n'est pas un `bool`, nous aurons une erreur. Par "
 "exemple, essayez d'exécuter le code suivant :"
 
 #: src/ch03-05-control-flow.md:93
 msgid "\"number was three\""
-msgstr ""
+msgstr "\"Le nombre était trois\""
+
+msgid "    if number {"
+msgstr "    if nombre {"
 
 #: src/ch03-05-control-flow.md:98
 msgid ""
@@ -7206,6 +7218,9 @@ msgid ""
 "```"
 msgstr ""
 
+msgid "4 |     if number {"
+msgstr "4 |     if nombre {"
+
 #: src/ch03-05-control-flow.md:114
 msgid ""
 "The error indicates that Rust expected a `bool` but got an integer. Unlike "
@@ -7216,7 +7231,7 @@ msgid ""
 "the `if` expression to the following:"
 msgstr ""
 "Cette erreur explique que Rust attendait un `bool` mais a obtenu un entier "
-"*(integer)*. Contrairement à des langages comme Ruby et JavaScript, Rust ne "
+"(_integer_). Contrairement à des langages comme Ruby et JavaScript, Rust ne "
 "va pas essayer de convertir automatiquement les types non booléens en "
 "booléens. Vous devez être précis et toujours fournir un booléen à la "
 "condition d'un `if`. Si nous voulons que le bloc de code du `if` soit "
@@ -7225,14 +7240,16 @@ msgstr ""
 
 #: src/ch03-05-control-flow.md:128
 msgid "\"number was something other than zero\""
-msgstr ""
+msgstr "\"Le nombre valait autre chose que zéro\""
+
+msgid "    if number != 0 {"
+msgstr "    if nombre != 0 {"
 
 #: src/ch03-05-control-flow.md:133
 msgid "Running this code will print `number was something other than zero`."
-msgstr ""
+msgstr "Exécuter ce code va bien afficher Le nombre valait autre chose que zéro."
 
 #: src/ch03-05-control-flow.md:135
-#, fuzzy
 msgid "Handling Multiple Conditions with `else if`"
 msgstr "Gérer plusieurs conditions avec `else if`"
 
@@ -7246,19 +7263,31 @@ msgstr ""
 
 #: src/ch03-05-control-flow.md:147
 msgid "\"number is divisible by 4\""
-msgstr ""
+msgstr "\"Le nombre est divisible par 4\""
 
 #: src/ch03-05-control-flow.md:149
 msgid "\"number is divisible by 3\""
-msgstr ""
+msgstr "\"Le nombre est divisible par 3\""
 
 #: src/ch03-05-control-flow.md:151
 msgid "\"number is divisible by 2\""
-msgstr ""
+msgstr "\"Le nombre est divisible par 2\""
 
 #: src/ch03-05-control-flow.md:153
 msgid "\"number is not divisible by 4, 3, or 2\""
-msgstr ""
+msgstr "\"Le nombre n'est pas divisible par 4, 3 ou 2\""
+
+msgid "    let number = 6;"
+msgstr "    let nombre = 6;"
+
+msgid "    if number % 4 == 0 {"
+msgstr "    if nombre % 4 == 0 {"
+
+msgid "    } else if number % 3 == 0 {"
+msgstr "    } else if nombre % 3 == 0 {"
+
+msgid "    } else if number % 2 == 0 {"
+msgstr "    } else if nombre % 2 == 0 {"
 
 #: src/ch03-05-control-flow.md:158
 msgid ""
@@ -7279,8 +7308,11 @@ msgid ""
 "```"
 msgstr ""
 
+msgid "number is divisible by 3"
+msgstr "Le nombre est divisible par 3"
+
+
 #: src/ch03-05-control-flow.md:169
-#, fuzzy
 msgid ""
 "When this program executes, it checks each `if` expression in turn and "
 "executes the first body for which the condition evaluates to `true`. Note "
@@ -7310,7 +7342,6 @@ msgstr ""
 "cas."
 
 #: src/ch03-05-control-flow.md:180
-#, fuzzy
 msgid "Using `if` in a `let` Statement"
 msgstr "Utiliser `if` dans une instruction `let`"
 
@@ -7323,9 +7354,29 @@ msgstr ""
 "instruction `let` pour assigner le résultat à une variable, comme dans "
 "l'encart 3-2."
 
+# # FIXME this does not translate:
+# msgid "Filename: src/main.rs"
+# msgstr "Fichier : src/main.rs"
+
+
 #: src/ch03-05-control-flow.md:192 src/ch03-05-control-flow.md:225
 msgid "\"The value of number is: {number}\""
-msgstr ""
+msgstr "\"La valeur du nombre est : {nombre}\""
+
+msgid "    let number = if condition { 5 } else { 6 };"
+msgstr "    let nombre = if condition { 5 } else { 6 };"
+
+# FIXME this does not translate:
+msgid "Listing 3-2: Assigning the result of an if expression to a variable"
+msgstr "Encart 3-2 : Assignation du résultat d'une expression if à une variable"
+
+#~ msgid ""
+#~ "<span class=\"caption\">Listing 3-2: Assigning the result of an `if` "
+#~ "expression to a variable</span>"
+#~ msgstr ""
+#~ "<span class=\"caption\">Encart 3-2 : Assignation du résultat d'une "
+#~ "expression `if` à une variable</span>"
+
 
 #: src/ch03-05-control-flow.md:198
 msgid ""
@@ -7346,6 +7397,9 @@ msgid ""
 "```"
 msgstr ""
 
+msgid "The value of number is: 5"
+msgstr "La valeur du nombre est : 5"
+
 #: src/ch03-05-control-flow.md:209
 msgid ""
 "Remember that blocks of code evaluate to the last expression in them, and "
@@ -7364,6 +7418,9 @@ msgstr ""
 "dans l'encart 3-2, les résultats des branches `if` et `else` sont tous deux "
 "des entiers `i32`. Si les types ne sont pas identiques, comme dans l'exemple "
 "suivant, nous allons obtenir une erreur :"
+
+msgid "    let number = if condition { 5 } else { \"six\" };"
+msgstr "    let nombre = if condition { 5 } else { \"six\" };"
 
 #: src/ch03-05-control-flow.md:223
 msgid "\"six\""
@@ -7400,8 +7457,10 @@ msgid ""
 "```"
 msgstr ""
 
+msgid "4 |     let number = if condition { 5 } else { \"six\" };"
+msgstr "4 |     let nombre = if condition { 5 } else { \"six\" };"
+
 #: src/ch03-05-control-flow.md:248
-#, fuzzy
 msgid ""
 "The expression in the `if` block evaluates to an integer, and the expression "
 "in the `else` block evaluates to a string. This won’t work, because "
@@ -7415,22 +7474,20 @@ msgid ""
 msgstr ""
 "L'expression dans le bloc `if` donne un entier, et l'expression dans le bloc "
 "`else` donne une chaîne de caractères. Ceci ne fonctionne pas car les "
-"variables doivent avoir un seul type, et Rust a besoin de savoir de quel "
-"type est la variable `nombre` au moment de la compilation. Savoir le type de "
-"`nombre` permet au compilateur de vérifier que le type est valable n'importe "
-"où nous utilisons `nombre`. Rust ne serait pas capable de faire cela si le "
-"type de `nombre` était déterminé uniquement à l'exécution ; car le "
-"compilateur deviendrait plus complexe et nous donnerait moins de garanties "
-"sur le code s'il devait prendre en compte tous les types hypothétiques pour "
-"une variable."
+"variables doivent avoir un seul type, et Rust a impérativement besoin de "
+"savoir de quel type est la variable `nombre` au moment de la compilation. "
+"Savoir le type de `nombre` permet au compilateur de vérifier que le type est "
+"valable n'importe où nous utilisons `nombre`. Rust ne serait pas capable de "
+"faire cela si le type de `nombre` était déterminé uniquement à l'exécution ; "
+"car le compilateur deviendrait plus complexe et nous donnerait moins de "
+"garanties sur le code s'il devait prendre en compte tous les types "
+"hypothétiques pour une variable."
 
 #: src/ch03-05-control-flow.md:257
-#, fuzzy
 msgid "Repetition with Loops"
 msgstr "Les répétitions avec les boucles"
 
 #: src/ch03-05-control-flow.md:259
-#, fuzzy
 msgid ""
 "It’s often useful to execute a block of code more than once. For this task, "
 "Rust provides several _loops_, which will run through the code inside the "
@@ -7438,23 +7495,23 @@ msgid ""
 "experiment with loops, let’s make a new project called _loops_."
 msgstr ""
 "Il est parfois utile d'exécuter un bloc de code plus d'une seule fois. Dans "
-"ce but, Rust propose plusieurs types de *boucles*, qui parcourt le code à "
+"ce but, Rust propose plusieurs types de _boucles_, qui parcourt le code à "
 "l'intérieur du corps de la boucle jusqu'à la fin et recommence immédiatement "
-"du début. Pour tester les boucles, créons un nouveau projet appelé *loops*."
+"du début. Pour tester les boucles, créons un nouveau projet appelé _loops_."
 
 #: src/ch03-05-control-flow.md:264
 msgid ""
 "Rust has three kinds of loops: `loop`, `while`, and `for`. Let’s try each "
 "one."
 msgstr ""
+"Rust a trois types de boucles : loop, while, et for. Essayons chacune "
+"d'elles."
 
 #: src/ch03-05-control-flow.md:266
-#, fuzzy
 msgid "Repeating Code with `loop`"
 msgstr "Répéter du code avec `loop`"
 
 #: src/ch03-05-control-flow.md:268
-#, fuzzy
 msgid ""
 "The `loop` keyword tells Rust to execute a block of code over and over again "
 "either forever or until you explicitly tell it to stop."
@@ -7464,20 +7521,28 @@ msgstr ""
 "s'arrêter."
 
 #: src/ch03-05-control-flow.md:271
-#, fuzzy
 msgid ""
 "As an example, change the _src/main.rs_ file in your _loops_ directory to "
 "look like this:"
 msgstr ""
-"Par exemple, changez le fichier *src/main.rs* dans votre répertoire *loops* "
+"Par exemple, changez le fichier _src/main.rs_ dans votre répertoire _loops_ "
 "comme ceci :"
 
-#: src/ch03-05-control-flow.md:279
-msgid "\"again!\""
+msgid ""
+"        println!(\"again!\");"
 msgstr ""
+"        println!(\"À nouveau !\");"
+
+
+#: src/ch03-05-control-flow.md:279
+msgid "again!"
+msgstr "À nouveau !"
+
+msgid "^Cagain!"
+msgstr "^CÀ nouveau !"
+
 
 #: src/ch03-05-control-flow.md:284
-#, fuzzy
 msgid ""
 "When we run this program, we’ll see `again!` printed over and over "
 "continuously until we stop the program manually. Most terminals support the "
@@ -7509,20 +7574,19 @@ msgstr ""
 msgid ""
 "The symbol `^C` represents where you pressed <kbd>ctrl</kbd>\\-<kbd>C</kbd>."
 msgstr ""
+"Le symbole `^C` représente le moment où vous avez appuyé sur "
+"<kbd>ctrl</kbd>-<kbd>c</kbd>."
 
 #: src/ch03-05-control-flow.md:309
-#, fuzzy
 msgid ""
 "You may or may not see the word `again!` printed after the `^C`, depending "
 "on where the code was in the loop when it received the interrupt signal."
 msgstr ""
-"Le symbole `^C` représente le moment où vous avez appuyé sur <span "
-"class=\"keystroke\">ctrl-c</span>. Vous devriez voir ou non le texte `À "
-"nouveau !` après le `^C`, en fonction de là où la boucle en était dans votre "
-"code quand elle a reçu le signal d'arrêt."
+"Vous devriez voir ou non le texte `À nouveau !` après le `^C`, en fonction "
+"de là où la boucle en était dans votre code quand elle a reçu le signal "
+"d'arrêt."
 
 #: src/ch03-05-control-flow.md:312
-#, fuzzy
 msgid ""
 "Fortunately, Rust also provides a way to break out of a loop using code. You "
 "can place the `break` keyword within the loop to tell the program when to "
@@ -7536,8 +7600,10 @@ msgstr ""
 "utilisant du code. Vous pouvez ajouter le mot-clé `break` à l'intérieur de "
 "la boucle pour demander au programme d'arrêter la boucle. Souvenez-vous que "
 "nous avions fait ceci dans le jeu de devinettes, dans la section [“Arrêter "
-"le programme après avoir gagné”][quitting-after-a-correct-guess]<!-- ignore "
-"--> du chapitre 2 afin de quitter le programme quand l'utilisateur gagne le "
+"le programme après avoir gagné”]"
+"(ch02-00-guessing-game-tutorial.html#quitting-after-a-correct-guess)"
+"<!-- ignore --> "
+"du chapitre 2 afin de quitter le programme quand l'utilisateur gagne le "
 "jeu en devinant le bon nombre."
 
 #: src/ch03-05-control-flow.md:319
@@ -7551,12 +7617,10 @@ msgstr ""
 "itération de la boucle et de passer directement à la prochaine itération."
 
 #: src/ch03-05-control-flow.md:323
-#, fuzzy
 msgid "Returning Values from Loops"
 msgstr "Retourner des valeurs d'une boucle"
 
 #: src/ch03-05-control-flow.md:325
-#, fuzzy
 msgid ""
 "One of the uses of a `loop` is to retry an operation you know might fail, "
 "such as checking whether a thread has completed its job. You might also need "
@@ -7575,11 +7639,40 @@ msgstr ""
 "dessous :"
 
 #: src/ch03-05-control-flow.md:344
-msgid "\"The result is {result}\""
+# msgid "\"The result is {result}\""
+# msgstr ""
+
+msgid ""
+"    let mut counter = 0;"
 msgstr ""
+"    let mut compteur = 0;"
+
+msgid ""
+"    let result = loop {"
+msgstr ""
+"    let resultat = loop {"
+
+msgid ""
+"        counter += 1;"
+msgstr ""
+"        compteur += 1;"
+
+msgid ""
+"        if counter == 10 {"
+msgstr ""
+"        if compteur == 10 {"
+
+msgid ""
+"            break counter * 2;"
+msgstr ""
+"            break compteur * 2;"
+
+msgid ""
+"    println!(\"The result is {result}\");"
+msgstr ""
+"    println!(\"Le résultat est {resultat}\");"
 
 #: src/ch03-05-control-flow.md:348
-#, fuzzy
 msgid ""
 "Before the loop, we declare a variable named `counter` and initialize it to "
 "`0`. Then, we declare a variable named `result` to hold the value returned "
@@ -7604,6 +7697,9 @@ msgid ""
 "You can also `return` from inside a loop. While `break` only exits the "
 "current loop, `return` always exits the current function."
 msgstr ""
+"Vous pouvez également utiliser l'instruction `return` à l'intérieur "
+"d'une boucle. Alors que l'instruction `break` se contente de sortir de la "
+"boucle courante, `return` sort toujours de la fonction en cours."
 
 #: src/ch03-05-control-flow.md:360
 msgid "<a id=\"loop-labels-to-disambiguate-between-multiple-loops\"></a>"
@@ -7611,10 +7707,9 @@ msgstr ""
 
 #: src/ch03-05-control-flow.md:362
 msgid "Disambiguating with Loop Labels"
-msgstr ""
+msgstr "Lever des ambiguïtés à l'aide d'étiquettes de boucles"
 
 #: src/ch03-05-control-flow.md:364
-#, fuzzy
 msgid ""
 "If you have loops within loops, `break` and `continue` apply to the "
 "innermost loop at that point. You can optionally specify a _loop label_ on a "
@@ -7625,23 +7720,78 @@ msgid ""
 msgstr ""
 "Si vous avez des boucles imbriquées dans d'autres boucles, `break` et "
 "`continue` s'appliquent uniquement à la boucle au plus bas niveau. Si vous "
-"en avez besoin, vous pouvez associer une *etiquette de boucle* à une boucle "
+"en avez besoin, vous pouvez associer une _etiquette de boucle_ à une boucle "
 "que nous pouvons ensuite utiliser en association avec `break` ou `continue` "
 "pour préciser que ces mot-clés s'appliquent sur la boucle correspondant à "
 "l'étiquette plutôt qu'à la boucle la plus proche possible. Voici un exemple "
 "avec deux boucles imbriquées :"
 
 #: src/ch03-05-control-flow.md:374
-msgid "\"count = {count}\""
-msgstr ""
-
+# msgid "\"count = {count}\""
+# msgstr ""
+# 
 #: src/ch03-05-control-flow.md:378
-msgid "\"remaining = {remaining}\""
-msgstr ""
-
+# msgid "\"remaining = {remaining}\""
+# msgstr ""
+# 
 #: src/ch03-05-control-flow.md:390
-msgid "\"End count = {count}\""
+# msgid "\"End count = {count}\""
+# msgstr ""
+
+msgid ""
+"    let mut count = 0;"
 msgstr ""
+"    let mut compteur = 0;"
+
+msgid ""
+"    'counting_up: loop {"
+msgstr ""
+"    'increment: loop {"
+
+msgid ""
+"        println!(\"count = {count}\");"
+msgstr ""
+"        println!(\"compteur = {compteur}\");"
+
+msgid ""
+"        let mut remaining = 10;"
+msgstr ""
+"        let mut restant = 10;"
+
+msgid ""
+"            println!(\"remaining = {remaining}\");"
+msgstr ""
+"            println!(\"restant = {restant}\");"
+
+msgid ""
+"            if remaining == 9 {"
+msgstr ""
+"            if restant == 9 {"
+
+msgid ""
+"            if count == 2 {"
+msgstr ""
+"            if compteur == 2 {"
+
+msgid ""
+"                break 'counting_up;"
+msgstr ""
+"                break 'increment;"
+
+msgid ""
+"            remaining -= 1;"
+msgstr ""
+"            restant -= 1;"
+
+msgid ""
+"        count += 1;"
+msgstr ""
+"        compteur += 1;"
+
+msgid ""
+"    println!(\"End count = {count}\");"
+msgstr ""
+"    println!(\"Fin du compteur = {compteur}\");"
 
 #: src/ch03-05-control-flow.md:394
 msgid ""
@@ -7657,36 +7807,62 @@ msgstr ""
 "arrêter la boucle la plus à l'extérieur. Ce code va afficher :"
 
 #: src/ch03-05-control-flow.md:399
+# msgid ""
+# "```console\n"
+# "$ cargo run\n"
+# "   Compiling loops v0.1.0 (file:///projects/loops)\n"
+# "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.58s\n"
+# "     Running `target/debug/loops`\n"
+# "count = 0\n"
+# "remaining = 10\n"
+# "remaining = 9\n"
+# "count = 1\n"
+# "remaining = 10\n"
+# "remaining = 9\n"
+# "count = 2\n"
+# "remaining = 10\n"
+# "End count = 2\n"
+# "```"
+# msgstr ""
+
 msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling loops v0.1.0 (file:///projects/loops)\n"
-"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.58s\n"
-"     Running `target/debug/loops`\n"
-"count = 0\n"
-"remaining = 10\n"
-"remaining = 9\n"
-"count = 1\n"
-"remaining = 10\n"
-"remaining = 9\n"
-"count = 2\n"
-"remaining = 10\n"
-"End count = 2\n"
-"```"
+"count = 0"
 msgstr ""
+"compteur = 0"
+
+msgid ""
+"remaining = 10"
+msgstr ""
+"restant = 10"
+
+msgid ""
+"remaining = 9"
+msgstr ""
+"restant = 9"
+
+msgid ""
+"count = 1"
+msgstr ""
+"compteur = 1"
+
+msgid ""
+"count = 2"
+msgstr ""
+"compteur = 2"
+
+msgid ""
+"End count = 2"
+msgstr ""
+"Fin du compteur = 2"
 
 #: src/ch03-05-control-flow.md:416
-#, fuzzy
-msgid "<a id=\"conditional-loops-with-while\"></a>"
-msgstr "Les boucles conditionnelles avec `while`"
+# msgid "<a id=\"conditional-loops-with-while\"></a>"
 
 #: src/ch03-05-control-flow.md:418
-#, fuzzy
 msgid "Streamlining Conditional Loops with while"
 msgstr "Les boucles conditionnelles avec `while`"
 
 #: src/ch03-05-control-flow.md:420
-#, fuzzy
 msgid ""
 "A program will often need to evaluate a condition within a loop. While the "
 "condition is `true`, the loop runs. When the condition ceases to be `true`, "
@@ -7710,15 +7886,49 @@ msgstr ""
 "message et se fermer."
 
 #: src/ch03-05-control-flow.md:436 src/ch03-05-control-flow.md:546
-msgid "\"{number}!\""
-msgstr ""
-
+# msgid "\"{number}!\""
+# msgstr ""
+# 
 #: src/ch03-05-control-flow.md:441 src/ch03-05-control-flow.md:548
-msgid "\"LIFTOFF!!!\""
+# msgid "\"LIFTOFF!!!\""
+# msgstr ""
+
+msgid ""
+"    let mut number = 3;"
 msgstr ""
+"    let mut nombre = 3;"
+
+msgid ""
+"    while number != 0 {"
+msgstr ""
+"    while nombre != 0 {"
+
+msgid ""
+"        println!(\"{number}!\");"
+msgstr ""
+"        println!(\"{nombre} !\");"
+
+msgid ""
+"        number -= 1;"
+msgstr ""
+"        nombre -= 1;"
+
+msgid ""
+"    println!(\"LIFTOFF!!!\");"
+msgstr ""
+"    println!(\"DÉCOLLAGE !!!\");"
+
+msgid ""
+"Listing 3-3: Using a while loop to run code while a condition evaluates to "
+"true"
+msgstr ""
+"Encart 3-3: Utilisation d'une boucle while pour exécuter du code tant qu'une "
+"condition est vraie"
+
+# FIXME legend above does not translate
+
 
 #: src/ch03-05-control-flow.md:447
-#, fuzzy
 msgid ""
 "This construct eliminates a lot of nesting that would be necessary if you "
 "used `loop`, `if`, `else`, and `break`, and it’s clearer. While a condition "
@@ -7730,7 +7940,6 @@ msgstr ""
 "quitte la boucle."
 
 #: src/ch03-05-control-flow.md:451
-#, fuzzy
 msgid "Looping Through a Collection with `for`"
 msgstr "Boucler dans une collection avec `for`"
 
@@ -7745,11 +7954,52 @@ msgstr ""
 "l'encart 3-4 affiche chaque élément présent dans le tableau `a`."
 
 #: src/ch03-05-control-flow.md:465
-msgid "\"the value is: {}\""
+# msgid "\"the value is: {}\""
+# msgstr ""
+
+msgid ""
+"    let a = [10, 20, 30, 40, 50];"
 msgstr ""
+"    let a = [10, 20, 30, 40, 50];"
+
+msgid ""
+"    let mut index = 0;"
+msgstr ""
+"    let mut indice = 0;"
+
+msgid ""
+"    while index < 5 {"
+msgstr ""
+"    while indice < 5 {"
+
+msgid ""
+"        println!(\"the value is: {}\", a[index]);"
+msgstr ""
+"        println!(\"La valeur est : {}\", a[indice]);"
+
+msgid ""
+"        index += 1;"
+msgstr ""
+"        indice += 1;"
+
+#~ msgid ""
+#~ "<span class=\"caption\">Listing 3-4: Looping through each element of a "
+#~ "collection using a `while` loop</span>"
+#~ msgstr ""
+#~ "<span class=\"caption\">Encart 3-4 : Itération sur les éléments d'une "
+#~ "collection en utilisant une boucle `while`</span>"
+
+msgid ""
+"Listing 3-4: Looping through each element of a "
+"collection using a `while` loop"
+msgstr ""
+"Encart 3-4 : Itération sur les éléments d'une "
+"collection en utilisant une boucle `while`"
+
+# FIXME legend above does not translate
+
 
 #: src/ch03-05-control-flow.md:474
-#, fuzzy
 msgid ""
 "Here, the code counts up through the elements in the array. It starts at "
 "index `0` and then loops until it reaches the final index in the array (that "
@@ -7762,19 +8012,44 @@ msgstr ""
 "Exécuter ce code va afficher chaque élément du tableau :"
 
 #: src/ch03-05-control-flow.md:479
+# msgid ""
+# "```console\n"
+# "$ cargo run\n"
+# "   Compiling loops v0.1.0 (file:///projects/loops)\n"
+# "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.32s\n"
+# "     Running `target/debug/loops`\n"
+# "the value is: 10\n"
+# "the value is: 20\n"
+# "the value is: 30\n"
+# "the value is: 40\n"
+# "the value is: 50\n"
+# "```"
+# msgstr ""
+
 msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling loops v0.1.0 (file:///projects/loops)\n"
-"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.32s\n"
-"     Running `target/debug/loops`\n"
-"the value is: 10\n"
-"the value is: 20\n"
-"the value is: 30\n"
-"the value is: 40\n"
-"the value is: 50\n"
-"```"
+"the value is: 10"
 msgstr ""
+"La valeur est : 10"
+
+msgid ""
+"the value is: 20"
+msgstr ""
+"La valeur est : 20"
+
+msgid ""
+"the value is: 40"
+msgstr ""
+"La valeur est : 40"
+
+msgid ""
+"the value is: 30"
+msgstr ""
+"La valeur est : 30"
+
+msgid ""
+"the value is: 50"
+msgstr ""
+"La valeur est : 50"
 
 #: src/ch03-05-control-flow.md:491
 msgid ""
@@ -7788,7 +8063,6 @@ msgstr ""
 "tableau."
 
 #: src/ch03-05-control-flow.md:495
-#, fuzzy
 msgid ""
 "However, this approach is error-prone; we could cause the program to panic "
 "if the index value or test condition is incorrect. For example, if you "
@@ -7818,11 +8092,32 @@ msgstr ""
 "s'utilise comme dans le code de l'encart 3-5."
 
 #: src/ch03-05-control-flow.md:512
-msgid "\"the value is: {element}\""
+# msgid "\"the value is: {element}\""
+# msgstr ""
+
+msgid ""
+"        println!(\"the value is: {element}\");"
 msgstr ""
+"        println!(\"La valeur est : {element}\");"
+
+#~ msgid ""
+#~ "<span class=\"caption\">Listing 3-5: Looping through each element of a "
+#~ "collection using a `for` loop</span>"
+#~ msgstr ""
+#~ "<span class=\"caption\">Encart 3-5 : Itération sur chaque élément d'une "
+#~ "collection en utilisant une boucle `for`</span>"
+
+msgid ""
+"Listing 3-5: Looping through each element of a "
+"collection using a `for` loop"
+msgstr ""
+"Encart 3-5 : Itération sur chaque élément d'une "
+"collection en utilisant une boucle `for`"
+
+# FIXME legend above does not translate
+
 
 #: src/ch03-05-control-flow.md:519
-#, fuzzy
 msgid ""
 "When we run this code, we’ll see the same output as in Listing 3-4. More "
 "importantly, we’ve now increased the safety of the code and eliminated the "
@@ -7874,12 +8169,21 @@ msgstr ""
 "autre méthode que nous n'avons pas encore vue, `rev`, qui inverse "
 "l'intervalle :"
 
+msgid ""
+"    for number in (1..4).rev() {"
+msgstr ""
+"    for nombre in (1..4).rev() {"
+
+msgid ""
+"    println!(\"DÉCOLLAGE !!!\");"
+msgstr ""
+"    println!(\"DÉCOLLAGE !!!\");"
+
 #: src/ch03-05-control-flow.md:552
 msgid "This code is a bit nicer, isn’t it?"
-msgstr ""
+msgstr "Ce code est un peu plus sympa, non ?"
 
 #: src/ch03-05-control-flow.md:556
-#, fuzzy
 msgid ""
 "You made it! This was a sizable chapter: You learned about variables, scalar "
 "and compound data types, functions, comments, `if` expressions, and loops! "
@@ -7895,24 +8199,23 @@ msgstr ""
 #: src/ch03-05-control-flow.md:561
 msgid "Convert temperatures between Fahrenheit and Celsius."
 msgstr ""
+"Convertir des températures entre les degrés Fahrenheit et Celsius."
 
 #: src/ch03-05-control-flow.md:562
 msgid "Generate the _n_th Fibonacci number."
 msgstr ""
+"Générer le _n_-ième nombre de Fibonacci."
 
 #: src/ch03-05-control-flow.md:563
-#, fuzzy
 msgid ""
 "Print the lyrics to the Christmas carol “The Twelve Days of Christmas,” "
 "taking advantage of the repetition in the song."
 msgstr ""
-"* Convertir des températures entre les degrés Fahrenheit et Celsius. * "
-"Générer le *n*-ième nombre de Fibonacci. * Afficher les paroles de la "
-"chanson de Noël *The Twelve Days of Christmas* en   profitant de l'aspect "
+"Afficher les paroles de la "
+"chanson de Noël “The Twelve Days of Christmas” en profitant de l'aspect "
 "répétitif de la chanson."
 
 #: src/ch03-05-control-flow.md:566
-#, fuzzy
 msgid ""
 "When you’re ready to move on, we’ll talk about a concept in Rust that "
 "_doesn’t_ commonly exist in other programming languages: ownership."
@@ -7923,6 +8226,7 @@ msgstr ""
 
 # }}}
 # }}}
+# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 # Chapitre 4: {{{
 # Comprendre la possession {{{
 
@@ -55123,12 +55427,6 @@ msgstr ""
 #~ "```rust {{#rustdoc_include ../listings/ch03-common-programming-concepts/"
 #~ "listing-03-02/src/main.rs}} ```"
 
-#~ msgid ""
-#~ "<span class=\"caption\">Listing 3-2: Assigning the result of an `if` "
-#~ "expression to a variable</span>"
-#~ msgstr ""
-#~ "<span class=\"caption\">Encart 3-2 : Assignation du résultat d'une "
-#~ "expression `if` à une variable</span>"
 
 #~ msgid ""
 #~ "```console {{#include ../listings-sources/ch03-common-programming-"
