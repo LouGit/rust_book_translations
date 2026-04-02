@@ -6364,8 +6364,21 @@ msgstr ""
 "exemple de définition de fonction :"
 
 #: src/ch03-03-how-functions-work.md:22
-msgid "\"Another function.\""
-msgstr ""
+# msgid "\"Another function.\""
+# msgstr "\"    une_autre_fonction();
+
+msgid "    println!(\"Another function.\");"
+msgstr "    println!(\"Une autre fonction.\");"
+
+msgid "    another_function();"
+msgstr "    une_autre_fonction();"
+
+msgid "fn another_function() {"
+msgstr "fn une_autre_fonction() {"
+
+msgid "Another function."
+msgstr "Une autre fonction."
+
 
 #: src/ch03-03-how-functions-work.md:26
 msgid ""
@@ -6429,7 +6442,6 @@ msgstr ""
 "`une_autre_fonction` est appelée et son message est affiché."
 
 #: src/ch03-03-how-functions-work.md:54
-#, fuzzy
 msgid "Parameters"
 msgstr "Les paramètres"
 
@@ -6454,11 +6466,18 @@ msgstr ""
 
 #: src/ch03-03-how-functions-work.md:64
 msgid "In this version of `another_function` we add a parameter:"
-msgstr ""
+msgstr "Dans cette version de `une_autre_fonction`, nous ajoutons un paramètre :"
+
+msgid "    another_function(5);"
+msgstr "    une_autre_fonction(5);"
+
+msgid "fn another_function(x: i32) {"
+msgstr "fn une_autre_fonction(x: i32) {"
+
 
 #: src/ch03-03-how-functions-work.md:78
 msgid "Try running this program; you should get the following output:"
-msgstr ""
+msgstr "En exécutant ce programme, vous devriez obtenir ceci :"
 
 #: src/ch03-03-how-functions-work.md:80
 msgid ""
@@ -6509,12 +6528,19 @@ msgstr ""
 "des virgules, comme ceci :"
 
 #: src/ch03-03-how-functions-work.md:106
-msgid "'h'"
-msgstr ""
+msgid "    print_labeled_measurement(5, 'h');"
+msgstr "    afficher_mesure_avec_unite(5, 'h');"
+
+msgid "fn print_labeled_measurement(value: i32, unit_label: char) {"
+msgstr "fn afficher_mesure_avec_unite(valeur: i32, unite: char) {"
+
+msgid "    println!(\"The measurement is: {value}{unit_label}\");"
+msgstr "    println!(\"La mesure est : {valeur}{unite}\");"
 
 #: src/ch03-03-how-functions-work.md:110
 msgid "\"The measurement is: {value}{unit_label}\""
-msgstr ""
+msgstr "\"La mesure est : {valeur}{unite}\""
+
 
 #: src/ch03-03-how-functions-work.md:114
 msgid ""
@@ -6539,15 +6565,21 @@ msgstr ""
 "précédent et lancez-le en utilisant `cargo run` :"
 
 #: src/ch03-03-how-functions-work.md:123
+# msgid ""
+# "```console\n"
+# "$ cargo run\n"
+# "   Compiling functions v0.1.0 (file:///projects/functions)\n"
+# "    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
+# "     Running `target/debug/functions`\n"
+# "The measurement is: 5h\n"
+# "```"
+# msgstr ""
+
 msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling functions v0.1.0 (file:///projects/functions)\n"
-"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
-"     Running `target/debug/functions`\n"
-"The measurement is: 5h\n"
-"```"
+"The measurement is: 5h"
 msgstr ""
+"La mesure est : 5h"
+
 
 #: src/ch03-03-how-functions-work.md:131
 msgid ""
@@ -6558,7 +6590,6 @@ msgstr ""
 "`'h'` pour `unite`, la sortie de ce programme contient ces valeurs."
 
 #: src/ch03-03-how-functions-work.md:134
-#, fuzzy
 msgid "Statements and Expressions"
 msgstr "Instructions et expressions"
 
@@ -6574,7 +6605,7 @@ msgid ""
 msgstr ""
 "Les corps de fonctions sont constitués d'une série d'instructions qui se "
 "termine éventuellement par une expression. Jusqu'à présent, les fonctions "
-"que nous avons vu n'avaient pas d'expression à la fin, mais vous avez déjà "
+"que nous avons vues n'avaient pas d'expression à la fin, mais vous avez déjà "
 "vu une expression faire partie d'une instruction. Comme Rust est un langage "
 "basé sur des expressions, il est important de faire la distinction. D'autres "
 "langages ne font pas de telles distinctions, donc penchons-nous sur ce que "
@@ -6582,21 +6613,20 @@ msgstr ""
 "influent sur le corps des fonctions."
 
 #: src/ch03-03-how-functions-work.md:144
-#, fuzzy
 msgid ""
 "_Statements_ are instructions that perform some action and do not return a "
 "value."
 msgstr ""
-"- Les _instructions_ effectuent des actions et ne retournent aucune valeur. "
-"- Les _expressions_ sont évaluées pour retourner une valeur comme résultat."
+"Les _instructions_ effectuent des actions et ne retournent aucune valeur. "
 
 #: src/ch03-03-how-functions-work.md:146
 msgid "_Expressions_ evaluate to a resultant value."
 msgstr ""
+"Les _expressions_ sont évaluées pour retourner une valeur comme résultat."
 
 #: src/ch03-03-how-functions-work.md:148
 msgid "Let’s look at some examples."
-msgstr ""
+msgstr "Voyons quelques exemples."
 
 #: src/ch03-03-how-functions-work.md:150
 msgid ""
@@ -6607,6 +6637,12 @@ msgstr ""
 "Nous avons déjà utilisé des instructions et des expressions. La création "
 "d'une variable en lui assignant une valeur avec le mot-clé `let` est une "
 "instruction. Dans l'encart 3-1, `let y = 6;` est une instruction."
+
+msgid "Listing 3-1: A main function declaration containing one statement"
+msgstr "Encart 3-1 : Une fonction main qui contient une instruction"
+
+# FIXME legend above does not translate
+
 
 #: src/ch03-03-how-functions-work.md:164
 msgid ""
@@ -6632,6 +6668,8 @@ msgstr ""
 #: src/ch03-03-how-functions-work.md:179
 msgid "When you run this program, the error you’ll get looks like this:"
 msgstr ""
+"Quand vous exécutez ce programme, l'erreur que vous obtenez devrait "
+"ressembler à ceci :"
 
 #: src/ch03-03-how-functions-work.md:181
 msgid ""
@@ -6701,7 +6739,7 @@ msgstr ""
 
 #: src/ch03-03-how-functions-work.md:236
 msgid "This expression:"
-msgstr ""
+msgstr "L'expression suivante…"
 
 #: src/ch03-03-how-functions-work.md:245
 msgid ""
@@ -6723,7 +6761,6 @@ msgstr ""
 "retour des fonctions ainsi que les expressions."
 
 #: src/ch03-03-how-functions-work.md:252
-#, fuzzy
 msgid "Functions with Return Values"
 msgstr "Les fonctions qui retournent des valeurs"
 
@@ -6745,6 +6782,12 @@ msgstr ""
 "et en précisant la valeur de retour, mais la plupart des fonctions vont "
 "retourner implicitement la dernière expression. Voici un exemple d'une "
 "fonction qui retourne une valeur :"
+
+msgid "fn five() -> i32 {"
+msgstr "fn cinq() -> i32 {"
+
+msgid "    let x = five();"
+msgstr "    let x = cinq();"
 
 #: src/ch03-03-how-functions-work.md:276
 msgid ""
@@ -6796,7 +6839,14 @@ msgstr ""
 
 #: src/ch03-03-how-functions-work.md:303
 msgid "Let’s look at another example:"
-msgstr ""
+msgstr "Regardons un autre exemple :"
+
+msgid "    let x = plus_one(5);"
+msgstr "    let x = plus_un(5);"
+
+msgid "fn plus_one(x: i32) -> i32 {"
+msgstr "fn plus_un(x: i32) -> i32 {"
+
 
 #: src/ch03-03-how-functions-work.md:319
 msgid ""
@@ -6810,29 +6860,36 @@ msgstr ""
 
 #: src/ch03-03-how-functions-work.md:337
 msgid "Compiling this code will produce an error, as follows:"
-msgstr ""
+msgstr "Compiler ce code va produire une erreur, comme ci-dessous :"
+
+msgid "7 | fn plus_one(x: i32) -> i32 {"
+msgstr "7 | fn plus_un(x: i32) -> i32 {"
+
+msgid "  |    --------            ^^^ expected `i32`, found `()`"
+msgstr "  |    -------            ^^^ expected `i32`, found `()`"
+
 
 #: src/ch03-03-how-functions-work.md:339
-msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling functions v0.1.0 (file:///projects/functions)\n"
-"error[E0308]: mismatched types\n"
-" --> src/main.rs:7:24\n"
-"  |\n"
-"7 | fn plus_one(x: i32) -> i32 {\n"
-"  |    --------            ^^^ expected `i32`, found `()`\n"
-"  |    |\n"
-"  |    implicitly returns `()` as its body has no tail or `return` "
-"expression\n"
-"8 |     x + 1;\n"
-"  |          - help: remove this semicolon to return this value\n"
-"\n"
-"For more information about this error, try `rustc --explain E0308`.\n"
-"error: could not compile `functions` (bin \"functions\") due to 1 previous "
-"error\n"
-"```"
-msgstr ""
+# msgid ""
+# "```console\n"
+# "$ cargo run\n"
+# "   Compiling functions v0.1.0 (file:///projects/functions)\n"
+# "error[E0308]: mismatched types\n"
+# " --> src/main.rs:7:24\n"
+# "  |\n"
+# "7 | fn plus_one(x: i32) -> i32 {\n"
+# "  |    --------            ^^^ expected `i32`, found `()`\n"
+# "  |    |\n"
+# "  |    implicitly returns `()` as its body has no tail or `return` "
+# "expression\n"
+# "8 |     x + 1;\n"
+# "  |          - help: remove this semicolon to return this value\n"
+# "\n"
+# "For more information about this error, try `rustc --explain E0308`.\n"
+# "error: could not compile `functions` (bin \"functions\") due to 1 previous "
+# "error\n"
+# "```"
+# msgstr ""
 
 #: src/ch03-03-how-functions-work.md:356
 msgid ""
