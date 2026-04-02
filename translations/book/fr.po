@@ -4752,7 +4752,6 @@ msgstr ""
 "méthodes, et le chapitre 6 expliquera comment les énumérations fonctionnent."
 
 # }}}
-# _____________JEANSUILÀ_____________________just_a_handy_bookmark__WIP_________
 # Chapitre 3: {{{
 # Les concepts courants de programmation {{{
 
@@ -4804,7 +4803,7 @@ msgstr ""
 "différentes tâches dans vos programmes Rust ; quelques-uns n'ont aucune "
 "fonctionnalité active pour le moment, mais ont été réservés pour être "
 "ajoutés plus tard à Rust. Vous pouvez trouver la liste de ces mots-clés "
-"dans > [l'annexe A](appendix-01-keywords.md)<!-- ignore -->."
+"dans [l'annexe A](appendix-01-keywords.md)<!-- ignore -->."
 
 # }}}
 # Les variables et la mutabilité {{{
@@ -4856,7 +4855,7 @@ msgstr ""
 #: src/ch03-03-how-functions-work.md:74 src/ch03-03-how-functions-work.md:272
 #: src/ch03-03-how-functions-work.md:311 src/ch03-03-how-functions-work.md:329
 msgid "\"The value of x is: {x}\""
-msgstr "\"La valeur de x est : {x}\""
+msgstr "\"La valeur de x est : {x}\""
 
 #: src/ch03-01-variables-and-mutability.md:29
 msgid ""
@@ -4868,50 +4867,51 @@ msgstr ""
 "ci :"
 
 #: src/ch03-01-variables-and-mutability.md:32
-msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling variables v0.1.0 (file:///projects/variables)\n"
-"error[E0384]: cannot assign twice to immutable variable `x`\n"
-" --> src/main.rs:4:5\n"
-"  |\n"
-"2 |     let x = 5;\n"
-"  |         - first assignment to `x`\n"
-"3 |     println!(\"The value of x is: {x}\");\n"
-"4 |     x = 6;\n"
-"  |     ^^^^^ cannot assign twice to immutable variable\n"
-"  |\n"
-"help: consider making this binding mutable\n"
-"  |\n"
-"2 |     let mut x = 5;\n"
-"  |         +++\n"
-"\n"
-"For more information about this error, try `rustc --explain E0384`.\n"
-"error: could not compile `variables` (bin \"variables\") due to 1 previous "
-"error\n"
-"```"
-msgstr ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling variables v0.1.0 (file:///projects/variables)\n"
-"error[E0384]: cannot assign twice to immutable variable `x`\n"
-" --> src/main.rs:4:5\n"
-"  |\n"
-"2 |     let x = 5;\n"
-"  |         - first assignment to `x`\n"
-"3 |     println!(\"La valeur de x est : {x}\");\n"
-"4 |     x = 6;\n"
-"  |     ^^^^^ cannot assign twice to immutable variable\n"
-"  |\n"
-"help: consider making this binding mutable\n"
-"  |\n"
-"2 |     let mut x = 5;\n"
-"  |         +++\n"
-"\n"
-"For more information about this error, try `rustc --explain E0384`.\n"
-"error: could not compile `variables` (bin \"variables\") due to 1 previous "
-"error\n"
-"```"
+# msgid ""
+# "```console\n"
+# "$ cargo run\n"
+# "   Compiling variables v0.1.0 (file:///projects/variables)\n"
+# "error[E0384]: cannot assign twice to immutable variable `x`\n"
+# " --> src/main.rs:4:5\n"
+# "  |\n"
+# "2 |     let x = 5;\n"
+# "  |         - first assignment to `x`\n"
+# "4 |     x = 6;\n"
+# "  |     ^^^^^ cannot assign twice to immutable variable\n"
+# "  |\n"
+# "help: consider making this binding mutable\n"
+# "  |\n"
+# "2 |     let mut x = 5;\n"
+# "  |         +++\n"
+# "\n"
+# "For more information about this error, try `rustc --explain E0384`.\n"
+# "error: could not compile `variables` (bin \"variables\") due to 1 previous "
+# "error\n"
+# "```"
+# msgstr ""
+# "```console\n"
+# "$ cargo run\n"
+# "   Compiling variables v0.1.0 (file:///projects/variables)\n"
+# "error[E0384]: cannot assign twice to immutable variable `x`\n"
+# " --> src/main.rs:4:5\n"
+# "  |\n"
+# "2 |     let x = 5;\n"
+# "  |         - first assignment to `x`\n"
+# "4 |     x = 6;\n"
+# "  |     ^^^^^ cannot assign twice to immutable variable\n"
+# "  |\n"
+# "help: consider making this binding mutable\n"
+# "  |\n"
+# "2 |     let mut x = 5;\n"
+# "  |         +++\n"
+# "\n"
+# "For more information about this error, try `rustc --explain E0384`.\n"
+# "error: could not compile `variables` (bin \"variables\") due to 1 previous "
+# "error\n"
+# "```"
+
+msgid "3 |     println!(\"The value of x is: {x}\");"
+msgstr "3 |     println!(\"La valeur de x est : {x}\");"
 
 #: src/ch03-01-variables-and-mutability.md:53
 msgid ""
@@ -4992,16 +4992,12 @@ msgid "When we run the program now, we get this:"
 msgstr "Lorsque nous exécutons le programme, nous obtenons :"
 
 #: src/ch03-01-variables-and-mutability.md:93
-msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling variables v0.1.0 (file:///projects/variables)\n"
-"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.30s\n"
-"     Running `target/debug/variables`\n"
-"The value of x is: 5\n"
-"The value of x is: 6\n"
-"```"
-msgstr ""
+
+msgid "The value of x is: 5"
+msgstr "La valeur de x est : 5"
+
+msgid "The value of x is: 6"
+msgstr "La valeur de x est : 6"
 
 #: src/ch03-01-variables-and-mutability.md:102
 msgid ""
@@ -5015,8 +5011,8 @@ msgstr ""
 "clair dans chaque situation particulière."
 
 #: src/ch03-01-variables-and-mutability.md:107
-msgid "<a id=\"constants\"></a>"
-msgstr ""
+# msgid "<a id=\"constants\"></a>"
+# msgstr ""
 
 #: src/ch03-01-variables-and-mutability.md:109
 # #~ msgid "<a id=\"constants\"></a>   <!-- ### Declaring Constants"
@@ -5073,7 +5069,10 @@ msgstr ""
 
 #: src/ch03-01-variables-and-mutability.md:128
 msgid "Here’s an example of a constant declaration:"
-msgstr ""
+msgstr "Voici un exemple d'une déclaration de constante :"
+
+msgid "const THREE_HOURS_IN_SECONDS: u32 = 60 * 60 * 3;"
+msgstr "const TROIS_HEURES_EN_SECONDES: u32 = 60 * 60 * 3;"
 
 #: src/ch03-01-variables-and-mutability.md:134
 msgid ""
@@ -5088,9 +5087,7 @@ msgid ""
 "on constant evaluation](../reference/const_eval.html) for more information "
 "on what operations can be used when declaring constants."
 msgstr ""
-"Le nom de la constante est `"
-"THREE_HOURS_IN_SECONDS"
-"` et sa valeur est "
+"Le nom de la constante est `TROIS_HEURES_EN_SECONDES` et sa valeur est "
 "définie comme étant le résultat de la multiplication de 60 (le nombre de "
 "secondes dans une minute) par 60 (le nombre de minutes dans une heure) par 3 "
 "(le nombre d'heures que nous voulons calculer dans ce programme). En Rust, "
@@ -5105,11 +5102,6 @@ msgstr ""
 "constantes."
 
 # @# FIXME: URL above (../reference/const_eval.htm) points to a 404 page
-
-
-# "TROIS_HEURES_EN_SECONDES"
-# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
-
 
 #: src/ch03-01-variables-and-mutability.md:145
 msgid ""
@@ -5167,9 +5159,12 @@ msgstr ""
 "même nom de variable et en réutilisant le mot-clé `let` comme ci-dessous :"
 
 #: src/ch03-01-variables-and-mutability.md:178
+# msgid "        println!(\"The value of x in the inner scope is: {x}\");"
+# msgstr "        println!(\"La valeur de x dans la portée interne est : {x}\");"
+
 msgid "\"The value of x in the inner scope is: {x}\""
 msgstr ""
-"\"La valeur de x dans la portée interne est : {x}\""
+"\"La valeur de x dans la portée interne est : {x}\""
 
 #: src/ch03-01-variables-and-mutability.md:185
 msgid ""
@@ -5192,24 +5187,9 @@ msgstr ""
 "programme, nous obtenons ceci :"
 
 #: src/ch03-01-variables-and-mutability.md:193
-msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling variables v0.1.0 (file:///projects/variables)\n"
-"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
-"     Running `target/debug/variables`\n"
-"The value of x in the inner scope is: 12\n"
-"The value of x is: 6\n"
-"```"
-msgstr ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling variables v0.1.0 (file:///projects/variables)\n"
-"    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.31s\n"
-"     Running `target/debug/variables`\n"
-"La valeur de x dans la portée interne est : 12\n"
-"La valeur de x est : 6\n"
-"```"
+msgid "The value of x in the inner scope is: 12"
+msgstr "La valeur de x dans la portée interne est : 12"
+
 
 #: src/ch03-01-variables-and-mutability.md:202
 msgid ""
@@ -5245,8 +5225,11 @@ msgstr ""
 
 #: src/ch03-01-variables-and-mutability.md:216
 #: src/ch03-01-variables-and-mutability.md:229
-msgid "\"   \""
-msgstr ""
+msgid "    let spaces = "   ";"
+msgstr "    let espaces = "   ";"
+
+msgid "    let spaces = spaces.len();"
+msgstr "    let espaces = espaces.len();"
 
 #: src/ch03-01-variables-and-mutability.md:221
 msgid ""
@@ -5256,28 +5239,18 @@ msgid ""
 "reuse the simpler `spaces` name. However, if we try to use `mut` for this, "
 "as shown here, we’ll get a compile-time error:"
 msgstr ""
-"La première variable `"
-"spaces"
-"` est du type chaîne de caractères _(string)_ "
-"et la seconde variable `"
-"spaces"
-"` est du type nombre. L'utilisation du "
-"masquage nous évite ainsi d'avoir à trouver des noms différents, comme `"
-"spaces_str"
-"` et `"
-"spaces_num"
-"` ; nous pouvons plutôt simplement réutiliser le nom `"
-"spaces"
-"`. Cependant, si nous essayons d'utiliser `mut` pour faire "
+"La première variable `espaces` est du type chaîne de caractères _(string)_ "
+"et la seconde variable `espaces` est du type nombre. L'utilisation du "
+"masquage nous évite ainsi d'avoir à trouver des noms différents, comme "
+"`espaces_str` et `espaces_num` ; nous pouvons plutôt simplement réutiliser "
+"le nom `espaces`. Cependant, si nous essayons d'utiliser `mut` pour faire "
 "ceci, comme ci-dessous, nous avons une erreur de compilation :"
 
-# "espaces"
-# "espaces"
-# "espaces_str"
-# "espaces_num"
-# "espaces"
-# TODO revert to original French translation, when issue https://github.com/rust-lang-translations/translations/issues/32 is solved => un-untranslate msgstr above by uncommenting it and moving it up
+msgid "    let mut spaces = "   ";"
+msgstr "    let mut espaces = "   ";"
 
+msgid "    spaces = spaces.len();"
+msgstr "    espaces = espaces.len();"
 
 #: src/ch03-01-variables-and-mutability.md:234
 msgid "The error says we’re not allowed to mutate a variable’s type:"
@@ -5285,23 +5258,17 @@ msgstr ""
 "L'erreur indique que nous ne pouvons pas muter le type d'une variable :"
 
 #: src/ch03-01-variables-and-mutability.md:236
-msgid ""
-"```console\n"
-"$ cargo run\n"
-"   Compiling variables v0.1.0 (file:///projects/variables)\n"
-"error[E0308]: mismatched types\n"
-" --> src/main.rs:3:14\n"
-"  |\n"
-"2 |     let mut spaces = \"   \";\n"
-"  |                      ----- expected due to this value\n"
-"3 |     spaces = spaces.len();\n"
-"  |              ^^^^^^^^^^^^ expected `&str`, found `usize`\n"
-"\n"
-"For more information about this error, try `rustc --explain E0308`.\n"
-"error: could not compile `variables` (bin \"variables\") due to 1 previous "
-"error\n"
-"```"
-msgstr ""
+msgid "2 |     let mut spaces = \"   \";"
+msgstr "2 |     let mut espaces = \"   \";"
+
+msgid "  |                      ----- expected due to this value"
+msgstr "  |                       ----- expected due to this value"
+
+msgid "3 |     spaces = spaces.len();"
+msgstr "3 |     espaces = espaces.len();"
+
+msgid "  |              ^^^^^^^^^^^^ expected `&str`, found `usize`"
+msgstr "  |               ^^^^^^^^^^^^^ expected `&str`, found `usize`"
 
 #: src/ch03-01-variables-and-mutability.md:251
 msgid ""
@@ -54279,12 +54246,6 @@ msgstr ""
 #~ "Compiling guessing_game v0.1.0 (file:///projects/guessing_game)   "
 #~ "Finished `dev` profile [unoptimized + debuginfo] target(s) in 2.48s ```"
 
-#~ msgid ""
-#~ "<span class=\"caption\">Listing 2-2: The output from running `cargo "
-#~ "build` after adding the rand crate as a dependency</span>"
-#~ msgstr ""
-#~ "<span class=\"caption\">Encart 2-2 : Résultat du lancement de `cargo "
-#~ "build` après avoir ajouté la _crate_ `rand` comme dépendance</span>"
 
 #~ msgid ""
 #~ "<!-- manual-regeneration cd listings/ch02-guessing-game-tutorial/"
