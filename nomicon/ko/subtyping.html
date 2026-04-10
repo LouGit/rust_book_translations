@@ -1,0 +1,547 @@
+<!DOCTYPE HTML>
+<html lang="ko" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>서브타이핑과 공변성 - The Rustonomicon</title>
+
+
+        <!-- Custom HTML head -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L455DH98TK"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-L455DH98TK');
+        </script>
+        
+        
+        <script>
+            (function () {
+                // See these pages for details:
+                // https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+                // https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
+        
+                function gen_canonical_href(lang) {
+        
+                    let base = "https://rust-lang-translations.org/nomicon";
+        
+                    let canonical_href;
+                    if (lang == "en") {
+                        canonical_href = `${base}/subtyping.md`;
+                    } else {
+                        canonical_href = `${base}/${lang}/subtyping.md`;
+                    }
+                    canonical_href = canonical_href.slice(0, -"md".length) + "html";
+                    if (canonical_href.endsWith("/index.html")) {
+                        canonical_href = canonical_href.slice(0, -"index.html".length);
+                    }
+                    return canonical_href;
+                }
+        
+                const canonical_href = gen_canonical_href("ko");
+
+                let link = document.createElement("link");
+                link.rel = "canonical";
+                link.href = canonical_href;
+                document.head.appendChild(link);
+        
+        
+                const langs = ["en"  , "ko" ];
+        
+                for (const lang of langs) {
+                    const canonical_href = gen_canonical_href(lang);
+        
+                    let link = document.createElement("link");
+                    link.rel = "alternate";
+                    link.hreflang = lang;
+                    link.href = canonical_href;
+                    document.head.appendChild(link);
+                }
+            })()
+        </script>
+        
+
+        <meta name="description" content="The Dark Arts of Advanced and Unsafe Rust Programming">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="theme/nomicon-77782d80.css">
+        <link rel="stylesheet" href="theme/language-picker-00e4db94.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-cb6ead0a.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-1af1b443.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rustonomicon</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang-translations/project" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="서브타이핑과-공변성"><a class="header" href="#서브타이핑과-공변성">서브타이핑과 공변성</a></h1>
+<p>러스트는 대여와 소유권 간의 관계를 추적하기 위해 수명을 사용합니다. 하지만 수명을 단순히 구현하면 너무 제한적이거나 정의되지 않은 동작을 허용하게 될 수 있습니다.</p>
+<p>수명의 유연한 사용을 허용하면서도 오용을 방지하기 위해, 러스트는 <strong>서브타이핑(subtyping)</strong> 과 <strong>공변성(variance)</strong> 을 사용합니다.</p>
+<p>예제를 통해 시작해 보겠습니다.</p>
+<pre class="playground"><code class="language-rust edition2024">// 참고: debug는 *동일한* 수명을 가진 두 개의 매개변수를 기대합니다
+fn debug&lt;'a&gt;(a: &amp;'a str, b: &amp;'a str) {
+    println!("a = {a:?} b = {b:?}");
+}
+
+fn main() {
+    let hello: &amp;'static str = "hello";
+    {
+        let world = String::from("world");
+        let world = &amp;world; // 'world는 'static보다 수명이 짧습니다
+        debug(hello, world);
+    }
+}</code></pre>
+<p>보수적인 수명 구현에서는 <code>hello</code> 와 <code>world</code> 가 서로 다른 수명을 가지므로 다음과 같은 에러를 보게 될 것입니다.</p>
+<pre><code class="language-text">error[E0308]: mismatched types
+ --&gt; src/main.rs:10:16
+   |
+10 |         debug(hello, world);
+   |                      ^
+   |                      |
+   |                      expected `&amp;'static str`, found struct `&amp;'world str`
+</code></pre>
+<p>이것은 꽤 안타까운 일입니다. 이 경우 우리가 원하는 것은 <em>적어도</em> <code>'world</code> 만큼 오래 사는 모든 타입을 수용하는 것입니다. 수명에 서브타이핑을 적용해 봅시다.</p>
+<h2 id="서브타이핑subtyping"><a class="header" href="#서브타이핑subtyping">서브타이핑(Subtyping)</a></h2>
+<p>서브타이핑은 하나의 타입을 다른 타입 대신 사용할 수 있다는 개념입니다.</p>
+<p><code>Sub</code> 가 <code>Super</code> 의 서브타입이라고 정의합시다(이 장 전체에서 <code>Sub &lt;: Super</code> 라는 표기법을 사용할 것입니다).</p>
+<p>이것이 우리에게 시사하는 바는 <code>Super</code> 가 정의하는 <em>요구 사항</em> 의 집합을 <code>Sub</code> 가 완전히 만족시킨다는 것입니다. <code>Sub</code> 는 그보다 더 많은 요구 사항을 가질 수도 있습니다.</p>
+<p>이제 수명과 함께 서브타이핑을 사용하기 위해, 수명의 요구 사항을 정의해야 합니다.</p>
+<blockquote>
+<p><code>'a</code> 는 코드의 영역을 정의합니다.</p>
+</blockquote>
+<p>이제 수명에 대한 요구 사항 집합이 정의되었으므로, 이들이 서로 어떻게 관련되는지 정의할 수 있습니다.</p>
+<blockquote>
+<p><code>'long</code> 이 <code>'short</code> 를 <strong>완전히 포함하는</strong> 코드 영역을 정의할 때만 <code>'long &lt;: 'short</code> 가 성립합니다.</p>
+</blockquote>
+<p><code>'long</code> 은 <code>'short</code> 보다 더 큰 영역을 정의할 수 있지만, 이는 여전히 우리의 정의에 부합합니다.</p>
+<blockquote>
+<p>이 장의 나머지 부분에서 보게 되겠지만, 서브타이핑은 이보다 훨씬 복잡하고 미묘합니다. 하지만 이 간단한 규칙은 99%의 경우에 매우 좋은 직관을 제공합니다. 그리고 안전하지 않은 코드를 작성하지 않는 한, 컴파일러가 여러분을 위해 모든 코너 케이스를 자동으로 처리해 줄 것입니다.</p>
+</blockquote>
+<blockquote>
+<p>하지만 여기는 러스트노미콘입니다. 우리는 안전하지 않은 코드를 작성하고 있으므로, 이 모든 것이 실제로 어떻게 작동하는지, 그리고 우리가 어떻게 망칠 수 있는지 이해해야 합니다.</p>
+</blockquote>
+<p>위의 예제로 돌아가서, 우리는 <code>'static &lt;: 'world</code> 라고 말할 수 있습니다. 지금은 수명의 서브타입이 참조를 통해 전달될 수 있다는 개념도 받아들입시다(<a href="#variance">공변성</a> 에서 자세히 다룰 예정입니다). 즉, <code>&amp;'static str</code> 은 <code>&amp;'world str</code> 의 서브타입이므로, <code>&amp;'static str</code> 을 <code>&amp;'world str</code> 로 “다운그레이드“할 수 있습니다. 그러면 위의 예제는 컴파일될 것입니다.</p>
+<pre class="playground"><code class="language-rust edition2024">fn debug&lt;'a&gt;(a: &amp;'a str, b: &amp;'a str) {
+    println!("a = {a:?} b = {b:?}");
+}
+
+fn main() {
+    let hello: &amp;'static str = "hello";
+    {
+        let world = String::from("world");
+        let world = &amp;world; // 'world는 'static보다 수명이 짧습니다
+        debug(hello, world); // hello는 조용히 `&amp;'static str` 에서 `&amp;'world str` 로 다운그레이드됩니다
+    }
+}</code></pre>
+<h2 id="공변성variance"><a class="header" href="#공변성variance">공변성(Variance)</a></h2>
+<p>위에서 우리는 <code>'static &lt;: 'b</code> 가 <code>&amp;'static T &lt;: &amp;'b T</code> 를 의미한다는 사실을 대충 넘어갔습니다. 이는 <em>공변성(variance)</em> 이라고 알려진 속성을 사용합니다. 하지만 항상 이 예제처럼 간단한 것은 아닙니다. 이를 이해하기 위해 예제를 조금 확장해 보겠습니다.</p>
+<pre class="playground"><code class="language-rust compile_fail E0597 edition2024">fn assign&lt;T&gt;(input: &amp;mut T, val: T) {
+    *input = val;
+}
+
+fn main() {
+    let mut hello: &amp;'static str = "hello";
+    {
+        let world = String::from("world");
+        assign(&amp;mut hello, &amp;world);
+    }
+    println!("{hello}"); // 해제 후 사용(use after free) 😿
+}</code></pre>
+<p><code>assign</code> 에서 우리는 <code>hello</code> 참조가 <code>world</code> 를 가리키도록 설정하고 있습니다. 하지만 그 후 <code>world</code> 가 스코프를 벗어나고, 나중에 <code>println!</code> 에서 <code>hello</code> 가 사용됩니다!</p>
+<p>이것은 전형적인 해제 후 사용 버그입니다!</p>
+<p>우리의 첫 번째 본능은 <code>assign</code> 구현을 탓하는 것이겠지만, 여기에는 잘못된 것이 전혀 없습니다. <code>T</code> 를 <code>T</code> 에 할당하고 싶어 하는 것은 놀라운 일이 아닙니다.</p>
+<p>The problem is that we cannot assume <code>&amp;'static str</code> can still be downgraded into <code>&amp;'world str</code> to satisfy <code>T</code>, once it’s behind a <code>&amp;mut</code> reference. This means that <code>&amp;mut &amp;'static str</code> <strong>cannot</strong> be a <em>subtype</em> of <code>&amp;mut &amp;'world str</code>, even if <code>'static</code> is a subtype of <code>'world</code>.</p>
+<p>공변성은 러스트가 제네릭 매개변수를 통해 서브타입 관계를 정의하기 위해 차용한 개념입니다.</p>
+<blockquote>
+<p>참고: 편의를 위해 <code>T</code> 에 대해 쉽게 이야기할 수 있도록 제네릭 타입 <code>F&lt;T&gt;</code> 를 정의하겠습니다. 문맥상 명확하기를 바랍니다.</p>
+</blockquote>
+<p>타입 <code>F</code> 의 <em>공변성</em> 은 입력의 서브타이핑이 출력의 서브타이핑에 어떤 영향을 미치는지에 대한 것입니다. 러스트에는 세 가지 종류의 공변성이 있습니다. <code>Sub</code> 가 <code>Super</code> 의 서브타입인 두 타입 <code>Sub</code> 와 <code>Super</code> 가 주어졌을 때:</p>
+<ul>
+<li><code>F&lt;Sub&gt;</code> 가 <code>F&lt;Super&gt;</code> 의 서브타입이면 <code>F</code> 는 <strong>공변적(covariant)</strong> 입니다 (서브타입 속성이 전달됨)</li>
+<li><code>F&lt;Super&gt;</code> 가 <code>F&lt;Sub&gt;</code> 의 서브타입이면 <code>F</code> 는 <strong>반공변적(contravariant)</strong> 입니다 (서브타입 속성이 “뒤집힘”)</li>
+<li>그렇지 않으면 <code>F</code> 는 <strong>불변적(invariant)</strong> 입니다 (서브타이핑 관계가 존재하지 않음)</li>
+</ul>
+<p>위의 예제를 기억한다면, <code>'a &lt;: 'b</code> 일 때 <code>&amp;'a T</code> 를 <code>&amp;'b T</code> 의 서브타입으로 취급하는 것이 괜찮았습니다. 따라서 우리는 <code>&amp;'a T</code> 가 <code>'a</code> 에 대해 <em>공변적</em> 이라고 말할 수 있습니다.</p>
+<p>Also, we saw that it was not ok for us to treat <code>&amp;mut &amp;'a T</code> as a subtype of <code>&amp;mut &amp;'b T</code>, therefore we can say that <code>&amp;mut T</code> is <em>invariant</em> over <code>T</code></p>
+<p>다음은 몇 가지 다른 제네릭 타입과 그 공변성에 대한 표입니다:</p>
+<div class="table-wrapper">
+<table>
+<thead>
+<tr><th></th><th style="text-align: center">’a</th><th style="text-align: center">T</th><th style="text-align: center">U</th></tr>
+</thead>
+<tbody>
+<tr><td><code>&amp;'a T </code></td><td style="text-align: center">공변(covariant)</td><td style="text-align: center">공변(covariant)</td><td style="text-align: center"></td></tr>
+<tr><td><code>&amp;'a mut T</code></td><td style="text-align: center">공변(covariant)</td><td style="text-align: center">불변(invariant)</td><td style="text-align: center"></td></tr>
+<tr><td><code>Box&lt;T&gt;</code></td><td style="text-align: center"></td><td style="text-align: center">공변(covariant)</td><td style="text-align: center"></td></tr>
+<tr><td><code>Vec&lt;T&gt;</code></td><td style="text-align: center"></td><td style="text-align: center">공변(covariant)</td><td style="text-align: center"></td></tr>
+<tr><td><code>UnsafeCell&lt;T&gt;</code></td><td style="text-align: center"></td><td style="text-align: center">불변(invariant)</td><td style="text-align: center"></td></tr>
+<tr><td><code>Cell&lt;T&gt;</code></td><td style="text-align: center"></td><td style="text-align: center">불변(invariant)</td><td style="text-align: center"></td></tr>
+<tr><td><code>fn(T) -&gt; U</code></td><td style="text-align: center"></td><td style="text-align: center"><strong>반공변(contravariant)</strong></td><td style="text-align: center">공변(covariant)</td></tr>
+<tr><td><code>*const T</code></td><td style="text-align: center"></td><td style="text-align: center">공변(covariant)</td><td style="text-align: center"></td></tr>
+<tr><td><code>*mut T</code></td><td style="text-align: center"></td><td style="text-align: center">불변(invariant)</td><td style="text-align: center"></td></tr>
+</tbody>
+</table>
+</div>
+<p>이들 중 일부는 다른 것들과의 관계를 통해 간단히 설명될 수 있습니다.</p>
+<ul>
+<li><code>Vec&lt;T&gt;</code> 와 다른 모든 소유 포인터 및 컬렉션은 <code>Box&lt;T&gt;</code> 와 동일한 논리를 따릅니다</li>
+<li><code>Cell&lt;T&gt;</code> 와 다른 모든 내부 가변성 타입은 <code>UnsafeCell&lt;T&gt;</code> 와 동일한 논리를 따릅니다</li>
+<li><code>UnsafeCell&lt;T&gt;</code> 는 내부 가변성을 가지므로 <code>&amp;mut T</code> 와 동일한 공변성 속성을 가집니다</li>
+<li><code>*const T</code> 는 <code>&amp;T</code> 의 논리를 따릅니다</li>
+<li><code>*mut T</code> 는 <code>&amp;mut T</code>(또는 <code>UnsafeCell&lt;T&gt;</code>)의 논리를 따릅니다</li>
+</ul>
+<p>더 많은 타입에 대해서는 참조서의 <a href="../reference/subtyping.html#variance">“공변성” 섹션</a> 을 확인하세요.</p>
+<blockquote>
+<p>참고: 언어에서 반공변성의 <em>유일한</em> 원천은 함수의 인자입니다. 이것이 실제로 실전에서 반공변성이 많이 등장하지 않는 이유입니다. 반공변성을 호출하려면 특정 수명을 가진 참조를 받는 함수 포인터를 사용하는 고차 프로그래밍이 필요합니다(일반적인 “아무 수명이나” 받는 것과는 대조적인데, 후자는 서브타이핑과 독립적으로 작동하는 고차 수명으로 들어갑니다).</p>
+</blockquote>
+<p>이제 공변성에 대해 좀 더 형식적으로 이해했으니, 몇 가지 예제를 더 자세히 살펴보겠습니다.</p>
+<pre class="playground"><code class="language-rust compile_fail E0597 edition2024">fn assign&lt;T&gt;(input: &amp;mut T, val: T) {
+    *input = val;
+}
+
+fn main() {
+    let mut hello: &amp;'static str = "hello";
+    {
+        let world = String::from("world");
+        assign(&amp;mut hello, &amp;world);
+    }
+    println!("{hello}");
+}</code></pre>
+<p>그리고 이것을 실행하면 무엇을 얻게 될까요?</p>
+<pre><code class="language-text">error[E0597]: `world` 가 충분히 오래 살지 않습니다
+  --&gt; src/main.rs:9:28
+   |
+6  |     let mut hello: &amp;'static str = "hello";
+   |                    ------------ 타입 주석은 `world` 가 `'static` 동안 대여될 것을 요구합니다
+...
+9  |         assign(&amp;mut hello, &amp;world);
+   |                            ^^^^^^ 대여된 값이 충분히 오래 살지 않습니다
+10 |     }
+   |     - `world` 가 여기서 드롭되지만 여전히 대여 중입니다
+</code></pre>
+<p>좋습니다. 컴파일되지 않는군요! 여기서 무슨 일이 일어나고 있는지 자세히 분석해 봅시다.</p>
+<p>먼저 <code>assign</code> 함수를 살펴봅시다.</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn assign&lt;T&gt;(input: &amp;mut T, val: T) {
+    *input = val;
+}
+<span class="boring">}</span></code></pre>
+<p>이 함수가 하는 일은 가변 참조와 값을 받아서 지칭 대상을 덮어쓰는 것뿐입니다. 이 함수에서 중요한 점은 타입 동일성 제약을 생성한다는 것입니다. 시그니처에서 지칭 대상과 값이 <em>정확히 같은</em> 타입이어야 한다고 명확하게 명시하고 있습니다.</p>
+<p>한편, 호출자에서는 <code>&amp;mut &amp;'static str</code> 과 <code>&amp;'world str</code> 을 전달합니다.</p>
+<p><code>&amp;mut T</code> 는 <code>T</code> 에 대해 불변적이므로, 컴파일러는 첫 번째 인자에 어떤 서브타이핑도 적용할 수 없다고 결론 내립니다. 따라서 <code>T</code> 는 정확히 <code>&amp;'static str</code> 이어야 합니다.</p>
+<p>이는 <code>&amp;T</code> 의 경우와는 반대됩니다.</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>fn debug&lt;T: std::fmt::Debug&gt;(a: T, b: T) {
+    println!("a = {a:?} b = {b:?}");
+}
+<span class="boring">}</span></code></pre>
+<p>여기서도 마찬가지로 <code>a</code> 와 <code>b</code> 는 같은 타입 <code>T</code> 를 가져야 합니다. 하지만 <code>&amp;'a T</code> 는 <code>'a</code> 에 대해 <em>공변적</em> 이므로 서브타이핑을 수행할 수 있습니다. 따라서 컴파일러는 <code>&amp;'static str</code> 이 <code>&amp;'b str</code> 의 서브타입인 경우에만 <code>&amp;'b str</code> 이 될 수 있다고 결정합니다. 이는 <code>'static &lt;: 'b</code> 일 때 성립합니다. 이것은 참이므로 컴파일러는 기꺼이 이 코드를 계속 컴파일합니다.</p>
+<p>알고 보니, Box(그리고 Vec, HashMap 등)가 공변적이어도 괜찮은 이유는 수명이 공변적이어도 괜찮은 이유와 꽤 비슷합니다. 가변 참조와 같은 것에 넣으려고 하는 순간 불변성을 상속받게 되어 나쁜 짓을 하는 것이 방지됩니다.</p>
+<p>하지만 Box는 우리가 부분적으로 대충 넘어갔던 참조의 값에 의한(by-value) 측면에 집중하기 쉽게 해줍니다.</p>
+<p>값이 항상 자유롭게 별칭되는 것을 허용하는 많은 언어들과 달리, 러스트는 매우 엄격한 규칙을 가지고 있습니다. 값을 변경하거나 이동할 수 있다면, 당신만이 그 값에 접근할 수 있는 유일한 존재임이 보장됩니다.</p>
+<p>다음 코드를 고려해 보세요:</p>
+<pre><code class="language-rust ignore">let hello: Box&lt;&amp;'static str&gt; = Box::new("hello");
+
+let mut world: Box&lt;&amp;'b str&gt;;
+world = hello;</code></pre>
+<p><code>hello</code> 가 <code>'static</code> 동안 살아있었다는 사실을 잊어버린 것은 전혀 문제가 되지 않습니다. <code>hello</code> 를 <code>'b</code> 동안만 살아있다고 아는 변수로 이동시키는 순간, <strong>우리는 그것이 더 오래 산다는 것을 기억하는 우주의 유일한 존재를 파괴했기 때문입니다</strong>!</p>
+<p>설명할 것이 하나 남았습니다: 함수 포인터.</p>
+<p><code>fn(T) -&gt; U</code> 가 <code>U</code> 에 대해 공변적이어야 하는 이유를 알아보기 위해 다음 시그니처를 고려해 보세요:</p>
+<!-- ignore: simplified code -->
+<pre><code class="language-rust ignore">fn get_str() -&gt; &amp;'a str;</code></pre>
+<p>이 함수는 어떤 수명 <code>'a</code> 에 의해 제한된 <code>str</code> 을 생성한다고 주장합니다. 따라서 대신 다음 시그니처를 가진 함수를 제공하는 것은 완전히 유효합니다.</p>
+<!-- ignore: simplified code -->
+<pre><code class="language-rust ignore">fn get_static() -&gt; &amp;'static str;</code></pre>
+<p>So when the function is called, all its caller is expecting is a <code>&amp;str</code> which lives at least the lifetime of <code>'a</code>, it doesn’t matter if the value actually lives longer.</p>
+<p>하지만 동일한 논리가 <em>인자</em> 에는 적용되지 않습니다. 다음을 만족시키려 한다고 가정해 보세요:</p>
+<!-- ignore: simplified code -->
+<pre><code class="language-rust ignore">fn store_ref(&amp;'a str);</code></pre>
+<p>다음을 사용해서:</p>
+<!-- ignore: simplified code -->
+<pre><code class="language-rust ignore">fn store_static(&amp;'static str);</code></pre>
+<p>첫 번째 함수는 적어도 <code>'a</code> 만큼 사는 한 어떤 문자열 참조든 받을 수 있지만, 두 번째 함수는 <code>'static</code> 보다 짧게 사는 문자열 참조를 받을 수 없으므로 충돌이 발생합니다. 여기서는 공변성이 작동하지 않습니다. 하지만 뒤집어 보면 실제로 <em>작동합니다</em>! <code>&amp;'static str</code> 을 처리할 수 있는 함수가 필요하다면, <em>어떤</em> 참조 수명이라도 처리할 수 있는 함수는 확실히 잘 작동할 것입니다.</p>
+<p>실제로 확인해 봅시다</p>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">use std::cell::RefCell;
+</span>thread_local! {
+    pub static StaticVecs: RefCell&lt;Vec&lt;&amp;'static str&gt;&gt; = RefCell::new(Vec::new());
+}
+
+/// 주어진 입력을 스레드 로컬 `Vec&lt;&amp;'static str&gt;` 에 저장합니다
+fn store(input: &amp;'static str) {
+    StaticVecs.with_borrow_mut(|v| v.push(input));
+}
+
+/// 입력을 가지고 함수를 호출합니다 (반드시 같은 수명이어야 합니다!)
+fn demo&lt;'a&gt;(input: &amp;'a str, f: fn(&amp;'a str)) {
+    f(input);
+}
+
+fn main() {
+    demo("hello", store); // "hello"는 'static입니다. `store` 를 문제없이 호출할 수 있습니다
+
+    {
+        let smuggle = String::from("smuggle");
+
+        // `&amp;smuggle` 은 static이 아닙니다. 만약 `store` 를 `&amp;smuggle` 로 호출한다면,
+        // 유효하지 않은 수명을 `StaticVecs` 에 넣게 됩니다.
+        // 따라서 `fn(&amp;'static str)` 은 `fn(&amp;'a str)` 의 서브타입이 될 수 없습니다
+        demo(&amp;smuggle, store);
+    }
+
+    // 해제 후 사용(use after free) 😿
+    StaticVecs.with_borrow(|v| println!("{v:?}"));
+}</code></pre>
+<p>이것이 바로 함수 타입이 언어의 다른 것들과 달리 그 인자에 대해 <strong>반공변성(contravariant)</strong> 을 갖는 이유입니다.</p>
+<p>표준 라이브러리가 제공하는 타입들의 경우는 이 정도로 충분하지만, 여러분이 직접 정의하는 타입의 공변성은 어떻게 결정될까요? 비공식적으로 말하자면, 구조체는 필드의 공변성을 상속합니다. 만약 구조체 <code>MyType</code> 이 필드 <code>a</code> 에서 사용되는 제네릭 인자 <code>A</code> 를 가지고 있다면, <code>MyType</code> 의 <code>A</code> 에 대한 공변성은 정확히 <code>a</code> 의 <code>A</code> 에 대한 공변성과 같습니다.</p>
+<p>하지만 <code>A</code> 가 여러 필드에서 사용된다면 다음과 같습니다.</p>
+<ul>
+<li><code>A</code> 를 사용하는 모든 곳이 공변적이라면, <code>MyType</code> 은 <code>A</code> 에 대해 공변합니다.</li>
+<li><code>A</code> 를 사용하는 모든 곳이 반공변적이라면, <code>MyType</code> 은 <code>A</code> 에 대해 반공변합니다.</li>
+<li>그렇지 않으면 <code>MyType</code> 은 <code>A</code> 에 대해 불변입니다.</li>
+</ul>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use std::cell::Cell;
+
+struct MyType&lt;'a, 'b, A: 'a, B: 'b, C, D, E, F, G, H, In, Out, Mixed&gt; {
+    a: &amp;'a A,     // 'a와 A에 대해 공변
+    b: &amp;'b mut B, // 'b에 대해 공변이고 B에 대해 불변
+
+    c: *const C,  // C에 대해 공변
+    d: *mut D,    // D에 대해 불변
+
+    e: E,         // E에 대해 공변
+    f: Vec&lt;F&gt;,    // F에 대해 공변
+    g: Cell&lt;G&gt;,   // G에 대해 불변
+
+    h1: H,        // ...가 아니었다면 H에 대해서도 공변이었을 것입니다
+    h2: Cell&lt;H&gt;,  // H에 대해 불변입니다. 모든 충돌에서 불변성이 우선하기 때문입니다.
+
+    i: fn(In) -&gt; Out,       // In에 대해 반공변, Out에 대해 공변
+
+    k1: fn(Mixed) -&gt; usize, // ...가 아니었다면 Mixed에 대해 반공변이었을 것입니다
+    k2: Mixed,              // Mixed에 대해 불변입니다. 모든 충돌에서 불변성이 우선하기 때문입니다.
+}
+<span class="boring">}</span></code></pre>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="hrtb.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="dropck.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="hrtb.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="dropck.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="theme/language-picker-0917ae23.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

@@ -1,0 +1,604 @@
+<!DOCTYPE HTML>
+<html lang="ko" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>빌드 스크립트 예제 - The Cargo Book</title>
+
+
+        <!-- Custom HTML head -->
+        <style>
+            dd {
+                margin-bottom: 1em;
+            }
+        </style>
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L455DH98TK"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-L455DH98TK');
+        </script>
+        
+        
+        <script>
+            (function () {
+                // See these pages for details:
+                // https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+                // https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
+        
+                function gen_canonical_href(lang) {
+        
+                    let base = "https://rust-lang-translations.org/cargo";
+        
+                    let canonical_href;
+                    if (lang == "en") {
+                        canonical_href = `${base}/reference/build-script-examples.md`;
+                    } else {
+                        canonical_href = `${base}/${lang}/reference/build-script-examples.md`;
+                    }
+                    canonical_href = canonical_href.slice(0, -"md".length) + "html";
+                    if (canonical_href.endsWith("/index.html")) {
+                        canonical_href = canonical_href.slice(0, -"index.html".length);
+                    }
+                    return canonical_href;
+                }
+        
+                const canonical_href = gen_canonical_href("ko");
+
+                let link = document.createElement("link");
+                link.rel = "canonical";
+                link.href = canonical_href;
+                document.head.appendChild(link);
+        
+        
+                const langs = ["en"  , "ja"  , "ko" ];
+        
+                for (const lang of langs) {
+                    const canonical_href = gen_canonical_href(lang);
+        
+                    let link = document.createElement("link");
+                    link.rel = "alternate";
+                    link.hreflang = lang;
+                    link.href = canonical_href;
+                    document.head.appendChild(link);
+                }
+            })()
+        </script>
+        
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="shortcut icon" href="../favicon-ba9a2803.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/cargo-d13f5220.css">
+        <link rel="stylesheet" href="../theme/language-picker-00e4db94.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-3f7c0ac9.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-6b0c3669.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cargo Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang-translations/project" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/edit/master/src/doc/src/reference/build-script-examples.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="빌드-스크립트-예제"><a class="header" href="#빌드-스크립트-예제">빌드 스크립트 예제</a></h1>
+<p>다음 섹션들에서는 빌드 스크립트 작성의 몇 가지 예시를 보여줍니다.</p>
+<p>일반적인 빌드 스크립트 기능들은 <a href="https://crates.io/">crates.io</a> 의 크레이트들을 통해 찾을 수 있습니다. <a href="https://crates.io/keywords/build-dependencies"><code>build-dependencies</code> 키워드</a> 를 확인하여 어떤 것들이 있는지 살펴보세요. 다음은 널리 사용되는 몇 가지 크레이트의 예시입니다 <sup class="footnote-reference" id="fr-†-1"><a href="#footnote-†">1</a></sup>.</p>
+<ul>
+<li><a href="https://crates.io/crates/bindgen"><code>bindgen</code></a> — C 라이브러리에 대한 Rust FFI 바인딩을 자동으로 생성합니다.</li>
+<li><a href="https://crates.io/crates/cc"><code>cc</code></a> — C/C++/어셈블리 코드를 컴파일합니다.</li>
+<li><a href="https://crates.io/crates/pkg-config"><code>pkg-config</code></a> — <code>pkg-config</code> 유틸리티를 사용하여 시스템 라이브러리를 감지합니다.</li>
+<li><a href="https://crates.io/crates/cmake"><code>cmake</code></a> — <code>cmake</code> 빌드 도구를 실행하여 네이티브 라이브러리를 빌드합니다.</li>
+<li><a href="https://crates.io/crates/autocfg"><code>autocfg</code></a>, <a href="https://crates.io/crates/rustc_version"><code>rustc_version</code></a>, <a href="https://crates.io/crates/version_check"><code>version_check</code></a> — 이 크레이트들은 컴파일러 버전과 같은 현재 <code>rustc</code> 상태에 따라 조건부 컴파일을 구현하는 방법들을 제공합니다.</li>
+</ul>
+<h2 id="코드-생성"><a class="header" href="#코드-생성">코드 생성</a></h2>
+<p>일부 Cargo 패키지는 여러 가지 이유로 컴파일 직전에 코드를 생성해야 할 필요가 있습니다. 여기서는 빌드 스크립트의 일부로 라이브러리 호출을 생성하는 간단한 예제를 살펴보겠습니다.</p>
+<p>먼저, 이 패키지의 디렉토리 구조를 살펴보겠습니다.</p>
+<pre><code class="language-text">.
+├── Cargo.toml
+├── build.rs
+└── src
+    └── main.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+1 directory, 3 files
+</code></pre>
+<p>여기에는 <code>build.rs</code> 빌드 스크립트가 있고 <code>main.rs</code> 에 바이너리 코드가 있습니다. 이 패키지의 기본적인 매니페스트는 다음과 같습니다.</p>
+<pre><code class="language-toml"># Cargo.toml
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+[package]
+name = "hello-from-generated-code"
+version = "0.1.0"
+edition = "2024"
+</code></pre>
+<p>빌드 스크립트 내부를 살펴보겠습니다.</p>
+<pre class="playground"><code class="language-rust no_run">// build.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+use std::env;
+use std::fs;
+use std::path::Path;
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+fn main() {
+    let out_dir = env::var_os("OUT_DIR").unwrap();
+    let dest_path = Path::new(&amp;out_dir).join("hello.rs");
+    fs::write(
+        &amp;dest_path,
+        "pub fn message() -&gt; &amp;'static str {
+            \"Hello, World!\"
+        }
+        "
+    ).unwrap();
+    println!("cargo::rerun-if-changed=build.rs");
+}</code></pre>
+<p>여기서 몇 가지 주목할 점이 있습니다.</p>
+<ul>
+<li>스크립트는 출력 파일이 위치할 곳을 찾기 위해 <code>OUT_DIR</code> 환경 변수를 사용합니다. 입력 파일이 위치할 곳을 찾기 위해 프로세스의 현재 작업 디렉토리를 사용할 수 있지만, 이 예제에서는 입력 파일이 없습니다.</li>
+<li>일반적으로 빌드 스크립트는 <code>OUT_DIR</code> 외부의 파일을 수정해서는 안 됩니다. 언뜻 보기에는 괜찮아 보일 수 있지만, 해당 크레이트를 의존성으로 사용할 때 문제가 발생합니다. 왜냐하면 <code>.cargo/registry</code> 에 있는 소스는 변경 불가능(immutable)해야 한다는 암묵적인 규칙이 있기 때문입니다. <code>cargo</code> 는 패키징 시 이러한 스크립트를 허용하지 않습니다.
+<ul>
+<li>Sometimes, projects want to check in a generated file, and treat it as source code. However, in this case, the file shouldn’t be generated from <code>build.rs</code>. Instead, have a test or similar which checks that the file precisely matches the generated version <em>and fails if the result doesn’t match</em>, and run that test as part of your CI. (The test can generate a temporary file to compare to, and if you want to update the generated file, you can replace the checked-in file with that temporary file.)</li>
+</ul>
+</li>
+<li>이 스크립트는 작은 파일을 하나 생성하는 비교적 간단한 것입니다. 예를 들어 C 헤더 파일이나 다른 언어 정의로부터 Rust 모듈을 생성하는 것과 같은 더 복잡한 작업이 수행될 수도 있음을 상상할 수 있습니다.</li>
+<li><a href="build-scripts.html#rerun-if-changed"><code>rerun-if-changed</code> 지시문</a> 은 빌드 스크립트 자체가 변경될 때만 다시 실행되어야 함을 Cargo에 알립니다. 이 줄이 없으면 Cargo는 패키지의 파일 중 하나라도 변경되면 자동으로 빌드 스크립트를 실행합니다. 만약 코드 생성 과정에서 입력 파일을 사용한다면, 이 부분에 해당 파일들의 목록을 출력하면 됩니다.</li>
+</ul>
+<p>다음으로 라이브러리 자체를 살펴보겠습니다.</p>
+<pre><code class="language-rust ignore">// src/main.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+include!(concat!(env!("OUT_DIR"), "/hello.rs"));
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+fn main() {
+    println!("{}", message());
+}</code></pre>
+<p>이것이 진정한 마법이 일어나는 부분입니다. 라이브러리는 rustc에 정의된 <a href="../../std/macro.include.html"><code>include!</code> 매크로</a> 를 <a href="../../std/macro.concat.html"><code>concat!</code></a> 및 <a href="../../std/macro.env.html"><code>env!</code></a> 매크로와 조합하여 생성된 파일(<code>hello.rs</code>)을 크레이트 컴파일 과정에 포함시킵니다.</p>
+<p>여기서 보여준 구조를 사용하면, 크레이트는 빌드 스크립트가 생성한 파일을 몇 개든 포함할 수 있습니다.</p>
+<h2 id="네이티브-라이브러리-빌드"><a class="header" href="#네이티브-라이브러리-빌드">네이티브 라이브러리 빌드</a></h2>
+<p>때로는 패키지의 일부로 네이티브 C 또는 C++ 코드를 빌드해야 할 필요가 있습니다. 이는 Rust 크레이트 자체를 빌드하기 전에 네이티브 라이브러리를 빌드하기 위해 빌드 스크립트를 활용하는 또 다른 훌륭한 사례입니다. 예제로, C 코드를 호출하여 “Hello, World!”를 출력하는 Rust 라이브러리를 만들어 보겠습니다.</p>
+<p>위에서와 같이, 먼저 패키지 레이아웃을 살펴보겠습니다.</p>
+<pre><code class="language-text">.
+├── Cargo.toml
+├── build.rs
+└── src
+    ├── hello.c
+    └── main.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+1 directory, 4 files
+</code></pre>
+<p>이전과 꽤 비슷합니다! 다음은 매니페스트입니다.</p>
+<pre><code class="language-toml"># Cargo.toml
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+[package]
+name = "hello-world-from-c"
+version = "0.1.0"
+edition = "2024"
+</code></pre>
+<p>지금은 빌드 의존성을 사용하지 않을 것이므로, 이제 빌드 스크립트를 살펴보겠습니다.</p>
+<pre class="playground"><code class="language-rust no_run">// build.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+use std::process::Command;
+use std::env;
+use std::path::Path;
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+fn main() {
+    let out_dir = env::var("OUT_DIR").unwrap();
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+    // 이 접근 방식에는 몇 가지 단점이 있습니다. 아래 주석에서
+    // 이 명령들의 이식성을 개선하는 방법을 자세히 설명합니다.
+    Command::new("gcc").args(&amp;["src/hello.c", "-c", "-fPIC", "-o"])
+                       .arg(&amp;format!("{}/hello.o", out_dir))
+                       .status().unwrap();
+    Command::new("ar").args(&amp;["crus", "libhello.a", "hello.o"])
+                      .current_dir(&amp;Path::new(&amp;out_dir))
+                      .status().unwrap();
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+    println!("cargo::rustc-link-search=native={}", out_dir);
+    println!("cargo::rustc-link-lib=static=hello");
+    println!("cargo::rerun-if-changed=src/hello.c");
+}</code></pre>
+<p>이 빌드 스크립트는 (<code>gcc</code> 를 호출하여) C 파일을 목적 파일(object file)로 컴파일하고, (<code>ar</code> 을 호출하여) 이 목적 파일을 정적 라이브러리로 변환하는 것으로 시작합니다. 마지막 단계는 Cargo에 결과물이 <code>out_dir</code> 에 있으며, 컴파일러가 <code>-l static=hello</code> 플래그를 통해 크레이트를 <code>libhello.a</code> 에 정적으로 링크해야 한다고 알리는 것입니다.</p>
+<p>이러한 하드코딩 방식에는 몇 가지 단점이 있습니다.</p>
+<ul>
+<li><code>gcc</code> 명령 자체가 플랫폼 간에 이식성이 없습니다. 예를 들어 윈도우 플랫폼에는 <code>gcc</code> 가 없을 가능성이 높고, 모든 유닉스 플랫폼에 <code>gcc</code> 가 있는 것도 아닙니다. <code>ar</code> 명령도 비슷한 상황입니다.</li>
+<li>이러한 명령들은 교차 컴파일을 고려하지 않습니다. 안드로이드와 같은 플랫폼을 위해 교차 컴파일하는 경우, <code>gcc</code> 가 ARM 실행 파일을 생성할 가능성은 낮습니다.</li>
+</ul>
+<p>하지만 걱정 마세요. 이럴 때 <code>build-dependencies</code> 항목이 도움이 됩니다! Cargo 에코시스템에는 이런 작업을 훨씬 쉽고 이식성 있게, 그리고 표준화된 방식으로 만들어주는 많은 패키지가 있습니다. <a href="https://crates.io/">crates.io</a>의 <a href="https://crates.io/crates/cc"><code>cc</code> 크레이트</a> 를 사용해 봅시다. 먼저 <code>Cargo.toml</code> 의 <code>build-dependencies</code> 에 추가하세요.</p>
+<pre><code class="language-toml">[build-dependencies]
+cc = "1.0"
+</code></pre>
+<p>그리고 이 크레이트를 사용하도록 빌드 스크립트를 다시 작성합니다.</p>
+<pre><code class="language-rust ignore">// build.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+fn main() {
+    cc::Build::new()
+        .file("src/hello.c")
+        .compile("hello");
+    println!("cargo::rerun-if-changed=src/hello.c");
+}</code></pre>
+<p><a href="https://crates.io/crates/cc"><code>cc</code> 크레이트</a> 는 C 코드에 대한 다양한 빌드 스크립트 요구 사항을 추상화합니다.</p>
+<ul>
+<li>적절한 컴파일러(윈도우의 경우 MSVC, MinGW의 경우 <code>gcc</code>, 유닉스 플랫폼의 경우 <code>cc</code> 등)를 호출합니다.</li>
+<li>사용 중인 컴파일러에 적절한 플래그를 전달함으로써 <code>TARGET</code> 변수를 고려합니다.</li>
+<li><code>OPT_LEVEL</code>, <code>DEBUG</code> 등과 같은 다른 환경 변수들도 모두 자동으로 처리됩니다.</li>
+<li>표준 출력(stdout) 및 <code>OUT_DIR</code> 위치도 <code>cc</code> 라이브러리에 의해 처리됩니다.</li>
+</ul>
+<p>여기서 모든 빌드 스크립트에 로직을 중복해서 작성하는 대신, 가능한 한 많은 기능을 공통 빌드 의존성에 맡기는 것의 큰 이점을 확인할 수 있습니다!</p>
+<p>다시 사례 연구로 돌아가서, <code>src</code> 디렉토리의 내용을 간단히 살펴보겠습니다.</p>
+<pre><code class="language-c">// src/hello.c
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+#include &lt;stdio.h&gt;
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+void hello() {
+    printf("Hello, World!\n");
+}
+</code></pre>
+<pre><code class="language-rust ignore">// src/main.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+// `#[link]` 속성이 없음에 주목하세요. 무엇을 링크할지 선택하는 책임을
+// 소스 파일에 하드코딩하는 대신 빌드 스크립트에 위임하고 있습니다.
+unsafe extern { fn hello(); }
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+fn main() {
+    unsafe { hello(); }
+}</code></pre>
+<p>됐습니다! 이것으로 빌드 스크립트를 사용하여 Cargo 패키지에서 C 코드를 빌드하는 예제를 마칩니다. 또한 많은 상황에서 빌드 의존성을 사용하는 것이 얼마나 중요하며, 심지어 얼마나 더 간결해지는지도 보여줍니다!</p>
+<p>또한 빌드 스크립트가 런타임이 아닌 순수하게 빌드 프로세스만을 위해 크레이트를 의존성으로 사용하는 방법에 대한 간단한 예제도 살펴보았습니다.</p>
+<h2 id="시스템-라이브러리-링크하기"><a class="header" href="#시스템-라이브러리-링크하기">시스템 라이브러리 링크하기</a></h2>
+<p>이 예제는 시스템 라이브러리를 링크하는 방법과 이 유스케이스를 지원하기 위해 빌드 스크립트가 어떻게 사용되는지 보여줍니다.</p>
+<p>Rust 크레이트가 기능을 바인딩하거나 단순히 구현 세부 사항의 일부로 사용하기 위해 시스템에서 제공하는 네이티브 라이브러리에 링크하려는 경우가 꽤 빈번합니다. 이를 플랫폼에 구애받지 않는 방식으로 수행하는 것은 꽤 까다로운 문제입니다. 가능하다면 이러한 작업의 상당 부분을 외부 도구에 맡겨 사용자가 최대한 쉽게 사용할 수 있게 하는 것이 좋습니다.</p>
+<p>이 예제에서는 시스템의 zlib 라이브러리에 대한 바인딩을 만들어 보겠습니다. zlib은 데이터 압축 기능을 제공하며 대부분의 유닉스 계열 시스템에서 흔히 볼 수 있는 라이브러리입니다. 이미 <a href="https://crates.io/crates/libz-sys"><code>libz-sys</code> 크레이트</a>에 잘 정리되어 있지만, 이 예제에서는 극도로 단순화된 버전을 만들어 보겠습니다. 전체 예제는 <a href="https://github.com/rust-lang/libz-sys">소스 코드</a> 를 확인하세요.</p>
+<p>라이브러리의 위치를 쉽게 찾기 위해 <a href="https://crates.io/crates/pkg-config"><code>pkg-config</code> 크레이트</a> 를 사용하겠습니다. 이 크레이트는 시스템의 <code>pkg-config</code> 유틸리티를 사용하여 라이브러리에 대한 정보를 찾습니다. 그리고 라이브러리 링크에 필요한 정보를 Cargo에 자동으로 알려줍니다. 이 방식은 <code>pkg-config</code> 가 설치된 유닉스 계열 시스템에서만 작동할 가능성이 높습니다. 먼저 매니페스트를 설정해 봅시다.</p>
+<pre><code class="language-toml"># Cargo.toml
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+[package]
+name = "libz-sys"
+version = "0.1.0"
+edition = "2024"
+links = "z"
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+[build-dependencies]
+pkg-config = "0.3.16"
+</code></pre>
+<p><code>package</code> 테이블에 <code>links</code> 키를 포함했음에 주목하세요. 이는 우리가 <code>libz</code> 라이브러리에 링크하고 있음을 Cargo에 알려줍니다. 이를 활용하는 예제는 <a href="#using-another-sys-crate">“다른 sys 크레이트 사용하기”</a> 를 참조하세요.</p>
+<p>빌드 스크립트는 꽤 간단합니다.</p>
+<pre><code class="language-rust ignore">// build.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+fn main() {
+    pkg_config::Config::new().probe("zlib").unwrap();
+    println!("cargo::rerun-if-changed=build.rs");
+}</code></pre>
+<p>기본적인 FFI 바인딩으로 예제를 마무리해 봅시다.</p>
+<pre><code class="language-rust ignore">// src/lib.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+use std::os::raw::{c_uint, c_ulong};
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+unsafe extern "C" {
+    pub fn crc32(crc: c_ulong, buf: *const u8, len: c_uint) -&gt; c_ulong;
+}
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+#[test]
+fn test_crc32() {
+    let s = "hello";
+    unsafe {
+        assert_eq!(crc32(0, s.as_ptr(), s.len() as c_uint), 0x3610a686);
+    }
+}</code></pre>
+<p><code>cargo build -vv</code> 를 실행하여 빌드 스크립트의 출력을 확인하세요. <code>libz</code> 가 이미 설치된 시스템에서는 다음과 같이 보일 것입니다.</p>
+<pre><code class="language-text">[libz-sys 0.1.0] cargo::rustc-link-search=native=/usr/lib
+[libz-sys 0.1.0] cargo::rustc-link-lib=z
+[libz-sys 0.1.0] cargo::rerun-if-changed=build.rs
+</code></pre>
+<p>좋습니다! <code>pkg-config</code> 가 라이브러리를 찾고 Cargo에 그 위치를 알려주는 모든 작업을 수행했습니다.</p>
+<p>패키지가 라이브러리 소스를 포함하고, 시스템에서 라이브러리를 찾을 수 없거나 특정 기능(feature) 또는 환경 변수가 설정된 경우 정적으로 빌드하는 것은 흔한 일입니다. 예를 들어, 실제 <a href="https://crates.io/crates/libz-sys"><code>libz-sys</code> 크레이트</a>는 시스템 라이브러리를 사용하는 대신 소스에서 빌드하기 위해 <code>LIBZ_SYS_STATIC</code> 환경 변수나 <code>static</code> 기능을 확인합니다. 더 완전한 예제는 <a href="https://github.com/rust-lang/libz-sys">소스</a> 를 확인해 보세요.</p>
+<h2 id="다른-sys-크레이트-사용하기"><a class="header" href="#다른-sys-크레이트-사용하기">다른 <code>sys</code> 크레이트 사용하기</a></h2>
+<p><code>links</code> 키를 사용할 때, 크레이트는 자신을 의존하는 다른 크레이트들이 읽을 수 있는 메타데이터를 설정할 수 있습니다. 이는 크레이트 간에 정보를 주고받는 메커니즘을 제공합니다. 이 예제에서는 실제 <a href="https://crates.io/crates/libz-sys"><code>libz-sys</code> 크레이트</a>의 zlib을 사용하는 C 라이브러리를 만들어 보겠습니다.</p>
+<p>zlib에 의존하는 C 라이브러리가 있다면, <a href="https://crates.io/crates/libz-sys"><code>libz-sys</code> 크레이트</a> 를 활용하여 자동으로 찾거나 빌드할 수 있습니다. 이는 zlib이 보통 설치되지 않는 윈도우와 같은 환경에서 교차 플랫폼을 지원할 때 매우 유용합니다. <code>libz-sys</code> 는 다른 패키지들에게 zlib 헤더 파일의 위치를 알려주기 위해 <a href="https://github.com/rust-lang/libz-sys/blob/3c594e677c79584500da673f918c4d2101ac97a1/build.rs#L156"><code>include</code> 메타데이터를 설정</a>합니다. 우리의 빌드 스크립트는 <code>DEP_Z_INCLUDE</code> 환경 변수를 통해 해당 메타데이터를 읽을 수 있습니다. 다음은 그 예시입니다.</p>
+<pre><code class="language-toml"># Cargo.toml
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+[package]
+name = "z_user"
+version = "0.1.0"
+edition = "2024"
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+[dependencies]
+libz-sys = "1.0.25"
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+[build-dependencies]
+cc = "1.0.46"
+</code></pre>
+<p>여기서는 <code>libz-sys</code> 를 포함시켰는데, 이는 최종 라이브러리에서 단 하나의 <code>libz</code> 만 사용되도록 보장하며, 우리 빌드 스크립트에서 해당 라이브러리에 접근할 수 있게 해줍니다.</p>
+<pre><code class="language-rust ignore">// build.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+fn main() {
+    let mut cfg = cc::Build::new();
+    cfg.file("src/z_user.c");
+    if let Some(include) = std::env::var_os("DEP_Z_INCLUDE") {
+        cfg.include(include);
+    }
+    cfg.compile("z_user");
+    println!("cargo::rerun-if-changed=src/z_user.c");
+}</code></pre>
+<p><code>libz-sys</code> 가 모든 어려운 작업을 처리해 주므로, 이제 C 소스 코드에서 zlib 헤더를 포함할 수 있으며, 시스템에 미리 설치되어 있지 않더라도 헤더를 찾을 수 있습니다.</p>
+<pre><code class="language-c">// src/z_user.c
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+#include "zlib.h"
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+// … zlib을 사용하는 나머지 코드들
+</code></pre>
+<h2 id="reading-target-configuration"><a class="header" href="#reading-target-configuration">Reading target configuration</a></h2>
+<p>When a build script needs to make decisions based on the target platform, it should read the <code>CARGO_CFG_*</code> environment variables rather than using <code>cfg!</code> or <code>#[cfg]</code> attributes. This is because the build script is compiled for and runs on the <em>host</em> machine, while <code>CARGO_CFG_*</code> variables reflect the <em>target</em> platform, an important distinction when cross-compiling.</p>
+<pre><code class="language-rust ignore">// build.rs
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+fn main() {
+    // reads the TARGET configuration
+    let target_os = std::env::var("CARGO_CFG_TARGET_OS").unwrap();
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+    if target_os == "windows" {
+        println!("cargo::rustc-link-lib=userenv");
+    } else if target_os == "linux" {
+        println!("cargo::rustc-link-lib=pthread");
+    }
+}</code></pre>
+<p>Note that some configuration values may contain multiple values separated by commas (for example, <code>CARGO_CFG_TARGET_FAMILY</code> may be <code>unix,wasm</code>). When checking these values, be sure to handle this appropriately.</p>
+<p>For a more convenient, typed API, consider using the <a href="https://crates.io/crates/build-rs"><code>build-rs</code></a> crate which handles these details for you.</p>
+<h2 id="조건부-컴파일"><a class="header" href="#조건부-컴파일">조건부 컴파일</a></h2>
+<p>빌드 스크립트는 컴파일 타임에 확인할 수 있는 조건을 활성화하는 <a href="build-scripts.html#rustc-cfg"><code>rustc-cfg</code> 지시문</a>을 내보낼 수 있습니다. 이 예제에서는 <a href="https://crates.io/crates/openssl"><code>openssl</code> 크레이트</a> 가 이를 어떻게 사용하여 여러 버전의 OpenSSL 라이브러리를 지원하는지 살펴보겠습니다.</p>
+<p><a href="https://crates.io/crates/openssl-sys"><code>openssl-sys</code> 크레이트</a> 는 OpenSSL 라이브러리를 빌드하고 링크하는 기능을 구현합니다. 이 크레이트는 여러 다양한 구현체(LibreSSL 등)와 여러 버전을 지원합니다. <code>links</code> 키를 사용하여 다른 빌드 스크립트에 정보를 전달할 수 있도록 되어 있습니다. 전달하는 정보 중 하나는 감지된 OpenSSL 버전인 <code>version_number</code> 키입니다. 빌드 스크립트의 코드는 <a href="https://github.com/sfackler/rust-openssl/blob/dc72a8e2c429e46c275e528b61a733a66e7877fc/openssl-sys/build/main.rs#L216">이런 식</a>으로 되어 있습니다.</p>
+<pre><code class="language-rust ignore">println!("cargo::metadata=version_number={openssl_version:x}");</code></pre>
+<p>이 지시문은 <code>openssl-sys</code> 에 직접 의존하는 모든 크레이트에 <code>DEP_OPENSSL_VERSION_NUMBER</code> 환경 변수가 설정되도록 합니다.</p>
+<p>고수준 인터페이스를 제공하는 <code>openssl</code> 크레이트는 <code>openssl-sys</code> 를 의존성으로 지정합니다. <code>openssl</code> 빌드 스크립트는 <code>DEP_OPENSSL_VERSION_NUMBER</code> 환경 변수를 통해 <code>openssl-sys</code> 빌드 스크립트가 생성한 버전 정보를 읽을 수 있습니다. 이를 사용하여 다음과 같이 몇 가지 <a href="https://github.com/sfackler/rust-openssl/blob/dc72a8e2c429e46c275e528b61a733a66e7877fc/openssl/build.rs#L18-L36"><code>cfg</code> 값</a>을 생성합니다.</p>
+<pre><code class="language-rust ignore">// (build.rs의 일부)
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+println!("cargo::rustc-check-cfg=cfg(ossl101,ossl102)");
+println!("cargo::rustc-check-cfg=cfg(ossl110,ossl110g,ossl111)");
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+if let Ok(version) = env::var("DEP_OPENSSL_VERSION_NUMBER") {
+    let version = u64::from_str_radix(&amp;version, 16).unwrap();
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+    if version &gt;= 0x1_00_01_00_0 {
+        println!("cargo::rustc-cfg=ossl101");
+    }
+    if version &gt;= 0x1_00_02_00_0 {
+        println!("cargo::rustc-cfg=ossl102");
+    }
+    if version &gt;= 0x1_01_00_00_0 {
+        println!("cargo::rustc-cfg=ossl110");
+    }
+    if version &gt;= 0x1_01_00_07_0 {
+        println!("cargo::rustc-cfg=ossl110g");
+    }
+    if version &gt;= 0x1_01_01_00_0 {
+        println!("cargo::rustc-cfg=ossl111");
+    }
+}</code></pre>
+<p>이러한 <code>cfg</code> 값들은 <a href="../../reference/conditional-compilation.html#the-cfg-attribute"><code>cfg</code> 속성</a> 이나 <a href="../../std/macro.cfg.html"><code>cfg</code> 매크로</a> 와 함께 사용하여 코드를 조건부로 포함할 수 있습니다. 예를 들어, SHA3 지원은 OpenSSL 1.1.1에서 추가되었으므로, 이전 버전에서는 <a href="https://github.com/sfackler/rust-openssl/blob/dc72a8e2c429e46c275e528b61a733a66e7877fc/openssl/src/hash.rs#L67-L85">조건부로 제외</a>됩니다.</p>
+<pre><code class="language-rust ignore">// (openssl 크레이트의 일부)
+`git/checkouts` Git 소스가 사용되는 경우, `git/db` 내의 bare repo에서 필요한 repo 커밋이 이 디렉토리로 체크아웃됩니다. 이는 해당 의존성에 지정된 커밋의 repo에 포함된 실제 파일을 컴파일러에 제공합니다. 동일한 repo의 다른 커밋을 여러 번 체크아웃할 수 있습니다.
+#[cfg(ossl111)]
+pub fn sha3_224() -&gt; MessageDigest {
+    unsafe { MessageDigest(ffi::EVP_sha3_224()) }
+}</code></pre>
+<p>물론, 이 기능을 사용할 때는 주의해야 합니다. 결과 바이너리가 빌드 환경에 더욱 종속되기 때문입니다. 이 예시에서 바이너리가 다른 시스템으로 배포될 경우, 정확히 동일한 공유 라이브러리가 없을 수 있어 문제가 발생할 수 있습니다.</p>
+<hr>
+<ol class="footnote-definition">
+<li id="footnote-†">
+<p>이 목록이 특정 크레이트를 추천하는 것은 아닙니다. 프로젝트에 적합한 의존성이 무엇인지 직접 평가해 보세요. <a href="#fr-†-1">↩</a></p>
+</li>
+</ol>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../reference/build-scripts.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../reference/build-cache.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../reference/build-scripts.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../reference/build-cache.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/language-picker-00bd309a.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

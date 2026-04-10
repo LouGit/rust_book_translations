@@ -1,0 +1,589 @@
+<!DOCTYPE HTML>
+<html lang="fr" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Qu&#x27;est-ce que la possession ? - The Rust Programming Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L455DH98TK"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-L455DH98TK');
+        </script>
+        
+        
+        <script>
+            (function () {
+                // See these pages for details:
+                // https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+                // https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
+        
+                function gen_canonical_href(lang) {
+        
+                    let base = "https://rust-lang-translations.org/book";
+        
+                    let canonical_href;
+                    if (lang == "en") {
+                        canonical_href = `${base}/ch04-01-what-is-ownership.md`;
+                    } else {
+                        canonical_href = `${base}/${lang}/ch04-01-what-is-ownership.md`;
+                    }
+                    canonical_href = canonical_href.slice(0, -"md".length) + "html";
+                    if (canonical_href.endsWith("/index.html")) {
+                        canonical_href = canonical_href.slice(0, -"index.html".length);
+                    }
+                    return canonical_href;
+                }
+        
+                const canonical_href = gen_canonical_href("fr");
+
+                let link = document.createElement("link");
+                link.rel = "canonical";
+                link.href = canonical_href;
+                document.head.appendChild(link);
+        
+        
+                const langs = ["en"  , "ja"  , "ru"  , "ko"  , "fr" ];
+        
+                for (const lang of langs) {
+                    const canonical_href = gen_canonical_href(lang);
+        
+                    let link = document.createElement("link");
+                    link.rel = "alternate";
+                    link.hreflang = lang;
+                    link.href = canonical_href;
+                    document.head.appendChild(link);
+                }
+            })()
+        </script>
+        
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+        <link rel="stylesheet" href="theme/language-picker-00e4db94.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-ce67aaa6.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-ba8cae83.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang-translations/project" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="quest-ce-que-la-possession-"><a class="header" href="#quest-ce-que-la-possession-">Qu’est-ce que la possession ?</a></h2>
+<p>La <em>possession</em> est un jeu de règles qui gouvernent la gestion de la mémoire par un programme Rust. Tous les programmes doivent gérer la façon dont ils utilisent la mémoire lorsqu’ils s’exécutent. Certains langages ont un ramasse-miettes qui scrute régulièrement la mémoire qui n’est plus utilisée pendant qu’il s’exécute ; dans d’autres langages, le développeur doit explicitement allouer et libérer la mémoire. Rust adopte une troisième approche : la mémoire est gérée avec un système de possession qui repose sur un jeu de règles que le compilateur vérifie au moment de la compilation. Si une de ces règles a été enfreinte, le programme ne sera pas compilé. Aucune des fonctionnalités de la possession ne ralentit votre programme à l’exécution.</p>
+<p>Comme la possession est un nouveau principe pour de nombreux développeurs, cela prend un certain temps pour s’y familiariser. La bonne nouvelle est que plus vous devenez expérimenté avec Rust et ses règles de possession, plus vous développerez naturellement et facilement du code sûr et efficace. Gardez bien cela à l’esprit !</p>
+<p>Lorsque vous comprendrez la possession, vous aurez des bases solides pour comprendre les fonctionnalités qui font la particularité de Rust. Dans ce chapitre, vous allez apprendre la possession en pratiquant avec plusieurs exemples qui se concentrent sur une structure de données très courante : les chaînes de caractères.</p>
+<section class="note" aria-role="note">
+<h3 id="la-pile-et-le-tas"><a class="header" href="#la-pile-et-le-tas">La pile et le tas</a></h3>
+<p>De nombreux langages ne nécessitent pas de se préoccuper de la pile (<em>stack</em>) et du tas (<em>heap</em>). Mais dans un langage de programmation système comme Rust, le fait qu’une donnée soit sur la pile ou sur le tas a une influence sur le comportement du langage et explique pourquoi nous devons faire certains choix. Nous décrirons plus loin dans ce chapitre comment la possession fonctionne vis-à-vis de la pile et du tas, voici donc une brève explication au préalable.</p>
+<p>La pile et le tas sont tous les deux des emplacements de la mémoire à disposition de votre code lors de son exécution, mais sont organisés de façon différente. La pile enregistre les valeurs dans l’ordre dans lequel elle les reçoit et enlève les valeurs dans l’autre sens. C’est ce que l’on appelle le principe de <em>dernier entré, premier sorti</em> (d’où l’acronyme anglais <em>LIFO</em> pour : _last in, first out). C’est comme une pile d’assiettes : quand vous ajoutez des nouvelles assiettes, vous les déposez sur le dessus de la pile, et quand vous avez besoin d’une assiette, vous en prenez une sur le dessus. Ajouter ou enlever des assiettes au milieu ou en bas ne serait pas aussi efficace ! Ajouter une donnée sur la pile se dit <em>empiler</em> et en retirer une se dit <em>dépiler</em>. Toutes donnée stockée dans la pile doit avoir une taille connue et fixe. Les données avec une taille inconnue au moment de la compilation ou une taille qui peut changer doivent plutôt être stockées sur le tas.</p>
+<p>Le tas est moins bien organisé : lorsque vous ajoutez des données sur le tas, vous demandez une certaine quantité d’espace mémoire. Le gestionnaire de mémoire va trouver un emplacement dans le tas qui est suffisamment grand, va le marquer comme étant en cours d’utilisation, et va retourner un <em>pointeur</em>, qui est l’adresse de cet emplacement. Cette procédure est appelée <em>allocation sur le tas</em>, ce qu’on abrège parfois en <em>allocation</em> tout court (l’ajout de valeurs sur la pile n’est pas considéré comme une allocation). Comme le pointeur vers le tas a une taille connue et fixe, on peut stocker ce pointeur sur la pile, mais quand on veut la vraie donnée, il faut suivre le pointeur. C’est comme si vous vouliez manger au restaurant. Quand vous entrez, vous indiquez le nombre de personnes dans votre groupe, le personnel trouve une table vide qui peut recevoir tout le monde, et vous y conduit. Si quelqu’un dans votre groupe arrive en retard, il peut leur demander où vous êtes assis pour vous rejoindre.</p>
+<p>Empiler sur la pile est plus rapide qu’allouer sur le tas car le gestionnaire ne va jamais avoir besoin de chercher un emplacement pour y stocker les nouvelles données ; il le fait toujours au sommet de la pile. En comparaison, allouer de la place sur le tas demande plus de travail, car le gestionnaire doit d’abord trouver un espace assez grand pour stocker les données et mettre à jour son suivi pour préparer la prochaine allocation.</p>
+<p>Accéder à des données dans le tas est généralement plus lent que d’accéder aux données sur la pile car nous devons suivre un pointeur pour les obtenir. Les processeurs modernes sont plus rapides s’ils se déplacent moins dans la mémoire. Pour continuer avec notre analogie, imaginez un serveur dans un restaurant qui prend les commandes de nombreuses tables. C’est plus efficace de récupérer toutes les commandes à une seule table avant de passer à la table suivante. Prendre une commande à la table A, puis prendre une commande à la table B, puis ensuite une autre à la table A, puis une autre à la table B serait un processus bien plus lent. De la même manière, un processeur sera généralement plus efficace dans sa tâche s’il travaille sur des données qui sont proches les unes des autres (comme c’est le cas sur la pile) plutôt que si elles sont plus éloignées (comme cela peut être le cas sur le tas).</p>
+<p>Quand notre code utilise une fonction, les valeurs passées à la fonction (incluant, potentiellement, des pointeurs de données sur le tas) et les variables locales à la fonction sont déposées sur la pile. Quand l’utilisation de la fonction est terminée, ces données sont retirées de la pile.</p>
+<p>La possession nous aide à ne pas nous préoccuper de faire attention à quelles parties du code utilisent quelles données sur le tas, de minimiser la quantité de données en double sur le tas, ou encore de veiller à libérer les données inutilisées sur le tas pour que nous ne soyons pas à court d’espace. Quand vous aurez compris la possession, vous n’aurez plus besoin de vous préoccuper de la pile et du tas très souvent. Mais savoir que le but principal de la possession est de gérer les données du tas peut vous aider à comprendre pourquoi elle fonctionne de cette manière.</p>
+</section>
+<h3 id="les-règles-de-la-possession"><a class="header" href="#les-règles-de-la-possession">Les règles de la possession</a></h3>
+<p>Tout d’abord, définissons les règles de la possession. Gardez à l’esprit ces règles pendant que nous travaillons sur des exemples qui les illustrent :</p>
+<ul>
+<li>Chaque valeur en Rust a un <em>propriétaire</em>.</li>
+<li>Il ne peut y avoir qu’un seul propriétaire à la fois.</li>
+<li>Quand le propriétaire sort de la portée, la valeur est supprimée.</li>
+</ul>
+<h3 id="portée-de-la-variable"><a class="header" href="#portée-de-la-variable">Portée de la variable</a></h3>
+<p>Maintenant que nous avons vu la syntaxe Rust de base, nous n’allons plus ajouter tout le code du style <code>fn main() {</code> dans les exemples, donc si vous voulez reproduire les exemples, assurez-vous de les placer manuellement dans une fonction <code>main</code>. Par conséquent, nos exemples seront plus concis, nous permettant de nous concentrer sur les détails de la situation plutôt que sur du code normalisé.</p>
+<p>Pour le premier exemple de possession, nous allons analyser la <em>portée</em> de certaines variables. Une portée est une zone dans un programme dans laquelle un élément est en vigueur. Admettons la variable suivante :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = "hello";
+<span class="boring">}</span></code></pre>
+<p>La variable <code>s</code> fait référence à un littéral de chaîne de caractères, dont la valeur est codée en dur dans le code source de notre programme. La variable est valide à partir du moment où elle est déclarée jusqu’à la fin de la <em>portée</em> actuelle. L’encart 4-1 montre un programme avec des commentaires indiquant où la variable <code>s</code> est valide.</p>
+<figure class="listing" id="listing-4-1">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    {                    // s n'est pas en vigueur ici, car elle n'est pas encore déclarée
+        let s = "hello"; // s est en vigueur à partir de ce point
+
+        // on fait des choses avec s ici
+    }                    // cette portée est maintenant terminée, et s n'est plus en vigueur
+<span class="boring">}</span></code></pre>
+<figcaption><a href="#listing-4-1">Listing 4-1</a>: A variable and the scope in which it is valid</figcaption>
+</figure>
+<p>Autrement dit, il y a ici deux étapes importantes :</p>
+<ul>
+<li>Quand <code>s</code> rentre <em>dans</em> la portée, elle est en vigueur.</li>
+<li>Cela reste ainsi jusqu’à ce qu’elle <em>sorte</em> de la portée.</li>
+</ul>
+<p>Pour le moment, la relation entre les portées et les conditions pour lesquelles les variables sont en vigueur sont similaires à d’autres langages de programmation. Maintenant, nous allons aller plus loin en y ajoutant le type <code>String</code>.</p>
+<h3 id="le-type-string"><a class="header" href="#le-type-string">Le type <code>String</code></a></h3>
+<p>Pour illustrer les règles de la possession, nous avons besoin d’un type de donnée qui est plus complexe que ceux que nous avons rencontrés dans la section <a href="ch03-02-data-types.html#data-types">“Types de données”</a><!-- ignore --> du chapitre 3. Les types que nous avons vus précédemment ont tous une taille connue et peuvent être stockés sur la pile ainsi que retirés de la pile lorsque la portée n’en a plus besoin, et peuvent aussi être rapidement et facilement copiés afin de constituer une nouvelle instance indépendante si une autre partie du code a besoin d’utiliser la même valeur dans une portée différente. Mais nous voulons expérimenter le stockage de données sur le tas et découvrir comment Rust sait quand il doit nettoyer ces données, et le type <code>String</code> est un bon exemple.</p>
+<p>Nous allons nous concentrer sur les caractéristiques de <code>String</code> qui sont liées à la possession. Ces aspects s’appliquent également à d’autres types de données complexes, qu’ils soient fournis par la bibliothèque standard ou qu’ils soient créés par vous. Nous aborderons les aspects liés à la non-possession de <code>String</code> au <a href="ch08-02-strings.html">chapitre 8</a><!-- ignorer -->.</p>
+<p>Nous avons déjà vu les littéraux de chaînes de caractères, quand une valeur de chaîne est codée en dur dans notre programme. Les littéraux de chaînes sont pratiques, mais ils ne conviennent pas toujours à tous les cas où on veut utiliser du texte. Une des raisons est qu’ils sont immuables. Une autre raison est qu’on ne connaît pas forcément le contenu des chaînes de caractères quand nous écrivons notre code : par exemple, comment faire si nous voulons récupérer du texte saisi par l’utilisateur et l’enregistrer ? C’est pour ces cas-ci que Rust a un second type de chaîne de caractères, <code>String</code>. Ce type gère ses données sur le tas et est ainsi capable de stocker une quantité de texte qui nous est inconnue au moment de la compilation. Vous pouvez créer une <code>String</code> à partir d’un littéral de chaîne de caractères en utilisant la fonction <code>from</code>, comme ceci :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>let s = String::from("hello");
+<span class="boring">}</span></code></pre>
+<p>L’opérateur double deux-points <code>::</code> nous permet d’appeler cette fonction spécifique dans l’espace de nom du type <code>String</code> plutôt que d’utiliser un nom comme <code>string_from</code>. Nous verrons cette syntaxe plus en détail dans la section <a href="ch05-03-method-syntax.html#methods">“Méthodes”</a><!-- ignore --> du chapitre 5 et lorsque nous aborderons les espaces de noms dans la section <a href="ch07-03-paths-for-referring-to-an-item-in-the-module-tree.html">“Les chemins pour désigner un élément dans l’arborescence de module”</a><!-- ignore --> du chapitre 7.</p>
+<p>Ce type de chaîne de caractères <em>peut</em> être mutable :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let mut s = String::from("hello");
+
+    s.push_str(", world!"); // push_str() ajoute un littéral de chaîne dans une String
+
+    println!("{s}"); // Cela va afficher `hello, world!`
+<span class="boring">}</span></code></pre>
+<p>Donc, quelle est la différence ici ? Pourquoi <code>String</code> peut être mutable, mais pourquoi les littéraux de chaînes ne peuvent pas l’être ? La différence se trouve dans la façon dont ces deux types travaillent avec la mémoire.</p>
+<h3 id="mémoire-et-allocation"><a class="header" href="#mémoire-et-allocation">Mémoire et allocation</a></h3>
+<p>Dans le cas d’un littéral de chaîne de caractères, nous connaissons le contenu au moment de la compilation donc le texte est codé en dur directement dans l’exécutable final. Voilà pourquoi ces littéraux de chaînes de caractères sont performants et rapides. Mais ces caractéristiques viennent de leur immuabilité. Malheureusement, on ne peut pas accorder une grosse région de mémoire dans le binaire pour chaque morceau de texte qui n’a pas de taille connue au moment de la compilation et dont la taille pourrait changer pendant l’exécution de ce programme.</p>
+<p>Avec le type <code>String</code>, pour nous permettre d’avoir un texte mutable et qui peut s’agrandir, nous devons allouer une quantité de mémoire sur le tas, inconnue au moment de la compilation, pour stocker le contenu. Cela signifie que :</p>
+<ul>
+<li>La mémoire doit être demandée auprès du gestionnaire de mémoire lors de l’exécution.</li>
+<li>Nous avons besoin d’un moyen de rendre cette mémoire au gestionnaire lorsque nous aurons fini d’utiliser notre <code>String</code>.</li>
+</ul>
+<p>Nous nous occupons de ce premier point : quand nous appelons <code>String::from</code>, son implémentation demande la mémoire dont elle a besoin. C’est pratiquement toujours ainsi dans la majorité des langages de programmation.</p>
+<p>Cependant, le deuxième point est différent. Dans des langages avec un <em>ramasse-miettes</em>, le ramasse-miettes surveille et nettoie la mémoire qui n’est plus utilisée, sans que nous n’ayons à nous en préoccuper. Dans la plupart des langages sans ramasse-miettes, c’est de notre responsabilité d’identifier quand cette mémoire n’est plus utilisée et d’appeler du code pour explicitement la libérer, comme nous l’avons fait pour la demander auparavant. Historiquement, faire ceci correctement a toujours été une difficulté pour les développeurs. Si nous oublions de le faire, nous allons gaspiller de la mémoire. Si nous le faisons trop tôt, nous allons avoir une variable invalide. Si nous le faisons deux fois, cela produit aussi un bogue. Nous devons associer exactement un <code>allocate</code> avec exactement un <code>free</code>.</p>
+<p>Rust prend un chemin différent : la mémoire est automatiquement libérée dès que la variable qui la possède sort de la portée. Voici une version de notre exemple de portée de l’encart 4-1 qui utilise une <code>String</code> plutôt qu’un littéral de chaîne de caractères :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    {
+        let s = String::from("hello"); // s est en vigueur à partir de ce point
+
+        // on fait des choses avec s ici
+    }                                  // cette portée est désormais terminée, et s
+                                       // n'est plus en vigueur maintenant
+<span class="boring">}</span></code></pre>
+<p>Il y a un moment naturel où nous devons rendre la mémoire de notre <code>String</code> au gestionnaire : quand <code>s</code> sort de la portée. Quand une variable sort de la portée, Rust appelle une fonction spéciale pour nous. Cette fonction s’appelle <code>drop</code>, et c’est dans celle-ci que l’auteur de <code>String</code> a pu mettre le code pour libérer la mémoire. Rust appelle automatiquement <code>drop</code> à l’accolade fermante <code>}</code>.</p>
+<section class="note" aria-role="note">
+<p>Remarque : en C++, cette façon de libérer des ressources à la fin de la durée de vie d’un élément est parfois appelée <em>l’acquisition d’une ressource est une initialisation (Resource Acquisition Is Initialization : RAII)</em>. La fonction <code>drop</code> de Rust vous sera familière si vous avez déjà utilisé des techniques de RAII.</p>
+</section>
+<p>Cette façon de faire a un impact profond sur la façon dont le code Rust est écrit. Cela peut sembler simple dans notre cas, mais le comportement du code peut être surprenant dans des situations plus compliquées où nous voulons avoir plusieurs variables utilisant des données que nous avons affectées sur le tas. Examinons une de ces situations dès à présent.</p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="ways-variables-and-data-interact-move"></a></p>
+<h4 id="les-interactions-entre-les-variables-et-les-données--le-déplacement"><a class="header" href="#les-interactions-entre-les-variables-et-les-données--le-déplacement">Les interactions entre les variables et les données : le déplacement</a></h4>
+<p>Plusieurs variables peuvent interagir avec les mêmes données de différentes manières en Rust. Regardons un exemple avec un entier dans l’encart 4-2 :</p>
+<figure class="listing" id="listing-4-2">
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let x = 5;
+    let y = x;
+<span class="boring">}</span></code></pre>
+<figcaption><a href="#listing-4-2">Listing 4-2</a>: Assigning the integer value of variable <code>x</code> to <code>y</code></figcaption>
+</figure>
+<p>Nous pouvons probablement deviner ce que ce code fait : “Assigner la valeur <code>5</code> à <code>x</code> ; ensuite faire une copie de cette valeur de <code>x</code> et l’assigner à <code>y</code>.” Nous avons maintenant deux variables, <code>x</code> et <code>y</code>, et chacune vaut <code>5</code>. C’est effectivement ce qui se passe, car les entiers sont des valeurs simples avec une taille connue et fixée, et ces deux valeurs <code>5</code> sont stockées sur la pile.</p>
+<p>Maintenant, essayons une nouvelle version avec String :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let s1 = String::from("hello");
+    let s2 = s1;
+<span class="boring">}</span></code></pre>
+<p>Cela ressemble beaucoup, donc nous allons supposer que cela fonctionne pareil que précédemment : ainsi, la seconde ligne va faire une copie de la valeur de <code>s1</code> et l’assigner à <code>s2</code>. Mais ce n’est pas tout à fait ce qui se passe.</p>
+<p>Regardons l’illustration 4-1 pour découvrir ce qui arrive à <code>String</code> sous le capot. Une <code>String</code> est constituée de trois éléments, présents sur la gauche : un pointeur vers la mémoire qui contient le contenu de la chaîne de caractères, une taille, et une capacité. Ce groupe de données est stocké sur la pile. À droite, nous avons la mémoire sur le tas qui contient les données.</p>
+<p><img alt="Deux tables : la première contient la représentation de s1 sur la
+pile, comprenant sa longueur (5), sa capacité (5), et un pointeur vers la
+première valeur dans la seconde table. La seconde table contient la représentation de la
+chaîne de caractères sur le tas, octet par octet." src="img/trpl04-01.svg" class="center" style="width: 50%;" /></p>
+<p><span class="caption">Illustration 4-1 : Représentation en mémoire d’une <code>String</code> qui contient la valeur <code>"hello"</code> assignée à <code>s1</code>.</span></p>
+<p>La taille est la quantité de mémoire, en octets, que le contenu de la <code>String</code> utilise actuellement. La capacité est la quantité totale de mémoire, en octets, que la <code>String</code> a reçue du gestionnaire. La notion de différence entre la taille et la capacité est importante, mais pas pour notre exemple, donc pour l’instant, ce n’est pas grave d’ignorer la capacité.</p>
+<p>Quand nous assignons <code>s1</code> à <code>s2</code>, les données de la <code>String</code> sont copiées, ce qui veut dire que nous copions le pointeur, la taille et la capacité qui sont stockés sur la pile. Nous ne copions pas les données stockées sur le tas auxquelles le pointeur se réfère. Autrement dit, la représentation des données dans la mémoire ressemble à l’illustration 4-2.</p>
+<p><img alt="Three tables: tables s1 and s2 representing those strings on the
+stack, respectively, and both pointing to the same string data on the heap." src="img/trpl04-02.svg" class="center" style="width: 50%;" /></p>
+<p><span class="caption">Illustration 4-2 : Représentation en mémoire de la variable <code>s2</code> qui a une copie du pointeur, de la taille et de la capacité de <code>s1</code></span></p>
+<p>Cette représentation <em>n’est pas</em> comme l’illustration 4-3, qui représenterait la mémoire si Rust avait aussi copié les données sur le tas. Si Rust faisait ceci, l’opération <code>s2 = s1</code> pourrait potentiellement être très coûteuse en termes de performances d’exécution si les données sur le tas étaient volumineuses.</p>
+<p>Quatre tables : deux tables représentant les données de la pile pour s1 et s2, chacune pointant vers sa propre copie des données de chaîne de caractères dans le tas</p>
+<p><span class="caption">Illustration 4-3 : une autre possibilité de ce que pourrait faire <code>s2 = s1</code> si Rust copiait aussi les données du tas</span></p>
+<p>Précédemment, nous avons dit que quand une variable sortait de la portée, Rust appelait automatiquement la fonction <code>drop</code> et nettoyait la mémoire sur le tas allouée pour cette variable. Mais l’illustration 4-2 montre que les deux pointeurs de données pointeraient au même endroit. C’est un problème : quand <code>s2</code> et <code>s1</code> sortent de la portée, elles vont essayer toutes les deux de libérer la même mémoire. C’est ce qu’on appelle une erreur de <em>double libération</em> et c’est un des bogues de sécurité de mémoire que nous avons mentionnés précédemment. Libérer la mémoire deux fois peut mener à des corruptions de mémoire, ce qui peut potentiellement mener à des vulnérabilités de sécurité.</p>
+<p>Pour garantir la sécurité de la mémoire, après la ligne <code>let s2 = s1</code>, Rust considère que <code>s1</code> n’est plus en vigueur. Par conséquent, Rust n’a pas besoin de libérer quoi que ce soit lorsque <code>s1</code> sort de la portée. Regardez ce qui se passe quand vous essayez d’utiliser <code>s1</code> après que <code>s2</code> est créé, cela ne va pas fonctionner :</p>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span>    let s1 = String::from("hello");
+    let s2 = s1;
+
+    println!("{s1}, world!");
+<span class="boring">}</span></code></pre>
+<p>Vous allez avoir une erreur comme celle-ci, car Rust vous défend d’utiliser la référence qui n’est plus en vigueur :</p>
+<pre><code class="language-console">$ cargo run
+   Compiling ownership v0.1.0 (file:///projects/ownership)
+error[E0382]: borrow of moved value: `s1`
+ --&gt; src/main.rs:5:16
+  |
+2 |     let s1 = String::from("hello");
+  |         -- move occurs because `s1` has type `String`, which does not implement the `Copy` trait
+3 |     let s2 = s1;
+  |              -- value moved here
+4 |
+5 |     println!("{s1}, world!");
+  |                ^^ value borrowed here after move
+  |
+  = note: this error originates in the macro `$crate::format_args_nl` which comes from the expansion of the macro `println` (in Nightly builds, run with -Z macro-backtrace for more info)
+help: consider cloning the value if the performance cost is acceptable
+  |
+3 |     let s2 = s1.clone();
+  |                ++++++++
+
+For more information about this error, try `rustc --explain E0382`.
+error: could not compile `ownership` (bin "ownership") due to 1 previous error
+</code></pre>
+<p>Si vous avez déjà entendu parler de <em>copie superficielle</em> et de <em>copie profonde</em> en utilisant d’autres langages, l’idée de copier le pointeur, la taille et la capacité sans copier les données peut vous faire penser à de la copie superficielle. Mais comme Rust neutralise aussi la première variable, au lieu d’appeler cela une copie superficielle, on appelle cela un <em>déplacement</em>. Ici, nous pourrions dire que <code>s1</code> a été <em>déplacé</em> dans <code>s2</code>. Donc ce qui se passe réellement est décrit par l’illustration 4-4.</p>
+<p><img alt="Trois tables : les tables s1 et s2 représentent respectivement les  chaînes de caractères présentes dans la pile, et toutes deux pointent vers les mêmes données de chaîne de caractères situées dans le tas. La table s1 est grisée car s1 n&#39;est plus valide ; seule s2 peut être utilisée pour accéder aux données du tas." src="img/trpl04-04.svg" class="center" style="width:
+50%;" /></p>
+<p><span class="caption">Illustration 4-4 : Représentation de la mémoire après que <code>s1</code> a été neutralisée</span></p>
+<p>Cela résout notre problème ! Avec seulement <code>s2</code> en vigueur, quand elle sortira de la portée, elle seule va libérer la mémoire, et c’est tout.</p>
+<p>De plus, cela signifie qu’il y a eu un choix de conception : Rust ne va jamais créer automatiquement de copie “profonde” de vos données. Par conséquent, toute copie <em>automatique</em> peut être considérée comme peu coûteuse en termes de performances d’exécution.</p>
+<h4 id="portée-et-affectation"><a class="header" href="#portée-et-affectation">Portée et affectation</a></h4>
+<p>Le contraire est également vrai pour la relation entre la portée, la propriété et la libération de la mémoire via la fonction <code>drop</code>. Lorsque vous attribuez une valeur entièrement nouvelle à une variable existante, Rust appelle <code>drop</code> et libère immédiatement la mémoire occupée par la valeur d’origine. Prenons par exemple le code suivant :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let mut s = String::from("hello");
+    s = String::from("ahoy");
+
+    println!("{s}, world!");
+<span class="boring">}</span></code></pre>
+<p>Nous déclarons d’abord une variable <code>s</code> et l’associons à une chaîne <code>String</code> avec la valeur <code>"hello"</code>. Ensuite, nous créons immédiatement une nouvelle chaîne <code>String</code> avec la valeur <code>"ahoy"</code> et l’attribuons à <code>s</code>. À ce stade, absolument plus rien ne fait référence à la valeur d’origine sur le tas. La figure 4-5 illustre les données de la pile et du tas à ce moment-là :</p>
+<p><img alt="One table representing the string value on the stack, pointing to
+the second piece of string data (ahoy) on the heap, with the original string
+data (hello) grayed out because it cannot be accessed anymore." src="img/trpl04-05.svg" class="center" style="width: 50%;" /></p>
+<p><span class="caption">Illustration 4-5 : Représentation de la mémoire après que la valeur initiale a été entièrement remplacée</span></p>
+<p>La chaîne originale sort donc immédiatement de la portée. Rust exécutera la fonction <code>drop</code> sur celle-ci et sa mémoire sera libérée tout de suite. Quand nous affichons la valeur à la fin, ce sera <code>"ahoy, world!"</code></p>
+<!-- Old headings. Do not remove or links may break. -->
+<p><a id="ways-variables-and-data-interact-clone"></a></p>
+<h4 id="les-interactions-entre-les-variables-et-les-données--le-clonage"><a class="header" href="#les-interactions-entre-les-variables-et-les-données--le-clonage">Les interactions entre les variables et les données : le clonage</a></h4>
+<p>Si nous <em>voulons</em> faire une copie profonde des données sur le tas d’une <code>String</code>, et pas seulement des données sur la pile, nous pouvons utiliser une méthode commune qui s’appelle <code>clone</code>. Nous aborderons la syntaxe des méthodes au chapitre 5, mais comme les méthodes sont des outils courants dans de nombreux langages, vous les avez probablement utilisées auparavant.</p>
+<p>Voici un exemple d’utilisation de la méthode <code>clone</code> :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let s1 = String::from("hello");
+    let s2 = s1.clone();
+
+    println!("s1 = {s1}, s2 = {s2}");
+<span class="boring">}</span></code></pre>
+<p>Cela fonctionne très bien et c’est ainsi que vous pouvez reproduire le comportement décrit dans l’illustration 4-3, où les données du tas sont copiées.</p>
+<p>Quand vous voyez un appel à <code>clone</code>, vous savez que du code arbitraire est exécuté et que ce code peut être coûteux. C’est un indicateur visuel qu’il se passe quelque chose de différent.</p>
+<h4 id="données-uniquement-sur-la-pile--la-copie"><a class="header" href="#données-uniquement-sur-la-pile--la-copie">Données uniquement sur la pile : la copie</a></h4>
+<p>Il y a un autre détail dont on n’a pas encore parlé. Le code suivant utilise des entiers - on en a vu une partie dans l’encart 4-2 - il fonctionne et est correct :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let x = 5;
+    let y = x;
+
+    println!("x = {x}, y = {y}");
+<span class="boring">}</span></code></pre>
+<p>Mais ce code semble contredire ce que nous venons d’apprendre : nous n’avons pas appelé <code>clone</code>, mais <code>x</code> est toujours en vigueur et n’a pas été déplacé dans <code>y</code>.</p>
+<p>La raison est que les types comme les entiers ont une taille connue au moment de la compilation et sont entièrement stockés sur la pile, donc la copie des vraies valeurs est rapide à faire. Cela signifie qu’il n’y a pas de raison pour laquelle nous voudrions neutraliser <code>x</code> après avoir créé la variable <code>y</code>. En d’autres termes, il n’y a pas ici de différence entre la copie superficielle et profonde, donc appeler <code>clone</code> ne ferait rien d’autre qu’une copie superficielle classique et on peut s’en passer.</p>
+<p>Rust a une annotation spéciale appelée le trait <code>Copy</code> que nous pouvons utiliser sur des types comme les entiers qui sont stockés sur la pile (nous verrons les traits dans le <a href="ch10-02-traits.html">chapitre 10</a>). Si un type implémente le trait <code>Copy</code>, les variables qui l’utilisent ne sont pas déplacées, mais simplement copiées, ce qui les rend toujours valides après leur affectation à une autre variable.</p>
+<p>Rust ne nous autorisera pas à annoter un type avec le trait <code>Copy</code> si ce type, ou un de ses éléments, a implémenté le trait <code>Drop</code>. Si ce type a besoin que quelque chose de spécial se produise quand la valeur sort de la portée et que nous ajoutons l’annotation <code>Copy</code> sur ce type, nous aurons une erreur au moment de la compilation. Pour savoir comment ajouter l’annotation <code>Copy</code> sur votre type pour implémenter le trait, référez-vous à <a href="appendix-03-derivable-traits.html">l’annexe C</a><!-- ignore --> sur les traits dérivables.</p>
+<p>Donc, quels sont les types qui implémentent le trait <code>Copy</code> ? Vous pouvez regarder dans la documentation pour un type donné pour vous en assurer, mais de manière générale, tout groupe de valeurs scalaires peut implémenter <code>Copy</code>, et rien de ce qui nécessite une allocation de mémoire ou qui est une forme de ressource ne peut implémenter <code>Copy</code>. Voici quelques types qui implémentent Copy` :</p>
+<ul>
+<li>Tous les types d’entiers, comme <code>u32</code>.</li>
+<li>Le type booléen, <code>bool</code>, avec les valeurs <code>true</code> et <code>false</code>.</li>
+<li>Tous les types de flottants, comme <code>f64</code>.</li>
+<li>Le type caractère, <code>char</code>.</li>
+<li>Les tuples, mais uniquement s’ils contiennent des types qui implémentent aussi <code>Copy</code>. Par exemple, le <code>(i32, i32)</code> implémente <code>Copy</code>, mais pas   <code>(i32, String)</code>.</li>
+</ul>
+<h3 id="la-possession-et-les-fonctions"><a class="header" href="#la-possession-et-les-fonctions">La possession et les fonctions</a></h3>
+<p>La mécanique pour passer une valeur à une fonction est similaire à celle pour assigner une valeur à une variable. Passer une variable à une fonction va la déplacer ou la copier, comme l’assignation. L’encart 4-3 est un exemple avec quelques commentaires qui montrent où les variables rentrent et sortent de la portée :</p>
+<figure class="listing" id="listing-4-3">
+<span class="file-name">Filename: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let s = String::from("hello");  // s rentre dans la portée.
+
+    prendre_possession(s);  // La valeur de s est déplacée dans la fonction…
+                            // … et n'est plus en vigueur à partir d'ici
+
+    let x = 5;              // x rentre dans la portée.
+
+    creer_copie(x);         // Comme i32 implémente le trait Copy,
+                            // x n'est PAS déplacée dans la fonction,
+                            // donc on peut continuer d'utiliser x ensuite.
+
+} // Ici, x sort de la portée, puis ensuite s. Toutefois, puisque la valeur de
+  // s a été déplacée, il ne se passe rien de spécial.
+
+fn prendre_possession(texte: String) { // texte rentre dans la portée.
+    println!("{texte}");
+} // Ici, texte sort de la portée et `drop` est appelé. La mémoire est libérée.
+
+
+fn creer_copie(entier: i32) { // entier rentre dans la portée.
+    println!("{entier}");
+} // Ici, entier sort de la portée. Il ne se passe rien de spécial.</code></pre>
+<figcaption><a href="#listing-4-3">Listing 4-3</a>: Functions with ownership and scope annotated</figcaption>
+</figure>
+<p>Si on essayait d’utiliser <code>s</code> après l’appel à <code>prendre_possession</code>, Rust déclencherait une erreur à la compilation. Ces vérifications statiques nous protègent des erreurs. Essayez d’ajouter du code au <code>main</code> qui utilise <code>s</code> et <code>x</code> pour découvrir lorsque vous pouvez les utiliser et lorsque les règles de la possession vous empêchent de le faire.</p>
+<h3 id="les-valeurs-de-retour-et-les-portées"><a class="header" href="#les-valeurs-de-retour-et-les-portées">Les valeurs de retour et les portées</a></h3>
+<p>Retourner des valeurs peut aussi transférer leur possession. L’encart 4-4 montre un exemple d’une fonction qui retourne une valeur, avec des annotations similaires à celles de l’encart 4-3 :</p>
+<figure class="listing" id="listing-4-4">
+<span class="file-name">Filename: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let s1 = donne_possession();     // donne_possession déplace sa valeur de
+                                     // retour dans s1
+
+    let s2 = String::from("hello");  // s2 rentre dans la portée
+
+    let s3 = prend_et_rend(s2);      // s2 est déplacée dans
+                                     // prend_et_rend, qui elle aussi
+                                     // déplace sa valeur de retour dans s3.
+} // Ici, s3 sort de la portée et est éliminée. s2 a été déplacée donc il ne se
+  // passe rien. s1 sort aussi de la portée et est éliminée.
+
+fn donne_possession() -&gt; String {        // donne_possession va déplacer sa
+                                         // valeur de retour dans la
+                                         // fonction qui l'appelle.
+
+    let texte = String::from("yours");   // texte rentre dans la portée.
+
+    texte                                // texte est retournée et
+                                         // est déplacée vers le code qui
+                                         // l'appelle.
+}
+
+// Cette fonction va prendre une String et retourne aussi une String.
+fn prend_et_rend(texte: String) -&gt; String {
+    // texte rentre dans
+    // la portée.
+
+    texte  // texte est retournée et déplacée vers le code qui l'appelle.
+}</code></pre>
+<figcaption><a href="#listing-4-4">Listing 4-4</a>: Transferring ownership of return values</figcaption>
+</figure>
+<p>La possession d’une variable suit toujours le même schéma à chaque fois : assigner une valeur à une autre variable la déplace. Quand une variable qui contient des données sur le tas sort de la portée, la valeur sera nettoyée avec <code>drop</code> à moins que la possession de cette donnée soit donnée à une autre variable.</p>
+<p>Même si cela fonctionne, il est un peu fastidieux de prendre la possession puis ensuite de retourner la possession à chaque fonction. Et que se passe-t-il si nous voulons qu’une fonction utilise une valeur, mais n’en prenne pas possession ? C’est assez pénible que tout ce que nous passons doive être retourné si nous voulons l’utiliser à nouveau, en plus de toutes les données qui découlent du corps de la fonction que nous voulons aussi récupérer.</p>
+<p>Rust nous permet de retourner plusieurs valeurs à l’aide d’un tuple, comme ceci :</p>
+<figure class="listing" id="listing-4-5">
+<span class="file-name">Filename: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let s1 = String::from("hello");
+
+    let (s2, taille) = calculer_taille(s1);
+
+    println!("La taille de '{s2}' est {taille}.");
+}
+
+fn calculer_taille(s: String) -&gt; (String, usize) {
+    let taille = s.len(); // len() retourne la taille d'une String.
+
+    (s, taille)
+}</code></pre>
+<figcaption><a href="#listing-4-5">Listing 4-5</a>: Returning ownership of parameters</figcaption>
+</figure>
+<p>Mais c’est trop laborieux et beaucoup de travail pour un principe qui devrait être banal. Heureusement pour nous, Rust a une fonctionnalité pour utiliser une valeur sans avoir à transférer la possession : les références.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch04-00-understanding-ownership.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch04-02-references-and-borrowing.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch04-00-understanding-ownership.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch04-02-references-and-borrowing.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+        <script src="theme/language-picker-612b49f9.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

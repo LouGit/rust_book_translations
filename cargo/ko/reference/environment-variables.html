@@ -1,0 +1,537 @@
+<!DOCTYPE HTML>
+<html lang="ko" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>환경 변수 - The Cargo Book</title>
+
+
+        <!-- Custom HTML head -->
+        <style>
+            dd {
+                margin-bottom: 1em;
+            }
+        </style>
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L455DH98TK"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-L455DH98TK');
+        </script>
+        
+        
+        <script>
+            (function () {
+                // See these pages for details:
+                // https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+                // https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
+        
+                function gen_canonical_href(lang) {
+        
+                    let base = "https://rust-lang-translations.org/cargo";
+        
+                    let canonical_href;
+                    if (lang == "en") {
+                        canonical_href = `${base}/reference/environment-variables.md`;
+                    } else {
+                        canonical_href = `${base}/${lang}/reference/environment-variables.md`;
+                    }
+                    canonical_href = canonical_href.slice(0, -"md".length) + "html";
+                    if (canonical_href.endsWith("/index.html")) {
+                        canonical_href = canonical_href.slice(0, -"index.html".length);
+                    }
+                    return canonical_href;
+                }
+        
+                const canonical_href = gen_canonical_href("ko");
+
+                let link = document.createElement("link");
+                link.rel = "canonical";
+                link.href = canonical_href;
+                document.head.appendChild(link);
+        
+        
+                const langs = ["en"  , "ja"  , "ko" ];
+        
+                for (const lang of langs) {
+                    const canonical_href = gen_canonical_href(lang);
+        
+                    let link = document.createElement("link");
+                    link.rel = "alternate";
+                    link.hreflang = lang;
+                    link.href = canonical_href;
+                    document.head.appendChild(link);
+                }
+            })()
+        </script>
+        
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="shortcut icon" href="../favicon-ba9a2803.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/cargo-d13f5220.css">
+        <link rel="stylesheet" href="../theme/language-picker-00e4db94.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-3f7c0ac9.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-6b0c3669.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cargo Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang-translations/project" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/edit/master/src/doc/src/reference/environment-variables.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="환경-변수"><a class="header" href="#환경-변수">환경 변수</a></h1>
+<p>Cargo는 사용자의 코드가 감지하거나 재정의할 수 있는 여러 환경 변수를 설정하고 읽습니다. 다음은 Cargo가 설정하는 변수 목록이며, 상호 작용 시점에 따라 정리되어 있습니다.</p>
+<h2 id="cargo가-읽는-환경-변수"><a class="header" href="#cargo가-읽는-환경-변수">Cargo가 읽는 환경 변수</a></h2>
+<p>시스템에서 Cargo의 동작을 변경하기 위해 다음 환경 변수들을 재정의할 수 있습니다.</p>
+<ul>
+<li><code>CARGO_LOG</code> — Cargo는 디버그 로그 메시지를 표시하기 위해 <a href="https://docs.rs/tracing"><code>tracing</code></a> 크레이트를 사용합니다. <code>CARGO_LOG</code> 환경 변수를 <code>trace</code>, <code>debug</code>, <code>warn</code> 과 같은 값으로 설정하여 디버그 로깅을 활성화할 수 있습니다. 일반적으로 디버깅 중에만 사용됩니다. 자세한 내용은 <a href="https://doc.crates.io/contrib/implementation/debugging.html#logging">디버그 로깅(Debug logging)</a> 을 참조하세요.</li>
+<li><code>CARGO_HOME</code> — Cargo는 레지스트리 인덱스와 크레이트의 git 체크아웃에 대한 로컬 캐시를 유지합니다. 기본적으로 <code>$HOME/.cargo</code>(윈도우의 경우 <code>%USERPROFILE%\.cargo</code>)에 저장되지만, 이 변수를 통해 해당 디렉토리의 위치를 재정의할 수 있습니다. 한 번 캐시된 크레이트는 clean 명령어로 제거되지 않습니다. 자세한 내용은 <a href="../guide/cargo-home.html">가이드</a> 를 참조하세요.</li>
+<li><code>CARGO_TARGET_DIR</code> — 생성된 모든 결과물을 배치할 위치로, 현재 작업 디렉토리에 대한 상대 경로입니다. 설정을 통해 지정하려면 <a href="config.html#buildtarget-dir"><code>build.target-dir</code></a> 을 참조하세요.</li>
+<li><code>CARGO</code> — 이 변수가 설정되면, Cargo는 크레이트를 빌드하거나 빌드 스크립트 및 외부 하위 명령어를 실행할 때 자동으로 감지된 자체 경로 대신 이 값을 전달합니다. 이 값은 Cargo에 의해 직접 실행되지 않으며, 사용자가 기대하는 대로 항상 <code>cargo</code> 와 똑같이 동작하는 명령을 가리켜야 합니다.</li>
+<li><code>RUSTC</code> — Cargo는 <code>rustc</code> 를 직접 실행하는 대신 이 변수에 지정된 컴파일러를 실행합니다. 설정을 통해 지정하려면 <a href="config.html#buildrustc"><code>build.rustc</code></a> 를 참조하세요.</li>
+<li><code>RUSTC_WRAPPER</code> — Cargo는 단순히 <code>rustc</code> 를 실행하는 대신 이 변수에 지정된 래퍼를 실행합니다. 이때 rustc 호출 명령이 명령줄 인수로 전달되며, 첫 번째 인수는 실제 rustc의 경로가 됩니다. <code>sccache</code> 와 같은 빌드 캐시 도구를 설정할 때 유용합니다. 설정을 통해 지정하려면 <a href="config.html#buildrustc-wrapper"><code>build.rustc-wrapper</code></a> 를 참조하세요. 이 값을 빈 문자열로 설정하면 설정을 덮어쓰고 래퍼를 사용하지 않도록 초기화합니다.</li>
+<li><code>RUSTC_WORKSPACE_WRAPPER</code> — Cargo는 단순히 <code>rustc</code> 를 실행하는 대신, 워크스페이스 구성원에 대해 이 변수에 지정된 래퍼를 실행합니다. 이때 rustc 호출 명령이 명령줄 인수로 전달되며, 첫 번째 인수는 실제 rustc의 경로가 됩니다. 워크스페이스가 없는 단일 패키지 프로젝트를 빌드할 때 해당 패키지는 워크스페이스로 간주됩니다. 이는 파일 이름 해시에 영향을 주어 래퍼에 의해 생성된 결과물이 별도로 캐시되도록 합니다. 설정을 통해 지정하려면 <a href="config.html#buildrustc-workspace-wrapper"><code>build.rustc-workspace-wrapper</code></a> 를 참조하세요. 이 값을 빈 문자열로 설정하면 설정을 덮어쓰고 워크스페이스 구성원에 대해 래퍼를 사용하지 않도록 초기화합니다. <code>RUSTC_WRAPPER</code> 와 <code>RUSTC_WORKSPACE_WRAPPER</code> 가 모두 설정된 경우 중첩됩니다. 최종 호출은 <code>$RUSTC_WRAPPER $RUSTC_WORKSPACE_WRAPPER $RUSTC</code> 가 됩니다.</li>
+<li><code>RUSTDOC</code> — Cargo는 <code>rustdoc</code> 을 실행하는 대신 이 변수에 지정된 <code>rustdoc</code> 인스턴스를 실행합니다. 설정을 통해 지정하려면 <a href="config.html#buildrustdoc"><code>build.rustdoc</code></a> 을 참조하세요.</li>
+<li><code>RUSTDOCFLAGS</code> — Cargo가 수행하는 모든 <code>rustdoc</code> 호출에 전달할 공백으로 구분된 사용자 정의 플래그 목록입니다. <a href="../commands/cargo-rustdoc.html"><code>cargo rustdoc</code></a> 과 달리, 이는 <em>모든</em> <code>rustdoc</code> 인스턴스에 플래그를 전달할 때 유용합니다. 플래그를 설정하는 다른 방법은 <a href="config.html#buildrustdocflags"><code>build.rustdocflags</code></a> 를 참조하세요. 이 문자열은 공백으로 나뉩니다. 여러 인수를 더 안정적으로 인코딩하려면 <code>CARGO_ENCODED_RUSTDOCFLAGS</code> 를 참조하세요.</li>
+<li><code>CARGO_ENCODED_RUSTDOCFLAGS</code> — Cargo가 수행하는 모든 <code>rustdoc</code> 호출에 전달할 <code>0x1f</code>(ASCII Unit Separator)로 구분된 사용자 정의 플래그 목록입니다.</li>
+<li><code>RUSTFLAGS</code> — Cargo가 수행하는 모든 컴파일러 호출에 전달할 공백으로 구분된 사용자 정의 플래그 목록입니다. <a href="../commands/cargo-rustc.html"><code>cargo rustc</code></a> 와 달리, 이는 <em>모든</em> 컴파일러 인스턴스에 플래그를 전달할 때 유용합니다. 플래그를 설정하는 다른 방법은 <a href="config.html#buildrustflags"><code>build.rustflags</code></a> 를 참조하세요. 이 문자열은 공백으로 나뉩니다. 여러 인수를 더 안정적으로 인코딩하려면 <code>CARGO_ENCODED_RUSTFLAGS</code> 를 참조하세요.</li>
+<li><code>CARGO_ENCODED_RUSTFLAGS</code> — Cargo가 수행하는 모든 컴파일러 호출에 전달할 <code>0x1f</code>(ASCII Unit Separator)로 구분된 사용자 정의 플래그 목록입니다.</li>
+<li><code>CARGO_INCREMENTAL</code> — 이 값이 1로 설정되면 Cargo는 현재 컴파일에 대해 <a href="profiles.html#incremental">증분 컴파일(incremental compilation)</a> 을 강제로 활성화하고, 0으로 설정되면 강제로 비활성화합니다. 이 환경 변수가 없으면 Cargo의 기본값이 사용됩니다. <a href="config.html#buildincremental"><code>build.incremental</code></a> 설정 값도 참조하세요.</li>
+<li><code>CARGO_CACHE_RUSTC_INFO</code> — 이 값이 0으로 설정되면 Cargo는 컴파일러 버전 정보 캐싱을 시도하지 않습니다.</li>
+<li><code>HTTPS_PROXY</code> 또는 <code>https_proxy</code> 또는 <code>http_proxy</code> — 사용할 HTTP 프록시입니다. 자세한 내용은 <a href="config.html#httpproxy"><code>http.proxy</code></a> 를 참조하세요.</li>
+<li><code>HTTP_TIMEOUT</code> — HTTP 타임아웃(초 단위)입니다. 자세한 내용은 <a href="config.html#httptimeout"><code>http.timeout</code></a> 을 참조하세요.</li>
+<li><code>TERM</code> — 이 값이 <code>dumb</code> 로 설정되면 진행률 표시줄이 비활성화됩니다.</li>
+<li><code>BROWSER</code> — The web browser to execute to open documentation with <a href="../commands/cargo-doc.html"><code>cargo doc</code></a>’s <code>--open</code> flag, see <a href="config.html#docbrowser"><code>doc.browser</code></a> for more details.</li>
+<li><code>RUSTFMT</code> — <a href="https://github.com/rust-lang/rustfmt"><code>cargo fmt</code></a> 은 <code>rustfmt</code> 을 직접 실행하는 대신 이 변수에 지정된 <code>rustfmt</code> 인스턴스를 실행합니다.</li>
+</ul>
+<h3 id="설정-관련-환경-변수"><a class="header" href="#설정-관련-환경-변수">설정 관련 환경 변수</a></h3>
+<p>Cargo는 일부 설정 값을 환경 변수에서 읽습니다. 자세한 내용은 <a href="config.html#environment-variables">설정(Configuration) 장</a> 을 참조하세요. 요약하자면, 지원되는 환경 변수는 다음과 같습니다.</p>
+<ul>
+<li><code>CARGO_ALIAS_&lt;이름&gt;</code> — 명령 별칭. <a href="config.html#alias"><code>alias</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_JOBS</code> — 병렬 작업 수. <a href="config.html#buildjobs"><code>build.jobs</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_RUSTC</code> — <code>rustc</code> 실행 파일. <a href="config.html#buildrustc"><code>build.rustc</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_RUSTC_WRAPPER</code> — <code>rustc</code> 래퍼. <a href="config.html#buildrustc-wrapper"><code>build.rustc-wrapper</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_RUSTC_WORKSPACE_WRAPPER</code> — 워크스페이스 구성원 전용 <code>rustc</code> 래퍼. <a href="config.html#buildrustc-workspace-wrapper"><code>build.rustc-workspace-wrapper</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_RUSTDOC</code> — <code>rustdoc</code> 실행 파일. <a href="config.html#buildrustdoc"><code>build.rustdoc</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_TARGET</code> — 기본 타겟 플랫폼. <a href="config.html#buildtarget"><code>build.target</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_TARGET_DIR</code> — 기본 출력 디렉토리. <a href="config.html#buildtarget-dir"><code>build.target-dir</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_BUILD_DIR</code> — The default build directory, see <a href="config.html#buildbuild-dir"><code>build.build-dir</code></a>.</li>
+<li><code>CARGO_BUILD_RUSTFLAGS</code> — 추가 <code>rustc</code> 플래그. <a href="config.html#buildrustflags"><code>build.rustflags</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_RUSTDOCFLAGS</code> — 추가 <code>rustdoc</code> 플래그. <a href="config.html#buildrustdocflags"><code>build.rustdocflags</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_INCREMENTAL</code> — 증분 컴파일. <a href="config.html#buildincremental"><code>build.incremental</code></a> 를 참조하세요.</li>
+<li><code>CARGO_BUILD_DEP_INFO_BASEDIR</code> — 의존성 정보 상대 디렉토리. <a href="config.html#builddep-info-basedir"><code>build.dep-info-basedir</code></a> 를 참조하세요.</li>
+<li><code>CARGO_CACHE_AUTO_CLEAN_FREQUENCY</code> — Configures how often automatic cache cleaning runs, see <a href="config.html#cacheauto-clean-frequency"><code>cache.auto-clean-frequency</code></a>.</li>
+<li><code>CARGO_CARGO_NEW_VCS</code> — <a href="../commands/cargo-new.html"><code>cargo new</code></a> 사용 시 기본 소스 제어 시스템. <a href="config.html#cargo-newvcs"><code>cargo-new.vcs</code></a> 를 참조하세요.</li>
+<li><code>CARGO_FUTURE_INCOMPAT_REPORT_FREQUENCY</code> — 미래 비호환성 보고서 알림 생성 빈도. <a href="config.html#future-incompat-reportfrequency"><code>future-incompat-report.frequency</code></a> 를 참조하세요.</li>
+<li><code>CARGO_HTTP_DEBUG</code> — HTTP 디버깅 활성화. <a href="config.html#httpdebug"><code>http.debug</code></a> 를 참조하세요.</li>
+<li><code>CARGO_HTTP_PROXY</code> — HTTP 프록시 활성화. <a href="config.html#httpproxy"><code>http.proxy</code></a> 를 참조하세요.</li>
+<li><code>CARGO_HTTP_TIMEOUT</code> — HTTP 타임아웃. <a href="config.html#httptimeout"><code>http.timeout</code></a> 을 참조하세요.</li>
+<li><code>CARGO_HTTP_CAINFO</code> — TLS 인증서 인증 기관(CA) 파일. <a href="config.html#httpcainfo"><code>http.cainfo</code></a> 를 참조하세요.</li>
+<li><code>CARGO_HTTP_PROXY_CAINFO</code> — The proxy TLS certificate Certificate Authority file, see <a href="config.html#httpproxy-cainfo"><code>http.proxy-cainfo</code></a>.</li>
+<li><code>CARGO_HTTP_CHECK_REVOKE</code> — TLS 인증서 폐기 확인 비활성화. <a href="config.html#httpcheck-revoke"><code>http.check-revoke</code></a> 를 참조하세요.</li>
+<li><code>CARGO_HTTP_SSL_VERSION</code> — 사용할 TLS 버전. <a href="config.html#httpssl-version"><code>http.ssl-version</code></a> 을 참조하세요.</li>
+<li><code>CARGO_HTTP_LOW_SPEED_LIMIT</code> — HTTP 최저 속도 제한. <a href="config.html#httplow-speed-limit"><code>http.low-speed-limit</code></a> 을 참조하세요.</li>
+<li><code>CARGO_HTTP_MULTIPLEXING</code> — HTTP/2 멀티플렉싱 사용 여부. <a href="config.html#httpmultiplexing"><code>http.multiplexing</code></a> 을 참조하세요.</li>
+<li><code>CARGO_HTTP_USER_AGENT</code> — HTTP user-agent 헤더. <a href="config.html#httpuser-agent"><code>http.user-agent</code></a> 를 참조하세요.</li>
+<li><code>CARGO_INSTALL_ROOT</code> — <a href="../commands/cargo-install.html"><code>cargo install</code></a> 의 기본 디렉토리. <a href="config.html#installroot"><code>install.root</code></a> 를 참조하세요.</li>
+<li><code>CARGO_NET_RETRY</code> — 네트워크 오류 발생 시 재시도 횟수. <a href="config.html#netretry"><code>net.retry</code></a> 를 참조하세요.</li>
+<li><code>CARGO_NET_GIT_FETCH_WITH_CLI</code> — 가져오기를 위해 <code>git</code> 실행 파일 사용 활성화. <a href="config.html#netgit-fetch-with-cli"><code>net.git-fetch-with-cli</code></a> 를 참조하세요.</li>
+<li><code>CARGO_NET_OFFLINE</code> — 오프라인 모드. <a href="config.html#netoffline"><code>net.offline</code></a> 을 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_BUILD_OVERRIDE_&lt;키&gt;</code> — 빌드 스크립트 프로파일 재정의. <a href="config.html#profilenamebuild-override"><code>profile.&lt;name&gt;.build-override</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_CODEGEN_UNITS</code> — 코드 생성 단위 설정. <a href="config.html#profilenamecodegen-units"><code>profile.&lt;name&gt;.codegen-units</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_DEBUG</code> — 포함할 디버그 정보 종류. <a href="config.html#profilenamedebug"><code>profile.&lt;name&gt;.debug</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_DEBUG_ASSERTIONS</code> — 디버그 어설션 활성화/비활성화. <a href="config.html#profilenamedebug-assertions"><code>profile.&lt;name&gt;.debug-assertions</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_INCREMENTAL</code> — 증분 컴파일 활성화/비활성화. <a href="config.html#profilenameincremental"><code>profile.&lt;name&gt;.incremental</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_LTO</code> — 링크 타임 최적화(LTO). <a href="config.html#profilenamelto"><code>profile.&lt;name&gt;.lto</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_OVERFLOW_CHECKS</code> — 오버플로 검사 활성화/비활성화. <a href="config.html#profilenameoverflow-checks"><code>profile.&lt;name&gt;.overflow-checks</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_OPT_LEVEL</code> — 최적화 레벨 설정. <a href="config.html#profilenameopt-level"><code>profile.&lt;name&gt;.opt-level</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_PANIC</code> — 사용할 패닉 전략. <a href="config.html#profilenamepanic"><code>profile.&lt;name&gt;.panic</code></a> 을 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_RPATH</code> — rpath 링크 옵션. <a href="config.html#profilenamerpath"><code>profile.&lt;name&gt;.rpath</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_SPLIT_DEBUGINFO</code> — 디버그 파일 출력 동작 제어. <a href="config.html#profilenamesplit-debuginfo"><code>profile.&lt;name&gt;.split-debuginfo</code></a> 를 참조하세요.</li>
+<li><code>CARGO_PROFILE_&lt;이름&gt;_STRIP</code> — 심볼 및 디버그 정보 제거 제어. <a href="config.html#profilenamestrip"><code>profile.&lt;name&gt;.strip</code></a> 을 참조하세요.</li>
+<li><code>CARGO_REGISTRIES_&lt;이름&gt;_CREDENTIAL_PROVIDER</code> — 레지스트리용 자격 증명 제공자. <a href="config.html#registriesnamecredential-provider"><code>registries.&lt;name&gt;.credential-provider</code></a> 를 참조하세요.</li>
+<li><code>CARGO_REGISTRIES_&lt;이름&gt;_INDEX</code> — 레지스트리 인덱스 URL. <a href="config.html#registriesnameindex"><code>registries.&lt;name&gt;.index</code></a> 를 참조하세요.</li>
+<li><code>CARGO_REGISTRIES_&lt;이름&gt;_TOKEN</code> — 레지스트리 인증 토큰. <a href="config.html#registriesnametoken"><code>registries.&lt;name&gt;.token</code></a> 을 참조하세요.</li>
+<li><code>CARGO_REGISTRY_CREDENTIAL_PROVIDER</code> — <a href="https://crates.io/">crates.io</a> 용 자격 증명 제공자. <a href="config.html#registrycredential-provider"><code>registry.credential-provider</code></a> 를 참조하세요.</li>
+<li><code>CARGO_REGISTRY_DEFAULT</code> — <code>--registry</code> 플래그의 기본 레지스트리. <a href="config.html#registrydefault"><code>registry.default</code></a> 를 참조하세요.</li>
+<li><code>CARGO_REGISTRY_GLOBAL_CREDENTIAL_PROVIDERS</code> — 특정 제공자가 정의되지 않은 레지스트리들을 위한 자격 증명 제공자 목록. <a href="config.html#registryglobal-credential-providers"><code>registry.global-credential-providers</code></a> 를 참조하세요.</li>
+<li><code>CARGO_REGISTRY_TOKEN</code> — <a href="https://crates.io/">crates.io</a> 용 인증 토큰. <a href="config.html#registrytoken"><code>registry.token</code></a> 을 참조하세요.</li>
+<li><code>CARGO_TARGET_&lt;triple&gt;_LINKER</code> — 사용할 링커. <a href="config.html#targettriplelinker"><code>target.&lt;triple&gt;.linker</code></a> 를 참조하세요. 트리플(triple)은 <a href="config.html#environment-variables">대문자와 밑줄로 변환</a> 되어야 합니다.</li>
+<li><code>CARGO_TARGET_&lt;triple&gt;_RUNNER</code> — 실행 파일 러너. <a href="config.html#targettriplerunner"><code>target.&lt;triple&gt;.runner</code></a> 를 참조하세요.</li>
+<li><code>CARGO_TARGET_&lt;triple&gt;_RUSTFLAGS</code> — 타겟용 추가 <code>rustc</code> 플래그. <a href="config.html#targettriplerustflags"><code>target.&lt;triple&gt;.rustflags</code></a> 를 참조하세요.</li>
+<li><code>CARGO_TERM_QUIET</code> — 저소음(quiet) 모드. <a href="config.html#termquiet"><code>term.quiet</code></a> 를 참조하세요.</li>
+<li><code>CARGO_TERM_VERBOSE</code> — 기본 터미널 상세 수준. <a href="config.html#termverbose"><code>term.verbose</code></a> 를 참조하세요.</li>
+<li><code>CARGO_TERM_COLOR</code> — 기본 색상 모드. <a href="config.html#termcolor"><code>term.color</code></a> 를 참조하세요.</li>
+<li><code>CARGO_TERM_PROGRESS_WHEN</code> — 기본 진행률 표시줄 모드. <a href="config.html#termprogresswhen"><code>term.progress.when</code></a> 을 참조하세요.</li>
+<li><code>CARGO_TERM_PROGRESS_WIDTH</code> — 기본 진행률 표시줄 너비. <a href="config.html#termprogresswidth"><code>term.progress.width</code></a> 를 참조하세요.</li>
+</ul>
+<h2 id="cargo가-크레이트를-위해-설정하는-환경-변수"><a class="header" href="#cargo가-크레이트를-위해-설정하는-환경-변수">Cargo가 크레이트를 위해 설정하는 환경 변수</a></h2>
+<p>Cargo는 크레이트 컴파일 시 다음과 같은 환경 변수들을 노출합니다. 이는 <code>cargo run</code> 및 <code>cargo test</code> 로 바이너리를 실행할 때도 적용됩니다. Rust 프로그램에서 이러한 변수 값을 가져오려면 다음과 같이 하세요.</p>
+<pre><code class="language-rust ignore">let version = env!("CARGO_PKG_VERSION");</code></pre>
+<p>이제 <code>version</code> 변수에 <code>CARGO_PKG_VERSION</code> 의 값이 포함됩니다.</p>
+<p>매니페스트에 이러한 값 중 하나가 제공되지 않으면, 해당 환경 변수는 빈 문자열(<code>""</code>)로 설정됩니다.</p>
+<ul>
+<li><code>CARGO</code> — 빌드를 수행하는 <code>cargo</code> 바이너리의 경로입니다.</li>
+<li><code>CARGO_MANIFEST_DIR</code> — 패키지의 매니페스트 파일이 들어있는 디렉토리입니다.</li>
+<li><code>CARGO_MANIFEST_PATH</code> — 패키지의 매니페스트 파일 경로입니다.</li>
+<li><code>CARGO_PKG_VERSION</code> — 패키지의 전체 버전입니다.</li>
+<li><code>CARGO_PKG_VERSION_MAJOR</code> — 패키지의 메이저(major) 버전입니다.</li>
+<li><code>CARGO_PKG_VERSION_MINOR</code> — 패키지의 마이너(minor) 버전입니다.</li>
+<li><code>CARGO_PKG_VERSION_PATCH</code> — 패키지의 패치(patch) 버전입니다.</li>
+<li><code>CARGO_PKG_VERSION_PRE</code> — 패키지의 프리릴리스(pre-release) 버전입니다.</li>
+<li><code>CARGO_PKG_AUTHORS</code> — 패키지 매니페스트에 기재된 저자 목록(콜론으로 구분됨)입니다.</li>
+<li><code>CARGO_PKG_NAME</code> — 패키지의 이름입니다.</li>
+<li><code>CARGO_PKG_DESCRIPTION</code> — 패키지 매니페스트에 기재된 설명입니다.</li>
+<li><code>CARGO_PKG_HOMEPAGE</code> — 패키지 매니페스트에 기재된 홈페이지 주소입니다.</li>
+<li><code>CARGO_PKG_REPOSITORY</code> — 패키지 매니페스트에 기재된 저장소(repository) 주소입니다.</li>
+<li><code>CARGO_PKG_LICENSE</code> — 패키지 매니페스트에 기재된 라이선스입니다.</li>
+<li><code>CARGO_PKG_LICENSE_FILE</code> — 패키지 매니페스트에 기재된 라이선스 파일 경로입니다.</li>
+<li><code>CARGO_PKG_RUST_VERSION</code> — 패키지 매니페스트에 기재된 Rust 버전입니다. 이는 현재 실행 중인 Rust 버전이 아니라 패키지가 지원하는 최소 Rust 버전임에 유의하세요.</li>
+<li><code>CARGO_PKG_README</code> — 패키지의 README 파일 경로입니다.</li>
+<li><code>CARGO_CRATE_NAME</code> — 현재 컴파일 중인 크레이트의 이름입니다. 라이브러리, 바이너리, 예제, 통합 테스트 또는 벤치마크와 같은 <a href="cargo-targets.html">Cargo 타겟</a> 의 이름에서 <code>-</code> 가 <code>_</code> 로 변환된 형태입니다.</li>
+<li><code>CARGO_BIN_NAME</code> — 현재 컴파일 중인 바이너리의 이름입니다. <a href="cargo-targets.html#binaries">바이너리</a> 또는 바이너리 <a href="cargo-targets.html#examples">예제</a> 에 대해서만 설정됩니다. 이 이름에는 <code>.exe</code> 와 같은 파일 확장자가 포함되지 않습니다.</li>
+<li><code>OUT_DIR</code> — If the package has a build script, this is set to the folder where the build script should place its output. See below for more information. (Only set during compilation.) Cargo does not guarantee that this directory is empty, and it is not cleaned between builds.</li>
+<li><code>CARGO_BIN_EXE_&lt;name&gt;</code> — 바이너리 타겟 실행 파일의 절대 경로입니다. 이는 오직 <a href="cargo-targets.html#integration-tests">통합 테스트</a> 또는 벤치마크를 빌드할 때만 설정됩니다. 테스트 목적으로 실행할 파일을 찾기 위해 <a href="../../std/macro.env.html"><code>env</code> 매크로</a> 와 함께 사용될 수 있습니다. <code>&lt;name&gt;</code> 은 바이너리 타겟의 이름 그대로를 사용합니다. 예를 들어 이름이 <code>my-program</code> 인 바이너리의 경우 <code>CARGO_BIN_EXE_my-program</code> 이 됩니다. 테스트 빌드 시 바이너리도 자동으로 빌드되지만, 바이너리에 필요한 기능이 활성화되지 않은 경우는 제외됩니다.</li>
+<li><code>CARGO_PRIMARY_PACKAGE</code> — 빌드 중인 패키지가 ’주요 패키지(primary package)’인 경우 이 환경 변수가 설정됩니다. 주요 패키지란 사용자가 <code>-p</code> 플래그로 명령줄에서 선택했거나, 현재 디렉토리 및 기본 워크스페이스 구성원을 바탕으로 기본 선택된 패키지를 의미합니다. 의존성을 빌드할 때는 이 변수가 설정되지 않지만, 해당 의존성이 명령줄에서 함께 선택된 워크스페이스 구성원인 경우는 예외입니다. 이는 패키지 컴파일 시에만 설정됩니다 (바이너리나 테스트 실행 시에는 설정되지 않음).</li>
+<li><code>CARGO_TARGET_TMPDIR</code> — 오직 <a href="cargo-targets.html#integration-tests">통합 테스트</a> 또는 벤치마크 코드를 빌드할 때만 설정됩니다. 이는 타겟 디렉토리 내부의 경로로, 통합 테스트나 벤치마크에서 필요한 데이터를 자유롭게 보관할 수 있는 공간입니다. Cargo는 처음에 이 디렉토리를 생성만 할 뿐 그 내용을 관리하지는 않으며, 관리 책임은 테스트 코드에 있습니다.</li>
+</ul>
+<h3 id="동적-라이브러리-경로"><a class="header" href="#동적-라이브러리-경로">동적 라이브러리 경로</a></h3>
+<p>Cargo는 <code>cargo run</code> 이나 <code>cargo test</code> 와 같은 명령으로 바이너리를 컴파일하고 실행할 때 동적 라이브러리 경로를 설정합니다. 이는 빌드 프로세스의 일부인 공유 라이브러리를 찾는 데 도움이 됩니다. 변수 이름은 플랫폼에 따라 다릅니다.</p>
+<ul>
+<li>Windows: <code>PATH</code></li>
+<li>macOS: <code>DYLD_FALLBACK_LIBRARY_PATH</code></li>
+<li>Unix: <code>LD_LIBRARY_PATH</code></li>
+<li>AIX: <code>LIBPATH</code></li>
+</ul>
+<p>값은 Cargo가 시작될 때 기존 값에 덧붙여집니다. macOS의 경우 <code>DYLD_FALLBACK_LIBRARY_PATH</code> 가 설정되어 있지 않으면 기본값인 <code>$HOME/lib:/usr/local/lib:/usr/lib</code> 가 추가되는 특수한 처리가 있습니다.</p>
+<p>Cargo는 다음 경로들을 포함합니다.</p>
+<ul>
+<li>빌드 스크립트에서 <a href="build-scripts.html#rustc-link-search"><code>rustc-link-search</code> 지시문</a> 을 통해 포함된 검색 경로들입니다. <code>target</code> 디렉토리 외부의 경로는 제거됩니다. 시스템상의 추가 라이브러리가 검색 경로에 필요한 경우 환경을 적절히 설정하는 것은 Cargo를 실행하는 사용자의 책임입니다.</li>
+<li><code>target/debug</code> 와 같은 기본 출력 디렉토리 및 “deps” 디렉토리입니다. 이는 주로 절차적 매크로를 지원하기 위함입니다.</li>
+<li>rustc sysroot 라이브러리 경로입니다. 이는 일반적으로 대부분의 사용자에게 중요하지 않습니다.</li>
+</ul>
+<h2 id="cargo가-빌드-스크립트를-위해-설정하는-환경-변수"><a class="header" href="#cargo가-빌드-스크립트를-위해-설정하는-환경-변수">Cargo가 빌드 스크립트를 위해 설정하는 환경 변수</a></h2>
+<p>Cargo는 빌드 스크립트가 실행될 때 여러 환경 변수를 설정합니다. 이 변수들은 빌드 스크립트가 컴파일될 때는 아직 설정되지 않으므로, 앞서 본 <code>env!</code> 를 사용하는 예제는 작동하지 않습니다. 대신 빌드 스크립트가 실행될 때 값을 가져와야 합니다.</p>
+<pre><code class="language-rust ignore">use std::env;
+let out_dir = env::var("OUT_DIR").unwrap();</code></pre>
+<p>이제 <code>out_dir</code> 변수에 <code>OUT_DIR</code> 의 값이 포함됩니다.</p>
+<ul>
+<li>
+<p><code>CARGO</code> — 빌드를 수행하는 <code>cargo</code> 바이너리의 경로입니다.</p>
+</li>
+<li>
+<p><code>CARGO_MANIFEST_DIR</code> — 빌드 중인 패키지(빌드 스크립트를 포함하는 패키지)의 매니페스트가 있는 디렉토리입니다. 또한 이는 빌드 스크립트가 시작될 때의 현재 작업 디렉토리 값이기도 합니다.</p>
+</li>
+<li>
+<p><code>CARGO_MANIFEST_PATH</code> — 패키지의 매니페스트 파일 경로입니다.</p>
+</li>
+<li>
+<p><code>CARGO_MANIFEST_LINKS</code> — 매니페스트의 <code>links</code> 값입니다.</p>
+</li>
+<li>
+<p><code>CARGO_MAKEFLAGS</code> — 하위 프로세스를 병렬화하기 위한 Cargo의 <a href="https://www.gnu.org/software/make/manual/html_node/Job-Slots.html">jobserver</a> 구현에 필요한 매개변수를 포함합니다. build.rs에서 실행되는 rustc 또는 cargo 호출은 이미 <code>CARGO_MAKEFLAGS</code> 를 읽을 수 있지만, GNU Make는 플래그를 인수로 직접 지정하거나 <code>MAKEFLAGS</code> 환경 변수를 통해 지정해야 합니다. 현재 Cargo는 <code>MAKEFLAGS</code> 변수를 직접 설정하지 않지만, GNU Make를 호출하는 빌드 스크립트에서 이 변수를 <code>CARGO_MAKEFLAGS</code> 의 내용으로 자유롭게 설정할 수 있습니다.</p>
+</li>
+<li>
+<p><code>CARGO_FEATURE_&lt;이름&gt;</code> — 빌드 중인 패키지의 각 활성화된 기능에 대해 이 환경 변수가 생성됩니다. 여기서 <code>&lt;이름&gt;</code> 은 기능 이름을 대문자로 바꾸고 <code>-</code> 를 <code>_</code> 로 변환한 것입니다.</p>
+</li>
+<li>
+<p><code>CARGO_CFG_&lt;cfg&gt;</code> — 빌드 중인 패키지의 각 <a href="../../reference/conditional-compilation.html">설정 옵션</a> 에 대해, 이 환경 변수는 해당 설정 값을 포함합니다. 여기서 <code>&lt;cfg&gt;</code> 는 설정 이름을 대문자로 바꾸고 <code>-</code> 를 <code>_</code> 로 변환한 것입니다. 불리언 설정은 설정된 경우에만 존재합니다. 여러 값을 갖는 설정은 <code>,</code> 로 구분되어 하나의 변수로 결합됩니다. 여기에는 컴파일러에 내장된 값(<code>rustc --print=cfg</code> 로 확인 가능), 빌드 스크립트에 의해 설정된 값, 그리고 <code>rustc</code> 에 전달된 추가 플래그(<code>RUSTFLAGS</code> 등)가 포함됩니다. 몇 가지 예시는 다음과 같습니다.</p>
+<ul>
+<li><code>CARGO_CFG_FEATURE</code> — 빌드 중인 패키지의 각 활성화된 기능입니다.</li>
+<li><code>CARGO_CFG_UNIX</code> — <a href="../../reference/conditional-compilation.html#unix-and-windows">유닉스 계열 플랫폼</a> 에서 설정됩니다.</li>
+<li><code>CARGO_CFG_WINDOWS</code> — <a href="../../reference/conditional-compilation.html#unix-and-windows">윈도우 계열 플랫폼</a> 에서 설정됩니다.</li>
+<li><code>CARGO_CFG_TARGET_FAMILY=unix,wasm</code> — <a href="../../reference/conditional-compilation.html#target_family">타겟 패밀리(target family)</a> 입니다.</li>
+<li><code>CARGO_CFG_TARGET_OS=macos</code> — <a href="../../reference/conditional-compilation.html#target_os">타겟 운영체제</a> 입니다.</li>
+<li><code>CARGO_CFG_TARGET_ARCH=x86_64</code> — CPU <a href="../../reference/conditional-compilation.html#target_arch">타겟 아키텍처</a> 입니다.</li>
+<li><code>CARGO_CFG_TARGET_VENDOR=apple</code> — <a href="../../reference/conditional-compilation.html#target_vendor">타겟 벤더</a> 입니다.</li>
+<li><code>CARGO_CFG_TARGET_ENV=gnu</code> — <a href="../../reference/conditional-compilation.html#target_env">타겟 환경</a> ABI입니다.</li>
+<li><code>CARGO_CFG_TARGET_ABI=eabihf</code> — The <a href="../../reference/conditional-compilation.html#target_abi">target ABI</a>.</li>
+<li><code>CARGO_CFG_TARGET_POINTER_WIDTH=64</code> — CPU <a href="../../reference/conditional-compilation.html#target_pointer_width">포인터 너비</a> 입니다.</li>
+<li><code>CARGO_CFG_TARGET_ENDIAN=little</code> — CPU <a href="../../reference/conditional-compilation.html#target_endian">타겟 엔디언(endianness)</a> 입니다.</li>
+<li><code>CARGO_CFG_TARGET_FEATURE=mmx,sse</code> — 활성화된 CPU <a href="../../reference/conditional-compilation.html#target_feature">타겟 기능</a> 목록입니다.</li>
+</ul>
+<blockquote>
+<p><a href="../appendix/glossary.html#target">타겟 트리플</a> 마다 서로 다른 <code>cfg</code> 값 세트를 가지므로, 특정 타겟 트리플에 존재하는 변수가 다른 트리플에서는 사용 불가능할 수도 있습니다.</p>
+<p>Some cfg values like <code>test</code> are not available.</p>
+<p><strong>Tip:</strong> For a typed API to read these values, consider using the <a href="https://crates.io/crates/build-rs"><code>build-rs</code></a> crate instead of parsing environment variables manually. Also note that <code>CARGO_CFG_*</code> variables should be used instead of the <code>cfg!</code> macro or <code>#[cfg]</code> attribute in build scripts, those check the <em>host</em> platform, not the <em>target</em>.</p>
+</blockquote>
+</li>
+<li>
+<p><code>OUT_DIR</code> — the folder in which all output and intermediate artifacts should be placed. This folder is inside the build directory for the package being built, and it is unique for the package in question. Cargo does not clean or reset this directory between builds, and its contents may persist across rebuilds. Build scripts should not assume that <code>OUT_DIR</code> is empty, and are responsible for managing or cleaning up any files they create.</p>
+</li>
+<li>
+<p><code>TARGET</code> — 컴파일 대상인 타겟 트리플입니다. 네이티브 코드는 이 트리플에 맞춰 컴파일되어야 합니다. 자세한 내용은 <a href="../appendix/glossary.html#target">타겟 트리플</a> 설명을 참조하세요.</p>
+</li>
+<li>
+<p><code>HOST</code> — Rust 컴파일러의 호스트 트리플입니다.</p>
+</li>
+<li>
+<p><code>NUM_JOBS</code> — 최상위 수준에서 지정된 병렬 처리 수준입니다. 이는 <code>make</code> 와 같은 시스템에 <code>-j</code> 매개변수를 전달할 때 유용할 수 있습니다. 다만, 이 환경 변수를 해석할 때는 주의가 필요합니다. 역사적인 이유로 여전히 제공되지만, 최신 버전의 Cargo는 <code>make -j</code> 를 실행할 필요가 없으며, 대신 <code>MAKEFLAGS</code> 환경 변수를 <code>CARGO_MAKEFLAGS</code> 내용으로 설정하여 하위 make 호출에 대해 Cargo의 GNU Make 호환 <a href="https://www.gnu.org/software/make/manual/html_node/Job-Slots.html">jobserver</a> 를 활성화할 수 있습니다.</p>
+</li>
+<li>
+<p><code>DEBUG</code> — <code>true</code> if any <a href="profiles.html#debug"><code>debug</code></a> information will be generated and <code>false</code> otherwise.</p>
+</li>
+<li>
+<p><code>OPT_LEVEL</code> — values of the corresponding <a href="profiles.html#opt-level"><code>opt-level</code></a> variable for the profile currently being built.</p>
+</li>
+<li>
+<p><code>PROFILE</code> — 릴리스 빌드의 경우 <code>release</code>, 그 외 빌드의 경우 <code>debug</code> 입니다. 이는 <a href="profiles.html">프로파일</a> 이 <a href="profiles.html#dev"><code>dev</code></a> 를 상속하는지 <a href="profiles.html#release"><code>release</code></a> 를 상속하는지에 따라 결정됩니다. 이 환경 변수를 사용하는 것은 권장되지 않습니다. <code>OPT_LEVEL</code> 과 같은 다른 환경 변수를 사용하는 것이 실제 사용 중인 설정에 대한 더 정확한 정보를 제공합니다.</p>
+</li>
+<li>
+<p><code>DEP_&lt;links&gt;_&lt;key&gt;</code> — For more information about this set of environment variables, see build script documentation about <a href="build-scripts.html#the-links-manifest-key"><code>links</code></a>.</p>
+</li>
+<li>
+<p><code>RUSTC</code>, <code>RUSTDOC</code> — Cargo가 사용하기로 결정한 컴파일러 및 문서 생성기입니다. 빌드 스크립트에서도 사용할 수 있도록 전달됩니다.</p>
+</li>
+<li>
+<p><code>RUSTC_WRAPPER</code> — Cargo가 사용 중인 <code>rustc</code> 래퍼(있는 경우)입니다. <a href="config.html#buildrustc-wrapper"><code>build.rustc-wrapper</code></a> 를 참조하세요.</p>
+</li>
+<li>
+<p><code>RUSTC_WORKSPACE_WRAPPER</code> — Cargo가 워크스페이스 구성원을 위해 사용 중인 <code>rustc</code> 래퍼(있는 경우)입니다. <a href="config.html#buildrustc-workspace-wrapper"><code>build.rustc-workspace-wrapper</code></a> 를 참조하세요.</p>
+</li>
+<li>
+<p><code>RUSTC_LINKER</code> — (지정된 경우) 현재 타겟에 대해 Cargo가 사용하기로 결정한 링커 바이너리의 경로입니다. 링커는 <code>.cargo/config.toml</code> 을 편집하여 변경할 수 있습니다. 자세한 내용은 <a href="config.html">Cargo 설정(Configuration)</a> 문서를 참조하세요.</p>
+</li>
+<li>
+<p><code>CARGO_ENCODED_RUSTFLAGS</code> — Cargo가 <code>rustc</code> 를 호출할 때 사용하는 추가 플래그들로, <code>0x1f</code>(ASCII Unit Separator) 문자로 구분됩니다. <a href="config.html#buildrustflags"><code>build.rustflags</code></a> 를 참조하세요. Rust 1.55부터 <code>RUSTFLAGS</code> 는 환경 변수에서 제거되었으므로, 스크립트에서는 대신 <code>CARGO_ENCODED_RUSTFLAGS</code> 를 사용해야 합니다.</p>
+</li>
+<li>
+<p><code>CARGO_PKG_&lt;변수&gt;</code> — 패키지 정보 변수들로, <a href="#environment-variables-cargo-sets-for-crates">크레이트 빌드 시 제공되는 것들</a> 과 이름 및 값이 동일합니다.</p>
+</li>
+</ul>
+<h2 id="environment-variables-cargo-sets-for-cargo-test"><a class="header" href="#environment-variables-cargo-sets-for-cargo-test">Environment variables Cargo sets for <code>cargo test</code></a></h2>
+<p>Cargo sets several environment variables when tests are run. You can retrieve the values when the tests are run:</p>
+<pre><code class="language-rust ignore">use std::env;
+let out_dir = env::var("CARGO_BIN_EXE_foo").unwrap();</code></pre>
+<ul>
+<li><code>CARGO_BIN_EXE_&lt;name&gt;</code> — The absolute path to a binary target’s executable. This is only set when running an <a href="cargo-targets.html#integration-tests">integration test</a> or benchmark. The <code>&lt;name&gt;</code> is the name of the binary target, exactly as-is. For example, <code>CARGO_BIN_EXE_my-program</code> for a binary named <code>my-program</code>. Binaries are automatically built when the test is built, unless the binary has required features that are not enabled.</li>
+</ul>
+<h2 id="cargo가-제3자-하위-명령어를-위해-설정하는-환경-변수"><a class="header" href="#cargo가-제3자-하위-명령어를-위해-설정하는-환경-변수">Cargo가 제3자 하위 명령어를 위해 설정하는 환경 변수</a></h2>
+<p>Cargo는 제3자 하위 명령어(즉, <code>$PATH</code> 에 있는 <code>cargo-foobar</code> 와 같은 이름의 프로그램)에 다음과 같은 환경 변수를 노출합니다.</p>
+<ul>
+<li><code>CARGO</code> — 빌드를 수행하는 <code>cargo</code> 바이너리의 경로입니다.</li>
+<li><code>CARGO_MAKEFLAGS</code> — 하위 프로세스를 병렬화하기 위한 Cargo의 <a href="https://www.gnu.org/software/make/manual/html_node/Job-Slots.html">jobserver</a> 구현에 필요한 매개변수를 포함합니다. 이 변수는 Cargo가 jobserver의 존재를 감지했을 때만 설정됩니다.</li>
+</ul>
+<p>환경에 대한 더 자세한 정보를 얻으려면 <code>cargo metadata</code> 를 실행해 보세요.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../reference/config.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../reference/build-scripts.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../reference/config.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../reference/build-scripts.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/language-picker-00bd309a.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

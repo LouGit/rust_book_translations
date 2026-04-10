@@ -1,0 +1,571 @@
+<!DOCTYPE HTML>
+<html lang="fr" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Les références et l&#x27;emprunt - The Rust Programming Language</title>
+
+
+        <!-- Custom HTML head -->
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L455DH98TK"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-L455DH98TK');
+        </script>
+        
+        
+        <script>
+            (function () {
+                // See these pages for details:
+                // https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+                // https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
+        
+                function gen_canonical_href(lang) {
+        
+                    let base = "https://rust-lang-translations.org/book";
+        
+                    let canonical_href;
+                    if (lang == "en") {
+                        canonical_href = `${base}/ch04-02-references-and-borrowing.md`;
+                    } else {
+                        canonical_href = `${base}/${lang}/ch04-02-references-and-borrowing.md`;
+                    }
+                    canonical_href = canonical_href.slice(0, -"md".length) + "html";
+                    if (canonical_href.endsWith("/index.html")) {
+                        canonical_href = canonical_href.slice(0, -"index.html".length);
+                    }
+                    return canonical_href;
+                }
+        
+                const canonical_href = gen_canonical_href("fr");
+
+                let link = document.createElement("link");
+                link.rel = "canonical";
+                link.href = canonical_href;
+                document.head.appendChild(link);
+        
+        
+                const langs = ["en"  , "ja"  , "ru"  , "ko"  , "fr" ];
+        
+                for (const lang of langs) {
+                    const canonical_href = gen_canonical_href(lang);
+        
+                    let link = document.createElement("link");
+                    link.rel = "alternate";
+                    link.hreflang = lang;
+                    link.href = canonical_href;
+                    document.head.appendChild(link);
+                }
+            })()
+        </script>
+        
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon-de23e50b.svg">
+        <link rel="shortcut icon" href="favicon-8114d1fc.png">
+        <link rel="stylesheet" href="css/variables-8adf115d.css">
+        <link rel="stylesheet" href="css/general-2459343d.css">
+        <link rel="stylesheet" href="css/chrome-ae938929.css">
+        <link rel="stylesheet" href="css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="ferris-d33b75bf.css">
+        <link rel="stylesheet" href="theme/2018-edition-4e126c62.css">
+        <link rel="stylesheet" href="theme/semantic-notes-9b5766c0.css">
+        <link rel="stylesheet" href="theme/listing-cab26221.css">
+        <link rel="stylesheet" href="theme/language-picker-00e4db94.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "searchindex-ce67aaa6.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc-ba8cae83.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Rust Programming Language</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang-translations/project" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h2 id="les-références-et-lemprunt"><a class="header" href="#les-références-et-lemprunt">Les références et l’emprunt</a></h2>
+<p>La difficulté avec le code du tuple à la fin de la section précédente est que nous avons besoin de retourner la <code>String</code> au code appelant pour qu’il puisse continuer à utiliser la <code>String</code> après l’appel à <code>calculer_taille</code>, car la <code>String</code> a été déplacée dans <code>calculer_taille</code>. À la place, nous pouvons fournir une référence à la valeur de la String. Une référence est comme un pointeur dans le sens où c’est une adresse que nous pouvons suivre pour accéder à la donnée stockée à cette adresse ; cette donnée est possédée par une autre variable. Mais contrairement aux pointeurs, une référence garantit de pointer vers une valeur en vigueur, d’un type bien déterminé, pour la durée de vie de cette référence.</p>
+<p>Voici comment définir et utiliser une fonction <code>calculer_taille</code> qui prend une <em>référence</em> à un objet en paramètre plutôt que de prendre possession de la valeur :</p>
+<figure class="listing">
+<span class="file-name">Filename: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let s1 = String::from("hello");
+
+    let long = calculer_taille(&amp;s1);
+
+    println!("La taille de '{s1}' est {long}.");
+}
+
+fn calculer_taille(s: &amp;String) -&gt; usize {
+    s.len()
+}</code></pre>
+</figure>
+<p>Premièrement, on peut observer que tout le code des <em>tuples</em> dans la déclaration des variables et dans la valeur de retour de la fonction a été enlevé. Deuxièmement, remarquez que nous passons <code>&amp;s1</code> à <code>calculer_taille</code>, et que dans sa définition, nous utilisons <code>&amp;String</code> plutôt que <code>String</code>. Ces esperluettes représentent les <em>références</em>, et elles permettent de vous référer à une valeur sans en prendre possession. L’illustration 4-6 illustre ce concept.</p>
+<p><img alt="Trois tables : la table concernant s contient seulement un pointeur vers la table
+concernant s1. La table concernant s1 contient les données sur la pile pour s1 et pointe vers la
+chaîne de caractères sur le tas." src="img/trpl04-06.svg" class="center" /></p>
+<p><span class="caption">Illustration 4-6 : un schéma de la <code>&amp;String</code> <code>s</code> qui pointe vers la <code>String</code> <code>s1</code></span></p>
+<section class="note" aria-role="note">
+<p>Remarque : l’opposé de la création de références avec <code>&amp;</code> est le <em>déréférencement</em>, qui s’effectue avec l’opérateur de déréférencement, <code>*</code>. Nous allons voir quelques utilisations de l’opérateur de déréférencement dans le chapitre 8 et nous aborderons les détails du déréférencement dans le chapitre 15.</p>
+</section>
+<p>Regardons de plus près l’appel à la fonction :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let s1 = String::from("hello");
+
+    let long = calculer_taille(&amp;s1);
+<span class="boring">
+</span><span class="boring">    println!("La taille de '{s1}' est {long}.");
+</span><span class="boring">}
+</span><span class="boring">
+</span><span class="boring">fn calculer_taille(s: &amp;String) -&gt; usize {
+</span><span class="boring">    s.len()
+</span><span class="boring">}</span></code></pre>
+<p>La syntaxe <code>&amp;s1</code> nous permet de créer une référence qui se <em>réfère</em> à la valeur de <code>s1</code> mais n’en prend pas possession. Et comme la référence ne la possède pas, la valeur vers laquelle elle pointe ne sera pas libérée quand cette référence ne sera plus utilisée.</p>
+<p>De la même manière, la signature de la fonction utilise <code>&amp;</code> pour indiquer que le type du paramètre <code>s</code> est une référence. Ajoutons quelques commentaires explicatifs :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span><span class="boring">    let s1 = String::from("hello");
+</span><span class="boring">
+</span><span class="boring">    let long = calculer_taille(&amp;s1);
+</span><span class="boring">
+</span><span class="boring">    println!("La taille de '{s1}' est {long}.");
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn calculer_taille(s: &amp;String) -&gt; usize { // s est une référence à une String
+    s.len()
+} // Ici, s sort de la portée. Mais comme s n'a pas la possession de ce à quoi 
+  // elle fait référence, il ne se passe rien.</code></pre>
+<p>La portée dans laquelle la variable <code>s</code> est en vigueur est la même que toute portée d’un paramètre de fonction, mais la valeur pointée par la référence n’est pas libérée quand <code>s</code> n’est plus utilisé, car <code>s</code> n’en prends pas possession. Lorsque les fonctions ont des références en paramètres au lieu des valeurs réelles, nous n’avons pas besoin de retourner les valeurs pour les rendre, car nous n’en avons jamais pris possession.</p>
+<p>Nous appelons <em>l’emprunt</em> l’action de créer une référence. Comme dans la vie réelle, quand un objet appartient à quelqu’un, vous pouvez le lui emprunter. Et quand vous avez fini, vous devez le lui rendre. Vous ne le possédez pas.</p>
+<p>Donc que se passe-t-il si nous essayons de modifier quelque chose que nous empruntons ? Essayez le code dans l’encart 4-6. Attention, spoiler : cela ne fonctionne pas !</p>
+<figure class="listing" id="listing-4-6">
+<span class="file-name">Filename: src/main.rs</span>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let s = String::from("hello");
+
+    changer(&amp;s);
+}
+
+fn changer(texte: &amp;String) {
+    texte.push_str(", world");
+}</code></pre>
+<figcaption><a href="#listing-4-6">Listing 4-6</a>: Attempting to modify a borrowed value</figcaption>
+</figure>
+<p>Voici l’erreur :</p>
+<pre><code class="language-console">$ cargo run
+   Compiling ownership v0.1.0 (file:///projects/ownership)
+error[E0596]: cannot borrow `*texte` as mutable, as it is behind a `&amp;` reference
+ --&gt; src/main.rs:8:5
+  |
+8 |     texte.push_str(", world");
+  |     ^^^^^ `texte` is a `&amp;` reference, so the data it refers to cannot be borrowed as mutable
+  |
+help: consider changing this to be a mutable reference
+  |
+7 | fn change(texte: &amp;mut String) {
+  |                   +++
+
+For more information about this error, try `rustc --explain E0596`.
+error: could not compile `ownership` (bin "ownership") due to 1 previous error
+</code></pre>
+<p>Comme les variables sont immuables par défaut, les références le sont aussi. Nous ne sommes pas autorisés à modifier une chose quand nous avons une référence vers elle.</p>
+<h3 id="les-références-mutables"><a class="header" href="#les-références-mutables">Les références mutables</a></h3>
+<p>Nous pouvons résoudre le code de l’encart 4-6 pour nous permettre de modifier une valeur empruntée avec quelques petites modifications qui utilisent plutôt une <em>référence mutable</em> :</p>
+<figure class="listing">
+<span class="file-name">Filename: src/main.rs</span>
+<pre class="playground"><code class="language-rust edition2024">fn main() {
+    let mut s = String::from("hello");
+
+    changer(&amp;mut s);
+}
+
+fn changer(texte: &amp;mut String) {
+    texte.push_str(", world");
+}</code></pre>
+</figure>
+<p>D’abord, nous précisons que <code>s</code> est <code>mut</code>. Ensuite, nous avons créé une référence mutable avec <code>&amp;mut s</code> où nous appelons la fonction <code>changer</code> et nous avons modifié la signature pour accepter de prendre une référence mutable avec <code>texte: &amp;mut String</code>. Cela précise clairement que la fonction <code>changer</code> va faire muter la valeur qu’elle emprunte.</p>
+<p>Les références mutables ont une grosse contrainte : si vous avez une référence mutable pour une valeur, vous ne pouvez pas avoir d’autre référence à cette valeur. Le code suivant qui va tenter de créer deux références mutables à <code>s</code> va échouer :</p>
+<figure class="listing">
+<span class="file-name">Filename: src/main.rs</span>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span>    let mut s = String::from("hello");
+
+    let r1 = &amp;mut s;
+    let r2 = &amp;mut s;
+
+    println!("{r1}, {r2}");
+<span class="boring">}</span></code></pre>
+</figure>
+<p>Voici l’erreur :</p>
+<pre><code class="language-console">$ cargo run
+   Compiling ownership v0.1.0 (file:///projects/ownership)
+error[E0499]: cannot borrow `s` as mutable more than once at a time
+ --&gt; src/main.rs:5:14
+  |
+4 |     let r1 = &amp;mut s;
+  |              ------ first mutable borrow occurs here
+5 |     let r2 = &amp;mut s;
+  |              ^^^^^^ second mutable borrow occurs here
+6 |
+7 |     println!("{r1}, {r2}");
+  |                -- first borrow later used here
+
+For more information about this error, try `rustc --explain E0499`.
+error: could not compile `ownership` (bin "ownership") due to 1 previous error
+</code></pre>
+<p>Cette erreur nous explique que ce code est invalide car nous ne pouvons pas emprunter <code>s</code> de manière mutable plus d’une fois au même moment. Le premier emprunt mutable est dans <code>r1</code> et doit perdurer jusqu’à ce qu’il soit utilisé dans le <code>println!</code>, mais pourtant entre la création de cette référence mutable et son utilisation, nous avons essayé de créer une autre référence mutable dans <code>r2</code> qui emprunte la même donnée que dans <code>r1</code>.</p>
+<p>La limitation qui empêche d’avoir plusieurs références mutables vers la même donnée au même moment autorise les mutations, mais de manière très contrôlée. C’est quelque chose que les nouveaux Rustacés ont du mal à surmonter, car la plupart des langages vous permettent de modifier les données quand vous le voulez. L’avantage d’avoir cette contrainte est que Rust peut empêcher les accès concurrents au moment de la compilation. Un <em>accès concurrent</em> est une situation de concurrence qui se produit lorsque ces trois facteurs se combinent :</p>
+<ul>
+<li>Deux pointeurs ou plus accèdent à la même donnée au même moment.</li>
+<li>Au moins un des pointeurs est utilisé pour écrire dans cette donnée.</li>
+<li>On n’utilise aucun mécanisme pour synchroniser l’accès aux données.</li>
+</ul>
+<p>L’accès concurrent provoque des comportements indéfinis et rend difficile le diagnostic et la résolution de problèmes lorsque vous essayez de les reproduire au moment de l’exécution ; Rust évite ce problème en refusant de compiler du code avec des accès concurrents !</p>
+<p>Comme d’habitude, nous pouvons utiliser des accolades pour créer une nouvelle portée, pour nous permettre d’avoir plusieurs références mutables, mais pas <em>en même temps</em> :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let mut s = String::from("hello");
+
+    {
+        let r1 = &amp;mut s;
+    } // r1 sort de la portée ici, donc nous pouvons créer une nouvelle référence
+      // sans problème.
+    let r2 = &amp;mut s;
+<span class="boring">}</span></code></pre>
+<p>Rust impose une règle similaire pour combiner les références immuables et mutables. Ce code va mener à une erreur :</p>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span>    let mut s = String::from("hello");
+
+    let r1 = &amp;s; // sans problème
+    let r2 = &amp;s; // sans problème
+    let r3 = &amp;mut s; // GROS PROBLÈME
+
+    println!("{r1}, {r2}, et {r3}");
+<span class="boring">}</span></code></pre>
+<p>Voici l’erreur :</p>
+<pre><code class="language-console">$ cargo run
+   Compiling ownership v0.1.0 (file:///projects/ownership)
+error[E0502]: cannot borrow `s` as mutable because it is also borrowed as immutable
+ --&gt; src/main.rs:6:14
+  |
+4 |     let r1 = &amp;s; // sans problème
+  |              -- immutable borrow occurs here
+5 |     let r2 = &amp;s; // sans problème
+6 |     let r3 = &amp;mut s; // GROS PROBLÈME
+  |              ^^^^^^ mutable borrow occurs here
+7 |
+8 |     println!("{r1}, {r2}, et {r3}");
+  |                -- immutable borrow later used here
+
+For more information about this error, try `rustc --explain E0502`.
+error: could not compile `ownership` (bin "ownership") due to 1 previous error
+</code></pre>
+<p>Ah ! Nous ne pouvons pas <em>non plus</em> avoir une référence mutable pendant que nous en avons une autre immuable vers la même valeur.</p>
+<p>Les utilisateurs d’une référence immuable ne s’attendent pas à ce que sa valeur change soudainement ! Cependant, l’utilisation de plusieurs références immuables ne pose pas de problème, car simplement lire une donnée ne va pas affecter la lecture de la donnée par les autres.</p>
+<p>Notez bien que la portée d’une référence commence dès qu’elle est introduite et se poursuit jusqu’au dernier endroit où cette référence est utilisée. Par exemple, le code suivant va se compiler car la dernière utilisation de la référence immuable est dans le <code>println!</code> qui est situé avant l’introduction de la référence mutable :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span>    let mut s = String::from("hello");
+
+    let r1 = &amp;s; // sans problème
+    let r2 = &amp;s; // sans problème
+    println!("{r1} et {r2}");
+    // Les variables r1 et r2 ne seront plus utilisés à partir d'ici.
+
+    let r3 = &amp;mut s; // sans problème
+    println!("{r3}");
+<span class="boring">}</span></code></pre>
+<p>Les portées des références immuables <code>r1</code> et <code>r2</code> se terminent après le <code>println!</code> où elles sont utilisées pour la dernière fois, c’est-à-dire avant que la référence mutable <code>r3</code> soit créée. Ces portées ne se chevauchent pas, donc ce code est autorisé : le compilateur peut déterminer que la référence n’est plus utilisée à un moment avant la fin de la portée.</p>
+<p>Même si ces erreurs d’emprunt peuvent parfois être frustrantes, n’oubliez pas que le compilateur de Rust nous signale un bogue potentiel en avance (au moment de la compilation plutôt que de l’exécution) et vous montre où se situe exactement le problème. Ainsi, vous n’avez pas à chercher pourquoi vos données ne correspondent pas à ce que vous pensiez qu’elles devraient être.</p>
+<h3 id="les-références-pendouillantes"><a class="header" href="#les-références-pendouillantes">Les références pendouillantes</a></h3>
+<p>Avec les langages qui utilisent les pointeurs, il est facile de créer par erreur un <em>pointeur pendouillant</em> (<em>dangling pointer</em>), qui est un pointeur qui pointe vers un emplacement mémoire qui a été donné à quelqu’un d’autre, en libérant de la mémoire tout en conservant un pointeur vers cette mémoire. En revanche, avec Rust, le compilateur garantit que les références ne seront jamais des références pendouillantes : si nous avons une référence vers une donnée, le compilateur va s’assurer que cette donnée ne va pas sortir de la portée avant que la référence vers cette donnée en soit elle-même sortie.</p>
+<p>Essayons de créer une référence pendouillante pour voir comment Rust va les empêcher via une erreur au moment de la compilation :</p>
+<figure class="listing">
+<span class="file-name">Filename: src/main.rs</span>
+<pre><code class="language-rust ignore does_not_compile">fn main() {
+    let reference_vers_rien = pendouille();
+}
+
+fn pendouille() -&gt; &amp;String {
+    let s = String::from("hello");
+
+    &amp;s
+}</code></pre>
+</figure>
+<p>Voici l’erreur :</p>
+<pre><code class="language-console">$ cargo run
+   Compiling ownership v0.1.0 (file:///projects/ownership)
+error[E0106]: missing lifetime specifier
+ --&gt; src/main.rs:5:16
+  |
+5 | fn pendouille() -&gt; &amp;String {
+  |                    ^ expected named lifetime parameter
+  |
+  = help: this function's return type contains a borrowed value, but there is no value for it to be borrowed from
+help: consider using the `'static` lifetime, but this is uncommon unless you're returning a borrowed value from a `const` or a `static`
+  |
+5 | fn dangle() -&gt; &amp;'static String {
+  |                 +++++++
+help: instead, you are more likely to want to return an owned value
+  |
+5 - fn dangle() -&gt; &amp;String {
+5 + fn dangle() -&gt; String {
+  |
+
+For more information about this error, try `rustc --explain E0106`.
+error: could not compile `ownership` (bin "ownership") due to 1 previous error
+</code></pre>
+<p>Ce message d’erreur fait référence à une fonctionnalité que nous n’avons pas encore vue : les <em>durées de vie</em>. Nous aborderons les durées de vie dans le chapitre 10. Mais, si vous mettez de côté les parties qui parlent de durées de vie, le message explique pourquoi le code pose problème :</p>
+<pre><code class="language-text">this function's return type contains a borrowed value, but there is no value
+for it to be borrowed from
+</code></pre>
+<p>Ce qui peut se traduire par :</p>
+<pre><code>Le type de retour de cette fonction contient une valeur empruntée, mais il n'y a 
+aucune valeur à partir de laquelle elle peut être empruntée.
+</code></pre>
+<p>Regardons de plus près ce qui se passe exactement à chaque étape de notre code de <code>pendouille</code> :</p>
+<figure class="listing">
+<span class="file-name">Filename: src/main.rs</span>
+<pre><code class="language-rust ignore does_not_compile"><span class="boring">fn main() {
+</span><span class="boring">    let reference_vers_rien = pendouille();
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn pendouille() -&gt; &amp;String { // pendouille retourne une référence vers une String
+
+  let s = String::from("hello"); // s est une nouvelle String
+
+  &amp;s // nous retournons une référence vers la String, s
+} // Ici, s sort de la portée, et est libéré. Sa mémoire disparaît.
+  // Attention, danger !</code></pre>
+</figure>
+<p>Comme <code>s</code> est créé dans <code>pendouille</code>, lorsque le code de <code>pendouille</code> est terminé, la variable <code>s</code> sera désallouée. Mais nous avons essayé de retourner une référence vers elle. Cela veut dire que cette référence va pointer vers une <code>String</code> invalide. Ce n’est pas bon ! Rust ne nous laissera pas faire cela.</p>
+<p>Ici la solution est de renvoyer la String directement :</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">fn main() {
+</span><span class="boring">    let chaine = ne_pendouille_pas();
+</span><span class="boring">}
+</span><span class="boring">
+</span>fn ne_pendouille_pas() -&gt; String {
+    let s = String::from("hello");
+
+    s
+}</code></pre>
+<p>Cela fonctionne sans problème. La possession est transférée à la valeur de retour de la fonction, et rien n’est désalloué.</p>
+<h3 id="les-règles-de-référencement"><a class="header" href="#les-règles-de-référencement">Les règles de référencement</a></h3>
+<p>Récapitulons ce que nous avons vu à propos des références :</p>
+<ul>
+<li>À un instant donné, vous pouvez avoir <em>soit</em> une référence mutable, <em>soit</em> un   nombre quelconque de références immuables.</li>
+<li>Les références doivent toujours être en vigueur.</li>
+</ul>
+<p>Ensuite, nous aborderons un autre type de référence : les <em>slices</em>.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="ch04-01-what-is-ownership.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="ch04-03-slices.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="ch04-01-what-is-ownership.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="ch04-03-slices.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr-ef4e11c1.min.js"></script>
+        <script src="mark-09e88c2c.min.js"></script>
+        <script src="searcher-c2a407aa.js"></script>
+
+        <script src="clipboard-1626706a.min.js"></script>
+        <script src="highlight-abc7f01d.js"></script>
+        <script src="book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="ferris-2317480c.js"></script>
+        <script src="theme/language-picker-612b49f9.js"></script>
+
+
+
+    </div>
+    </body>
+</html>

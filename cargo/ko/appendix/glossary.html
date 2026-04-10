@@ -1,0 +1,410 @@
+<!DOCTYPE HTML>
+<html lang="ko" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>부록: 용어집 - The Cargo Book</title>
+
+
+        <!-- Custom HTML head -->
+        <style>
+            dd {
+                margin-bottom: 1em;
+            }
+        </style>
+        
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-L455DH98TK"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+        
+          gtag('config', 'G-L455DH98TK');
+        </script>
+        
+        
+        <script>
+            (function () {
+                // See these pages for details:
+                // https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls
+                // https://developers.google.com/search/docs/crawling-indexing/javascript/javascript-seo-basics
+        
+                function gen_canonical_href(lang) {
+        
+                    let base = "https://rust-lang-translations.org/cargo";
+        
+                    let canonical_href;
+                    if (lang == "en") {
+                        canonical_href = `${base}/appendix/glossary.md`;
+                    } else {
+                        canonical_href = `${base}/${lang}/appendix/glossary.md`;
+                    }
+                    canonical_href = canonical_href.slice(0, -"md".length) + "html";
+                    if (canonical_href.endsWith("/index.html")) {
+                        canonical_href = canonical_href.slice(0, -"index.html".length);
+                    }
+                    return canonical_href;
+                }
+        
+                const canonical_href = gen_canonical_href("ko");
+
+                let link = document.createElement("link");
+                link.rel = "canonical";
+                link.href = canonical_href;
+                document.head.appendChild(link);
+        
+        
+                const langs = ["en"  , "ja"  , "ko" ];
+        
+                for (const lang of langs) {
+                    const canonical_href = gen_canonical_href(lang);
+        
+                    let link = document.createElement("link");
+                    link.rel = "alternate";
+                    link.hreflang = lang;
+                    link.href = canonical_href;
+                    document.head.appendChild(link);
+                }
+            })()
+        </script>
+        
+
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="shortcut icon" href="../favicon-ba9a2803.png">
+        <link rel="stylesheet" href="../css/variables-8adf115d.css">
+        <link rel="stylesheet" href="../css/general-2459343d.css">
+        <link rel="stylesheet" href="../css/chrome-ae938929.css">
+        <link rel="stylesheet" href="../css/print-9e4910d8.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="../fonts/fonts-9644e21d.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="mdbook-highlight-css" href="../highlight-493f70e1.css">
+        <link rel="stylesheet" id="mdbook-tomorrow-night-css" href="../tomorrow-night-4c0ae647.css">
+        <link rel="stylesheet" id="mdbook-ayu-highlight-css" href="../ayu-highlight-3fdfc3ac.css">
+
+        <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../theme/cargo-d13f5220.css">
+        <link rel="stylesheet" href="../theme/language-picker-00e4db94.css">
+
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "../";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+            window.path_to_searchindex_js = "../searchindex-3f7c0ac9.js";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="../toc-6b0c3669.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="mdbook-body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="mdbook-sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("mdbook-sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+                sidebar_toggle.checked = false;
+            }
+            if (sidebar === 'visible') {
+                sidebar_toggle.checked = true;
+            } else {
+                html.classList.remove('sidebar-visible');
+            }
+        </script>
+
+        <nav id="mdbook-sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="../toc.html"></iframe>
+            </noscript>
+            <div id="mdbook-sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="mdbook-page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="mdbook-menu-bar-hover-placeholder"></div>
+                <div id="mdbook-menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="mdbook-sidebar-toggle" class="icon-button" for="mdbook-sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="mdbook-sidebar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"/></svg></span>
+                        </label>
+                        <button id="mdbook-theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="mdbook-theme-list">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M371.3 367.1c27.3-3.9 51.9-19.4 67.2-42.9L600.2 74.1c12.6-19.5 9.4-45.3-7.6-61.2S549.7-4.4 531.1 9.6L294.4 187.2c-24 18-38.2 46.1-38.4 76.1L371.3 367.1zm-19.6 25.4l-116-104.4C175.9 290.3 128 339.6 128 400c0 3.9 .2 7.8 .6 11.6c1.8 17.5-10.2 36.4-27.8 36.4H96c-17.7 0-32 14.3-32 32s14.3 32 32 32H240c61.9 0 112-50.1 112-112c0-2.5-.1-5-.2-7.5z"/></svg></span>
+                        </button>
+                        <ul id="mdbook-theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="mdbook-theme-ayu">Ayu</button></li>
+                        </ul>
+                        <button id="mdbook-search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="mdbook-searchbar">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352c79.5 0 144-64.5 144-144s-64.5-144-144-144S64 128.5 64 208s64.5 144 144 144z"/></svg></span>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">The Cargo Book</h1>
+
+                    <div class="right-buttons">
+                        <a href="../print.html" title="Print this book" aria-label="Print this book">
+                            <span class=fa-svg id="print-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M128 0C92.7 0 64 28.7 64 64v96h64V64H354.7L384 93.3V160h64V93.3c0-17-6.7-33.3-18.7-45.3L400 18.7C388 6.7 371.7 0 354.7 0H128zM384 352v32 64H128V384 368 352H384zm64 32h32c17.7 0 32-14.3 32-32V256c0-35.3-28.7-64-64-64H64c-35.3 0-64 28.7-64 64v96c0 17.7 14.3 32 32 32H64v64c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V384zm-16-88c-13.3 0-24-10.7-24-24s10.7-24 24-24s24 10.7 24 24s-10.7 24-24 24z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang-translations/project" title="Git repository" aria-label="Git repository">
+                            <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg></span>
+                        </a>
+                        <a href="https://github.com/rust-lang/cargo/edit/master/src/doc/src/appendix/glossary.md" title="Suggest an edit" aria-label="Suggest an edit" rel="edit">
+                            <span class=fa-svg id="git-edit-button"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M421.7 220.3l-11.3 11.3-22.6 22.6-205 205c-6.6 6.6-14.8 11.5-23.8 14.1L30.8 511c-8.4 2.5-17.5 .2-23.7-6.1S-1.5 489.7 1 481.2L38.7 353.1c2.6-9 7.5-17.2 14.1-23.8l205-205 22.6-22.6 11.3-11.3 33.9 33.9 62.1 62.1 33.9 33.9zM96 353.9l-9.3 9.3c-.9 .9-1.6 2.1-2 3.4l-25.3 86 86-25.3c1.3-.4 2.5-1.1 3.4-2l9.3-9.3H112c-8.8 0-16-7.2-16-16V353.9zM453.3 19.3l39.4 39.4c25 25 25 65.5 0 90.5l-14.5 14.5-22.6 22.6-11.3 11.3-33.9-33.9-62.1-62.1L314.3 67.7l11.3-11.3 22.6-22.6 14.5-14.5c25-25 65.5-25 90.5 0z"/></svg></span>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="mdbook-search-wrapper" class="hidden">
+                    <form id="mdbook-searchbar-outer" class="searchbar-outer">
+                        <div class="search-wrapper">
+                            <input type="search" id="mdbook-searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="mdbook-searchresults-outer" aria-describedby="searchresults-header">
+                            <div class="spinner-wrapper">
+                                <span class=fa-svg id="fa-spin"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M304 48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zm0 416c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM48 304c26.5 0 48-21.5 48-48s-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48zm464-48c0-26.5-21.5-48-48-48s-48 21.5-48 48s21.5 48 48 48s48-21.5 48-48zM142.9 437c18.7-18.7 18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zm0-294.2c18.7-18.7 18.7-49.1 0-67.9S93.7 56.2 75 75s-18.7 49.1 0 67.9s49.1 18.7 67.9 0zM369.1 437c18.7 18.7 49.1 18.7 67.9 0s18.7-49.1 0-67.9s-49.1-18.7-67.9 0s-18.7 49.1 0 67.9z"/></svg></span>
+                            </div>
+                        </div>
+                    </form>
+                    <div id="mdbook-searchresults-outer" class="searchresults-outer hidden">
+                        <div id="mdbook-searchresults-header" class="searchresults-header"></div>
+                        <ul id="mdbook-searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('mdbook-sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('mdbook-sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#mdbook-sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="mdbook-content" class="content">
+                    <main>
+                        <h1 id="용어집"><a class="header" href="#용어집">용어집</a></h1>
+<h2 id="산출물-artifact"><a class="header" href="#산출물-artifact">산출물 (Artifact)</a></h2>
+<p><em>산출물(artifact)</em> 은 컴파일 프로세스의 결과로 생성된 파일 또는 파일 집합입니다. 여기에는 링크 가능한 라이브러리, 실행 가능한 바이너리 및 생성된 문서가 포함됩니다.</p>
+<h2 id="cargo"><a class="header" href="#cargo">Cargo</a></h2>
+<p><em>Cargo</em> 는 Rust <a href="#package-manager"><em>패키지 관리자</em></a> 이며, 이 책의 주요 주제입니다.</p>
+<h2 id="cargolock"><a class="header" href="#cargolock">Cargo.lock</a></h2>
+<p><a href="#lock-file"><em>락 파일(lock file)</em></a> 을 참조하세요.</p>
+<h2 id="cargotoml"><a class="header" href="#cargotoml">Cargo.toml</a></h2>
+<p><a href="#manifest"><em>매니페스트(manifest)</em></a> 를 참조하세요.</p>
+<h2 id="크레이트-crate"><a class="header" href="#크레이트-crate">크레이트 (Crate)</a></h2>
+<p>러스트 <em>크레이트(crate)</em> 는 라이브러리 또는 실행 프로그램이며, 각각 <em>라이브러리 크레이트</em> 또는 <em>바이너리 크레이트</em> 라고 합니다.</p>
+<p>Cargo <a href="#package">패키지</a> 에 대해 정의된 모든 <a href="#target">타겟</a> 은 <em>크레이트</em> 입니다.</p>
+<p>느슨하게 말해서, <em>크레이트</em> 라는 용어는 타겟의 소스 코드나 타겟이 생성하는 컴파일된 산출물을 가리킬 수 있습니다. 또한 <a href="#registry">레지스트리</a> 에서 가져온 압축된 패키지를 가리킬 수도 있습니다.</p>
+<p>주어진 크레이트의 소스 코드는 다시 <a href="#module"><em>모듈(modules)</em></a> 로 세분화될 수 있습니다.</p>
+<h2 id="에디션-edition"><a class="header" href="#에디션-edition">에디션 (Edition)</a></h2>
+<p><em>러스트 에디션(Rust edition)</em> 은 러스트 언어의 발전적 이정표입니다. <a href="../reference/manifest.html#the-edition-field">패키지의 에디션</a> 은 <code>Cargo.toml</code> <a href="#manifest">매니페스트</a> 에 지정되며, 개별 타겟은 자신이 사용하는 에디션을 지정할 수 있습니다. 자세한 내용은 <a href="../../edition-guide/index.html">에디션 가이드</a> 를 참조하세요.</p>
+<h2 id="기능-feature"><a class="header" href="#기능-feature">기능 (Feature)</a></h2>
+<p><em>기능(feature)</em> 의 의미는 문맥에 따라 다릅니다:</p>
+<ul>
+<li>
+<p><a href="../reference/features.html"><em>기능(feature)</em></a> 은 조건부 컴파일을 가능하게 하는 이름이 지정된 플래그입니다. 기능은 선택적 의존성을 가리키거나, 소스 코드 내에서 확인할 수 있는 <code>Cargo.toml</code> <a href="#manifest">매니페스트</a> 에 정의된 임의의 이름을 가리킬 수 있습니다.</p>
+</li>
+<li>
+<p>Cargo에는 Cargo 자체의 실험적인 동작을 활성화하는 데 사용할 수 있는 <a href="../reference/unstable.html"><em>불안정한 기능 플래그(unstable feature flags)</em></a> 가 있습니다.</p>
+</li>
+<li>
+<p>러스트 컴파일러와 Rustdoc은 자체적인 불안정한 기능 플래그를 가지고 있습니다 (<a href="https://doc.rust-lang.org/nightly/unstable-book/index.html">The Unstable Book</a> 및 <a href="https://doc.rust-lang.org/nightly/rustdoc/unstable-features.html">The Rustdoc Book</a> 참조).</p>
+</li>
+<li>
+<p>CPU 타겟에는 CPU의 기능을 지정하는 <a href="../../reference/attributes/codegen.html#the-target_feature-attribute"><em>타겟 기능(target features)</em></a> 이 있습니다.</p>
+</li>
+</ul>
+<h2 id="인덱스-index"><a class="header" href="#인덱스-index">인덱스 (Index)</a></h2>
+<p><em>인덱스(index)</em> 는 <a href="#registry">레지스트리</a> 에 있는 <a href="#crate"><em>크레이트</em></a> 의 검색 가능한 목록입니다.</p>
+<h2 id="락-파일-lock-file"><a class="header" href="#락-파일-lock-file">락 파일 (Lock file)</a></h2>
+<p><code>Cargo.lock</code> <em>락 파일(lock file)</em> 은 <a href="#workspace">_워크스페이스 _</a> 또는 <a href="#package">_ 패키지_</a> 에서 사용되는 모든 의존성의 정확한 버전을 기록하는 파일입니다. 이 파일은 Cargo에 의해 자동으로 생성됩니다. <a href="../guide/cargo-toml-vs-cargo-lock.html">Cargo.toml vs Cargo.lock</a> 을 참조하세요.</p>
+<h2 id="매니페스트-manifest"><a class="header" href="#매니페스트-manifest">매니페스트 (Manifest)</a></h2>
+<p><a href="../reference/manifest.html"><em>매니페스트(manifest)</em></a> 는 <code>Cargo.toml</code> 이라는 파일에 작성된 <a href="#package">패키지</a> 또는 <a href="#workspace">워크스페이스</a> 에 대한 설명입니다.</p>
+<p><a href="../reference/workspaces.html"><em>가상 매니페스트(virtual manifest)</em></a> 는 워크스페이스만을 설명하고 패키지를 포함하지 않는 <code>Cargo.toml</code> 파일입니다.</p>
+<h2 id="구성원-member"><a class="header" href="#구성원-member">구성원 (Member)</a></h2>
+<p><em>구성원(member)</em> 은 <a href="#workspace">_워크스페이스 _</a> 에 속한 <a href="#package">_ 패키지_</a> 입니다.</p>
+<h2 id="모듈-module"><a class="header" href="#모듈-module">모듈 (Module)</a></h2>
+<p>러스트의 모듈 시스템은 코드를 <em>모듈(modules)</em> 이라고 불리는 논리적 단위로 구성하는 데 사용되며, 코드 내에서 격리된 네임스페이스를 제공합니다.</p>
+<p>주어진 <a href="#crate">크레이트</a> 의 소스 코드는 하나 이상의 별도 모듈로 세분화될 수 있습니다. 이는 일반적으로 코드를 관련 기능 영역별로 구성하거나, 소스 내 심볼(구조체, 함수 등)의 가시성 범위(공개/비공개)를 제어하기 위해 수행됩니다.</p>
+<p><a href="#manifest"><code>Cargo.toml</code></a> 파일은 주로 정의하는 <a href="#package">패키지</a>, 해당 크레이트, 그리고 해당 크레이트가 의존하는 크레이트의 패키지와 관련이 있습니다. 그럼에도 불구하고 러스트로 작업할 때 “모듈“이라는 용어를 자주 접하게 되므로, 주어진 크레이트와의 관계를 이해해야 합니다.</p>
+<h2 id="패키지-package"><a class="header" href="#패키지-package">패키지 (Package)</a></h2>
+<p><em>패키지(package)</em> 는 소스 파일 모음과 패키지를 설명하는 <code>Cargo.toml</code> <a href="#manifest"><em>매니페스트</em></a> 파일의 집합입니다. 패키지에는 패키지 간의 의존성을 지정하는 데 사용되는 이름과 버전이 있습니다.</p>
+<p>패키지에는 각각이 <a href="#crate">_크레이트 _</a> 인 여러 <a href="#target">_ 타겟_</a> 이 포함되어 있습니다. <code>Cargo.toml</code> 파일은 패키지 내 크레이트의 유형(바이너리 또는 라이브러리)과 함께, 이 책 전반에서 설명하는 대로 각 크레이트가 어떻게 빌드되는지, 직접적인 의존성이 무엇인지 등 각 크레이트에 대한 메타데이터를 설명합니다.</p>
+<p><em>패키지 루트(package root)</em> 는 패키지의 <code>Cargo.toml</code> 매니페스트가 위치한 디렉토리입니다. (<a href="#workspace"><em>워크스페이스 루트</em></a> 와 비교해 보세요.)</p>
+<p><a href="../reference/pkgid-spec.html"><em>패키지 ID 명세(package ID specification)</em></a> 또는 <em>SPEC</em> 은 특정 소스의 특정 패키지 버전을 고유하게 참조하는 데 사용되는 문자열입니다.</p>
+<p>중소규모의 러스트 프로젝트는 하나의 패키지만 필요로 하는 경우가 많지만, 그 안에 여러 개의 크레이트를 포함하는 것은 흔한 일입니다.</p>
+<p>규모가 더 큰 프로젝트는 여러 패키지를 포함할 수 있으며, 이 경우 Cargo <a href="#workspace"><em>워크스페이스(workspaces)</em></a> 를 사용하여 패키지 간의 공통 의존성 및 기타 관련 메타데이터를 관리할 수 있습니다.</p>
+<h2 id="패키지-관리자-package-manager"><a class="header" href="#패키지-관리자-package-manager">패키지 관리자 (Package manager)</a></h2>
+<p>넓은 의미에서 <em>패키지 관리자(package manager)</em> 는 소프트웨어 생태계에서 산출물의 획득, 설치 및 업그레이드 프로세스를 자동화하는 프로그램(또는 관련 프로그램 모음)입니다. 프로그래밍 언어 생태계 내에서 패키지 관리자는 개발자 중심의 도구로서, 주요 기능은 중앙 저장소에서 라이브러리 산출물과 그 의존성을 다운로드하는 것입니다. 이 기능은 종종 (언어별 컴파일러를 호출하여) 소프트웨어 빌드를 수행하는 기능과 결합됩니다.</p>
+<p><a href="#cargo"><em>Cargo</em></a> 는 러스트 생태계의 패키지 관리자입니다. Cargo는 러스트 <a href="#package">패키지(#package)</a> 의 의존성(<a href="#crate">_ 크레이트(#crate)_</a> 라고 불리는 <a href="#artifact">_ 산출물(#artifact)_</a>)을 다운로드하고, 패키지를 컴파일하고, 배포 가능한 패키지를 만들며, (선택적으로) 이를 러스트 커뮤니티의 <a href="#registry">_ 패키지 레지스트리(#registry)_</a> 인 <a href="https://crates.io/">crates.io</a> 에 업로드합니다.</p>
+<h2 id="패키지-레지스트리-package-registry"><a class="header" href="#패키지-레지스트리-package-registry">패키지 레지스트리 (Package registry)</a></h2>
+<p><a href="#registry"><em>레지스트리(registry)</em></a> 를 참조하세요.</p>
+<h2 id="프로젝트-project"><a class="header" href="#프로젝트-project">프로젝트 (Project)</a></h2>
+<p><a href="#package">패키지(#package)</a> 의 또 다른 이름입니다.</p>
+<h2 id="레지스트리-registry"><a class="header" href="#레지스트리-registry">레지스트리 (Registry)</a></h2>
+<p><em>레지스트리(registry)</em> 는 설치하거나 <a href="#package">_패키지(#package)</a>_ 의 의존성으로 사용할 수 있는 다운로드 가능한 <a href="#crate"><em>크레이트(#crate)</em></a> 모음을 포함하는 서비스입니다. 러스트 생태계의 기본 레지스트리는 <a href="https://crates.io">crates.io</a> 입니다. 레지스트리는 모든 크레이트 목록을 포함하는 <a href="#index">_ 인덱스(#index)_</a> 를 가지고 있으며, Cargo에게 필요한 크레이트를 다운로드하는 방법을 알려줍니다.</p>
+<h2 id="소스-source"><a class="header" href="#소스-source">소스 (Source)</a></h2>
+<p><em>소스(source)</em> 는 <a href="#package">_패키지(#package)</a>_ 의 의존성으로 포함될 수 있는 <a href="#crate"><em>크레이트(#crate)</em></a> 를 제공하는 제공자입니다. 소스에는 여러 종류가 있습니다:</p>
+<ul>
+<li><strong>레지스트리 소스 (Registry source)</strong> — <a href="#registry">레지스트리(#registry)</a> 를 참조하세요.</li>
+<li><strong>로컬 레지스트리 소스 (Local registry source)</strong> — 파일 시스템에 압축 파일로 저장된 크레이트 집합입니다. <a href="../reference/source-replacement.html#local-registry-sources">로컬 레지스트리 소스</a> 를 참조하세요.</li>
+<li><strong>디렉토리 소스 (Directory source)</strong> — 파일 시스템에 압축되지 않은 파일로 저장된 크레이트 집합입니다. <a href="../reference/source-replacement.html#directory-sources">디렉토리 소스</a> 를 참조하세요.</li>
+<li><strong>경로 소스 (Path source)</strong> — 파일 시스템에 위치한 개별 패키지(<a href="../reference/specifying-dependencies.html#specifying-path-dependencies">경로 의존성</a> 등) 또는 여러 패키지 집합(<a href="../reference/overriding-dependencies.html#paths-overrides">경로 재정의</a> 등)입니다.</li>
+<li><strong>Git 소스 (Git source)</strong> — Git 저장소에 위치한 패키지(<a href="../reference/specifying-dependencies.html#specifying-dependencies-from-git-repositories">Git 의존성</a> 또는 <a href="../reference/source-replacement.html">Git 소스</a> 등)입니다.</li>
+</ul>
+<p>자체적인 자세한 내용은 <a href="../reference/source-replacement.html">소스 교체(Source Replacement)</a> 를 참조하세요.</p>
+<h2 id="사양spec"><a class="header" href="#사양spec">사양(Spec)</a></h2>
+<p><a href="#package">패키지 ID 명세(#package)</a> 를 참조하세요.</p>
+<h2 id="타겟"><a class="header" href="#타겟">타겟</a></h2>
+<p><em>타겟(target)</em> 이라는 용어의 의미는 문맥에 따라 다릅니다:</p>
+<ul>
+<li>
+<p><strong>Cargo 타겟 (Cargo Target)</strong> — Cargo <a href="#package">패키지(#package)</a> 는 생성될 <a href="#artifact">산출물(#artifact)</a> 에 해당하는 <em>타겟</em> 들로 구성됩니다. 패키지는 라이브러리, 바이너리, 예제, 테스트 및 벤치마크 타겟을 가질 수 있습니다. <a href="../reference/cargo-targets.html#configuring-a-target">타겟 목록</a> 은 <code>Cargo.toml</code> <a href="#manifest">매니페스트(#manifest)</a> 에서 구성되며, 종종 소스 파일의 <a href="../guide/project-layout.html">디렉토리 레이아웃</a> 에 따라 자동으로 추론됩니다.</p>
+</li>
+<li>
+<p><strong>Target Directory</strong> — Cargo places built artifacts in the <em>target</em> directory. By default this is a directory named <code>target</code> at the <a href="#workspace"><em>workspace</em></a> root, or the package root if not using a workspace. The directory may be changed with the <code>--target-dir</code> command-line option, the <code>CARGO_TARGET_DIR</code> <a href="../reference/environment-variables.html">environment variable</a>, or the <code>build.target-dir</code> <a href="../reference/config.html">config option</a>. For more information see the <a href="../reference/build-cache.html">build cache</a> documentation.</p>
+</li>
+<li>
+<p><strong>타겟 아키텍처 (Target Architecture)</strong> — 빌드된 산출물이 실행될 OS 및 머신 아키텍처를 일반적으로 <em>타겟</em> 이라고 합니다.</p>
+</li>
+<li>
+<p><strong>타겟 트리플 (Target Triple)</strong> — 트리플은 타겟 아키텍처를 지정하기 위한 특정 형식입니다. 트리플은 생성된 산출물의 아키텍처인 <em>타겟 트리플</em> 과 컴파일러가 실행 중인 아키텍처인 <em>호스트 트리플</em> 로 불릴 수 있습니다. 타겟 트리플은 <code>--target</code> 명령줄 옵션이나 <code>build.target</code> <a href="../reference/config.html">설정 옵션</a> 으로 지정할 수 있습니다. 트리플의 일반적인 형식은 <code>&lt;arch&gt;&lt;sub&gt;-&lt;vendor&gt;-&lt;sys&gt;-&lt;abi&gt;</code> 이며 각 부분의 의미는 다음과 같습니다:</p>
+<ul>
+<li><code>arch</code> = 기본 CPU 아키텍처 (예: <code>x86_64</code>, <code>i686</code>, <code>arm</code>, <code>thumb</code>, <code>mips</code> 등)</li>
+<li><code>sub</code> = CPU 하위 아키텍처 (예: <code>arm</code> 의 경우 <code>v7</code>, <code>v7s</code>, <code>v5te</code> 등)</li>
+<li><code>vendor</code> = 벤더 (예: <code>unknown</code>, <code>apple</code>, <code>pc</code>, <code>nvidia</code> 등)</li>
+<li><code>sys</code> = 시스템 이름 (예: <code>linux</code>, <code>windows</code>, <code>darwin</code> 등). <code>none</code> 은 일반적으로 OS가 없는 베어메탈(bare-metal)에 사용됩니다.</li>
+<li><code>abi</code> = ABI (예: <code>gnu</code>, <code>android</code>, <code>eabi</code> 등)
+일부 매개변수는 생략될 수 있습니다. 지원되는 타겟 목록을 보려면 <code>rustc --print target-list</code> 를 실행하세요.</li>
+</ul>
+</li>
+</ul>
+<h2 id="테스트-타겟-test-targets"><a class="header" href="#테스트-타겟-test-targets">테스트 타겟 (Test Targets)</a></h2>
+<p>Cargo <em>테스트 타겟(test targets)</em> 은 코드의 올바른 작동과 정확성을 검증하는 데 도움이 되는 바이너리를 생성합니다. 테스트 산출물에는 두 가지 유형이 있습니다:</p>
+<ul>
+<li><strong>단위 테스트 (Unit test)</strong> — <em>단위 테스트</em> 는 라이브러리 또는 바이너리 타겟에서 직접 컴파일된 실행 바이너리입니다. 라이브러리 또는 바이너리 코드의 전체 내용을 포함하며, 개별 코드 단위를 검증하기 위해 <code>#[test]</code> 속성이 붙은 함수를 실행합니다.</li>
+<li><strong>통합 테스트 타겟 (Integration test target)</strong> — <a href="../reference/cargo-targets.html#integration-tests">_통합 테스트 타겟 _</a> 은 소스가 <code>tests</code> 디렉토리에 있거나 <code>Cargo.toml</code> <a href="#manifest">_ 매니페스트 _</a> 의 <a href="../reference/cargo-targets.html#configuring-a-target"><code>[[test]]</code> 테이블</a>에 지정된 별개의 <a href="#crate">_ 크레이트_</a> 인 <em>테스트 타겟</em> 에서 컴파일된 실행 바이너리입니다. 이는 라이브러리의 공개 API만 테스트하거나, 바이너리를 실행하여 동작을 검증하기 위한 것입니다.</li>
+</ul>
+<h2 id="워크스페이스-workspace"><a class="header" href="#워크스페이스-workspace">워크스페이스 (Workspace)</a></h2>
+<p><a href="../reference/workspaces.html"><em>워크스페이스(workspace)</em></a> 는 공통된 의존성 해결(공유된 <code>Cargo.lock</code> <a href="#lock-file">_ 락 파일 _</a> 사용), 출력 디렉토리, 그리고 프로파일과 같은 다양한 설정을 공유하는 하나 이상의 <a href="#package">_ 패키지_</a> 모음입니다.</p>
+<p><a href="../reference/workspaces.html"><em>가상 워크스페이스(virtual workspace)</em></a> 는 루트 <code>Cargo.toml</code> <a href="#manifest">_ 매니페스트 _</a> 가 패키지를 정의하지 않고 워크스페이스 <a href="#member">_ 구성원_</a> 만 나열하는 워크스페이스입니다.</p>
+<p><em>워크스페이스 루트(workspace root)</em> 는 워크스페이스의 <code>Cargo.toml</code> 매니페스트가 위치한 디렉토리입니다. (<a href="#package"><em>패키지 루트</em></a> 와 비교해 보세요.)</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+                            <a rel="prev" href="../CHANGELOG.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                            </a>
+
+                            <a rel="next prefetch" href="../appendix/git-authentication.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                                <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                            </a>
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+                    <a rel="prev" href="../CHANGELOG.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M41.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l160 160c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L109.3 256 246.6 118.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-160 160z"/></svg></span>
+                    </a>
+
+                    <a rel="next prefetch" href="../appendix/git-authentication.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                        <span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M278.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-160 160c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L210.7 256 73.4 118.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l160 160z"/></svg></span>
+                    </a>
+            </nav>
+
+        </div>
+
+        <template id=fa-eye><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M288 32c-80.8 0-145.5 36.8-192.6 80.6C48.6 156 17.3 208 2.5 243.7c-3.3 7.9-3.3 16.7 0 24.6C17.3 304 48.6 356 95.4 399.4C142.5 443.2 207.2 480 288 480s145.5-36.8 192.6-80.6c46.8-43.5 78.1-95.4 93-131.1c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C433.5 68.8 368.8 32 288 32zM432 256c0 79.5-64.5 144-144 144s-144-64.5-144-144s64.5-144 144-144s144 64.5 144 144zM288 192c0 35.3-28.7 64-64 64c-11.5 0-22.3-3-31.6-8.4c-.2 2.8-.4 5.5-.4 8.4c0 53 43 96 96 96s96-43 96-96s-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6z"/></svg></span></template>
+        <template id=fa-eye-slash><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M38.8 5.1C28.4-3.1 13.3-1.2 5.1 9.2S-1.2 34.7 9.2 42.9l592 464c10.4 8.2 25.5 6.3 33.7-4.1s6.3-25.5-4.1-33.7L525.6 386.7c39.6-40.6 66.4-86.1 79.9-118.4c3.3-7.9 3.3-16.7 0-24.6c-14.9-35.7-46.2-87.7-93-131.1C465.5 68.8 400.8 32 320 32c-68.2 0-125 26.3-169.3 60.8L38.8 5.1zM223.1 149.5C248.6 126.2 282.7 112 320 112c79.5 0 144 64.5 144 144c0 24.9-6.3 48.3-17.4 68.7L408 294.5c5.2-11.8 8-24.8 8-38.5c0-53-43-96-96-96c-2.8 0-5.6 .1-8.4 .4c5.3 9.3 8.4 20.1 8.4 31.6c0 10.2-2.4 19.8-6.6 28.3l-90.3-70.8zm223.1 298L373 389.9c-16.4 6.5-34.3 10.1-53 10.1c-79.5 0-144-64.5-144-144c0-6.9 .5-13.6 1.4-20.2L83.1 161.5C60.3 191.2 44 220.8 34.5 243.7c-3.3 7.9-3.3 16.7 0 24.6c14.9 35.7 46.2 87.7 93 131.1C174.5 443.2 239.2 480 320 480c47.8 0 89.9-12.9 126.2-32.5z"/></svg></span></template>
+        <template id=fa-copy><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M502.6 70.63l-61.25-61.25C435.4 3.371 427.2 0 418.7 0H255.1c-35.35 0-64 28.66-64 64l.0195 256C192 355.4 220.7 384 256 384h192c35.2 0 64-28.8 64-64V93.25C512 84.77 508.6 76.63 502.6 70.63zM464 320c0 8.836-7.164 16-16 16H255.1c-8.838 0-16-7.164-16-16L239.1 64.13c0-8.836 7.164-16 16-16h128L384 96c0 17.67 14.33 32 32 32h47.1V320zM272 448c0 8.836-7.164 16-16 16H63.1c-8.838 0-16-7.164-16-16L47.98 192.1c0-8.836 7.164-16 16-16H160V128H63.99c-35.35 0-64 28.65-64 64l.0098 256C.002 483.3 28.66 512 64 512h192c35.2 0 64-28.8 64-64v-32h-47.1L272 448z"/></svg></span></template>
+        <template id=fa-play><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M73 39c-14.8-9.1-33.4-9.4-48.5-.9S0 62.6 0 80V432c0 17.4 9.4 33.4 24.5 41.9s33.7 8.1 48.5-.9L361 297c14.3-8.7 23-24.2 23-41s-8.7-32.2-23-41L73 39z"/></svg></span></template>
+        <template id=fa-clock-rotate-left><span class=fa-svg><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 6.2.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc. --><path d="M75 75L41 41C25.9 25.9 0 36.6 0 57.9V168c0 13.3 10.7 24 24 24H134.1c21.4 0 32.1-25.9 17-41l-30.8-30.8C155 85.5 203 64 256 64c106 0 192 86 192 192s-86 192-192 192c-40.8 0-78.6-12.7-109.7-34.4c-14.5-10.1-34.4-6.6-44.6 7.9s-6.6 34.4 7.9 44.6C151.2 495 201.7 512 256 512c141.4 0 256-114.6 256-256S397.4 0 256 0C185.3 0 121.3 28.7 75 75zm181 53c-13.3 0-24 10.7-24 24V256c0 6.4 2.5 12.5 7 17l72 72c9.4 9.4 24.6 9.4 33.9 0s9.4-24.6 0-33.9l-65-65V152c0-13.3-10.7-24-24-24z"/></svg></span></template>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="../elasticlunr-ef4e11c1.min.js"></script>
+        <script src="../mark-09e88c2c.min.js"></script>
+        <script src="../searcher-c2a407aa.js"></script>
+
+        <script src="../clipboard-1626706a.min.js"></script>
+        <script src="../highlight-abc7f01d.js"></script>
+        <script src="../book-a0b12cfe.js"></script>
+
+        <!-- Custom JS scripts -->
+        <script src="../theme/language-picker-00bd309a.js"></script>
+
+
+
+    </div>
+    </body>
+</html>
