@@ -94,7 +94,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-203625ac.js";
+            window.path_to_searchindex_js = "searchindex-6050af5e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-01ec0cab.js"></script>
@@ -13162,7 +13162,7 @@ use std::collections::{BTreeSet, hash_map::{self, HashMap}};
 <div class="rule" id="r-items.use.self.intro"><a class="rule-link" href="#r-items.use.self.intro" title="items.use.self.intro"><span>[items<wbr>.use<wbr>.self<wbr>.intro]</span></a>
 </div>
 
-<p>The keyword <code>self</code> may be used within <a href="#brace-syntax">brace syntax</a> to create a binding of the parent entity under its own name.</p>
+<p>The keyword <code>self</code> may be used within <a href="#r-items.use.multiple-syntax">brace syntax</a> to create a binding of the parent entity under its own name.</p>
 <pre class="playground"><code class="language-rust edition2024">mod stuff {
     pub fn foo() {}
     pub fn bar() {}
@@ -13180,10 +13180,25 @@ mod example {
 <blockquote>
 <p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 
-<p><code>self</code> may also be used as the first segment of a path. The usage of <code>self</code> as the first segment and inside a <code>use</code> brace is logically the same; it means the current module of the parent segment, or the current module if there is no parent segment. See <a href="#self"><code>self</code></a> in the paths chapter for more information on the meaning of a leading <code>self</code>.</p>
+<p><code>self</code> may also be used as the first segment of a path. The use of <code>self</code> as the first segment and inside a <code>use</code> brace is logically the same; it means the current module of the parent segment, or the current module if there is no parent segment. See <a href="#self"><code>self</code></a> in the paths chapter for more information on the meaning of a leading <code>self</code>.</p>
 </blockquote>
 </div>
 
+<div class="rule" id="r-items.use.self.module"><a class="rule-link" href="#r-items.use.self.module" title="items.use.self.module"><span>[items<wbr>.use<wbr>.self<wbr>.module]</span></a>
+</div>
+
+<p>When <code>self</code> is used within <a href="#r-items.use.multiple-syntax">brace syntax</a>, the path preceding the brace group must resolve to a <a href="#r-items.mod">module</a>, <a href="#r-items.enum">enumeration</a>, or <a href="#r-items.traits">trait</a>.</p>
+<pre class="playground"><code class="language-rust edition2024">mod m {
+    pub enum E { V1, V2 }
+    pub trait Tr { fn f(&amp;self); }
+}
+use m::{self as _}; // OK: Modules can be parents of `self`.
+use m::E::{self, V1}; // OK: Enums can be parents of `self`.
+use m::Tr::{self}; // OK: Traits can be parents of `self`.
+<span class="boring">fn main() {}</span></code></pre>
+<pre class="playground"><code class="language-rust compile_fail E0432 edition2024">struct S {}
+use S::{self as _}; // ERROR: Structs cannot be parents of `self`.
+<span class="boring">fn main() {}</span></code></pre>
 <div class="rule" id="r-items.use.self.namespace"><a class="rule-link" href="#r-items.use.self.namespace" title="items.use.self.namespace"><span>[items<wbr>.use<wbr>.self<wbr>.namespace]</span></a>
 </div>
 
@@ -14265,7 +14280,7 @@ fn foo&lt;A, B&gt;(x: A, y: B) {
 <div class="rule" id="r-items.fn.generics.param-bounds"><a class="rule-link" href="#r-items.fn.generics.param-bounds" title="items.fn.generics.param-bounds"><span>[items<wbr>.fn<wbr>.generics<wbr>.param-bounds]</span></a>
 </div>
 
-<p><a href="#traits">Trait</a> bounds can be specified for type parameters to allow methods with that trait to be called on values of that type. This is specified using the <code>where</code> syntax:</p>
+<p><a href="#traits">Trait</a> bounds can be specified for type parameters to allow methods from that trait to be called on values of that type. This is specified using the <code>where</code> syntax:</p>
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">use std::fmt::Debug;
@@ -16281,7 +16296,7 @@ fn test() {
     assert_eq!(unsafe { u.f1 }, 5);
 }
 <span class="boring">}</span></code></pre>
-<div class="rule" id="r-items.union.ref.usage"><a class="rule-link" href="#r-items.union.ref.usage" title="items.union.ref.usage"><span>[items<wbr>.union<wbr>.ref<wbr>.usage]</span></a>
+<div class="rule" id="r-items.union.ref.use"><a class="rule-link" href="#r-items.union.ref.use" title="items.union.ref.use"><span>[items<wbr>.union<wbr>.ref<wbr>.use]</span></a>
 </div>
 
 <p>As you could see, in many aspects (except for layouts, safety, and ownership) unions behave exactly like structs, largely as a consequence of inheriting their syntactic shape from structs. This is also true for many unmentioned aspects of Rust language (such as privacy, name resolution, type inference, generics, trait implementations, inherent implementations, coherence, pattern checking, etc etc etc).</p>
@@ -16391,7 +16406,7 @@ Expression</text>
 <div class="rule" id="r-items.const.behavior"><a class="rule-link" href="#r-items.const.behavior" title="items.const.behavior"><span>[items<wbr>.const<wbr>.behavior]</span></a>
 </div>
 
-<p>Constants are essentially inlined wherever they are used, meaning that they are copied directly into the relevant context when used. This includes usage of constants from external crates, and non-<a href="#copy"><code>Copy</code></a> types. References to the same constant are not necessarily guaranteed to refer to the same memory address.</p>
+<p>Constants are essentially inlined wherever they are used, meaning that they are copied directly into the relevant context when used. This includes use of constants from external crates, and non-<a href="#copy"><code>Copy</code></a> types. References to the same constant are not necessarily guaranteed to refer to the same memory address.</p>
 <div class="rule" id="r-items.const.namespace"><a class="rule-link" href="#r-items.const.namespace" title="items.const.namespace"><span>[items<wbr>.const<wbr>.namespace]</span></a>
 </div>
 
@@ -17820,7 +17835,7 @@ impl Seq&lt;bool&gt; for u32 {
     /* Treat the integer as a sequence of bits */
 }
 <span class="boring">}</span></code></pre>
-<div class="rule" id="r-items.impl.generics.usage"><a class="rule-link" href="#r-items.impl.generics.usage" title="items.impl.generics.usage"><span>[items<wbr>.impl<wbr>.generics<wbr>.usage]</span></a>
+<div class="rule" id="r-items.impl.generics.use"><a class="rule-link" href="#r-items.impl.generics.use" title="items.impl.generics.use"><span>[items<wbr>.impl<wbr>.generics<wbr>.use]</span></a>
 </div>
 
 <p>Generic parameters <em>constrain</em> an implementation if the parameter appears at least once in one of:</p>
@@ -19188,7 +19203,7 @@ struct EitherOrderWorks&lt;const N: bool, U&gt;(U);
 </div>
 
 <p>The only allowed types of const parameters are <code>u8</code>, <code>u16</code>, <code>u32</code>, <code>u64</code>, <code>u128</code>, <code>usize</code>, <code>i8</code>, <code>i16</code>, <code>i32</code>, <code>i64</code>, <code>i128</code>, <code>isize</code>, <code>char</code> and <code>bool</code>.</p>
-<div class="rule" id="r-items.generics.const.usage"><a class="rule-link" href="#r-items.generics.const.usage" title="items.generics.const.usage"><span>[items<wbr>.generics<wbr>.const<wbr>.usage]</span></a>
+<div class="rule" id="r-items.generics.const.use"><a class="rule-link" href="#r-items.generics.const.use" title="items.generics.const.use"><span>[items<wbr>.generics<wbr>.const<wbr>.use]</span></a>
 </div>
 
 <p>Const parameters can be used anywhere a <a href="#constant-items">const item</a> can be used, with the exception that when used in a <a href="#types">type</a> or <a href="#array-and-array-index-expressions">array repeat expression</a>, it must be standalone (as described below). That is, they are allowed in the following places:</p>
@@ -21235,7 +21250,7 @@ pub fn f() {}
 <li>
 <p>Macros</p>
 <ul>
-<li><a href="#the-macro_export-attribute"><code>macro_export</code></a> — Exports a <code>macro_rules</code> macro for cross-crate usage.</li>
+<li><a href="#the-macro_export-attribute"><code>macro_export</code></a> — Exports a <code>macro_rules</code> macro for cross-crate use.</li>
 <li><a href="#the-macro_use-attribute"><code>macro_use</code></a> — Expands macro visibility, or imports macros from other crates.</li>
 <li><a href="#the-proc_macro-attribute"><code>proc_macro</code></a> — Defines a function-like macro.</li>
 <li><a href="#r-macro.proc.derive"><code>proc_macro_derive</code></a> — Defines a derive macro.</li>
@@ -21697,7 +21712,13 @@ impl&lt;T: Clone&gt; Clone for Foo&lt;T&gt; {
 <div class="rule" id="r-attributes.derive.stdlib"><a class="rule-link" href="#r-attributes.derive.stdlib" title="attributes.derive.stdlib"><span>[attributes<wbr>.derive<wbr>.stdlib]</span></a>
 </div>
 
-<p>The <code>derive</code> attribute is exported in the standard library prelude as <a href="../core/macros/builtin/attr.derive.html"><code>core::prelude::v1::derive</code></a>.</p>
+<p>The <code>derive</code> attribute is exported in the standard library as:</p>
+<ul>
+<li><a href="../core/macros/builtin/attr.derive.html"><code>core::derive</code></a></li>
+<li><a href="../core/macros/builtin/attr.derive.html"><code>std::derive</code></a></li>
+<li><a href="../core/macros/builtin/attr.derive.html"><code>core::prelude::v1::derive</code></a></li>
+<li><a href="../core/macros/builtin/attr.derive.html"><code>std::prelude::v1::derive</code></a></li>
+</ul>
 <div class="rule" id="r-attributes.derive.built-in"><a class="rule-link" href="#r-attributes.derive.built-in" title="attributes.derive.built-in"><span>[attributes<wbr>.derive<wbr>.built-in]</span></a>
 </div>
 
@@ -22076,7 +22097,7 @@ lints that would otherwise warn within the entity.</p>
 fn example_err() {
     // This is an error because the `unsafe_code` warning has
     // been lifted to "deny".
-    unsafe { an_unsafe_fn() } // ERROR: usage of `unsafe` block
+    unsafe { an_unsafe_fn() } // ERROR: use of `unsafe` block
 }
 <span class="boring">}</span></code></pre>
 <div class="rule" id="r-attributes.diagnostics.lint.tool"><a class="rule-link" href="#r-attributes.diagnostics.lint.tool" title="attributes.diagnostics.lint.tool"><span>[attributes<wbr>.diagnostics<wbr>.lint<wbr>.tool]</span></a>
@@ -22125,7 +22146,7 @@ fn foo() {
 </div>
 
 <p>The <em><code>deprecated</code> attribute</em> marks an item as deprecated. <code>rustc</code> will issue
-warnings on usage of <code>#[deprecated]</code> items. <code>rustdoc</code> will show item
+warnings on use of <code>#[deprecated]</code> items. <code>rustdoc</code> will show item
 deprecation, including the <code>since</code> version and <code>note</code>, if available.</p>
 <div class="rule" id="r-attributes.diagnostics.deprecated.syntax"><a class="rule-link" href="#r-attributes.diagnostics.deprecated.syntax" title="attributes.diagnostics.deprecated.syntax"><span>[attributes<wbr>.diagnostics<wbr>.deprecated<wbr>.syntax]</span></a>
 </div>
@@ -23093,7 +23114,7 @@ be used with a <code>target_feature</code> attribute.</p>
 
 <h4 id="x86-or-x86_64"><a class="header" href="#x86-or-x86_64"><code>x86</code> or <code>x86_64</code></a></h4>
 <p>Executing code with unsupported features is undefined behavior on this platform.
-Hence on this platform usage of <code>#[target_feature]</code> functions follows the
+Hence on this platform use of <code>#[target_feature]</code> functions follows the
 <a href="#r-attributes.codegen.target_feature.safety-restrictions">above restrictions</a>.</p>
 <div class="table-wrapper">
 <table>
@@ -23165,7 +23186,7 @@ Hence on this platform usage of <code>#[target_feature]</code> functions follows
 </div>
 
 <h4 id="aarch64"><a class="header" href="#aarch64"><code>aarch64</code></a></h4>
-<p>On this platform the usage of <code>#[target_feature]</code> functions follows the
+<p>On this platform the use of <code>#[target_feature]</code> functions follows the
 <a href="#r-attributes.codegen.target_feature.safety-restrictions">above restrictions</a>.</p>
 <p>Further documentation on these features can be found in the <a href="https://developer.arm.com/documentation/ddi0487/latest">ARM Architecture
 Reference Manual</a>, or elsewhere on <a href="https://developer.arm.com">developer.arm.com</a>.</p>
@@ -23237,7 +23258,7 @@ Reference Manual</a>, or elsewhere on <a href="https://developer.arm.com">develo
 </div>
 
 <h4 id="loongarch"><a class="header" href="#loongarch"><code>loongarch</code></a></h4>
-<p>On this platform the usage of <code>#[target_feature]</code> functions follows the
+<p>On this platform the use of <code>#[target_feature]</code> functions follows the
 <a href="#r-attributes.codegen.target_feature.safety-restrictions">above restrictions</a>.</p>
 <div class="table-wrapper">
 <table>
@@ -23260,7 +23281,7 @@ Reference Manual</a>, or elsewhere on <a href="https://developer.arm.com">develo
 </div>
 
 <h4 id="riscv32-or-riscv64"><a class="header" href="#riscv32-or-riscv64"><code>riscv32</code> or <code>riscv64</code></a></h4>
-<p>On this platform the usage of <code>#[target_feature]</code> functions follows the
+<p>On this platform the use of <code>#[target_feature]</code> functions follows the
 <a href="#r-attributes.codegen.target_feature.safety-restrictions">above restrictions</a>.</p>
 <p>Further documentation on these features can be found in their respective
 specification. Many specifications are described in the <a href="https://github.com/riscv/riscv-isa-manual">RISC-V ISA Manual</a>,
@@ -23905,7 +23926,7 @@ match message {
 </span>#[non_exhaustive]
 pub enum Example {
     First,
-    Second
+    Second,
 }
 <span class="boring">}</span></code></pre>
 <p>However, if the enum contains even a single non-exhaustive variant, casting will result in an error. Consider this modified version of the same enum:</p>
@@ -23915,7 +23936,7 @@ pub enum Example {
 pub enum EnumWithNonExhaustiveVariants {
     First,
     #[non_exhaustive]
-    Second
+    Second,
 }
 <span class="boring">}</span></code></pre>
 <!-- ignore: needs multiple crates -->
@@ -35255,7 +35276,7 @@ MacroInvocation</text>
     println!("{} has a car and is {} years old.", person_name, person_age);
 }
 <span class="boring">}</span></code></pre>
-<div class="rule" id="r-patterns.usage"><a class="rule-link" href="#r-patterns.usage" title="patterns.usage"><span>[patterns<wbr>.usage]</span></a>
+<div class="rule" id="r-patterns.use"><a class="rule-link" href="#r-patterns.use" title="patterns.use"><span>[patterns<wbr>.use]</span></a>
 </div>
 
 <p>Patterns are used in:</p>
@@ -35777,11 +35798,11 @@ _</text>
 <div class="rule" id="r-patterns.wildcard.struct-matcher"><a class="rule-link" href="#r-patterns.wildcard.struct-matcher" title="patterns.wildcard.struct-matcher"><span>[patterns<wbr>.wildcard<wbr>.struct-matcher]</span></a>
 </div>
 
-<p>Inside other patterns it matches a single data field (as opposed to the <code>..</code> which matches the remaining fields).</p>
+<p>Inside other patterns, it matches a single data field (as opposed to the <code>..</code>, which matches the remaining fields).</p>
 <div class="rule" id="r-patterns.wildcard.no-binding"><a class="rule-link" href="#r-patterns.wildcard.no-binding" title="patterns.wildcard.no-binding"><span>[patterns<wbr>.wildcard<wbr>.no-binding]</span></a>
 </div>
 
-<p>Unlike identifier patterns, it does not copy, move or borrow the value it matches.</p>
+<p>Unlike identifier patterns, it does not copy, move, or borrow the value it matches.</p>
 <p>Examples:</p>
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -38187,17 +38208,17 @@ let a: List&lt;i32&gt; = List::Cons(7, Box::new(List::Cons(13, Box::new(List::Ni
 </div>
 
 <p>The value false has the bit pattern <code>0x00</code> and the value true has the bit pattern <code>0x01</code>. It is <a href="#behavior-considered-undefined">undefined behavior</a> for an object with the boolean type to have any other bit pattern.</p>
-<div class="rule" id="r-type.bool.usage"><a class="rule-link" href="#r-type.bool.usage" title="type.bool.usage"><span>[type<wbr>.bool<wbr>.usage]</span></a>
+<div class="rule" id="r-type.bool.use"><a class="rule-link" href="#r-type.bool.use" title="type.bool.use"><span>[type<wbr>.bool<wbr>.use]</span></a>
 </div>
 
 <p>The boolean type is the type of many operands in various <a href="#expressions">expressions</a>:</p>
-<div class="rule" id="r-type.bool.usage-condition"><a class="rule-link" href="#r-type.bool.usage-condition" title="type.bool.usage-condition"><span>[type<wbr>.bool<wbr>.usage-condition]</span></a>
+<div class="rule" id="r-type.bool.use-in-condition"><a class="rule-link" href="#r-type.bool.use-in-condition" title="type.bool.use-in-condition"><span>[type<wbr>.bool<wbr>.use-in-condition]</span></a>
 </div>
 
 <ul>
 <li>The condition operand in <a href="#if-expressions">if expressions</a> and <a href="#predicate-loops">while expressions</a></li>
 </ul>
-<div class="rule" id="r-type.bool.usage-lazy-operator"><a class="rule-link" href="#r-type.bool.usage-lazy-operator" title="type.bool.usage-lazy-operator"><span>[type<wbr>.bool<wbr>.usage-lazy-operator]</span></a>
+<div class="rule" id="r-type.bool.use-in-lazy-operator"><a class="rule-link" href="#r-type.bool.use-in-lazy-operator" title="type.bool.use-in-lazy-operator"><span>[type<wbr>.bool<wbr>.use-in-lazy-operator]</span></a>
 </div>
 
 <ul>
@@ -39195,7 +39216,7 @@ let mut u = (t, String::from("U"));
 
 let c = || {
     println!("{:?}", u); // u captured by ImmBorrow
-    u.1.truncate(0); // u.0 captured by MutBorrow
+    u.1.truncate(0); // u.1 captured by MutBorrow
     move_value(u.0.0); // u.0.0 captured by ByValue
 };
 c();
@@ -44750,7 +44771,7 @@ though normally only one trait is allowed. For instance, <code>Box&lt;dyn Debug 
 </div>
 
 <p>A <em>namespace</em> is a logical grouping of declared <a href="#names">names</a>. Names are segregated into separate namespaces based on the kind of entity the name refers to. Namespaces allow the occurrence of a name in one namespace to not conflict with the same name in another namespace.</p>
-<p>There are several different namespaces that each contain different kinds of entities. The usage of a name will look for the declaration of that name in different namespaces, based on the context, as described in the <a href="#name-resolution">name resolution</a> chapter.</p>
+<p>There are several different namespaces that each contain different kinds of entities. The use of a name will look for the declaration of that name in different namespaces, based on the context, as described in the <a href="#name-resolution">name resolution</a> chapter.</p>
 <div class="rule" id="r-names.namespaces.kinds"><a class="rule-link" href="#r-names.namespaces.kinds" title="names.namespaces.kinds"><span>[names<wbr>.namespaces<wbr>.kinds]</span></a>
 </div>
 
@@ -47943,7 +47964,7 @@ pub enum State {
 </li>
 </ul>
 <p>In the second case, it mentions that a private item “can be accessed” by the current module and its descendants, but the exact meaning of accessing an item depends on what the item is.</p>
-<div class="rule" id="r-vis.usage"><a class="rule-link" href="#r-vis.usage" title="vis.usage"><span>[vis<wbr>.usage]</span></a>
+<div class="rule" id="r-vis.use"><a class="rule-link" href="#r-vis.use" title="vis.use"><span>[vis<wbr>.use]</span></a>
 </div>
 
 <p>Accessing a module, for example, would mean looking inside of it (to import more items). On the other hand, accessing a function would mean that it is invoked. Additionally, path expressions and import statements are considered to access an item in the sense that the import/expression is only valid if the destination is in the current visibility scope.</p>
@@ -48476,7 +48497,7 @@ found in the <a href="../book/ch20-01-unsafe-rust.html#using-extern-functions-to
 </div>
 
 <p>In one session of compilation, the compiler can generate multiple artifacts
-through the usage of either command line flags or the <code>crate_type</code> attribute.
+through the use of either command line flags or the <code>crate_type</code> attribute.
 If one or more command line flags are specified, all <code>crate_type</code> attributes will
 be ignored in favor of only building the artifacts specified by command line.</p>
 <div class="rule" id="r-link.bin"><a class="rule-link" href="#r-link.bin" title="link.bin"><span>[link<wbr>.bin]</span></a>
@@ -49905,7 +49926,7 @@ unsafe { core::arch::asm!("/* {x} */"); } // ERROR: no argument named x
 <div class="rule" id="r-asm.ts-args.one-or-more"><a class="rule-link" href="#r-asm.ts-args.one-or-more" title="asm.ts-args.one-or-more"><span>[asm<wbr>.ts-args<wbr>.one-or-more]</span></a>
 </div>
 
-<p>An <code>asm!</code> invocation may have one or more template string arguments; an <code>asm!</code> with multiple template string arguments is treated as if all the strings were concatenated with a <code>\n</code> between them. The expected usage is for each template string argument to correspond to a line of assembly code.</p>
+<p>An <code>asm!</code> invocation may have one or more template string arguments; an <code>asm!</code> with multiple template string arguments is treated as if all the strings were concatenated with a <code>\n</code> between them. The expected use is for each template string argument to correspond to a line of assembly code.</p>
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">#[cfg(target_arch = "x86_64")] {
@@ -50052,6 +50073,14 @@ core::arch::asm!(
 unsafe { core::arch::asm!("/* {} */", in(reg) 5); }
 <span class="boring">}
 </span><span class="boring">}</span></code></pre>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>If the value’s type is smaller than the register, the value of the upper bits is platform-specific. Some targets zero out the upper bits, while others leave them untouched.</p>
+</blockquote>
+</div>
+
 <div class="rule" id="r-asm.operand-type.supported-operands.out"><a class="rule-link" href="#r-asm.operand-type.supported-operands.out" title="asm.operand-type.supported-operands.out"><span>[asm<wbr>.operand-type<wbr>.supported-operands<wbr>.out]</span></a>
 </div>
 
@@ -50419,7 +50448,7 @@ unsafe { core::arch::asm!("/* {} */", in(reg) x); }
 <tr><td>s390x</td><td><code>reg</code></td><td><code>r[0-10]</code>, <code>r[12-14]</code></td><td><code>r</code></td></tr>
 <tr><td>s390x</td><td><code>reg_addr</code></td><td><code>r[1-10]</code>, <code>r[12-14]</code></td><td><code>a</code></td></tr>
 <tr><td>s390x</td><td><code>freg</code></td><td><code>f[0-15]</code></td><td><code>f</code></td></tr>
-<tr><td>s390x</td><td><code>vreg</code></td><td><code>v[0-31]</code></td><td>Only clobbers</td></tr>
+<tr><td>s390x</td><td><code>vreg</code></td><td><code>v[0-31]</code></td><td><code>v</code></td></tr>
 <tr><td>s390x</td><td><code>areg</code></td><td><code>a[2-15]</code></td><td>Only clobbers</td></tr>
 <tr><td>PowerPC</td><td><code>reg</code></td><td><code>r0</code>, <code>r[3-12]</code>, <code>r[14-28]</code></td><td><code>r</code></td></tr>
 <tr><td>PowerPC</td><td><code>reg_nonzero</code></td><td><code>r[3-12]</code>, <code>r[14-28]</code></td><td><code>b</code></td></tr>
@@ -50490,7 +50519,7 @@ unsafe { core::arch::asm!("/* {} */", in(reg) x); }
 <tr><td>LoongArch</td><td><code>freg</code></td><td><code>d</code></td><td><code>f64</code></td></tr>
 <tr><td>s390x</td><td><code>reg</code>, <code>reg_addr</code></td><td>None</td><td><code>i8</code>, <code>i16</code>, <code>i32</code>, <code>i64</code></td></tr>
 <tr><td>s390x</td><td><code>freg</code></td><td>None</td><td><code>f32</code>, <code>f64</code></td></tr>
-<tr><td>s390x</td><td><code>vreg</code></td><td>N/A</td><td>Only clobbers</td></tr>
+<tr><td>s390x</td><td><code>vreg</code></td><td><code>vector</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <code>i128</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code></td></tr>
 <tr><td>s390x</td><td><code>areg</code></td><td>N/A</td><td>Only clobbers</td></tr>
 <tr><td>PowerPC</td><td><code>spe_acc</code></td><td>None</td><td>Only clobbers</td></tr>
 <tr><td>PowerPC/PowerPC64</td><td><code>reg</code></td><td>None</td><td><code>i8</code>, <code>i16</code>, <code>i32</code>, <code>i64</code> (PowerPC64 only)</td></tr>
@@ -50785,6 +50814,7 @@ unsafe { core::arch::asm!("/* {:er}", in(reg) 5i32); }
 <tr><td>s390x</td><td><code>reg</code></td><td>None</td><td><code>%r0</code></td><td>None</td></tr>
 <tr><td>s390x</td><td><code>reg_addr</code></td><td>None</td><td><code>%r1</code></td><td>None</td></tr>
 <tr><td>s390x</td><td><code>freg</code></td><td>None</td><td><code>%f0</code></td><td>None</td></tr>
+<tr><td>s390x</td><td><code>vreg</code></td><td>None</td><td><code>%v0</code></td><td>None</td></tr>
 <tr><td>PowerPC/PowerPC64</td><td><code>reg</code></td><td>None</td><td><code>0</code></td><td>None</td></tr>
 <tr><td>PowerPC/PowerPC64</td><td><code>reg_nonzero</code></td><td>None</td><td><code>3</code></td><td>None</td></tr>
 <tr><td>PowerPC/PowerPC64</td><td><code>freg</code></td><td>None</td><td><code>0</code></td><td>None</td></tr>
@@ -52008,7 +52038,7 @@ undefined behavior, it is <em>unsound</em>.</p>
 <blockquote>
 <p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M6.457 1.047c.659-1.234 2.427-1.234 3.086 0l6.082 11.378A1.75 1.75 0 0 1 14.082 15H1.918a1.75 1.75 0 0 1-1.543-2.575Zm1.763.707a.25.25 0 0 0-.44 0L1.698 13.132a.25.25 0 0 0 .22.368h12.164a.25.25 0 0 0 .22-.368Zm.53 3.996v2.5a.75.75 0 0 1-1.5 0v-2.5a.75.75 0 0 1 1.5 0ZM9 11a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"></path></svg>Warning</p>
 
-<p>The following list is not exhaustive; it may grow or shrink. There is no formal model of Rust’s semantics for what is and is not allowed in unsafe code, so there may be more behavior considered unsafe. We also reserve the right to make some of the behavior in that list defined in the future. In other words, this list does not say that anything will <em>definitely</em> always be undefined in all future Rust version (but we might make such commitments for some list items in the future).</p>
+<p>The following list is not exhaustive; it may grow or shrink. There is no formal model of Rust’s semantics for what is and is not allowed in unsafe code, so there may be more behavior considered unsafe. We also reserve the right to make some of the behavior in that list defined in the future. In other words, this list does not say that anything will <em>definitely</em> always be undefined in all future Rust versions (but we might make such commitments for some list items in the future).</p>
 <p>Please read the <a href="../nomicon/index.html">Rustonomicon</a> before writing unsafe code.</p>
 </blockquote>
 </div>
@@ -78008,11 +78038,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#use-declarations">      6.3. Use declarations</a></td>
-<td>43</td>
+<td>44</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(18);">43</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(18);">44</a>
 <div id="uncovered-18" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -78092,6 +78122,8 @@ Uncovered rules
 <li><a href="#r-items.use.self">items.use.self</a></li>
 
 <li><a href="#r-items.use.self.intro">items.use.self.intro</a></li>
+
+<li><a href="#r-items.use.self.module">items.use.self.module</a></li>
 
 <li><a href="#r-items.use.self.namespace">items.use.self.namespace</a></li>
 
@@ -78447,7 +78479,7 @@ Uncovered rules
 
 <li><a href="#r-items.union.ref.intro">items.union.ref.intro</a></li>
 
-<li><a href="#r-items.union.ref.usage">items.union.ref.usage</a></li>
+<li><a href="#r-items.union.ref.use">items.union.ref.use</a></li>
 
 <li><a href="#r-items.union.syntax">items.union.syntax</a></li>
 
@@ -78661,7 +78693,7 @@ Uncovered rules
 
 <li><a href="#r-items.impl.generics.intro">items.impl.generics.intro</a></li>
 
-<li><a href="#r-items.impl.generics.usage">items.impl.generics.usage</a></li>
+<li><a href="#r-items.impl.generics.use">items.impl.generics.use</a></li>
 
 <li><a href="#r-items.impl.inherent">items.impl.inherent</a></li>
 
@@ -78959,7 +78991,7 @@ Uncovered rules
 
 <li><a href="#r-items.generics.const.type-ambiguity">items.generics.const.type-ambiguity</a></li>
 
-<li><a href="#r-items.generics.const.usage">items.generics.const.usage</a></li>
+<li><a href="#r-items.generics.const.use">items.generics.const.use</a></li>
 
 <li><a href="#r-items.generics.const.variance">items.generics.const.variance</a></li>
 
@@ -81483,7 +81515,7 @@ Uncovered rules
 
 <li><a href="#r-patterns.tuple.syntax">patterns.tuple.syntax</a></li>
 
-<li><a href="#r-patterns.usage">patterns.usage</a></li>
+<li><a href="#r-patterns.use">patterns.use</a></li>
 
 <li><a href="#r-patterns.while-let">patterns.while-let</a></li>
 
@@ -81625,11 +81657,11 @@ Uncovered rules
 
 <li><a href="#r-type.bool.traits">type.bool.traits</a></li>
 
-<li><a href="#r-type.bool.usage">type.bool.usage</a></li>
+<li><a href="#r-type.bool.use">type.bool.use</a></li>
 
-<li><a href="#r-type.bool.usage-condition">type.bool.usage-condition</a></li>
+<li><a href="#r-type.bool.use-in-condition">type.bool.use-in-condition</a></li>
 
-<li><a href="#r-type.bool.usage-lazy-operator">type.bool.usage-lazy-operator</a></li>
+<li><a href="#r-type.bool.use-in-lazy-operator">type.bool.use-in-lazy-operator</a></li>
 
 <li><a href="#r-type.bool.validity">type.bool.validity</a></li>
 
@@ -83667,7 +83699,7 @@ Uncovered rules
 
 <li><a href="#r-vis.syntax">vis.syntax</a></li>
 
-<li><a href="#r-vis.usage">vis.usage</a></li>
+<li><a href="#r-vis.use">vis.use</a></li>
 
 </ul>
 </div>
@@ -84742,9 +84774,9 @@ Uncovered rules
 
 <tr>
 <td><b>Total:</b></td>
-<td>2938</td>
+<td>2939</td>
 <td>0</td>
-<td>2938</td>
+<td>2939</td>
 <td>0.0%</td>
 </tr>
 
