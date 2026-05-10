@@ -94,7 +94,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e23b9ebb.js";
+            window.path_to_searchindex_js = "searchindex-3d67b0c7.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-20da6b24.js"></script>
@@ -13082,6 +13082,24 @@ mod example {
 </blockquote>
 </div>
 
+<div class="rule" id="r-items.use.self.trailing"><a class="rule-link" href="#r-items.use.self.trailing" title="items.use.self.trailing"><span>[items<wbr>.use<wbr>.self<wbr>.trailing]</span></a>
+</div>
+
+<p><code>self</code> may appear as the last segment of a <code>use</code> path, preceded by <code>::</code>. A path of the form <code>P::self</code> is equivalent to <code>P::{self}</code>, and <code>P::self as name</code> is equivalent to <code>P::{self as name}</code>.</p>
+<pre class="playground"><code class="language-rust edition2024">mod m {
+    pub enum E { V1, V2 }
+}
+use m::self as _; // Equivalent to `use m::{self as _};`.
+use m::E::self; // Equivalent to `use m::E::{self};`.
+<span class="boring">fn main() {}</span></code></pre>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>See <a href="#r-paths.qualifiers.mod-self.trailing">paths.qualifiers.mod-self.trailing</a> for restrictions on the preceding path.</p>
+</blockquote>
+</div>
+
 <div class="rule" id="r-items.use.self.module"><a class="rule-link" href="#r-items.use.self.module" title="items.use.self.module"><span>[items<wbr>.use<wbr>.self<wbr>.module]</span></a>
 </div>
 
@@ -15696,13 +15714,13 @@ assert_eq!(baz_discriminant, 123);
 </span><span class="boring">fn main() {
 </span>enum SharedDiscriminantError {
     SharedA = 1,
-    SharedB = 1
+    SharedB = 1,
 }
    [식별자](../identifiers.md) `:` [_타입_](../types.md#type-expressions)
 enum SharedDiscriminantError2 {
     Zero,       // 0
     One,        // 1
-    OneToo = 1  // 1 (이전과 충돌!)
+    OneToo = 1, // 1 (이전과 충돌!)
 }
 <span class="boring">}</span></code></pre>
 <div class="rule" id="r-items.enum.discriminant.restrictions.above-max-discriminant"><a class="rule-link" href="#r-items.enum.discriminant.restrictions.above-max-discriminant" title="items.enum.discriminant.restrictions.above-max-discriminant"><span>[items<wbr>.enum<wbr>.discriminant<wbr>.restrictions<wbr>.above-max-discriminant]</span></a>
@@ -15714,14 +15732,14 @@ enum SharedDiscriminantError2 {
 </span>#[repr(u8)]
 enum OverflowingDiscriminantError {
     Max = 255,
-    MaxPlusOne // 256이어야 하지만, 열거형을 오버플로합니다.
+    MaxPlusOne, // 256이어야 하지만, 열거형을 오버플로합니다.
 }
    [식별자](../identifiers.md) `:` [_타입_](../types.md#type-expressions)
 #[repr(u8)]
 enum OverflowingDiscriminantError2 {
     MaxMinusOne = 254, // 254
     Max,               // 255
-    MaxPlusOne         // 256이어야 하지만, 열거형을 오버플로합니다.
+    MaxPlusOne,        // 256이어야 하지만, 열거형을 오버플로합니다.
 }
 <span class="boring">}</span></code></pre>
 <div class="rule" id="r-items.enum.discriminant.restrictions.generics"><a class="rule-link" href="#r-items.enum.discriminant.restrictions.generics" title="items.enum.discriminant.restrictions.generics"><span>[items<wbr>.enum<wbr>.discriminant<wbr>.restrictions<wbr>.generics]</span></a>
@@ -15877,7 +15895,7 @@ mac_variant! { E }
 enum E {
     pub U,
     pub(crate) T(u8),
-    pub(super) T { f: String }
+    pub(super) T { f: String },
 }
 <span class="boring">}</span></code></pre>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -23061,6 +23079,11 @@ fn bar_sse2() {
 <tr><td><code>lbt</code></td><td></td><td><a href="https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#cpucfg-lbt_x86">LBT</a> — Binary translation instructions</td></tr>
 <tr><td><code>lsx</code></td><td><code>d</code></td><td><a href="https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#cpucfg-lsx">LSX</a> — 128-bit vector instructions</td></tr>
 <tr><td><code>lvz</code></td><td></td><td><a href="https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#cpucfg-lvz">LVZ</a> — Virtualization instructions</td></tr>
+<tr><td><code>div32</code></td><td></td><td><a href="https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#cpucfg-div32">DIV32</a> — Division instructions accepting non-sign-extended 32-bit operands</td></tr>
+<tr><td><code>lam-bh</code></td><td></td><td><a href="https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#cpucfg-lam_bh">LAM-BH</a> — Atomic swap and add instructions for byte and halfword</td></tr>
+<tr><td><code>lamcas</code></td><td></td><td><a href="https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#cpucfg-lamcas">LAMCAS</a> — Atomic compare-and-swap instructions for byte, halfword, word, and doubleword</td></tr>
+<tr><td><code>ld-seq-sa</code></td><td></td><td><a href="https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#cpucfg-ld_seq_sa">LD-SEQ-SA</a> — Sequential ordering of load operations to the same address</td></tr>
+<tr><td><code>scq</code></td><td></td><td><a href="https://loongson.github.io/LoongArch-Documentation/LoongArch-Vol1-EN.html#cpucfg-scq">SCQ</a> — Store-conditional quadword instructions</td></tr>
 </tbody>
 </table>
 </div>
@@ -31633,7 +31656,7 @@ Type</text>
 </div>
 
 <h2 id="클로저-트레잇-구현"><a class="header" href="#클로저-트레잇-구현">클로저 트레잇 구현</a></h2>
-<p>클로저 타입이 구현하는 트레잇은 변수가 캡처되는 방식, 캡처된 변수의 타입, 그리고 <code>async</code> 의 존재 여부에 따라 달라집니다. 클로저가 <code>Fn</code>, <code>FnMut</code>, <code>FnOnce</code> 를 어떻게 그리고 언제 구현하는지에 대해서는 <a href="#call-traits-and-coercions">호출 트레잇 및 강제 변환</a> 장을 참조하십시오. 캡처된 모든 변수의 타입도 해당 트레잇을 구현하는 경우 클로저 타입은 <a href="#send"><code>Send</code></a> 및 <a href="#sync"><code>Sync</code></a> 를 구현합니다.</p>
+<p>Which traits the closure type implements depends on how variables are captured, the types of the captured variables, and the presence of <code>async</code>. See the <a href="#call-traits-and-coercions">call traits and coercions</a> chapter for how and when a closure implements <code>Fn</code>, <code>FnMut</code>, and <code>FnOnce</code>. The closure type implements <a href="#send"><code>Send</code></a> and <a href="#sync"><code>Sync</code></a> if the type of every captured variable also implements the trait.</p>
 <div class="rule" id="r-expr.closure.async"><a class="rule-link" href="#r-expr.closure.async" title="expr.closure.async"><span>[expr<wbr>.closure<wbr>.async]</span></a>
 </div>
 
@@ -46444,7 +46467,30 @@ mod b {
 <div class="rule" id="r-paths.qualifiers.mod-self.restriction"><a class="rule-link" href="#r-paths.qualifiers.mod-self.restriction" title="paths.qualifiers.mod-self.restriction"><span>[paths<wbr>.qualifiers<wbr>.mod-self<wbr>.restriction]</span></a>
 </div>
 
-<p><code>self</code> 는 앞에 <code>::</code> 없이 오직 첫 번째 세그먼트로만 사용될 수 있습니다.</p>
+<p><code>self</code> may only be used as the first segment of a path (without a preceding <code>::</code>) or as the last segment (preceded by <code>::</code>).</p>
+<div class="rule" id="r-paths.qualifiers.mod-self.trailing"><a class="rule-link" href="#r-paths.qualifiers.mod-self.trailing" title="paths.qualifiers.mod-self.trailing"><span>[paths<wbr>.qualifiers<wbr>.mod-self<wbr>.trailing]</span></a>
+</div>
+
+<p>When <code>self</code> appears as the last segment of a path, it refers to the entity named by the preceding segment. The preceding path must resolve to a <a href="#모듈">module</a>, <a href="#열거형">enumeration</a>, or <a href="#트레잇">trait</a>.</p>
+<pre class="playground"><code class="language-rust edition2024">mod m {
+    pub enum E { V1 }
+    pub trait Tr {}
+    pub(in crate::m::self) fn g() {} // OK: Modules can be parents of `self`.
+}
+type Ty = m::E::self; // OK: Enumerations can be parents of `self`.
+fn f&lt;T: m::Tr::self&gt;() {} // OK: Traits can be parents of `self`.
+<span class="boring">fn main() { let _: Ty = m::E::V1; }</span></code></pre>
+<pre class="playground"><code class="language-rust compile_fail E0223 edition2024">struct S;
+type Ty = S::self; // ERROR: Structs cannot be parents of `self`.
+<span class="boring">fn main() {}</span></code></pre>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>See <a href="#r-items.use.self">items.use.self</a> for additional rules about <code>self</code> in <code>use</code> declarations.</p>
+</blockquote>
+</div>
+
 <div class="rule" id="r-paths.qualifiers.self-pat"><a class="rule-link" href="#r-paths.qualifiers.self-pat" title="paths.qualifiers.self-pat"><span>[paths<wbr>.qualifiers<wbr>.self-pat]</span></a>
 </div>
 
@@ -77302,11 +77348,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#use-선언">      6.3. Use declarations</a></td>
-<td>44</td>
+<td>45</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(18);">44</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(18);">45</a>
 <div id="uncovered-18" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -77390,6 +77436,8 @@ Uncovered rules
 <li><a href="#r-items.use.self.module">items.use.self.module</a></li>
 
 <li><a href="#r-items.use.self.namespace">items.use.self.namespace</a></li>
+
+<li><a href="#r-items.use.self.trailing">items.use.self.trailing</a></li>
 
 <li><a href="#r-items.use.syntax">items.use.syntax</a></li>
 
@@ -82716,11 +82764,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#경로">      12.4. Paths</a></td>
-<td>54</td>
+<td>55</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(97);">54</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(97);">55</a>
 <div id="uncovered-97" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -82792,6 +82840,8 @@ Uncovered rules
 <li><a href="#r-paths.qualifiers.mod-self.intro">paths.qualifiers.mod-self.intro</a></li>
 
 <li><a href="#r-paths.qualifiers.mod-self.restriction">paths.qualifiers.mod-self.restriction</a></li>
+
+<li><a href="#r-paths.qualifiers.mod-self.trailing">paths.qualifiers.mod-self.trailing</a></li>
 
 <li><a href="#r-paths.qualifiers.self-pat">paths.qualifiers.self-pat</a></li>
 
@@ -84038,9 +84088,9 @@ Uncovered rules
 
 <tr>
 <td><b>Total:</b></td>
-<td>2939</td>
+<td>2941</td>
 <td>0</td>
-<td>2939</td>
+<td>2941</td>
 <td>0.0%</td>
 </tr>
 
