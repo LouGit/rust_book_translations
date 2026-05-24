@@ -94,7 +94,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-70b8761d.js";
+            window.path_to_searchindex_js = "searchindex-9758d208.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-01ec0cab.js"></script>
@@ -8966,7 +8966,7 @@ foo!(3);
 <li><code>meta</code>: an <a href="#grammar-Attr">Attr</a>, the contents of an attribute</li>
 <li><code>pat</code>: a <a href="#grammar-Pattern">Pattern</a> (see <a href="#r-macro.decl.meta.edition2021">macro.decl.meta.edition2021</a>)</li>
 <li><code>pat_param</code>: a <a href="#grammar-PatternNoTopAlt">PatternNoTopAlt</a></li>
-<li><code>path</code>: a <a href="#grammar-TypePath">TypePath</a> style path</li>
+<li><code>path</code>: a <a href="#grammar-TypePath">TypePath</a></li>
 <li><code>stmt</code>: a <a href="#grammar-Statement">Statement</a> without the trailing semicolon (except for item statements that require semicolons)</li>
 <li><code>tt</code>: a <a href="#grammar-TokenTree">TokenTree</a> (a single <a href="#tokens">token</a> or tokens in matching delimiters <code>()</code>, <code>[]</code>, or <code>{}</code>)</li>
 <li><code>ty</code>: a <a href="#grammar-Type">Type</a></li>
@@ -14221,7 +14221,7 @@ Type</text>
 <div class="rule" id="r-items.fn.fn-item-type"><a class="rule-link" href="#r-items.fn.fn-item-type" title="items.fn.fn-item-type"><span>[items<wbr>.fn<wbr>.fn-item-type]</span></a>
 </div>
 
-<p>When referred to, a <em>function</em> yields a first-class <em>value</em> of the corresponding zero-sized <a href="#function-item-types"><em>function item type</em></a>, which when called evaluates to a direct call to the function.</p>
+<p>When referred to, a <em>function</em> yields a first-class <em>value</em> of the corresponding <a href="#r-glossary.zst">zero-sized</a> <a href="#function-item-types"><em>function item type</em></a>, which when called evaluates to a direct call to the function.</p>
 <p>For example, this is a simple function:</p>
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -14613,12 +14613,12 @@ fn foo_oof(#[some_inert_attribute] arg: u8) {
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong>
 <br>
-<span class="grammar-text grammar-production" id="grammar-TypeAlias" onclick="show_railroad()"><a href="#railroad-TypeAlias">TypeAlias</a></span> → <br>    <span class="grammar-literal">type</span> <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-GenericParams">GenericParams</a></span><sup>?</sup> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-TypeParamBounds">TypeParamBounds</a></span> )<sup>?</sup> <br>        <span class="grammar-text"><a href="#grammar-WhereClause">WhereClause</a></span><sup>?</sup> <br>        ( <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> <span class="grammar-text"><a href="#grammar-WhereClause">WhereClause</a></span><sup>?</sup> )<sup>?</sup> <span class="grammar-literal">;</span></p>
+<span class="grammar-text grammar-production" id="grammar-TypeAlias" onclick="show_railroad()"><a href="#railroad-TypeAlias">TypeAlias</a></span> → <br>    <span class="grammar-literal">type</span> <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-GenericParams">GenericParams</a></span><sup>?</sup> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-Bounds">Bounds</a></span> )<sup>?</sup> <br>        <span class="grammar-text"><a href="#grammar-WhereClause">WhereClause</a></span><sup>?</sup> <br>        ( <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> <span class="grammar-text"><a href="#grammar-WhereClause">WhereClause</a></span><sup>?</sup> )<sup>?</sup> <span class="grammar-literal">;</span></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 698px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypeAlias"><svg class="railroad" viewbox="0 0 698 219" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 626px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypeAlias"><svg class="railroad" viewbox="0 0 626 219" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-TypeAlias">
@@ -14629,7 +14629,7 @@ TypeAlias</text>
 <path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="stack">
 <path d=" M 35 66 h 12" />
-<path d=" M 627 66 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -580 m 293 0 l 5 -5 m 0 10 l -5 -5 m -293 0 a 12 12 0 0 0 -12 12 v 12 v 0 a 12 12 0 0 0 12 12 h 0" />
+<path d=" M 555 66 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -508 m 257 0 l 5 -5 m 0 10 l -5 -5 m -257 0 a 12 12 0 0 0 -12 12 v 12 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="52" x="47" y="55" />
@@ -14654,18 +14654,18 @@ GenericParams</text>
 </a>
 </g>
 <g class="optional">
-<path d=" M 401 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 178 m -86 0 l -5 -5 m 0 10 l 5 -5 m 86 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 401 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 106 m -50 0 l -5 -5 m 0 10 l 5 -5 m 50 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="425" y="55" />
 <text x="439" y="71">
 :</text>
 </g>
-<a class="link" xlink:href="#railroad-TypeParamBounds">
+<a class="link" xlink:href="#railroad-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="463" y="55" />
-<text x="533" y="71">
-TypeParamBounds</text>
+<rect height="22" width="68" x="463" y="55" />
+<text x="497" y="71">
+Bounds</text>
 </g>
 </a>
 <path d=" M 453 66 h 10" />
@@ -14688,7 +14688,7 @@ WhereClause</text>
 </a>
 </g>
 </g>
-<path d=" M 389 198 h 250 m -122 0 l -5 -5 m 0 10 l 5 -5 m 122 0 a 12 12 0 0 0 12 -12 v -108 m 0 57 l -5 5 m 10 0 l -5 -5 m 0 -57 a 12 12 0 0 1 12 -12" />
+<path d=" M 389 198 h 178 m -86 0 l -5 -5 m 0 10 l 5 -5 m 86 0 a 12 12 0 0 0 12 -12 v -108 m 0 57 l -5 5 m 10 0 l -5 -5 m 0 -57 a 12 12 0 0 1 12 -12" />
 <g class="sequence">
 <g class="optional">
 <path d=" M 47 198 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 256 m -125 0 l -5 -5 m 0 10 l 5 -5 m 125 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
@@ -14727,9 +14727,9 @@ WhereClause</text>
 <path d=" M 351 198 h 10" />
 </g>
 </g>
-<path d=" M 673 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 601 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 663 66 h 10" />
+<path d=" M 591 66 h 10" />
 </g>
 </g>
 </svg>
@@ -14764,15 +14764,15 @@ let _ = TypeAlias(5); // Doesn't work
 <div class="rule" id="r-items.type.associated-type"><a class="rule-link" href="#r-items.type.associated-type" title="items.type.associated-type"><span>[items<wbr>.type<wbr>.associated-type]</span></a>
 </div>
 
-<p>A type alias, when not used as an <a href="#associated-types">associated type</a>, must include a <a href="#grammar-Type">Type</a> and may not include <a href="#grammar-TypeParamBounds">TypeParamBounds</a>.</p>
+<p>A type alias, when not used as an <a href="#associated-types">associated type</a>, must include a <a href="#grammar-Type">Type</a> and may not include <a href="#grammar-Bounds">Bounds</a>.</p>
 <div class="rule" id="r-items.type.associated-trait"><a class="rule-link" href="#r-items.type.associated-trait" title="items.type.associated-trait"><span>[items<wbr>.type<wbr>.associated-trait]</span></a>
 </div>
 
-<p>A type alias, when used as an <a href="#associated-types">associated type</a> in a <a href="#traits">trait</a>, must not include a <a href="#grammar-Type">Type</a> specification but may include <a href="#grammar-TypeParamBounds">TypeParamBounds</a>.</p>
+<p>A type alias, when used as an <a href="#associated-types">associated type</a> in a <a href="#traits">trait</a>, must not include a <a href="#grammar-Type">Type</a> specification but may include <a href="#grammar-Bounds">Bounds</a>.</p>
 <div class="rule" id="r-items.type.associated-impl"><a class="rule-link" href="#r-items.type.associated-impl" title="items.type.associated-impl"><span>[items<wbr>.type<wbr>.associated-impl]</span></a>
 </div>
 
-<p>A type alias, when used as an <a href="#associated-types">associated type</a> in a <a href="#trait-implementations">trait impl</a>, must include a <a href="#grammar-Type">Type</a> specification and may not include <a href="#grammar-TypeParamBounds">TypeParamBounds</a>.</p>
+<p>A type alias, when used as an <a href="#associated-types">associated type</a> in a <a href="#trait-implementations">trait impl</a>, must include a <a href="#grammar-Type">Type</a> specification and may not include <a href="#grammar-Bounds">Bounds</a>.</p>
 <div class="rule" id="r-items.type.deprecated"><a class="rule-link" href="#r-items.type.deprecated" title="items.type.deprecated"><span>[items<wbr>.type<wbr>.deprecated]</span></a>
 </div>
 
@@ -16792,12 +16792,12 @@ fn bump_levels_safe() -&gt; u32 {
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong>
 <br>
-<span class="grammar-text grammar-production" id="grammar-Trait" onclick="show_railroad()"><a href="#railroad-Trait">Trait</a></span> → <br>    <span class="grammar-literal">unsafe</span><sup>?</sup> <span class="grammar-literal">trait</span> <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-GenericParams">GenericParams</a></span><sup>?</sup> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-TypeParamBounds">TypeParamBounds</a></span><sup>?</sup> )<sup>?</sup> <span class="grammar-text"><a href="#grammar-WhereClause">WhereClause</a></span><sup>?</sup> <br>    <span class="grammar-literal">{</span> <br>        <span class="grammar-text"><a href="#grammar-InnerAttribute">InnerAttribute</a></span><sup>*</sup> <br>        <span class="grammar-text"><a href="#grammar-AssociatedItem">AssociatedItem</a></span><sup>*</sup> <br>    <span class="grammar-literal">}</span></p>
+<span class="grammar-text grammar-production" id="grammar-Trait" onclick="show_railroad()"><a href="#railroad-Trait">Trait</a></span> → <br>    <span class="grammar-literal">unsafe</span><sup>?</sup> <span class="grammar-literal">trait</span> <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-GenericParams">GenericParams</a></span><sup>?</sup> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-Bounds">Bounds</a></span><sup>?</sup> )<sup>?</sup> <span class="grammar-text"><a href="#grammar-WhereClause">WhereClause</a></span><sup>?</sup> <br>    <span class="grammar-literal">{</span> <br>        <span class="grammar-text"><a href="#grammar-InnerAttribute">InnerAttribute</a></span><sup>*</sup> <br>        <span class="grammar-text"><a href="#grammar-AssociatedItem">AssociatedItem</a></span><sup>*</sup> <br>    <span class="grammar-literal">}</span></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 1046px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-Trait"><svg class="railroad" viewbox="0 0 1046 339" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 974px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-Trait"><svg class="railroad" viewbox="0 0 974 339" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-Trait">
@@ -16808,7 +16808,7 @@ Trait</text>
 <path d=" M 10 78 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="stack">
 <path d=" M 35 78 h 12" />
-<path d=" M 975 78 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -928 m 467 0 l 5 -5 m 0 10 l -5 -5 m -467 0 a 12 12 0 0 0 -12 12 v 0 v 0 a 12 12 0 0 0 12 12 h 0" />
+<path d=" M 903 78 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -856 m 431 0 l 5 -5 m 0 10 l -5 -5 m -431 0 a 12 12 0 0 0 -12 12 v 0 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
 <g class="optional">
 <path d=" M 47 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 68 m -31 0 l -5 -5 m 0 10 l 5 -5 m 31 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
@@ -16841,7 +16841,7 @@ GenericParams</text>
 </a>
 </g>
 <g class="optional">
-<path d=" M 535 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 226 m -110 0 l -5 -5 m 0 10 l 5 -5 m 110 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 535 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 154 m -74 0 l -5 -5 m 0 10 l 5 -5 m 74 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="559" y="67" />
@@ -16849,12 +16849,12 @@ GenericParams</text>
 :</text>
 </g>
 <g class="optional">
-<path d=" M 597 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 140 m -67 0 l -5 -5 m 0 10 l 5 -5 m 67 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-TypeParamBounds">
+<path d=" M 597 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 68 m -31 0 l -5 -5 m 0 10 l 5 -5 m 31 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="621" y="67" />
-<text x="691" y="83">
-TypeParamBounds</text>
+<rect height="22" width="68" x="621" y="67" />
+<text x="655" y="83">
+Bounds</text>
 </g>
 </a>
 </g>
@@ -16862,11 +16862,11 @@ TypeParamBounds</text>
 </g>
 </g>
 <g class="optional">
-<path d=" M 819 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 108 m -51 0 l -5 -5 m 0 10 l 5 -5 m 51 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 747 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 108 m -51 0 l -5 -5 m 0 10 l 5 -5 m 51 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <a class="link" xlink:href="#railroad-WhereClause">
 <g class="nonterminal">
-<rect height="22" width="108" x="843" y="67" />
-<text x="897" y="83">
+<rect height="22" width="108" x="771" y="67" />
+<text x="825" y="83">
 WhereClause</text>
 </g>
 </a>
@@ -16875,7 +16875,7 @@ WhereClause</text>
 <path d=" M 233 78 h 10" />
 <path d=" M 343 78 h 10" />
 <path d=" M 525 78 h 10" />
-<path d=" M 809 78 h 10" />
+<path d=" M 737 78 h 10" />
 </g>
 <path d=" M 75 126 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -28 a 12 12 0 0 0 -12 12 v 12 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
@@ -16919,7 +16919,7 @@ AssociatedItem</text>
 </g>
 </g>
 </g>
-<path d=" M 75 318 h 912 m -453 0 l -5 -5 m 0 10 l 5 -5 m 453 0 a 12 12 0 0 0 12 -12 v -216 m 0 111 l -5 5 m 10 0 l -5 -5 m 0 -111 a 12 12 0 0 1 12 -12" />
+<path d=" M 75 318 h 840 m -417 0 l -5 -5 m 0 10 l 5 -5 m 417 0 a 12 12 0 0 0 12 -12 v -216 m 0 111 l -5 5 m 10 0 l -5 -5 m 0 -111 a 12 12 0 0 1 12 -12" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="47" y="307" />
@@ -16928,9 +16928,9 @@ AssociatedItem</text>
 </g>
 </g>
 </g>
-<path d=" M 1021 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 949 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 78 h 10" />
-<path d=" M 1011 78 h 10" />
+<path d=" M 939 78 h 10" />
 </g>
 </g>
 </svg>
@@ -18188,7 +18188,7 @@ Function</text>
 <div class="rule" id="r-items.extern.fn.fn-ptr"><a class="rule-link" href="#r-items.extern.fn.fn-ptr" title="items.extern.fn.fn-ptr"><span>[items<wbr>.extern<wbr>.fn<wbr>.fn-ptr]</span></a>
 </div>
 
-<p>When coerced to a function pointer, a function declared in an extern block has type <code>extern "abi" for&lt;'l1, ..., 'lm&gt; fn(A1, ..., An) -&gt; R</code>, where <code>'l1</code>, … <code>'lm</code> are its lifetime parameters, <code>A1</code>, …, <code>An</code> are the declared types of its parameters, and <code>R</code> is the declared return type.</p>
+<p>When coerced to a function pointer, a function declared in an extern block has type <code>for&lt;'l1, ..., 'lm&gt; extern "abi" fn(A1, ..., An) -&gt; R</code>, where <code>'l1</code>, … <code>'lm</code> are its lifetime parameters, <code>A1</code>, …, <code>An</code> are the declared types of its parameters, and <code>R</code> is the declared return type.</p>
 <div class="rule" id="r-items.extern.static"><a class="rule-link" href="#r-items.extern.static" title="items.extern.static"><span>[items<wbr>.extern<wbr>.static]</span></a>
 </div>
 
@@ -18818,7 +18818,7 @@ unsafe extern "stdcall" {
 <span class="grammar-text grammar-production" id="grammar-GenericParams" onclick="show_railroad()"><a href="#railroad-GenericParams">GenericParams</a></span> → <span class="grammar-literal">&lt;</span> ( <span class="grammar-text"><a href="#grammar-GenericParam">GenericParam</a></span> ( <span class="grammar-literal">,</span> <span class="grammar-text"><a href="#grammar-GenericParam">GenericParam</a></span> )<sup>*</sup> <span class="grammar-literal">,</span><sup>?</sup> )<sup>?</sup> <span class="grammar-literal">&gt;</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-GenericParam" onclick="show_railroad()"><a href="#railroad-GenericParam">GenericParam</a></span> → <span class="grammar-text"><a href="#grammar-OuterAttribute">OuterAttribute</a></span><sup>*</sup> ( <span class="grammar-text"><a href="#grammar-LifetimeParam">LifetimeParam</a></span> | <span class="grammar-text"><a href="#grammar-TypeParam">TypeParam</a></span> | <span class="grammar-text"><a href="#grammar-ConstParam">ConstParam</a></span> )</p>
 <p><span class="grammar-text grammar-production" id="grammar-LifetimeParam" onclick="show_railroad()"><a href="#railroad-LifetimeParam">LifetimeParam</a></span> → <span class="grammar-text"><a href="#grammar-Lifetime">Lifetime</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-LifetimeBounds">LifetimeBounds</a></span> )<sup>?</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-TypeParam" onclick="show_railroad()"><a href="#railroad-TypeParam">TypeParam</a></span> → <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-TypeParamBounds">TypeParamBounds</a></span><sup>?</sup> )<sup>?</sup> ( <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> )<sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-TypeParam" onclick="show_railroad()"><a href="#railroad-TypeParam">TypeParam</a></span> → <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-Bounds">Bounds</a></span><sup>?</sup> )<sup>?</sup> ( <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> )<sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-ConstParam" onclick="show_railroad()"><a href="#railroad-ConstParam">ConstParam</a></span> → <br>    <span class="grammar-literal">const</span> <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> <br>    ( <span class="grammar-literal">=</span> ( <span class="grammar-text"><a href="#grammar-BlockExpression">BlockExpression</a></span> | <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> | <span class="grammar-literal">-</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-LiteralExpression">LiteralExpression</a></span> ) )<sup>?</sup></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
@@ -19006,7 +19006,7 @@ LifetimeBounds</text>
 </svg>
 </div>
 
-<div style="width: 602px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypeParam"><svg class="railroad" viewbox="0 0 602 99" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 530px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypeParam"><svg class="railroad" viewbox="0 0 530 99" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-TypeParam">
@@ -19024,7 +19024,7 @@ IDENTIFIER</text>
 </g>
 </a>
 <g class="optional">
-<path d=" M 145 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 226 m -110 0 l -5 -5 m 0 10 l 5 -5 m 110 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 145 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 154 m -74 0 l -5 -5 m 0 10 l 5 -5 m 74 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="169" y="67" />
@@ -19032,12 +19032,12 @@ IDENTIFIER</text>
 :</text>
 </g>
 <g class="optional">
-<path d=" M 207 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 140 m -67 0 l -5 -5 m 0 10 l 5 -5 m 67 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-TypeParamBounds">
+<path d=" M 207 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 68 m -31 0 l -5 -5 m 0 10 l 5 -5 m 31 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="231" y="67" />
-<text x="301" y="83">
-TypeParamBounds</text>
+<rect height="22" width="68" x="231" y="67" />
+<text x="265" y="83">
+Bounds</text>
 </g>
 </a>
 </g>
@@ -19045,29 +19045,29 @@ TypeParamBounds</text>
 </g>
 </g>
 <g class="optional">
-<path d=" M 429 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 90 m -42 0 l -5 -5 m 0 10 l 5 -5 m 42 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 357 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 90 m -42 0 l -5 -5 m 0 10 l 5 -5 m 42 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="453" y="67" />
-<text x="467" y="83">
+<rect height="22" rx="10" ry="10" width="28" x="381" y="67" />
+<text x="395" y="83">
 =</text>
 </g>
 <a class="link" xlink:href="#railroad-Type">
 <g class="nonterminal">
-<rect height="22" width="52" x="491" y="67" />
-<text x="517" y="83">
+<rect height="22" width="52" x="419" y="67" />
+<text x="445" y="83">
 Type</text>
 </g>
 </a>
-<path d=" M 481 78 h 10" />
+<path d=" M 409 78 h 10" />
 </g>
 </g>
 <path d=" M 135 78 h 10" />
-<path d=" M 419 78 h 10" />
+<path d=" M 347 78 h 10" />
 </g>
-<path d=" M 577 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 505 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 78 h 10" />
-<path d=" M 567 78 h 10" />
+<path d=" M 495 78 h 10" />
 </g>
 </g>
 </svg>
@@ -19425,7 +19425,7 @@ fn generic&lt;const B: bool&gt;() {
 <span class="grammar-text grammar-production" id="grammar-WhereClause" onclick="show_railroad()"><a href="#railroad-WhereClause">WhereClause</a></span> → <span class="grammar-literal">where</span> ( <span class="grammar-text"><a href="#grammar-WhereClauseItem">WhereClauseItem</a></span> <span class="grammar-literal">,</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-WhereClauseItem">WhereClauseItem</a></span><sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-WhereClauseItem" onclick="show_railroad()"><a href="#railroad-WhereClauseItem">WhereClauseItem</a></span> → <br>      <span class="grammar-text"><a href="#grammar-LifetimeWhereClauseItem">LifetimeWhereClauseItem</a></span> <br>    | <span class="grammar-text"><a href="#grammar-TypeBoundWhereClauseItem">TypeBoundWhereClauseItem</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-LifetimeWhereClauseItem" onclick="show_railroad()"><a href="#railroad-LifetimeWhereClauseItem">LifetimeWhereClauseItem</a></span> → <span class="grammar-text"><a href="#grammar-Lifetime">Lifetime</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-LifetimeBounds">LifetimeBounds</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-TypeBoundWhereClauseItem" onclick="show_railroad()"><a href="#railroad-TypeBoundWhereClauseItem">TypeBoundWhereClauseItem</a></span> → <span class="grammar-text"><a href="#grammar-ForLifetimes">ForLifetimes</a></span><sup>?</sup> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-TypeParamBounds">TypeParamBounds</a></span><sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-TypeBoundWhereClauseItem" onclick="show_railroad()"><a href="#railroad-TypeBoundWhereClauseItem">TypeBoundWhereClauseItem</a></span> → <span class="grammar-text"><a href="#grammar-ForLifetimes">ForLifetimes</a></span><sup>?</sup> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-Bounds">Bounds</a></span><sup>?</sup></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
@@ -19566,7 +19566,7 @@ LifetimeBounds</text>
 </svg>
 </div>
 
-<div style="width: 532px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypeBoundWhereClauseItem"><svg class="railroad" viewbox="0 0 532 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 460px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypeBoundWhereClauseItem"><svg class="railroad" viewbox="0 0 460 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-TypeBoundWhereClauseItem">
@@ -19599,12 +19599,12 @@ Type</text>
 :</text>
 </g>
 <g class="optional">
-<path d=" M 309 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 140 m -67 0 l -5 -5 m 0 10 l 5 -5 m 67 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-TypeParamBounds">
+<path d=" M 309 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 68 m -31 0 l -5 -5 m 0 10 l 5 -5 m 31 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="333" y="55" />
-<text x="403" y="71">
-TypeParamBounds</text>
+<rect height="22" width="68" x="333" y="55" />
+<text x="367" y="71">
+Bounds</text>
 </g>
 </a>
 </g>
@@ -19612,9 +19612,9 @@ TypeParamBounds</text>
 <path d=" M 261 66 h 10" />
 <path d=" M 299 66 h 10" />
 </g>
-<path d=" M 507 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 435 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 497 66 h 10" />
+<path d=" M 425 66 h 10" />
 </g>
 </g>
 </svg>
@@ -39055,7 +39055,7 @@ let slice: &amp;[i32] = &amp;boxed_array[..];
 <div class="rule" id="r-type.fn-item.intro"><a class="rule-link" href="#r-type.fn-item.intro" title="type.fn-item.intro"><span>[type<wbr>.fn-item<wbr>.intro]</span></a>
 </div>
 
-<p>When referred to, a function item, or the constructor of a tuple-like struct or enum variant, yields a zero-sized value of its <em>function item type</em>.</p>
+<p>When referred to, a function item, or the constructor of a tuple-like struct or enum variant, yields a <a href="#r-glossary.zst">zero-sized</a> value of its <em>function item type</em>.</p>
 <div class="rule" id="r-type.fn-item.unique"><a class="rule-link" href="#r-type.fn-item.unique" title="type.fn-item.unique"><span>[type<wbr>.fn-item<wbr>.unique]</span></a>
 </div>
 
@@ -40153,7 +40153,7 @@ TypeNoBounds</text>
 <div class="rule" id="r-type.pointer.validity.raw"><a class="rule-link" href="#r-type.pointer.validity.raw" title="type.pointer.validity.raw"><span>[type<wbr>.pointer<wbr>.validity<wbr>.raw]</span></a>
 </div>
 
-<p>For thin raw pointers (i.e., for <code>P = *const T</code> or <code>P = *mut T</code> for <code>T: Sized</code>), the inverse direction (transmuting from an integer or array of integers to <code>P</code>) is always valid. However, the pointer produced via such a transmutation may not be dereferenced (not even if <code>T</code> has size zero).</p>
+<p>For thin raw pointers (i.e., for <code>P = *const T</code> or <code>P = *mut T</code> for <code>T: Sized</code>), the inverse direction (transmuting from an integer or array of integers to <code>P</code>) is always valid. However, the pointer produced via such a transmutation may not be dereferenced (not even if <code>T</code> has <a href="#r-glossary.zst">size zero</a>).</p>
 <div style="break-before: page; page-break-before: always;"></div>
 <div class="rule" id="r-type.fn-pointer"><a class="rule-link" href="#r-type.fn-pointer" title="type.fn-pointer"><span>[type<wbr>.fn-pointer]</span></a>
 </div>
@@ -40629,13 +40629,13 @@ x = bo(5,7);
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong>
 <br>
-<span class="grammar-text grammar-production" id="grammar-TraitObjectType" onclick="show_railroad()"><a href="#railroad-TraitObjectType">TraitObjectType</a></span> → <span class="grammar-literal">dyn</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-TypeParamBounds">TypeParamBounds</a></span></p>
+<span class="grammar-text grammar-production" id="grammar-TraitObjectType" onclick="show_railroad()"><a href="#railroad-TraitObjectType">TraitObjectType</a></span> → <span class="grammar-literal">dyn</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-Bounds">Bounds</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-TraitObjectTypeOneBound" onclick="show_railroad()"><a href="#railroad-TraitObjectTypeOneBound">TraitObjectTypeOneBound</a></span> → <span class="grammar-literal">dyn</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-TraitBound">TraitBound</a></span></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 312px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TraitObjectType"><svg class="railroad" viewbox="0 0 312 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 240px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TraitObjectType"><svg class="railroad" viewbox="0 0 240 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-TraitObjectType">
@@ -40653,18 +40653,18 @@ TraitObjectType</text>
 dyn</text>
 </g>
 </g>
-<a class="link" xlink:href="#railroad-TypeParamBounds">
+<a class="link" xlink:href="#railroad-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="137" y="55" />
-<text x="207" y="71">
-TypeParamBounds</text>
+<rect height="22" width="68" x="137" y="55" />
+<text x="171" y="71">
+Bounds</text>
 </g>
 </a>
 <path d=" M 127 66 h 10" />
 </g>
-<path d=" M 287 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 215 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 277 66 h 10" />
+<path d=" M 205 66 h 10" />
 </g>
 </g>
 </svg>
@@ -40803,13 +40803,13 @@ fn main() {
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong>
 <br>
-<span class="grammar-text grammar-production" id="grammar-ImplTraitType" onclick="show_railroad()"><a href="#railroad-ImplTraitType">ImplTraitType</a></span> → <span class="grammar-literal">impl</span> <span class="grammar-text"><a href="#grammar-TypeParamBounds">TypeParamBounds</a></span></p>
+<span class="grammar-text grammar-production" id="grammar-ImplTraitType" onclick="show_railroad()"><a href="#railroad-ImplTraitType">ImplTraitType</a></span> → <span class="grammar-literal">impl</span> <span class="grammar-text"><a href="#grammar-Bounds">Bounds</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-ImplTraitTypeOneBound" onclick="show_railroad()"><a href="#railroad-ImplTraitTypeOneBound">ImplTraitTypeOneBound</a></span> → <span class="grammar-literal">impl</span> <span class="grammar-text"><a href="#grammar-TraitBound">TraitBound</a></span></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 272px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-ImplTraitType"><svg class="railroad" viewbox="0 0 272 74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 200px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-ImplTraitType"><svg class="railroad" viewbox="0 0 200 74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-ImplTraitType">
@@ -40824,18 +40824,18 @@ ImplTraitType</text>
 <text x="61" y="58">
 impl</text>
 </g>
-<a class="link" xlink:href="#railroad-TypeParamBounds">
+<a class="link" xlink:href="#railroad-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="97" y="42" />
-<text x="167" y="58">
-TypeParamBounds</text>
+<rect height="22" width="68" x="97" y="42" />
+<text x="131" y="58">
+Bounds</text>
 </g>
 </a>
 <path d=" M 87 53 h 10" />
 </g>
-<path d=" M 247 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 175 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 53 h 10" />
-<path d=" M 237 53 h 10" />
+<path d=" M 165 53 h 10" />
 </g>
 </g>
 </svg>
@@ -41225,7 +41225,7 @@ types">DSTs</abbr>. Unlike with generic type parameters, <code>Self: ?Sized</cod
 <div class="rule" id="r-layout.properties.size"><a class="rule-link" href="#r-layout.properties.size" title="layout.properties.size"><span>[layout<wbr>.properties<wbr>.size]</span></a>
 </div>
 
-<p>The <em>size</em> of a value is the offset in bytes between successive elements in an array with that item type including alignment padding. The size of a value is always a multiple of its alignment. Note that some types are zero-sized; 0 is considered a multiple of any alignment (for example, on some platforms, the type <code>[u16; 0]</code> has size 0 and alignment 2). The size of a value can be checked with the <a href="../core/mem/fn.size_of_val.html"><code>size_of_val</code></a> function.</p>
+<p>The <em>size</em> of a value is the offset in bytes between successive elements in an array with that item type including alignment padding. The size of a value is always a multiple of its alignment. Note that some types are <a href="#r-glossary.zst">zero-sized</a>; 0 is considered a multiple of any alignment (for example, on some platforms, the type <code>[u16; 0]</code> has size 0 and alignment 2). The size of a value can be checked with the <a href="../core/mem/fn.size_of_val.html"><code>size_of_val</code></a> function.</p>
 <div class="rule" id="r-layout.properties.sized"><a class="rule-link" href="#r-layout.properties.sized" title="layout.properties.sized"><span>[layout<wbr>.properties<wbr>.sized]</span></a>
 </div>
 
@@ -41331,7 +41331,7 @@ types">DSTs</abbr>. Unlike with generic type parameters, <code>Self: ?Sized</cod
 <div class="rule" id="r-layout.tuple.unit"><a class="rule-link" href="#r-layout.tuple.unit" title="layout.tuple.unit"><span>[layout<wbr>.tuple<wbr>.unit]</span></a>
 </div>
 
-<p>The exception to this is the unit tuple (<code>()</code>), which is guaranteed as a zero-sized type to have a size of 0 and an alignment of 1.</p>
+<p>The exception to this is the unit tuple (<code>()</code>), which is guaranteed as a <a href="#r-glossary.zst">zero-sized type</a> to have a size of 0 and an alignment of 1.</p>
 <div class="rule" id="r-layout.trait-object"><a class="rule-link" href="#r-layout.trait-object" title="layout.trait-object"><span>[layout<wbr>.trait-object]</span></a>
 </div>
 
@@ -41436,7 +41436,7 @@ struct AlignedStruct {
 </div>
 
 <p>For <a href="#structs">structs</a>, it is further guaranteed that the fields do not overlap. That is, the fields can be ordered such that the offset plus the size of any field is less than or equal to the offset of the next field in the ordering. The ordering does not have to be the same as the order in which the fields are specified in the declaration of the type.</p>
-<p>Be aware that this guarantee does not imply that the fields have distinct addresses: zero-sized types may have the same address as other fields in the same struct.</p>
+<p>Be aware that this guarantee does not imply that the fields have distinct addresses: <a href="#r-glossary.zst">zero-sized types</a> may have the same address as other fields in the same struct.</p>
 <div class="rule" id="r-layout.repr.rust.unspecified"><a class="rule-link" href="#r-layout.repr.rust.unspecified" title="layout.repr.rust.unspecified"><span>[layout<wbr>.repr<wbr>.rust<wbr>.unspecified]</span></a>
 </div>
 
@@ -41512,7 +41512,7 @@ struct.size = current_offset + padding_needed_for(current_offset, struct.alignme
 <blockquote>
 <p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 
-<p>This algorithm can produce zero-sized structs. In C, an empty struct declaration like <code>struct Foo { }</code> is illegal. However, both gcc and clang support options to enable such structs, and assign them size zero. C++, in contrast, gives empty structs a size of 1, unless they are inherited from or they are fields that have the <code>[[no_unique_address]]</code> attribute, in which case they do not increase the overall size of the struct.</p>
+<p>This algorithm can produce <a href="#r-glossary.zst">zero-sized</a> structs. In C, an empty struct declaration like <code>struct Foo { }</code> is illegal. However, both gcc and clang support options to enable such structs, and assign them size zero. C++, in contrast, gives empty structs a size of 1, unless they are inherited from or they are fields that have the <code>[[no_unique_address]]</code> attribute, in which case they do not increase the overall size of the struct.</p>
 </blockquote>
 </div>
 
@@ -42044,8 +42044,8 @@ fn takes_fn_ptr&lt;'short, 'middle: 'short&gt;(
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong>
 <br>
-<span class="grammar-text grammar-production" id="grammar-TypeParamBounds" onclick="show_railroad()"><a href="#railroad-TypeParamBounds">TypeParamBounds</a></span> → <span class="grammar-text"><a href="#grammar-TypeParamBound">TypeParamBound</a></span> ( <span class="grammar-literal">+</span> <span class="grammar-text"><a href="#grammar-TypeParamBound">TypeParamBound</a></span> )<sup>*</sup> <span class="grammar-literal">+</span><sup>?</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-TypeParamBound" onclick="show_railroad()"><a href="#railroad-TypeParamBound">TypeParamBound</a></span> → <span class="grammar-text"><a href="#grammar-Lifetime">Lifetime</a></span> | <span class="grammar-text"><a href="#grammar-TraitBound">TraitBound</a></span> | <span class="grammar-text"><a href="#grammar-UseBound">UseBound</a></span></p>
+<span class="grammar-text grammar-production" id="grammar-Bounds" onclick="show_railroad()"><a href="#railroad-Bounds">Bounds</a></span> → <span class="grammar-text"><a href="#grammar-Bound">Bound</a></span> ( <span class="grammar-literal">+</span> <span class="grammar-text"><a href="#grammar-Bound">Bound</a></span> )<sup>*</sup> <span class="grammar-literal">+</span><sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-Bound" onclick="show_railroad()"><a href="#railroad-Bound">Bound</a></span> → <span class="grammar-text"><a href="#grammar-Lifetime">Lifetime</a></span> | <span class="grammar-text"><a href="#grammar-TraitBound">TraitBound</a></span> | <span class="grammar-text"><a href="#grammar-UseBound">UseBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-TraitBound" onclick="show_railroad()"><a href="#railroad-TraitBound">TraitBound</a></span> → <br>      ( <span class="grammar-literal">?</span> | <span class="grammar-text"><a href="#grammar-ForLifetimes">ForLifetimes</a></span> )<sup>?</sup> <span class="grammar-text"><a href="#grammar-TypePath">TypePath</a></span> <br>    | <span class="grammar-literal">(</span> ( <span class="grammar-literal">?</span> | <span class="grammar-text"><a href="#grammar-ForLifetimes">ForLifetimes</a></span> )<sup>?</sup> <span class="grammar-text"><a href="#grammar-TypePath">TypePath</a></span> <span class="grammar-literal">)</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-LifetimeBounds" onclick="show_railroad()"><a href="#railroad-LifetimeBounds">LifetimeBounds</a></span> → ( <span class="grammar-text"><a href="#grammar-Lifetime">Lifetime</a></span> <span class="grammar-literal">+</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-Lifetime">Lifetime</a></span><sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-Lifetime" onclick="show_railroad()"><a href="#railroad-Lifetime">Lifetime</a></span> → <br>      <span class="grammar-text"><a href="#grammar-LIFETIME_OR_LABEL">LIFETIME_OR_LABEL</a></span> <br>    | <span class="grammar-literal">'static</span> <br>    | <span class="grammar-literal">'_</span></p>
@@ -42056,70 +42056,70 @@ fn takes_fn_ptr&lt;'short, 'middle: 'short&gt;(
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 540px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypeParamBounds"><svg class="railroad" viewbox="0 0 540 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 396px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-Bounds"><svg class="railroad" viewbox="0 0 396 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
-<a class="link" xlink:href="#grammar-TypeParamBounds">
-<text class="comment" x="67" y="25">
-TypeParamBounds</text>
+<a class="link" xlink:href="#grammar-Bounds">
+<text class="comment" x="36" y="25">
+Bounds</text>
 </a>
 <g class="sequence">
 <path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="sequence">
-<a class="link" xlink:href="#railroad-TypeParamBound">
+<a class="link" xlink:href="#railroad-Bound">
 <g class="nonterminal">
-<rect height="22" width="132" x="35" y="55" />
-<text x="101" y="71">
-TypeParamBound</text>
+<rect height="22" width="60" x="35" y="55" />
+<text x="65" y="71">
+Bound</text>
 </g>
 </a>
 <g class="optional">
-<path d=" M 177 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 194 m -94 0 l -5 -5 m 0 10 l 5 -5 m 94 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 105 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 122 m -58 0 l -5 -5 m 0 10 l 5 -5 m 58 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="repeat">
-<path d=" M 201 66 h 12 m 170 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -170 m 88 0 l 5 -5 m 0 10 l -5 -5 m -88 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
+<path d=" M 129 66 h 12 m 98 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -98 m 52 0 l 5 -5 m 0 10 l -5 -5 m -52 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
 <g />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="213" y="55" />
-<text x="227" y="71">
+<rect height="22" rx="10" ry="10" width="28" x="141" y="55" />
+<text x="155" y="71">
 +</text>
 </g>
-<a class="link" xlink:href="#railroad-TypeParamBound">
+<a class="link" xlink:href="#railroad-Bound">
 <g class="nonterminal">
-<rect height="22" width="132" x="251" y="55" />
-<text x="317" y="71">
-TypeParamBound</text>
+<rect height="22" width="60" x="179" y="55" />
+<text x="209" y="71">
+Bound</text>
 </g>
 </a>
-<path d=" M 241 66 h 10" />
+<path d=" M 169 66 h 10" />
 </g>
 </g>
 </g>
 <g class="optional">
-<path d=" M 429 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 285 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="453" y="55" />
-<text x="467" y="71">
+<rect height="22" rx="10" ry="10" width="28" x="309" y="55" />
+<text x="323" y="71">
 +</text>
 </g>
 </g>
-<path d=" M 167 66 h 10" />
-<path d=" M 419 66 h 10" />
+<path d=" M 95 66 h 10" />
+<path d=" M 275 66 h 10" />
 </g>
-<path d=" M 515 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 371 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 505 66 h 10" />
+<path d=" M 361 66 h 10" />
 </g>
 </g>
 </svg>
 </div>
 
-<div style="width: 218px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypeParamBound"><svg class="railroad" viewbox="0 0 218 140" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 218px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-Bound"><svg class="railroad" viewbox="0 0 218 140" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
-<a class="link" xlink:href="#grammar-TypeParamBound">
-<text class="comment" x="64" y="25">
-TypeParamBound</text>
+<a class="link" xlink:href="#grammar-Bound">
+<text class="comment" x="32" y="25">
+Bound</text>
 </a>
 <g class="sequence">
 <path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
@@ -44413,7 +44413,7 @@ mutability aren’t placed in memory marked as read only.</p>
 </div>
 
 <h2 id="phantomdatat"><a class="header" href="#phantomdatat"><code>PhantomData&lt;T&gt;</code></a></h2>
-<p><a href="../core/marker/struct.PhantomData.html"><code>std::marker::PhantomData&lt;T&gt;</code></a> is a zero-sized, minimum alignment, type that
+<p><a href="../core/marker/struct.PhantomData.html"><code>std::marker::PhantomData&lt;T&gt;</code></a> is a <a href="#r-glossary.zst">zero-sized</a>, minimum alignment, type that
 is considered to own a <code>T</code> for the purposes of <a href="#variance">variance</a>, <a href="../nomicon/dropck.html">drop check</a>, and
 <a href="#auto-traits">auto traits</a>.</p>
 <div class="rule" id="r-lang-types.ops"><a class="rule-link" href="#r-lang-types.ops" title="lang-types.ops"><span>[lang-types<wbr>.ops]</span></a>
@@ -45817,11 +45817,13 @@ mod m {
 <span class="grammar-text grammar-production" id="grammar-PathInExpression" onclick="show_railroad()"><a href="#railroad-PathInExpression">PathInExpression</a></span> → <br>    <span class="grammar-literal">::</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-PathExprSegment">PathExprSegment</a></span> ( <span class="grammar-literal">::</span> <span class="grammar-text"><a href="#grammar-PathExprSegment">PathExprSegment</a></span> )<sup>*</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-PathExprSegment" onclick="show_railroad()"><a href="#railroad-PathExprSegment">PathExprSegment</a></span> → <br>    <span class="grammar-text"><a href="#grammar-PathIdentSegment">PathIdentSegment</a></span> ( <span class="grammar-literal">::</span> <span class="grammar-text"><a href="#grammar-GenericArgs">GenericArgs</a></span> )<sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-PathIdentSegment" onclick="show_railroad()"><a href="#railroad-PathIdentSegment">PathIdentSegment</a></span> → <br>    <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> | <span class="grammar-literal">super</span> | <span class="grammar-literal">self</span> | <span class="grammar-literal">Self</span> | <span class="grammar-literal">crate</span> | <span class="grammar-literal">$crate</span></p>
-<p><span class="grammar-text grammar-production" id="grammar-GenericArgs" onclick="show_railroad()"><a href="#railroad-GenericArgs">GenericArgs</a></span> → <br>      <span class="grammar-literal">&lt;</span> <span class="grammar-literal">&gt;</span> <br>    | <span class="grammar-literal">&lt;</span> ( <span class="grammar-text"><a href="#grammar-GenericArg">GenericArg</a></span> <span class="grammar-literal">,</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-GenericArg">GenericArg</a></span> <span class="grammar-literal">,</span><sup>?</sup> <span class="grammar-literal">&gt;</span></p>
+<p><span class="grammar-text grammar-production" id="grammar-GenericArgs" onclick="show_railroad()"><a href="#railroad-GenericArgs">GenericArgs</a></span> → <br>      <span class="grammar-literal">&lt;</span> <span class="grammar-text"><a href="#grammar-GenericArgList">GenericArgList</a></span><sup>?</sup> <span class="grammar-literal">&gt;</span> <br>    | <span class="grammar-literal">(</span> <span class="grammar-text"><a href="#grammar-TypeList">TypeList</a></span><sup>?</sup> <span class="grammar-literal">)</span> ( <span class="grammar-literal">-&gt;</span> <span class="grammar-text"><a href="#grammar-TypeNoBounds">TypeNoBounds</a></span> )<sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-GenericArgList" onclick="show_railroad()"><a href="#railroad-GenericArgList">GenericArgList</a></span> → <br>    ( <span class="grammar-text"><a href="#grammar-GenericArg">GenericArg</a></span> <span class="grammar-literal">,</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-GenericArg">GenericArg</a></span> <span class="grammar-literal">,</span><sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-TypeList" onclick="show_railroad()"><a href="#railroad-TypeList">TypeList</a></span> → <br>    ( <span class="grammar-text"><a href="#grammar-Type">Type</a></span> <span class="grammar-literal">,</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> <span class="grammar-literal">,</span><sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-GenericArg" onclick="show_railroad()"><a href="#railroad-GenericArg">GenericArg</a></span> → <br>    <span class="grammar-text"><a href="#grammar-Lifetime">Lifetime</a></span> | <span class="grammar-text"><a href="#grammar-Type">Type</a></span> | <span class="grammar-text"><a href="#grammar-GenericArgsConst">GenericArgsConst</a></span> | <span class="grammar-text"><a href="#grammar-GenericArgsBinding">GenericArgsBinding</a></span> | <span class="grammar-text"><a href="#grammar-GenericArgsBounds">GenericArgsBounds</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-GenericArgsConst" onclick="show_railroad()"><a href="#railroad-GenericArgsConst">GenericArgsConst</a></span> → <br>      <span class="grammar-text"><a href="#grammar-BlockExpression">BlockExpression</a></span> <br>    | <span class="grammar-text"><a href="#grammar-LiteralExpression">LiteralExpression</a></span> <br>    | <span class="grammar-literal">-</span> <span class="grammar-text"><a href="#grammar-LiteralExpression">LiteralExpression</a></span> <br>    | <span class="grammar-text"><a href="#grammar-SimplePathSegment">SimplePathSegment</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-GenericArgsBinding" onclick="show_railroad()"><a href="#railroad-GenericArgsBinding">GenericArgsBinding</a></span> → <br>    <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-GenericArgs">GenericArgs</a></span><sup>?</sup> <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-GenericArgsBounds" onclick="show_railroad()"><a href="#railroad-GenericArgsBounds">GenericArgsBounds</a></span> → <br>    <span class="grammar-text"><a href="#grammar-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-GenericArgs">GenericArgs</a></span><sup>?</sup> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-TypeParamBounds">TypeParamBounds</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-GenericArgsBinding" onclick="show_railroad()"><a href="#railroad-GenericArgsBinding">GenericArgsBinding</a></span> → <br>    <span class="grammar-text"><a href="#grammar-TypePathSegment">TypePathSegment</a></span> <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-GenericArgsBounds" onclick="show_railroad()"><a href="#railroad-GenericArgsBounds">GenericArgsBounds</a></span> → <br>    <span class="grammar-text"><a href="#grammar-TypePathSegment">TypePathSegment</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-Bounds">Bounds</a></span></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
@@ -45993,7 +45995,7 @@ $crate</text>
 </svg>
 </div>
 
-<div style="width: 600px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-GenericArgs"><svg class="railroad" viewbox="0 0 600 132" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 546px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-GenericArgs"><svg class="railroad" viewbox="0 0 546 132" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-GenericArgs">
@@ -46001,81 +46003,198 @@ $crate</text>
 GenericArgs</text>
 </a>
 <g class="sequence">
-<path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="choice">
-<path d=" M 35 53 h 24 m 66 0 h 440 m -217 0 l -5 -5 m 0 10 l 5 -5 m 217 0" />
+<path d=" M 35 66 h 24 m 256 0 h 196 m -95 0 l -5 -5 m 0 10 l 5 -5 m 95 0" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="59" y="42" />
-<text x="73" y="58">
-&lt;</text>
-</g>
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="97" y="42" />
-<text x="111" y="58">
-&gt;</text>
-</g>
-<path d=" M 87 53 h 10" />
-</g>
-<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 506 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 47 74 v 12 a 12 12 0 0 0 12 12 m 482 0 h 0 a 12 12 0 0 0 12 -12 v -12" />
-<g class="sequence">
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="59" y="87" />
-<text x="73" y="103">
+<rect height="22" rx="10" ry="10" width="28" x="59" y="55" />
+<text x="73" y="71">
 &lt;</text>
 </g>
 <g class="optional">
-<path d=" M 97 98 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 162 m -78 0 l -5 -5 m 0 10 l 5 -5 m 78 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 97 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 132 m -63 0 l -5 -5 m 0 10 l 5 -5 m 63 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-GenericArgList">
+<g class="nonterminal">
+<rect height="22" width="132" x="121" y="55" />
+<text x="187" y="71">
+GenericArgList</text>
+</g>
+</a>
+</g>
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="287" y="55" />
+<text x="301" y="71">
+&gt;</text>
+</g>
+<path d=" M 87 66 h 10" />
+<path d=" M 277 66 h 10" />
+</g>
+<path d=" M 35 66 a 12 12 0 0 1 12 12 v 9 m 452 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 47 87 v 12 a 12 12 0 0 0 12 12 m 428 0 h 0 a 12 12 0 0 0 12 -12 v -12" />
+<g class="sequence">
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="59" y="100" />
+<text x="73" y="116">
+(</text>
+</g>
+<g class="optional">
+<path d=" M 97 111 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 84 m -39 0 l -5 -5 m 0 10 l 5 -5 m 39 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-TypeList">
+<g class="nonterminal">
+<rect height="22" width="84" x="121" y="100" />
+<text x="163" y="116">
+TypeList</text>
+</g>
+</a>
+</g>
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="239" y="100" />
+<text x="253" y="116">
+)</text>
+</g>
+<g class="optional">
+<path d=" M 277 111 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 162 m -78 0 l -5 -5 m 0 10 l 5 -5 m 78 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<g class="sequence">
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="36" x="301" y="100" />
+<text x="319" y="116">
+-&gt;</text>
+</g>
+<a class="link" xlink:href="#railroad-TypeNoBounds">
+<g class="nonterminal">
+<rect height="22" width="116" x="347" y="100" />
+<text x="405" y="116">
+TypeNoBounds</text>
+</g>
+</a>
+<path d=" M 337 111 h 10" />
+</g>
+</g>
+<path d=" M 87 111 h 10" />
+<path d=" M 229 111 h 10" />
+<path d=" M 267 111 h 10" />
+</g>
+</g>
+<path d=" M 521 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 66 h 10" />
+<path d=" M 511 66 h 10" />
+</g>
+</g>
+</svg>
+</div>
+
+<div style="width: 476px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-GenericArgList"><svg class="railroad" viewbox="0 0 476 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect class="railroad_canvas" height="100%" width="100%" />
+<g class="verticalgrid">
+<a class="link" xlink:href="#grammar-GenericArgList">
+<text class="comment" x="64" y="25">
+GenericArgList</text>
+</a>
+<g class="sequence">
+<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<g class="sequence">
+<g class="optional">
+<path d=" M 35 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 162 m -78 0 l -5 -5 m 0 10 l 5 -5 m 78 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="repeat">
-<path d=" M 121 98 h 12 m 138 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -138 m 72 0 l 5 -5 m 0 10 l -5 -5 m -72 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
+<path d=" M 59 66 h 12 m 138 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -138 m 72 0 l 5 -5 m 0 10 l -5 -5 m -72 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
 <g />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-GenericArg">
 <g class="nonterminal">
-<rect height="22" width="100" x="133" y="87" />
-<text x="183" y="103">
+<rect height="22" width="100" x="71" y="55" />
+<text x="121" y="71">
 GenericArg</text>
 </g>
 </a>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="243" y="87" />
-<text x="257" y="103">
+<rect height="22" rx="10" ry="10" width="28" x="181" y="55" />
+<text x="195" y="71">
 ,</text>
 </g>
-<path d=" M 233 98 h 10" />
+<path d=" M 171 66 h 10" />
 </g>
 </g>
 </g>
 <a class="link" xlink:href="#railroad-GenericArg">
 <g class="nonterminal">
-<rect height="22" width="100" x="317" y="87" />
-<text x="367" y="103">
+<rect height="22" width="100" x="255" y="55" />
+<text x="305" y="71">
 GenericArg</text>
 </g>
 </a>
 <g class="optional">
-<path d=" M 427 98 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 365 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="451" y="87" />
-<text x="465" y="103">
+<rect height="22" rx="10" ry="10" width="28" x="389" y="55" />
+<text x="403" y="71">
 ,</text>
 </g>
 </g>
+<path d=" M 245 66 h 10" />
+<path d=" M 355 66 h 10" />
+</g>
+<path d=" M 451 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 66 h 10" />
+<path d=" M 441 66 h 10" />
+</g>
+</g>
+</svg>
+</div>
+
+<div style="width: 380px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypeList"><svg class="railroad" viewbox="0 0 380 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect class="railroad_canvas" height="100%" width="100%" />
+<g class="verticalgrid">
+<a class="link" xlink:href="#grammar-TypeList">
+<text class="comment" x="43" y="25">
+TypeList</text>
+</a>
+<g class="sequence">
+<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<g class="sequence">
+<g class="optional">
+<path d=" M 35 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 114 m -54 0 l -5 -5 m 0 10 l 5 -5 m 54 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<g class="repeat">
+<path d=" M 59 66 h 12 m 90 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -90 m 48 0 l 5 -5 m 0 10 l -5 -5 m -48 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
+<g />
+<g class="sequence">
+<a class="link" xlink:href="#railroad-Type">
+<g class="nonterminal">
+<rect height="22" width="52" x="71" y="55" />
+<text x="97" y="71">
+Type</text>
+</g>
+</a>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="513" y="87" />
-<text x="527" y="103">
-&gt;</text>
+<rect height="22" rx="10" ry="10" width="28" x="133" y="55" />
+<text x="147" y="71">
+,</text>
 </g>
-<path d=" M 87 98 h 10" />
-<path d=" M 307 98 h 10" />
-<path d=" M 417 98 h 10" />
-<path d=" M 503 98 h 10" />
+<path d=" M 123 66 h 10" />
 </g>
 </g>
-<path d=" M 575 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 53 h 10" />
-<path d=" M 565 53 h 10" />
+</g>
+<a class="link" xlink:href="#railroad-Type">
+<g class="nonterminal">
+<rect height="22" width="52" x="207" y="55" />
+<text x="233" y="71">
+Type</text>
+</g>
+</a>
+<g class="optional">
+<path d=" M 269 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="293" y="55" />
+<text x="307" y="71">
+,</text>
+</g>
+</g>
+<path d=" M 197 66 h 10" />
+<path d=" M 259 66 h 10" />
+</g>
+<path d=" M 355 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 66 h 10" />
+<path d=" M 345 66 h 10" />
 </g>
 </g>
 </svg>
@@ -46212,7 +46331,7 @@ SimplePathSegment</text>
 </svg>
 </div>
 
-<div style="width: 436px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-GenericArgsBinding"><svg class="railroad" viewbox="0 0 436 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 310px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-GenericArgsBinding"><svg class="railroad" viewbox="0 0 310 74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-GenericArgsBinding">
@@ -46220,50 +46339,39 @@ SimplePathSegment</text>
 GenericArgsBinding</text>
 </a>
 <g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="sequence">
-<a class="link" xlink:href="#railroad-IDENTIFIER">
+<a class="link" xlink:href="#railroad-TypePathSegment">
 <g class="nonterminal">
-<rect height="22" width="100" x="35" y="55" />
-<text x="85" y="71">
-IDENTIFIER</text>
+<rect height="22" width="140" x="35" y="42" />
+<text x="105" y="58">
+TypePathSegment</text>
 </g>
 </a>
-<g class="optional">
-<path d=" M 145 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 108 m -51 0 l -5 -5 m 0 10 l 5 -5 m 51 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-GenericArgs">
-<g class="nonterminal">
-<rect height="22" width="108" x="169" y="55" />
-<text x="223" y="71">
-GenericArgs</text>
-</g>
-</a>
-</g>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="311" y="55" />
-<text x="325" y="71">
+<rect height="22" rx="10" ry="10" width="28" x="185" y="42" />
+<text x="199" y="58">
 =</text>
 </g>
 <a class="link" xlink:href="#railroad-Type">
 <g class="nonterminal">
-<rect height="22" width="52" x="349" y="55" />
-<text x="375" y="71">
+<rect height="22" width="52" x="223" y="42" />
+<text x="249" y="58">
 Type</text>
 </g>
 </a>
-<path d=" M 135 66 h 10" />
-<path d=" M 301 66 h 10" />
-<path d=" M 339 66 h 10" />
+<path d=" M 175 53 h 10" />
+<path d=" M 213 53 h 10" />
 </g>
-<path d=" M 411 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 401 66 h 10" />
+<path d=" M 285 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 53 h 10" />
+<path d=" M 275 53 h 10" />
 </g>
 </g>
 </svg>
 </div>
 
-<div style="width: 524px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-GenericArgsBounds"><svg class="railroad" viewbox="0 0 524 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 326px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-GenericArgsBounds"><svg class="railroad" viewbox="0 0 326 74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-GenericArgsBounds">
@@ -46271,44 +46379,33 @@ Type</text>
 GenericArgsBounds</text>
 </a>
 <g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="sequence">
-<a class="link" xlink:href="#railroad-IDENTIFIER">
+<a class="link" xlink:href="#railroad-TypePathSegment">
 <g class="nonterminal">
-<rect height="22" width="100" x="35" y="55" />
-<text x="85" y="71">
-IDENTIFIER</text>
+<rect height="22" width="140" x="35" y="42" />
+<text x="105" y="58">
+TypePathSegment</text>
 </g>
 </a>
-<g class="optional">
-<path d=" M 145 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 108 m -51 0 l -5 -5 m 0 10 l 5 -5 m 51 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-GenericArgs">
-<g class="nonterminal">
-<rect height="22" width="108" x="169" y="55" />
-<text x="223" y="71">
-GenericArgs</text>
-</g>
-</a>
-</g>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="311" y="55" />
-<text x="325" y="71">
+<rect height="22" rx="10" ry="10" width="28" x="185" y="42" />
+<text x="199" y="58">
 :</text>
 </g>
-<a class="link" xlink:href="#railroad-TypeParamBounds">
+<a class="link" xlink:href="#railroad-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="349" y="55" />
-<text x="419" y="71">
-TypeParamBounds</text>
+<rect height="22" width="68" x="223" y="42" />
+<text x="257" y="58">
+Bounds</text>
 </g>
 </a>
-<path d=" M 135 66 h 10" />
-<path d=" M 301 66 h 10" />
-<path d=" M 339 66 h 10" />
+<path d=" M 175 53 h 10" />
+<path d=" M 213 53 h 10" />
 </g>
-<path d=" M 499 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 489 66 h 10" />
+<path d=" M 301 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 53 h 10" />
+<path d=" M 291 53 h 10" />
 </g>
 </g>
 </svg>
@@ -46570,9 +46667,7 @@ S::f();  // Calls the inherent impl.
 <p><strong><sup>Syntax</sup></strong>
 <br>
 <span class="grammar-text grammar-production" id="grammar-TypePath" onclick="show_railroad()"><a href="#railroad-TypePath">TypePath</a></span> → <span class="grammar-literal">::</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-TypePathSegment">TypePathSegment</a></span> ( <span class="grammar-literal">::</span> <span class="grammar-text"><a href="#grammar-TypePathSegment">TypePathSegment</a></span> )<sup>*</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-TypePathSegment" onclick="show_railroad()"><a href="#railroad-TypePathSegment">TypePathSegment</a></span> → <span class="grammar-text"><a href="#grammar-PathIdentSegment">PathIdentSegment</a></span> ( <span class="grammar-literal">::</span><sup>?</sup> ( <span class="grammar-text"><a href="#grammar-GenericArgs">GenericArgs</a></span> | <span class="grammar-text"><a href="#grammar-TypePathFn">TypePathFn</a></span> ) )<sup>?</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-TypePathFn" onclick="show_railroad()"><a href="#railroad-TypePathFn">TypePathFn</a></span> → <span class="grammar-literal">(</span> <span class="grammar-text"><a href="#grammar-TypePathFnInputs">TypePathFnInputs</a></span><sup>?</sup> <span class="grammar-literal">)</span> ( <span class="grammar-literal">-&gt;</span> <span class="grammar-text"><a href="#grammar-TypeNoBounds">TypeNoBounds</a></span> )<sup>?</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-TypePathFnInputs" onclick="show_railroad()"><a href="#railroad-TypePathFnInputs">TypePathFnInputs</a></span> → <span class="grammar-text"><a href="#grammar-Type">Type</a></span> ( <span class="grammar-literal">,</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> )<sup>*</sup> <span class="grammar-literal">,</span><sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-TypePathSegment" onclick="show_railroad()"><a href="#railroad-TypePathSegment">TypePathSegment</a></span> → <span class="grammar-text"><a href="#grammar-PathIdentSegment">PathIdentSegment</a></span> ( <span class="grammar-literal">::</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-GenericArgs">GenericArgs</a></span> )<sup>?</sup></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
@@ -46635,7 +46730,7 @@ TypePathSegment</text>
 </svg>
 </div>
 
-<div style="width: 526px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypePathSegment"><svg class="railroad" viewbox="0 0 526 132" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 478px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypePathSegment"><svg class="railroad" viewbox="0 0 478 99" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-TypePathSegment">
@@ -46653,7 +46748,7 @@ PathIdentSegment</text>
 </g>
 </a>
 <g class="optional">
-<path d=" M 193 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 250 m -122 0 l -5 -5 m 0 10 l 5 -5 m 122 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 193 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 202 m -98 0 l -5 -5 m 0 10 l 5 -5 m 98 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="optional">
 <path d=" M 217 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 36 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
@@ -46663,151 +46758,21 @@ PathIdentSegment</text>
 ::</text>
 </g>
 </g>
-<g class="choice">
-<path d=" M 311 78 h 24 m 108 0 h 24" />
 <a class="link" xlink:href="#railroad-GenericArgs">
 <g class="nonterminal">
-<rect height="22" width="108" x="335" y="67" />
-<text x="389" y="83">
+<rect height="22" width="108" x="311" y="67" />
+<text x="365" y="83">
 GenericArgs</text>
 </g>
 </a>
-<path d=" M 311 78 a 12 12 0 0 1 12 12 v 9 m 132 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 323 99 v 0 a 12 12 0 0 0 12 12 m 100 0 h 8 a 12 12 0 0 0 12 -12 v 0" />
-<a class="link" xlink:href="#railroad-TypePathFn">
-<g class="nonterminal">
-<rect height="22" width="100" x="335" y="100" />
-<text x="385" y="116">
-TypePathFn</text>
-</g>
-</a>
-</g>
 <path d=" M 301 78 h 10" />
 </g>
 </g>
 <path d=" M 183 78 h 10" />
 </g>
-<path d=" M 501 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 453 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 78 h 10" />
-<path d=" M 491 78 h 10" />
-</g>
-</g>
-</svg>
-</div>
-
-<div style="width: 562px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypePathFn"><svg class="railroad" viewbox="0 0 562 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect class="railroad_canvas" height="100%" width="100%" />
-<g class="verticalgrid">
-<a class="link" xlink:href="#grammar-TypePathFn">
-<text class="comment" x="50" y="25">
-TypePathFn</text>
-</a>
-<g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
-<g class="sequence">
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="35" y="55" />
-<text x="49" y="71">
-(</text>
-</g>
-<g class="optional">
-<path d=" M 73 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 148 m -71 0 l -5 -5 m 0 10 l 5 -5 m 71 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-TypePathFnInputs">
-<g class="nonterminal">
-<rect height="22" width="148" x="97" y="55" />
-<text x="171" y="71">
-TypePathFnInputs</text>
-</g>
-</a>
-</g>
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="279" y="55" />
-<text x="293" y="71">
-)</text>
-</g>
-<g class="optional">
-<path d=" M 317 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 162 m -78 0 l -5 -5 m 0 10 l 5 -5 m 78 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<g class="sequence">
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="36" x="341" y="55" />
-<text x="359" y="71">
--&gt;</text>
-</g>
-<a class="link" xlink:href="#railroad-TypeNoBounds">
-<g class="nonterminal">
-<rect height="22" width="116" x="387" y="55" />
-<text x="445" y="71">
-TypeNoBounds</text>
-</g>
-</a>
-<path d=" M 377 66 h 10" />
-</g>
-</g>
-<path d=" M 63 66 h 10" />
-<path d=" M 269 66 h 10" />
-<path d=" M 307 66 h 10" />
-</g>
-<path d=" M 537 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 527 66 h 10" />
-</g>
-</g>
-</svg>
-</div>
-
-<div style="width: 380px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-TypePathFnInputs"><svg class="railroad" viewbox="0 0 380 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect class="railroad_canvas" height="100%" width="100%" />
-<g class="verticalgrid">
-<a class="link" xlink:href="#grammar-TypePathFnInputs">
-<text class="comment" x="71" y="25">
-TypePathFnInputs</text>
-</a>
-<g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
-<g class="sequence">
-<a class="link" xlink:href="#railroad-Type">
-<g class="nonterminal">
-<rect height="22" width="52" x="35" y="55" />
-<text x="61" y="71">
-Type</text>
-</g>
-</a>
-<g class="optional">
-<path d=" M 97 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 114 m -54 0 l -5 -5 m 0 10 l 5 -5 m 54 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<g class="repeat">
-<path d=" M 121 66 h 12 m 90 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -90 m 48 0 l 5 -5 m 0 10 l -5 -5 m -48 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
-<g />
-<g class="sequence">
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="133" y="55" />
-<text x="147" y="71">
-,</text>
-</g>
-<a class="link" xlink:href="#railroad-Type">
-<g class="nonterminal">
-<rect height="22" width="52" x="171" y="55" />
-<text x="197" y="71">
-Type</text>
-</g>
-</a>
-<path d=" M 161 66 h 10" />
-</g>
-</g>
-</g>
-<g class="optional">
-<path d=" M 269 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="293" y="55" />
-<text x="307" y="71">
-,</text>
-</g>
-</g>
-<path d=" M 87 66 h 10" />
-<path d=" M 259 66 h 10" />
-</g>
-<path d=" M 355 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 345 66 h 10" />
+<path d=" M 443 78 h 10" />
 </g>
 </g>
 </svg>
@@ -46818,7 +46783,7 @@ Type</text>
 <div class="rule" id="r-paths.type.intro"><a class="rule-link" href="#r-paths.type.intro" title="paths.type.intro"><span>[paths<wbr>.type<wbr>.intro]</span></a>
 </div>
 
-<p>Type paths are used within type definitions, trait bounds, type parameter bounds, and qualified paths.</p>
+<p>Type paths are used within type definitions, trait bounds, and qualified paths.</p>
 <div class="rule" id="r-paths.type.turbofish"><a class="rule-link" href="#r-paths.type.turbofish" title="paths.type.turbofish"><span>[paths<wbr>.type<wbr>.turbofish]</span></a>
 </div>
 
@@ -52259,7 +52224,7 @@ part of <em>some</em> allocation).</p>
 <div class="rule" id="r-undefined.dangling.zero-size"><a class="rule-link" href="#r-undefined.dangling.zero-size" title="undefined.dangling.zero-size"><span>[undefined<wbr>.dangling<wbr>.zero-size]</span></a>
 </div>
 
-<p>If the size is 0, then the pointer is trivially never “dangling”
+<p>If the <a href="#r-glossary.zst">size is 0</a>, then the pointer is trivially never “dangling”
 (even if it is a null pointer).</p>
 <div class="rule" id="r-undefined.dangling.dynamic-size"><a class="rule-link" href="#r-undefined.dangling.dynamic-size" title="undefined.dangling.dynamic-size"><span>[undefined<wbr>.dangling<wbr>.dynamic-size]</span></a>
 </div>
@@ -52337,7 +52302,7 @@ initialized, i.e., must not be obtained from uninitialized memory.</li>
 <ul>
 <li>For a <code>union</code>, the exact validity requirements are not decided yet.
 Obviously, all values that can be created entirely in safe code are valid.
-If the union has a zero-sized field, then every possible value is valid.
+If the union has a <a href="#r-glossary.zst">zero-sized</a> field, then every possible value is valid.
 Further details are <a href="https://github.com/rust-lang/unsafe-code-guidelines/issues/438">still being debated</a>.</li>
 </ul>
 <div class="rule" id="r-undefined.validity.reference-box"><a class="rule-link" href="#r-undefined.validity.reference-box" title="undefined.validity.reference-box"><span>[undefined<wbr>.validity<wbr>.reference-box]</span></a>
@@ -52896,6 +52861,7 @@ a crate.</p>
 <p>See <em><a href="#extern-function-qualifier">extern functions</a></em> for information on specifying the ABI for exporting
 functions. See <em><a href="#external-blocks">external blocks</a></em> for information on specifying the ABI for
 linking external libraries.</p>
+<!-- template:attributes -->
 <div class="rule" id="r-abi.used"><a class="rule-link" href="#r-abi.used" title="abi.used"><span>[abi<wbr>.used]</span></a>
 </div>
 
@@ -52903,50 +52869,67 @@ linking external libraries.</p>
 <div class="rule" id="r-abi.used.intro"><a class="rule-link" href="#r-abi.used.intro" title="abi.used.intro"><span>[abi<wbr>.used<wbr>.intro]</span></a>
 </div>
 
-<p>The <em><code>used</code> attribute</em> can only be applied to <a href="#static-items"><code>static</code> items</a>. This <a href="#attributes-1">attribute</a> forces the
-compiler to keep the variable in the output object file (.o, .rlib, etc. excluding final binaries)
-even if the variable is not used, or referenced, by any other item in the crate.
-However, the linker is still free to remove such an item.</p>
-<p>Below is an example that shows under what conditions the compiler keeps a <code>static</code> item in the
-output object file.</p>
+<p>The <em><code>used</code> <a href="#attributes-1">attribute</a></em> forces a <a href="#static-items">static</a> to be kept in the output object file (.o, .rlib, etc., excluding final binaries) even if it’s never used or referenced by any other item in the crate. The linker, however, is still free to remove it.</p>
+<div class="alert alert-example">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>Example</p>
+
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
-</span>// foo.rs
+</span>// lib.rs
 
-// This is kept because of `#[used]`:
+// This is kept because of `#[used]`.
 #[used]
-static FOO: u32 = 0;
+static S1: u8 = 0;
 
-// This is removable because it is unused:
+// This is removable because it's unused.
 #[allow(dead_code)]
-static BAR: u32 = 0;
+static S2: u8 = 0;
 
-// This is kept because it is publicly reachable:
-pub static BAZ: u32 = 0;
+// This is kept because it's publicly reachable.
+pub static S3: u8 = 0;
 
-// This is kept because it is referenced by a public, reachable function:
-static QUUX: u32 = 0;
+// This is kept because it's referenced by a publicly
+// reachable function.
+static S4: u8 = 0;
+#[unsafe(no_mangle)] pub fn f4() -&gt; &amp;'static u8 { &amp;S4 }
 
-pub fn quux() -&gt; &amp;'static u32 {
-    &amp;QUUX
-}
-
-// This is removable because it is referenced by a private, unused (dead) function:
-static CORGE: u32 = 0;
-
+// This is removable because it's referenced only by a
+// private, unused (dead) function.
+static S5: u8 = 0;
 #[allow(dead_code)]
-fn corge() -&gt; &amp;'static u32 {
-    &amp;CORGE
-}
+fn f5() -&gt; &amp;'static u8 { &amp;S5 }
 <span class="boring">}</span></code></pre>
-<pre><code class="language-console">$ rustc -O --emit=obj --crate-type=rlib foo.rs
-
-$ nm -C foo.o
-0000000000000000 R foo::BAZ
-0000000000000000 r foo::FOO
-0000000000000000 R foo::QUUX
-0000000000000000 T foo::quux
+<pre><code class="language-console">$ rustc -O --emit=obj --crate-type=rlib lib.rs
+$ LC_ALL=C nm -C lib.o
+0000000000000000 R lib::S1
+0000000000000000 R lib::S3
+0000000000000000 r lib::S4
+0000000000000000 T f4
 </code></pre>
+</blockquote>
+</div>
+
+<div class="rule" id="r-abi.used.syntax"><a class="rule-link" href="#r-abi.used.syntax" title="abi.used.syntax"><span>[abi<wbr>.used<wbr>.syntax]</span></a>
+</div>
+
+<p>The <code>used</code> attribute uses the <a href="#grammar-MetaWord">MetaWord</a> syntax.</p>
+<div class="rule" id="r-abi.used.allowed-positions"><a class="rule-link" href="#r-abi.used.allowed-positions" title="abi.used.allowed-positions"><span>[abi<wbr>.used<wbr>.allowed-positions]</span></a>
+</div>
+
+<p>The <code>used</code> attribute may only be applied to <a href="#r-items.static"><code>static</code> items</a>.</p>
+<div class="rule" id="r-abi.used.duplicates"><a class="rule-link" href="#r-abi.used.duplicates" title="abi.used.duplicates"><span>[abi<wbr>.used<wbr>.duplicates]</span></a>
+</div>
+
+<p>Only the first use of <code>used</code> on an item has effect.</p>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p><code>rustc</code> lints against any use following the first.</p>
+</blockquote>
+</div>
+
 <div class="rule" id="r-abi.no_mangle"><a class="rule-link" href="#r-abi.no_mangle" title="abi.no_mangle"><span>[abi<wbr>.no_mangle]</span></a>
 </div>
 
@@ -52999,10 +52982,12 @@ extern "C" fn foo() {}
 <!-- no_run: don't link. The format of the section name is platform-specific. -->
 <pre class="playground"><code class="language-rust no_run edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
+</span><span class="boring">#[cfg(target_os = "linux")] {
 </span>#[unsafe(no_mangle)]
 #[unsafe(link_section = ".example_section")]
 pub static VAR1: u32 = 1;
-<span class="boring">}</span></code></pre>
+<span class="boring">}
+</span><span class="boring">}</span></code></pre>
 <div class="rule" id="r-abi.link_section.unsafe"><a class="rule-link" href="#r-abi.link_section.unsafe" title="abi.link_section.unsafe"><span>[abi<wbr>.link_section<wbr>.unsafe]</span></a>
 </div>
 
@@ -53237,18 +53222,18 @@ static GLOBAL: MyAllocator = MyAllocator;
 <p><span class="grammar-text grammar-production" id="grammar-summary-GenericParams" onclick="show_railroad()"><a href="#railroad-summary-GenericParams">GenericParams</a></span> → <span class="grammar-literal">&lt;</span> ( <span class="grammar-text"><a href="#grammar-summary-GenericParam">GenericParam</a></span> ( <span class="grammar-literal">,</span> <span class="grammar-text"><a href="#grammar-summary-GenericParam">GenericParam</a></span> )<sup>*</sup> <span class="grammar-literal">,</span><sup>?</sup> )<sup>?</sup> <span class="grammar-literal">&gt;</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-GenericParam" onclick="show_railroad()"><a href="#railroad-summary-GenericParam">GenericParam</a></span> → <span class="grammar-text"><a href="#grammar-summary-OuterAttribute">OuterAttribute</a></span><sup>*</sup> ( <span class="grammar-text"><a href="#grammar-summary-LifetimeParam">LifetimeParam</a></span> | <span class="grammar-text"><a href="#grammar-summary-TypeParam">TypeParam</a></span> | <span class="grammar-text"><a href="#grammar-summary-ConstParam">ConstParam</a></span> )</p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-LifetimeParam" onclick="show_railroad()"><a href="#railroad-summary-LifetimeParam">LifetimeParam</a></span> → <span class="grammar-text"><a href="#grammar-summary-Lifetime">Lifetime</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-LifetimeBounds">LifetimeBounds</a></span> )<sup>?</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-TypeParam" onclick="show_railroad()"><a href="#railroad-summary-TypeParam">TypeParam</a></span> → <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-TypeParamBounds">TypeParamBounds</a></span><sup>?</sup> )<sup>?</sup> ( <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> )<sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-TypeParam" onclick="show_railroad()"><a href="#railroad-summary-TypeParam">TypeParam</a></span> → <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-Bounds">Bounds</a></span><sup>?</sup> )<sup>?</sup> ( <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> )<sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-ConstParam" onclick="show_railroad()"><a href="#railroad-summary-ConstParam">ConstParam</a></span> → <br>    <span class="grammar-literal">const</span> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> <br>    ( <span class="grammar-literal">=</span> ( <span class="grammar-text"><a href="#grammar-summary-BlockExpression">BlockExpression</a></span> | <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> | <span class="grammar-literal">-</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-LiteralExpression">LiteralExpression</a></span> ) )<sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-WhereClause" onclick="show_railroad()"><a href="#railroad-summary-WhereClause">WhereClause</a></span> → <span class="grammar-literal">where</span> ( <span class="grammar-text"><a href="#grammar-summary-WhereClauseItem">WhereClauseItem</a></span> <span class="grammar-literal">,</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-summary-WhereClauseItem">WhereClauseItem</a></span><sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-WhereClauseItem" onclick="show_railroad()"><a href="#railroad-summary-WhereClauseItem">WhereClauseItem</a></span> → <br>      <span class="grammar-text"><a href="#grammar-summary-LifetimeWhereClauseItem">LifetimeWhereClauseItem</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-TypeBoundWhereClauseItem">TypeBoundWhereClauseItem</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-LifetimeWhereClauseItem" onclick="show_railroad()"><a href="#railroad-summary-LifetimeWhereClauseItem">LifetimeWhereClauseItem</a></span> → <span class="grammar-text"><a href="#grammar-summary-Lifetime">Lifetime</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-LifetimeBounds">LifetimeBounds</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-TypeBoundWhereClauseItem" onclick="show_railroad()"><a href="#railroad-summary-TypeBoundWhereClauseItem">TypeBoundWhereClauseItem</a></span> → <span class="grammar-text"><a href="#grammar-summary-ForLifetimes">ForLifetimes</a></span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-TypeParamBounds">TypeParamBounds</a></span><sup>?</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-Trait" onclick="show_railroad()"><a href="#railroad-summary-Trait">Trait</a></span> → <br>    <span class="grammar-literal">unsafe</span><sup>?</sup> <span class="grammar-literal">trait</span> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-summary-GenericParams">GenericParams</a></span><sup>?</sup> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-TypeParamBounds">TypeParamBounds</a></span><sup>?</sup> )<sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-WhereClause">WhereClause</a></span><sup>?</sup> <br>    <span class="grammar-literal">{</span> <br>        <span class="grammar-text"><a href="#grammar-summary-InnerAttribute">InnerAttribute</a></span><sup>*</sup> <br>        <span class="grammar-text"><a href="#grammar-summary-AssociatedItem">AssociatedItem</a></span><sup>*</sup> <br>    <span class="grammar-literal">}</span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-TypeBoundWhereClauseItem" onclick="show_railroad()"><a href="#railroad-summary-TypeBoundWhereClauseItem">TypeBoundWhereClauseItem</a></span> → <span class="grammar-text"><a href="#grammar-summary-ForLifetimes">ForLifetimes</a></span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-Bounds">Bounds</a></span><sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-Trait" onclick="show_railroad()"><a href="#railroad-summary-Trait">Trait</a></span> → <br>    <span class="grammar-literal">unsafe</span><sup>?</sup> <span class="grammar-literal">trait</span> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-summary-GenericParams">GenericParams</a></span><sup>?</sup> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-Bounds">Bounds</a></span><sup>?</sup> )<sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-WhereClause">WhereClause</a></span><sup>?</sup> <br>    <span class="grammar-literal">{</span> <br>        <span class="grammar-text"><a href="#grammar-summary-InnerAttribute">InnerAttribute</a></span><sup>*</sup> <br>        <span class="grammar-text"><a href="#grammar-summary-AssociatedItem">AssociatedItem</a></span><sup>*</sup> <br>    <span class="grammar-literal">}</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-UseDeclaration" onclick="show_railroad()"><a href="#railroad-summary-UseDeclaration">UseDeclaration</a></span> → <span class="grammar-literal">use</span> <span class="grammar-text"><a href="#grammar-summary-UseTree">UseTree</a></span> <span class="grammar-literal">;</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-UseTree" onclick="show_railroad()"><a href="#railroad-summary-UseTree">UseTree</a></span> → <br>      ( <span class="grammar-text"><a href="#grammar-summary-SimplePath">SimplePath</a></span><sup>?</sup> <span class="grammar-literal">::</span> )<sup>?</sup> <span class="grammar-literal">*</span> <br>    | ( <span class="grammar-text"><a href="#grammar-summary-SimplePath">SimplePath</a></span><sup>?</sup> <span class="grammar-literal">::</span> )<sup>?</sup> <span class="grammar-literal">{</span> ( <span class="grammar-text"><a href="#grammar-summary-UseTree">UseTree</a></span> ( <span class="grammar-literal">,</span> <span class="grammar-text"><a href="#grammar-summary-UseTree">UseTree</a></span> )<sup>*</sup> <span class="grammar-literal">,</span><sup>?</sup> )<sup>?</sup> <span class="grammar-literal">}</span> <br>    | <span class="grammar-text"><a href="#grammar-summary-SimplePath">SimplePath</a></span> ( <span class="grammar-literal">as</span> ( <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> | <span class="grammar-literal">_</span> ) )<sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-StaticItem" onclick="show_railroad()"><a href="#railroad-summary-StaticItem">StaticItem</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-ItemSafety">ItemSafety</a></span><sup>?</sup> <span class="grammar-literal">static</span> <span class="grammar-literal">mut</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> ( <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> )<sup>?</sup> <span class="grammar-literal">;</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-AssociatedItem" onclick="show_railroad()"><a href="#railroad-summary-AssociatedItem">AssociatedItem</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-OuterAttribute">OuterAttribute</a></span><sup>*</sup> ( <br>        <span class="grammar-text"><a href="#grammar-summary-MacroInvocationSemi">MacroInvocationSemi</a></span> <br>      | ( <span class="grammar-text"><a href="#grammar-summary-Visibility">Visibility</a></span><sup>?</sup> ( <span class="grammar-text"><a href="#grammar-summary-TypeAlias">TypeAlias</a></span> | <span class="grammar-text"><a href="#grammar-summary-ConstantItem">ConstantItem</a></span> | <span class="grammar-text"><a href="#grammar-summary-Function">Function</a></span> ) ) <br>    )</p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-TypeAlias" onclick="show_railroad()"><a href="#railroad-summary-TypeAlias">TypeAlias</a></span> → <br>    <span class="grammar-literal">type</span> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-summary-GenericParams">GenericParams</a></span><sup>?</sup> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-TypeParamBounds">TypeParamBounds</a></span> )<sup>?</sup> <br>        <span class="grammar-text"><a href="#grammar-summary-WhereClause">WhereClause</a></span><sup>?</sup> <br>        ( <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> <span class="grammar-text"><a href="#grammar-summary-WhereClause">WhereClause</a></span><sup>?</sup> )<sup>?</sup> <span class="grammar-literal">;</span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-TypeAlias" onclick="show_railroad()"><a href="#railroad-summary-TypeAlias">TypeAlias</a></span> → <br>    <span class="grammar-literal">type</span> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-summary-GenericParams">GenericParams</a></span><sup>?</sup> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-Bounds">Bounds</a></span> )<sup>?</sup> <br>        <span class="grammar-text"><a href="#grammar-summary-WhereClause">WhereClause</a></span><sup>?</sup> <br>        ( <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> <span class="grammar-text"><a href="#grammar-summary-WhereClause">WhereClause</a></span><sup>?</sup> )<sup>?</sup> <span class="grammar-literal">;</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-Module" onclick="show_railroad()"><a href="#railroad-summary-Module">Module</a></span> → <br>      <span class="grammar-literal">unsafe</span><sup>?</sup> <span class="grammar-literal">mod</span> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-literal">;</span> <br>    | <span class="grammar-literal">unsafe</span><sup>?</sup> <span class="grammar-literal">mod</span> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-literal">{</span> <br>        <span class="grammar-text"><a href="#grammar-summary-InnerAttribute">InnerAttribute</a></span><sup>*</sup> <br>        <span class="grammar-text"><a href="#grammar-summary-Item">Item</a></span><sup>*</sup> <br>      <span class="grammar-literal">}</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-Enumeration" onclick="show_railroad()"><a href="#railroad-summary-Enumeration">Enumeration</a></span> → <br>    <span class="grammar-literal">enum</span> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-summary-GenericParams">GenericParams</a></span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-WhereClause">WhereClause</a></span><sup>?</sup> <span class="grammar-literal">{</span> <span class="grammar-text"><a href="#grammar-summary-EnumVariants">EnumVariants</a></span><sup>?</sup> <span class="grammar-literal">}</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-EnumVariants" onclick="show_railroad()"><a href="#railroad-summary-EnumVariants">EnumVariants</a></span> → <span class="grammar-text"><a href="#grammar-summary-EnumVariant">EnumVariant</a></span> ( <span class="grammar-literal">,</span> <span class="grammar-text"><a href="#grammar-summary-EnumVariant">EnumVariant</a></span> )<sup>*</sup> <span class="grammar-literal">,</span><sup>?</sup></p>
@@ -55149,7 +55134,7 @@ LifetimeBounds</text>
 </svg>
 </div>
 
-<div style="width: 602px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypeParam"><svg class="railroad" viewbox="0 0 602 99" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 530px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypeParam"><svg class="railroad" viewbox="0 0 530 99" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-TypeParam">
@@ -55167,7 +55152,7 @@ IDENTIFIER</text>
 </g>
 </a>
 <g class="optional">
-<path d=" M 145 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 226 m -110 0 l -5 -5 m 0 10 l 5 -5 m 110 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 145 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 154 m -74 0 l -5 -5 m 0 10 l 5 -5 m 74 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="169" y="67" />
@@ -55175,12 +55160,12 @@ IDENTIFIER</text>
 :</text>
 </g>
 <g class="optional">
-<path d=" M 207 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 140 m -67 0 l -5 -5 m 0 10 l 5 -5 m 67 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-summary-TypeParamBounds">
+<path d=" M 207 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 68 m -31 0 l -5 -5 m 0 10 l 5 -5 m 31 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-summary-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="231" y="67" />
-<text x="301" y="83">
-TypeParamBounds</text>
+<rect height="22" width="68" x="231" y="67" />
+<text x="265" y="83">
+Bounds</text>
 </g>
 </a>
 </g>
@@ -55188,29 +55173,29 @@ TypeParamBounds</text>
 </g>
 </g>
 <g class="optional">
-<path d=" M 429 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 90 m -42 0 l -5 -5 m 0 10 l 5 -5 m 42 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 357 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 90 m -42 0 l -5 -5 m 0 10 l 5 -5 m 42 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="453" y="67" />
-<text x="467" y="83">
+<rect height="22" rx="10" ry="10" width="28" x="381" y="67" />
+<text x="395" y="83">
 =</text>
 </g>
 <a class="link" xlink:href="#railroad-summary-Type">
 <g class="nonterminal">
-<rect height="22" width="52" x="491" y="67" />
-<text x="517" y="83">
+<rect height="22" width="52" x="419" y="67" />
+<text x="445" y="83">
 Type</text>
 </g>
 </a>
-<path d=" M 481 78 h 10" />
+<path d=" M 409 78 h 10" />
 </g>
 </g>
 <path d=" M 135 78 h 10" />
-<path d=" M 419 78 h 10" />
+<path d=" M 347 78 h 10" />
 </g>
-<path d=" M 577 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 505 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 78 h 10" />
-<path d=" M 567 78 h 10" />
+<path d=" M 495 78 h 10" />
 </g>
 </g>
 </svg>
@@ -55449,7 +55434,7 @@ LifetimeBounds</text>
 </svg>
 </div>
 
-<div style="width: 532px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypeBoundWhereClauseItem"><svg class="railroad" viewbox="0 0 532 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 460px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypeBoundWhereClauseItem"><svg class="railroad" viewbox="0 0 460 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-TypeBoundWhereClauseItem">
@@ -55482,12 +55467,12 @@ Type</text>
 :</text>
 </g>
 <g class="optional">
-<path d=" M 309 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 140 m -67 0 l -5 -5 m 0 10 l 5 -5 m 67 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-summary-TypeParamBounds">
+<path d=" M 309 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 68 m -31 0 l -5 -5 m 0 10 l 5 -5 m 31 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-summary-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="333" y="55" />
-<text x="403" y="71">
-TypeParamBounds</text>
+<rect height="22" width="68" x="333" y="55" />
+<text x="367" y="71">
+Bounds</text>
 </g>
 </a>
 </g>
@@ -55495,15 +55480,15 @@ TypeParamBounds</text>
 <path d=" M 261 66 h 10" />
 <path d=" M 299 66 h 10" />
 </g>
-<path d=" M 507 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 435 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 497 66 h 10" />
+<path d=" M 425 66 h 10" />
 </g>
 </g>
 </svg>
 </div>
 
-<div style="width: 1046px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-Trait"><svg class="railroad" viewbox="0 0 1046 339" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 974px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-Trait"><svg class="railroad" viewbox="0 0 974 339" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-Trait">
@@ -55514,7 +55499,7 @@ Trait</text>
 <path d=" M 10 78 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="stack">
 <path d=" M 35 78 h 12" />
-<path d=" M 975 78 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -928 m 467 0 l 5 -5 m 0 10 l -5 -5 m -467 0 a 12 12 0 0 0 -12 12 v 0 v 0 a 12 12 0 0 0 12 12 h 0" />
+<path d=" M 903 78 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -856 m 431 0 l 5 -5 m 0 10 l -5 -5 m -431 0 a 12 12 0 0 0 -12 12 v 0 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
 <g class="optional">
 <path d=" M 47 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 68 m -31 0 l -5 -5 m 0 10 l 5 -5 m 31 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
@@ -55547,7 +55532,7 @@ GenericParams</text>
 </a>
 </g>
 <g class="optional">
-<path d=" M 535 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 226 m -110 0 l -5 -5 m 0 10 l 5 -5 m 110 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 535 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 154 m -74 0 l -5 -5 m 0 10 l 5 -5 m 74 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="559" y="67" />
@@ -55555,12 +55540,12 @@ GenericParams</text>
 :</text>
 </g>
 <g class="optional">
-<path d=" M 597 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 140 m -67 0 l -5 -5 m 0 10 l 5 -5 m 67 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-summary-TypeParamBounds">
+<path d=" M 597 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 68 m -31 0 l -5 -5 m 0 10 l 5 -5 m 31 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-summary-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="621" y="67" />
-<text x="691" y="83">
-TypeParamBounds</text>
+<rect height="22" width="68" x="621" y="67" />
+<text x="655" y="83">
+Bounds</text>
 </g>
 </a>
 </g>
@@ -55568,11 +55553,11 @@ TypeParamBounds</text>
 </g>
 </g>
 <g class="optional">
-<path d=" M 819 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 108 m -51 0 l -5 -5 m 0 10 l 5 -5 m 51 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 747 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 108 m -51 0 l -5 -5 m 0 10 l 5 -5 m 51 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <a class="link" xlink:href="#railroad-summary-WhereClause">
 <g class="nonterminal">
-<rect height="22" width="108" x="843" y="67" />
-<text x="897" y="83">
+<rect height="22" width="108" x="771" y="67" />
+<text x="825" y="83">
 WhereClause</text>
 </g>
 </a>
@@ -55581,7 +55566,7 @@ WhereClause</text>
 <path d=" M 233 78 h 10" />
 <path d=" M 343 78 h 10" />
 <path d=" M 525 78 h 10" />
-<path d=" M 809 78 h 10" />
+<path d=" M 737 78 h 10" />
 </g>
 <path d=" M 75 126 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -28 a 12 12 0 0 0 -12 12 v 12 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
@@ -55625,7 +55610,7 @@ AssociatedItem</text>
 </g>
 </g>
 </g>
-<path d=" M 75 318 h 912 m -453 0 l -5 -5 m 0 10 l 5 -5 m 453 0 a 12 12 0 0 0 12 -12 v -216 m 0 111 l -5 5 m 10 0 l -5 -5 m 0 -111 a 12 12 0 0 1 12 -12" />
+<path d=" M 75 318 h 840 m -417 0 l -5 -5 m 0 10 l 5 -5 m 417 0 a 12 12 0 0 0 12 -12 v -216 m 0 111 l -5 5 m 10 0 l -5 -5 m 0 -111 a 12 12 0 0 1 12 -12" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="47" y="307" />
@@ -55634,9 +55619,9 @@ AssociatedItem</text>
 </g>
 </g>
 </g>
-<path d=" M 1021 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 949 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 78 h 10" />
-<path d=" M 1011 78 h 10" />
+<path d=" M 939 78 h 10" />
 </g>
 </g>
 </svg>
@@ -56033,7 +56018,7 @@ Function</text>
 </svg>
 </div>
 
-<div style="width: 698px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypeAlias"><svg class="railroad" viewbox="0 0 698 219" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 626px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypeAlias"><svg class="railroad" viewbox="0 0 626 219" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-TypeAlias">
@@ -56044,7 +56029,7 @@ TypeAlias</text>
 <path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="stack">
 <path d=" M 35 66 h 12" />
-<path d=" M 627 66 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -580 m 293 0 l 5 -5 m 0 10 l -5 -5 m -293 0 a 12 12 0 0 0 -12 12 v 12 v 0 a 12 12 0 0 0 12 12 h 0" />
+<path d=" M 555 66 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -508 m 257 0 l 5 -5 m 0 10 l -5 -5 m -257 0 a 12 12 0 0 0 -12 12 v 12 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="52" x="47" y="55" />
@@ -56069,18 +56054,18 @@ GenericParams</text>
 </a>
 </g>
 <g class="optional">
-<path d=" M 401 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 178 m -86 0 l -5 -5 m 0 10 l 5 -5 m 86 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 401 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 106 m -50 0 l -5 -5 m 0 10 l 5 -5 m 50 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="425" y="55" />
 <text x="439" y="71">
 :</text>
 </g>
-<a class="link" xlink:href="#railroad-summary-TypeParamBounds">
+<a class="link" xlink:href="#railroad-summary-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="463" y="55" />
-<text x="533" y="71">
-TypeParamBounds</text>
+<rect height="22" width="68" x="463" y="55" />
+<text x="497" y="71">
+Bounds</text>
 </g>
 </a>
 <path d=" M 453 66 h 10" />
@@ -56103,7 +56088,7 @@ WhereClause</text>
 </a>
 </g>
 </g>
-<path d=" M 389 198 h 250 m -122 0 l -5 -5 m 0 10 l 5 -5 m 122 0 a 12 12 0 0 0 12 -12 v -108 m 0 57 l -5 5 m 10 0 l -5 -5 m 0 -57 a 12 12 0 0 1 12 -12" />
+<path d=" M 389 198 h 178 m -86 0 l -5 -5 m 0 10 l 5 -5 m 86 0 a 12 12 0 0 0 12 -12 v -108 m 0 57 l -5 5 m 10 0 l -5 -5 m 0 -57 a 12 12 0 0 1 12 -12" />
 <g class="sequence">
 <g class="optional">
 <path d=" M 47 198 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 256 m -125 0 l -5 -5 m 0 10 l 5 -5 m 125 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
@@ -56142,9 +56127,9 @@ WhereClause</text>
 <path d=" M 351 198 h 10" />
 </g>
 </g>
-<path d=" M 673 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 601 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 663 66 h 10" />
+<path d=" M 591 66 h 10" />
 </g>
 </g>
 </svg>
@@ -66772,8 +66757,8 @@ TokenTree</text>
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong>
 <br>
-<span class="grammar-text grammar-production" id="grammar-summary-TypeParamBounds" onclick="show_railroad()"><a href="#railroad-summary-TypeParamBounds">TypeParamBounds</a></span> → <span class="grammar-text"><a href="#grammar-summary-TypeParamBound">TypeParamBound</a></span> ( <span class="grammar-literal">+</span> <span class="grammar-text"><a href="#grammar-summary-TypeParamBound">TypeParamBound</a></span> )<sup>*</sup> <span class="grammar-literal">+</span><sup>?</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-TypeParamBound" onclick="show_railroad()"><a href="#railroad-summary-TypeParamBound">TypeParamBound</a></span> → <span class="grammar-text"><a href="#grammar-summary-Lifetime">Lifetime</a></span> | <span class="grammar-text"><a href="#grammar-summary-TraitBound">TraitBound</a></span> | <span class="grammar-text"><a href="#grammar-summary-UseBound">UseBound</a></span></p>
+<span class="grammar-text grammar-production" id="grammar-summary-Bounds" onclick="show_railroad()"><a href="#railroad-summary-Bounds">Bounds</a></span> → <span class="grammar-text"><a href="#grammar-summary-Bound">Bound</a></span> ( <span class="grammar-literal">+</span> <span class="grammar-text"><a href="#grammar-summary-Bound">Bound</a></span> )<sup>*</sup> <span class="grammar-literal">+</span><sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-Bound" onclick="show_railroad()"><a href="#railroad-summary-Bound">Bound</a></span> → <span class="grammar-text"><a href="#grammar-summary-Lifetime">Lifetime</a></span> | <span class="grammar-text"><a href="#grammar-summary-TraitBound">TraitBound</a></span> | <span class="grammar-text"><a href="#grammar-summary-UseBound">UseBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-TraitBound" onclick="show_railroad()"><a href="#railroad-summary-TraitBound">TraitBound</a></span> → <br>      ( <span class="grammar-literal">?</span> | <span class="grammar-text"><a href="#grammar-summary-ForLifetimes">ForLifetimes</a></span> )<sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-TypePath">TypePath</a></span> <br>    | <span class="grammar-literal">(</span> ( <span class="grammar-literal">?</span> | <span class="grammar-text"><a href="#grammar-summary-ForLifetimes">ForLifetimes</a></span> )<sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-TypePath">TypePath</a></span> <span class="grammar-literal">)</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-LifetimeBounds" onclick="show_railroad()"><a href="#railroad-summary-LifetimeBounds">LifetimeBounds</a></span> → ( <span class="grammar-text"><a href="#grammar-summary-Lifetime">Lifetime</a></span> <span class="grammar-literal">+</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-summary-Lifetime">Lifetime</a></span><sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-Lifetime" onclick="show_railroad()"><a href="#railroad-summary-Lifetime">Lifetime</a></span> → <br>      <span class="grammar-text"><a href="#grammar-summary-LIFETIME_OR_LABEL">LIFETIME_OR_LABEL</a></span> <br>    | <span class="grammar-literal">'static</span> <br>    | <span class="grammar-literal">'_</span></p>
@@ -66785,70 +66770,70 @@ TokenTree</text>
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 540px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypeParamBounds"><svg class="railroad" viewbox="0 0 540 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 396px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-Bounds"><svg class="railroad" viewbox="0 0 396 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
-<a class="link" xlink:href="#grammar-summary-TypeParamBounds">
-<text class="comment" x="67" y="25">
-TypeParamBounds</text>
+<a class="link" xlink:href="#grammar-summary-Bounds">
+<text class="comment" x="36" y="25">
+Bounds</text>
 </a>
 <g class="sequence">
 <path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="sequence">
-<a class="link" xlink:href="#railroad-summary-TypeParamBound">
+<a class="link" xlink:href="#railroad-summary-Bound">
 <g class="nonterminal">
-<rect height="22" width="132" x="35" y="55" />
-<text x="101" y="71">
-TypeParamBound</text>
+<rect height="22" width="60" x="35" y="55" />
+<text x="65" y="71">
+Bound</text>
 </g>
 </a>
 <g class="optional">
-<path d=" M 177 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 194 m -94 0 l -5 -5 m 0 10 l 5 -5 m 94 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 105 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 122 m -58 0 l -5 -5 m 0 10 l 5 -5 m 58 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="repeat">
-<path d=" M 201 66 h 12 m 170 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -170 m 88 0 l 5 -5 m 0 10 l -5 -5 m -88 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
+<path d=" M 129 66 h 12 m 98 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -98 m 52 0 l 5 -5 m 0 10 l -5 -5 m -52 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
 <g />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="213" y="55" />
-<text x="227" y="71">
+<rect height="22" rx="10" ry="10" width="28" x="141" y="55" />
+<text x="155" y="71">
 +</text>
 </g>
-<a class="link" xlink:href="#railroad-summary-TypeParamBound">
+<a class="link" xlink:href="#railroad-summary-Bound">
 <g class="nonterminal">
-<rect height="22" width="132" x="251" y="55" />
-<text x="317" y="71">
-TypeParamBound</text>
+<rect height="22" width="60" x="179" y="55" />
+<text x="209" y="71">
+Bound</text>
 </g>
 </a>
-<path d=" M 241 66 h 10" />
+<path d=" M 169 66 h 10" />
 </g>
 </g>
 </g>
 <g class="optional">
-<path d=" M 429 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 285 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="453" y="55" />
-<text x="467" y="71">
+<rect height="22" rx="10" ry="10" width="28" x="309" y="55" />
+<text x="323" y="71">
 +</text>
 </g>
 </g>
-<path d=" M 167 66 h 10" />
-<path d=" M 419 66 h 10" />
+<path d=" M 95 66 h 10" />
+<path d=" M 275 66 h 10" />
 </g>
-<path d=" M 515 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 371 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 505 66 h 10" />
+<path d=" M 361 66 h 10" />
 </g>
 </g>
 </svg>
 </div>
 
-<div style="width: 218px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypeParamBound"><svg class="railroad" viewbox="0 0 218 140" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 218px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-Bound"><svg class="railroad" viewbox="0 0 218 140" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
-<a class="link" xlink:href="#grammar-summary-TypeParamBound">
-<text class="comment" x="64" y="25">
-TypeParamBound</text>
+<a class="link" xlink:href="#grammar-summary-Bound">
+<text class="comment" x="32" y="25">
+Bound</text>
 </a>
 <g class="sequence">
 <path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
@@ -72164,7 +72149,7 @@ CallParams</text>
 <p><span class="grammar-text grammar-production" id="grammar-summary-InferredType" onclick="show_railroad()"><a href="#railroad-summary-InferredType">InferredType</a></span> → <span class="grammar-literal">_</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-TupleType" onclick="show_railroad()"><a href="#railroad-summary-TupleType">TupleType</a></span> → <br>      <span class="grammar-literal">(</span> <span class="grammar-literal">)</span> <br>    | <span class="grammar-literal">(</span> ( <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> <span class="grammar-literal">,</span> )<sup>+</sup> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span><sup>?</sup> <span class="grammar-literal">)</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-NeverType" onclick="show_railroad()"><a href="#railroad-summary-NeverType">NeverType</a></span> → <span class="grammar-literal">!</span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-TraitObjectType" onclick="show_railroad()"><a href="#railroad-summary-TraitObjectType">TraitObjectType</a></span> → <span class="grammar-literal">dyn</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-TypeParamBounds">TypeParamBounds</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-TraitObjectType" onclick="show_railroad()"><a href="#railroad-summary-TraitObjectType">TraitObjectType</a></span> → <span class="grammar-literal">dyn</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-Bounds">Bounds</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-TraitObjectTypeOneBound" onclick="show_railroad()"><a href="#railroad-summary-TraitObjectTypeOneBound">TraitObjectTypeOneBound</a></span> → <span class="grammar-literal">dyn</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-TraitBound">TraitBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-BareFunctionType" onclick="show_railroad()"><a href="#railroad-summary-BareFunctionType">BareFunctionType</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-ForLifetimes">ForLifetimes</a></span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-FunctionTypeQualifiers">FunctionTypeQualifiers</a></span> <span class="grammar-literal">fn</span> <br>       <span class="grammar-literal">(</span> <span class="grammar-text"><a href="#grammar-summary-FunctionParametersMaybeNamedVariadic">FunctionParametersMaybeNamedVariadic</a></span><sup>?</sup> <span class="grammar-literal">)</span> <span class="grammar-text"><a href="#grammar-summary-BareFunctionReturnType">BareFunctionReturnType</a></span><sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-FunctionTypeQualifiers" onclick="show_railroad()"><a href="#railroad-summary-FunctionTypeQualifiers">FunctionTypeQualifiers</a></span> → <span class="grammar-literal">unsafe</span><sup>?</sup> ( <span class="grammar-literal">extern</span> <span class="grammar-text"><a href="#grammar-summary-Abi">Abi</a></span><sup>?</sup> )<sup>?</sup></p>
@@ -72175,7 +72160,7 @@ CallParams</text>
 <p><span class="grammar-text grammar-production" id="grammar-summary-MaybeNamedFunctionParametersVariadic" onclick="show_railroad()"><a href="#railroad-summary-MaybeNamedFunctionParametersVariadic">MaybeNamedFunctionParametersVariadic</a></span> → <br>    ( <span class="grammar-text"><a href="#grammar-summary-MaybeNamedParam">MaybeNamedParam</a></span> <span class="grammar-literal">,</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-summary-MaybeNamedParam">MaybeNamedParam</a></span> <span class="grammar-literal">,</span> <span class="grammar-text"><a href="#grammar-summary-OuterAttribute">OuterAttribute</a></span><sup>*</sup> <span class="grammar-literal">...</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-ReferenceType" onclick="show_railroad()"><a href="#railroad-summary-ReferenceType">ReferenceType</a></span> → <span class="grammar-literal">&amp;</span> <span class="grammar-text"><a href="#grammar-summary-Lifetime">Lifetime</a></span><sup>?</sup> <span class="grammar-literal">mut</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-TypeNoBounds">TypeNoBounds</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-RawPointerType" onclick="show_railroad()"><a href="#railroad-summary-RawPointerType">RawPointerType</a></span> → <span class="grammar-literal">*</span> ( <span class="grammar-literal">mut</span> | <span class="grammar-literal">const</span> ) <span class="grammar-text"><a href="#grammar-summary-TypeNoBounds">TypeNoBounds</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-ImplTraitType" onclick="show_railroad()"><a href="#railroad-summary-ImplTraitType">ImplTraitType</a></span> → <span class="grammar-literal">impl</span> <span class="grammar-text"><a href="#grammar-summary-TypeParamBounds">TypeParamBounds</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-ImplTraitType" onclick="show_railroad()"><a href="#railroad-summary-ImplTraitType">ImplTraitType</a></span> → <span class="grammar-literal">impl</span> <span class="grammar-text"><a href="#grammar-summary-Bounds">Bounds</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-ImplTraitTypeOneBound" onclick="show_railroad()"><a href="#railroad-summary-ImplTraitTypeOneBound">ImplTraitTypeOneBound</a></span> → <span class="grammar-literal">impl</span> <span class="grammar-text"><a href="#grammar-summary-TraitBound">TraitBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-Type" onclick="show_railroad()"><a href="#railroad-summary-Type">Type</a></span> → <br>      <span class="grammar-text"><a href="#grammar-summary-TypeNoBounds">TypeNoBounds</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-ImplTraitType">ImplTraitType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-TraitObjectType">TraitObjectType</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-TypeNoBounds" onclick="show_railroad()"><a href="#railroad-summary-TypeNoBounds">TypeNoBounds</a></span> → <br>      <span class="grammar-text"><a href="#grammar-summary-ParenthesizedType">ParenthesizedType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-ImplTraitTypeOneBound">ImplTraitTypeOneBound</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-TraitObjectTypeOneBound">TraitObjectTypeOneBound</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-TypePath">TypePath</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-TupleType">TupleType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-NeverType">NeverType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-RawPointerType">RawPointerType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-ReferenceType">ReferenceType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-ArrayType">ArrayType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-SliceType">SliceType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-InferredType">InferredType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-QualifiedPathInType">QualifiedPathInType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-BareFunctionType">BareFunctionType</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-MacroInvocation">MacroInvocation</a></span></p>
@@ -72397,7 +72382,7 @@ NeverType</text>
 </svg>
 </div>
 
-<div style="width: 312px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TraitObjectType"><svg class="railroad" viewbox="0 0 312 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 240px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TraitObjectType"><svg class="railroad" viewbox="0 0 240 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-TraitObjectType">
@@ -72415,18 +72400,18 @@ TraitObjectType</text>
 dyn</text>
 </g>
 </g>
-<a class="link" xlink:href="#railroad-summary-TypeParamBounds">
+<a class="link" xlink:href="#railroad-summary-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="137" y="55" />
-<text x="207" y="71">
-TypeParamBounds</text>
+<rect height="22" width="68" x="137" y="55" />
+<text x="171" y="71">
+Bounds</text>
 </g>
 </a>
 <path d=" M 127 66 h 10" />
 </g>
-<path d=" M 287 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 215 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 277 66 h 10" />
+<path d=" M 205 66 h 10" />
 </g>
 </g>
 </svg>
@@ -72973,7 +72958,7 @@ TypeNoBounds</text>
 </svg>
 </div>
 
-<div style="width: 272px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-ImplTraitType"><svg class="railroad" viewbox="0 0 272 74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 200px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-ImplTraitType"><svg class="railroad" viewbox="0 0 200 74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-ImplTraitType">
@@ -72988,18 +72973,18 @@ ImplTraitType</text>
 <text x="61" y="58">
 impl</text>
 </g>
-<a class="link" xlink:href="#railroad-summary-TypeParamBounds">
+<a class="link" xlink:href="#railroad-summary-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="97" y="42" />
-<text x="167" y="58">
-TypeParamBounds</text>
+<rect height="22" width="68" x="97" y="42" />
+<text x="131" y="58">
+Bounds</text>
 </g>
 </a>
 <path d=" M 87 53 h 10" />
 </g>
-<path d=" M 247 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 175 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 53 h 10" />
-<path d=" M 237 53 h 10" />
+<path d=" M 165 53 h 10" />
 </g>
 </g>
 </svg>
@@ -75104,18 +75089,18 @@ PathExpression</text>
 <p><span class="grammar-text grammar-production" id="grammar-summary-PathInExpression" onclick="show_railroad()"><a href="#railroad-summary-PathInExpression">PathInExpression</a></span> → <br>    <span class="grammar-literal">::</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-PathExprSegment">PathExprSegment</a></span> ( <span class="grammar-literal">::</span> <span class="grammar-text"><a href="#grammar-summary-PathExprSegment">PathExprSegment</a></span> )<sup>*</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-PathExprSegment" onclick="show_railroad()"><a href="#railroad-summary-PathExprSegment">PathExprSegment</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-PathIdentSegment">PathIdentSegment</a></span> ( <span class="grammar-literal">::</span> <span class="grammar-text"><a href="#grammar-summary-GenericArgs">GenericArgs</a></span> )<sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-PathIdentSegment" onclick="show_railroad()"><a href="#railroad-summary-PathIdentSegment">PathIdentSegment</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> | <span class="grammar-literal">super</span> | <span class="grammar-literal">self</span> | <span class="grammar-literal">Self</span> | <span class="grammar-literal">crate</span> | <span class="grammar-literal">$crate</span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-GenericArgs" onclick="show_railroad()"><a href="#railroad-summary-GenericArgs">GenericArgs</a></span> → <br>      <span class="grammar-literal">&lt;</span> <span class="grammar-literal">&gt;</span> <br>    | <span class="grammar-literal">&lt;</span> ( <span class="grammar-text"><a href="#grammar-summary-GenericArg">GenericArg</a></span> <span class="grammar-literal">,</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-summary-GenericArg">GenericArg</a></span> <span class="grammar-literal">,</span><sup>?</sup> <span class="grammar-literal">&gt;</span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-GenericArgs" onclick="show_railroad()"><a href="#railroad-summary-GenericArgs">GenericArgs</a></span> → <br>      <span class="grammar-literal">&lt;</span> <span class="grammar-text"><a href="#grammar-summary-GenericArgList">GenericArgList</a></span><sup>?</sup> <span class="grammar-literal">&gt;</span> <br>    | <span class="grammar-literal">(</span> <span class="grammar-text"><a href="#grammar-summary-TypeList">TypeList</a></span><sup>?</sup> <span class="grammar-literal">)</span> ( <span class="grammar-literal">-&gt;</span> <span class="grammar-text"><a href="#grammar-summary-TypeNoBounds">TypeNoBounds</a></span> )<sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-GenericArgList" onclick="show_railroad()"><a href="#railroad-summary-GenericArgList">GenericArgList</a></span> → <br>    ( <span class="grammar-text"><a href="#grammar-summary-GenericArg">GenericArg</a></span> <span class="grammar-literal">,</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-summary-GenericArg">GenericArg</a></span> <span class="grammar-literal">,</span><sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-TypeList" onclick="show_railroad()"><a href="#railroad-summary-TypeList">TypeList</a></span> → <br>    ( <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> <span class="grammar-literal">,</span> )<sup>*</sup> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> <span class="grammar-literal">,</span><sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-GenericArg" onclick="show_railroad()"><a href="#railroad-summary-GenericArg">GenericArg</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-Lifetime">Lifetime</a></span> | <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> | <span class="grammar-text"><a href="#grammar-summary-GenericArgsConst">GenericArgsConst</a></span> | <span class="grammar-text"><a href="#grammar-summary-GenericArgsBinding">GenericArgsBinding</a></span> | <span class="grammar-text"><a href="#grammar-summary-GenericArgsBounds">GenericArgsBounds</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-GenericArgsConst" onclick="show_railroad()"><a href="#railroad-summary-GenericArgsConst">GenericArgsConst</a></span> → <br>      <span class="grammar-text"><a href="#grammar-summary-BlockExpression">BlockExpression</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-LiteralExpression">LiteralExpression</a></span> <br>    | <span class="grammar-literal">-</span> <span class="grammar-text"><a href="#grammar-summary-LiteralExpression">LiteralExpression</a></span> <br>    | <span class="grammar-text"><a href="#grammar-summary-SimplePathSegment">SimplePathSegment</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-GenericArgsBinding" onclick="show_railroad()"><a href="#railroad-summary-GenericArgsBinding">GenericArgsBinding</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-summary-GenericArgs">GenericArgs</a></span><sup>?</sup> <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-GenericArgsBounds" onclick="show_railroad()"><a href="#railroad-summary-GenericArgsBounds">GenericArgsBounds</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> <span class="grammar-text"><a href="#grammar-summary-GenericArgs">GenericArgs</a></span><sup>?</sup> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-TypeParamBounds">TypeParamBounds</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-GenericArgsBinding" onclick="show_railroad()"><a href="#railroad-summary-GenericArgsBinding">GenericArgsBinding</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-TypePathSegment">TypePathSegment</a></span> <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-GenericArgsBounds" onclick="show_railroad()"><a href="#railroad-summary-GenericArgsBounds">GenericArgsBounds</a></span> → <br>    <span class="grammar-text"><a href="#grammar-summary-TypePathSegment">TypePathSegment</a></span> <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-Bounds">Bounds</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-QualifiedPathInExpression" onclick="show_railroad()"><a href="#railroad-summary-QualifiedPathInExpression">QualifiedPathInExpression</a></span> → <span class="grammar-text"><a href="#grammar-summary-QualifiedPathType">QualifiedPathType</a></span> ( <span class="grammar-literal">::</span> <span class="grammar-text"><a href="#grammar-summary-PathExprSegment">PathExprSegment</a></span> )<sup>+</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-QualifiedPathType" onclick="show_railroad()"><a href="#railroad-summary-QualifiedPathType">QualifiedPathType</a></span> → <span class="grammar-literal">&lt;</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> ( <span class="grammar-literal">as</span> <span class="grammar-text"><a href="#grammar-summary-TypePath">TypePath</a></span> )<sup>?</sup> <span class="grammar-literal">&gt;</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-QualifiedPathInType" onclick="show_railroad()"><a href="#railroad-summary-QualifiedPathInType">QualifiedPathInType</a></span> → <span class="grammar-text"><a href="#grammar-summary-QualifiedPathType">QualifiedPathType</a></span> ( <span class="grammar-literal">::</span> <span class="grammar-text"><a href="#grammar-summary-TypePathSegment">TypePathSegment</a></span> )<sup>+</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-TypePath" onclick="show_railroad()"><a href="#railroad-summary-TypePath">TypePath</a></span> → <span class="grammar-literal">::</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-TypePathSegment">TypePathSegment</a></span> ( <span class="grammar-literal">::</span> <span class="grammar-text"><a href="#grammar-summary-TypePathSegment">TypePathSegment</a></span> )<sup>*</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-TypePathSegment" onclick="show_railroad()"><a href="#railroad-summary-TypePathSegment">TypePathSegment</a></span> → <span class="grammar-text"><a href="#grammar-summary-PathIdentSegment">PathIdentSegment</a></span> ( <span class="grammar-literal">::</span><sup>?</sup> ( <span class="grammar-text"><a href="#grammar-summary-GenericArgs">GenericArgs</a></span> | <span class="grammar-text"><a href="#grammar-summary-TypePathFn">TypePathFn</a></span> ) )<sup>?</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-TypePathFn" onclick="show_railroad()"><a href="#railroad-summary-TypePathFn">TypePathFn</a></span> → <span class="grammar-literal">(</span> <span class="grammar-text"><a href="#grammar-summary-TypePathFnInputs">TypePathFnInputs</a></span><sup>?</sup> <span class="grammar-literal">)</span> ( <span class="grammar-literal">-&gt;</span> <span class="grammar-text"><a href="#grammar-summary-TypeNoBounds">TypeNoBounds</a></span> )<sup>?</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-TypePathFnInputs" onclick="show_railroad()"><a href="#railroad-summary-TypePathFnInputs">TypePathFnInputs</a></span> → <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> ( <span class="grammar-literal">,</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> )<sup>*</sup> <span class="grammar-literal">,</span><sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-TypePathSegment" onclick="show_railroad()"><a href="#railroad-summary-TypePathSegment">TypePathSegment</a></span> → <span class="grammar-text"><a href="#grammar-summary-PathIdentSegment">PathIdentSegment</a></span> ( <span class="grammar-literal">::</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-GenericArgs">GenericArgs</a></span> )<sup>?</sup></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
@@ -75402,7 +75387,7 @@ $crate</text>
 </svg>
 </div>
 
-<div style="width: 600px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-GenericArgs"><svg class="railroad" viewbox="0 0 600 132" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 546px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-GenericArgs"><svg class="railroad" viewbox="0 0 546 132" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-GenericArgs">
@@ -75410,81 +75395,198 @@ $crate</text>
 GenericArgs</text>
 </a>
 <g class="sequence">
-<path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="choice">
-<path d=" M 35 53 h 24 m 66 0 h 440 m -217 0 l -5 -5 m 0 10 l 5 -5 m 217 0" />
+<path d=" M 35 66 h 24 m 256 0 h 196 m -95 0 l -5 -5 m 0 10 l 5 -5 m 95 0" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="59" y="42" />
-<text x="73" y="58">
-&lt;</text>
-</g>
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="97" y="42" />
-<text x="111" y="58">
-&gt;</text>
-</g>
-<path d=" M 87 53 h 10" />
-</g>
-<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 506 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 47 74 v 12 a 12 12 0 0 0 12 12 m 482 0 h 0 a 12 12 0 0 0 12 -12 v -12" />
-<g class="sequence">
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="59" y="87" />
-<text x="73" y="103">
+<rect height="22" rx="10" ry="10" width="28" x="59" y="55" />
+<text x="73" y="71">
 &lt;</text>
 </g>
 <g class="optional">
-<path d=" M 97 98 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 162 m -78 0 l -5 -5 m 0 10 l 5 -5 m 78 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 97 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 132 m -63 0 l -5 -5 m 0 10 l 5 -5 m 63 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-summary-GenericArgList">
+<g class="nonterminal">
+<rect height="22" width="132" x="121" y="55" />
+<text x="187" y="71">
+GenericArgList</text>
+</g>
+</a>
+</g>
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="287" y="55" />
+<text x="301" y="71">
+&gt;</text>
+</g>
+<path d=" M 87 66 h 10" />
+<path d=" M 277 66 h 10" />
+</g>
+<path d=" M 35 66 a 12 12 0 0 1 12 12 v 9 m 452 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 47 87 v 12 a 12 12 0 0 0 12 12 m 428 0 h 0 a 12 12 0 0 0 12 -12 v -12" />
+<g class="sequence">
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="59" y="100" />
+<text x="73" y="116">
+(</text>
+</g>
+<g class="optional">
+<path d=" M 97 111 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 84 m -39 0 l -5 -5 m 0 10 l 5 -5 m 39 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-summary-TypeList">
+<g class="nonterminal">
+<rect height="22" width="84" x="121" y="100" />
+<text x="163" y="116">
+TypeList</text>
+</g>
+</a>
+</g>
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="239" y="100" />
+<text x="253" y="116">
+)</text>
+</g>
+<g class="optional">
+<path d=" M 277 111 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 162 m -78 0 l -5 -5 m 0 10 l 5 -5 m 78 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<g class="sequence">
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="36" x="301" y="100" />
+<text x="319" y="116">
+-&gt;</text>
+</g>
+<a class="link" xlink:href="#railroad-summary-TypeNoBounds">
+<g class="nonterminal">
+<rect height="22" width="116" x="347" y="100" />
+<text x="405" y="116">
+TypeNoBounds</text>
+</g>
+</a>
+<path d=" M 337 111 h 10" />
+</g>
+</g>
+<path d=" M 87 111 h 10" />
+<path d=" M 229 111 h 10" />
+<path d=" M 267 111 h 10" />
+</g>
+</g>
+<path d=" M 521 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 66 h 10" />
+<path d=" M 511 66 h 10" />
+</g>
+</g>
+</svg>
+</div>
+
+<div style="width: 476px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-GenericArgList"><svg class="railroad" viewbox="0 0 476 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect class="railroad_canvas" height="100%" width="100%" />
+<g class="verticalgrid">
+<a class="link" xlink:href="#grammar-summary-GenericArgList">
+<text class="comment" x="64" y="25">
+GenericArgList</text>
+</a>
+<g class="sequence">
+<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<g class="sequence">
+<g class="optional">
+<path d=" M 35 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 162 m -78 0 l -5 -5 m 0 10 l 5 -5 m 78 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="repeat">
-<path d=" M 121 98 h 12 m 138 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -138 m 72 0 l 5 -5 m 0 10 l -5 -5 m -72 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
+<path d=" M 59 66 h 12 m 138 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -138 m 72 0 l 5 -5 m 0 10 l -5 -5 m -72 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
 <g />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-GenericArg">
 <g class="nonterminal">
-<rect height="22" width="100" x="133" y="87" />
-<text x="183" y="103">
+<rect height="22" width="100" x="71" y="55" />
+<text x="121" y="71">
 GenericArg</text>
 </g>
 </a>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="243" y="87" />
-<text x="257" y="103">
+<rect height="22" rx="10" ry="10" width="28" x="181" y="55" />
+<text x="195" y="71">
 ,</text>
 </g>
-<path d=" M 233 98 h 10" />
+<path d=" M 171 66 h 10" />
 </g>
 </g>
 </g>
 <a class="link" xlink:href="#railroad-summary-GenericArg">
 <g class="nonterminal">
-<rect height="22" width="100" x="317" y="87" />
-<text x="367" y="103">
+<rect height="22" width="100" x="255" y="55" />
+<text x="305" y="71">
 GenericArg</text>
 </g>
 </a>
 <g class="optional">
-<path d=" M 427 98 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 365 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="451" y="87" />
-<text x="465" y="103">
+<rect height="22" rx="10" ry="10" width="28" x="389" y="55" />
+<text x="403" y="71">
 ,</text>
 </g>
 </g>
+<path d=" M 245 66 h 10" />
+<path d=" M 355 66 h 10" />
+</g>
+<path d=" M 451 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 66 h 10" />
+<path d=" M 441 66 h 10" />
+</g>
+</g>
+</svg>
+</div>
+
+<div style="width: 380px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypeList"><svg class="railroad" viewbox="0 0 380 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect class="railroad_canvas" height="100%" width="100%" />
+<g class="verticalgrid">
+<a class="link" xlink:href="#grammar-summary-TypeList">
+<text class="comment" x="43" y="25">
+TypeList</text>
+</a>
+<g class="sequence">
+<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<g class="sequence">
+<g class="optional">
+<path d=" M 35 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 114 m -54 0 l -5 -5 m 0 10 l 5 -5 m 54 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<g class="repeat">
+<path d=" M 59 66 h 12 m 90 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -90 m 48 0 l 5 -5 m 0 10 l -5 -5 m -48 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
+<g />
+<g class="sequence">
+<a class="link" xlink:href="#railroad-summary-Type">
+<g class="nonterminal">
+<rect height="22" width="52" x="71" y="55" />
+<text x="97" y="71">
+Type</text>
+</g>
+</a>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="513" y="87" />
-<text x="527" y="103">
-&gt;</text>
+<rect height="22" rx="10" ry="10" width="28" x="133" y="55" />
+<text x="147" y="71">
+,</text>
 </g>
-<path d=" M 87 98 h 10" />
-<path d=" M 307 98 h 10" />
-<path d=" M 417 98 h 10" />
-<path d=" M 503 98 h 10" />
+<path d=" M 123 66 h 10" />
 </g>
 </g>
-<path d=" M 575 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 53 h 10" />
-<path d=" M 565 53 h 10" />
+</g>
+<a class="link" xlink:href="#railroad-summary-Type">
+<g class="nonterminal">
+<rect height="22" width="52" x="207" y="55" />
+<text x="233" y="71">
+Type</text>
+</g>
+</a>
+<g class="optional">
+<path d=" M 269 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="293" y="55" />
+<text x="307" y="71">
+,</text>
+</g>
+</g>
+<path d=" M 197 66 h 10" />
+<path d=" M 259 66 h 10" />
+</g>
+<path d=" M 355 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 66 h 10" />
+<path d=" M 345 66 h 10" />
 </g>
 </g>
 </svg>
@@ -75621,7 +75723,7 @@ SimplePathSegment</text>
 </svg>
 </div>
 
-<div style="width: 436px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-GenericArgsBinding"><svg class="railroad" viewbox="0 0 436 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 310px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-GenericArgsBinding"><svg class="railroad" viewbox="0 0 310 74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-GenericArgsBinding">
@@ -75629,50 +75731,39 @@ SimplePathSegment</text>
 GenericArgsBinding</text>
 </a>
 <g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="sequence">
-<a class="link" xlink:href="#railroad-summary-IDENTIFIER">
+<a class="link" xlink:href="#railroad-summary-TypePathSegment">
 <g class="nonterminal">
-<rect height="22" width="100" x="35" y="55" />
-<text x="85" y="71">
-IDENTIFIER</text>
+<rect height="22" width="140" x="35" y="42" />
+<text x="105" y="58">
+TypePathSegment</text>
 </g>
 </a>
-<g class="optional">
-<path d=" M 145 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 108 m -51 0 l -5 -5 m 0 10 l 5 -5 m 51 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-summary-GenericArgs">
-<g class="nonterminal">
-<rect height="22" width="108" x="169" y="55" />
-<text x="223" y="71">
-GenericArgs</text>
-</g>
-</a>
-</g>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="311" y="55" />
-<text x="325" y="71">
+<rect height="22" rx="10" ry="10" width="28" x="185" y="42" />
+<text x="199" y="58">
 =</text>
 </g>
 <a class="link" xlink:href="#railroad-summary-Type">
 <g class="nonterminal">
-<rect height="22" width="52" x="349" y="55" />
-<text x="375" y="71">
+<rect height="22" width="52" x="223" y="42" />
+<text x="249" y="58">
 Type</text>
 </g>
 </a>
-<path d=" M 135 66 h 10" />
-<path d=" M 301 66 h 10" />
-<path d=" M 339 66 h 10" />
+<path d=" M 175 53 h 10" />
+<path d=" M 213 53 h 10" />
 </g>
-<path d=" M 411 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 401 66 h 10" />
+<path d=" M 285 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 53 h 10" />
+<path d=" M 275 53 h 10" />
 </g>
 </g>
 </svg>
 </div>
 
-<div style="width: 524px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-GenericArgsBounds"><svg class="railroad" viewbox="0 0 524 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 326px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-GenericArgsBounds"><svg class="railroad" viewbox="0 0 326 74" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-GenericArgsBounds">
@@ -75680,44 +75771,33 @@ Type</text>
 GenericArgsBounds</text>
 </a>
 <g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="sequence">
-<a class="link" xlink:href="#railroad-summary-IDENTIFIER">
+<a class="link" xlink:href="#railroad-summary-TypePathSegment">
 <g class="nonterminal">
-<rect height="22" width="100" x="35" y="55" />
-<text x="85" y="71">
-IDENTIFIER</text>
+<rect height="22" width="140" x="35" y="42" />
+<text x="105" y="58">
+TypePathSegment</text>
 </g>
 </a>
-<g class="optional">
-<path d=" M 145 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 108 m -51 0 l -5 -5 m 0 10 l 5 -5 m 51 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-summary-GenericArgs">
-<g class="nonterminal">
-<rect height="22" width="108" x="169" y="55" />
-<text x="223" y="71">
-GenericArgs</text>
-</g>
-</a>
-</g>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="311" y="55" />
-<text x="325" y="71">
+<rect height="22" rx="10" ry="10" width="28" x="185" y="42" />
+<text x="199" y="58">
 :</text>
 </g>
-<a class="link" xlink:href="#railroad-summary-TypeParamBounds">
+<a class="link" xlink:href="#railroad-summary-Bounds">
 <g class="nonterminal">
-<rect height="22" width="140" x="349" y="55" />
-<text x="419" y="71">
-TypeParamBounds</text>
+<rect height="22" width="68" x="223" y="42" />
+<text x="257" y="58">
+Bounds</text>
 </g>
 </a>
-<path d=" M 135 66 h 10" />
-<path d=" M 301 66 h 10" />
-<path d=" M 339 66 h 10" />
+<path d=" M 175 53 h 10" />
+<path d=" M 213 53 h 10" />
 </g>
-<path d=" M 499 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 489 66 h 10" />
+<path d=" M 301 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 53 h 10" />
+<path d=" M 291 53 h 10" />
 </g>
 </g>
 </svg>
@@ -75930,7 +76010,7 @@ TypePathSegment</text>
 </svg>
 </div>
 
-<div style="width: 526px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypePathSegment"><svg class="railroad" viewbox="0 0 526 132" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 478px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypePathSegment"><svg class="railroad" viewbox="0 0 478 99" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-TypePathSegment">
@@ -75948,7 +76028,7 @@ PathIdentSegment</text>
 </g>
 </a>
 <g class="optional">
-<path d=" M 193 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 250 m -122 0 l -5 -5 m 0 10 l 5 -5 m 122 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 193 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v -12 a 12 12 0 0 1 12 -12 h 202 m -98 0 l -5 -5 m 0 10 l 5 -5 m 98 0 a 12 12 0 0 1 12 12 v 12 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="optional">
 <path d=" M 217 78 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 36 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
@@ -75958,151 +76038,21 @@ PathIdentSegment</text>
 ::</text>
 </g>
 </g>
-<g class="choice">
-<path d=" M 311 78 h 24 m 108 0 h 24" />
 <a class="link" xlink:href="#railroad-summary-GenericArgs">
 <g class="nonterminal">
-<rect height="22" width="108" x="335" y="67" />
-<text x="389" y="83">
+<rect height="22" width="108" x="311" y="67" />
+<text x="365" y="83">
 GenericArgs</text>
 </g>
 </a>
-<path d=" M 311 78 a 12 12 0 0 1 12 12 v 9 m 132 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 323 99 v 0 a 12 12 0 0 0 12 12 m 100 0 h 8 a 12 12 0 0 0 12 -12 v 0" />
-<a class="link" xlink:href="#railroad-summary-TypePathFn">
-<g class="nonterminal">
-<rect height="22" width="100" x="335" y="100" />
-<text x="385" y="116">
-TypePathFn</text>
-</g>
-</a>
-</g>
 <path d=" M 301 78 h 10" />
 </g>
 </g>
 <path d=" M 183 78 h 10" />
 </g>
-<path d=" M 501 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 453 78 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 78 h 10" />
-<path d=" M 491 78 h 10" />
-</g>
-</g>
-</svg>
-</div>
-
-<div style="width: 562px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypePathFn"><svg class="railroad" viewbox="0 0 562 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect class="railroad_canvas" height="100%" width="100%" />
-<g class="verticalgrid">
-<a class="link" xlink:href="#grammar-summary-TypePathFn">
-<text class="comment" x="50" y="25">
-TypePathFn</text>
-</a>
-<g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
-<g class="sequence">
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="35" y="55" />
-<text x="49" y="71">
-(</text>
-</g>
-<g class="optional">
-<path d=" M 73 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 148 m -71 0 l -5 -5 m 0 10 l 5 -5 m 71 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<a class="link" xlink:href="#railroad-summary-TypePathFnInputs">
-<g class="nonterminal">
-<rect height="22" width="148" x="97" y="55" />
-<text x="171" y="71">
-TypePathFnInputs</text>
-</g>
-</a>
-</g>
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="279" y="55" />
-<text x="293" y="71">
-)</text>
-</g>
-<g class="optional">
-<path d=" M 317 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 162 m -78 0 l -5 -5 m 0 10 l 5 -5 m 78 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<g class="sequence">
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="36" x="341" y="55" />
-<text x="359" y="71">
--&gt;</text>
-</g>
-<a class="link" xlink:href="#railroad-summary-TypeNoBounds">
-<g class="nonterminal">
-<rect height="22" width="116" x="387" y="55" />
-<text x="445" y="71">
-TypeNoBounds</text>
-</g>
-</a>
-<path d=" M 377 66 h 10" />
-</g>
-</g>
-<path d=" M 63 66 h 10" />
-<path d=" M 269 66 h 10" />
-<path d=" M 307 66 h 10" />
-</g>
-<path d=" M 537 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 527 66 h 10" />
-</g>
-</g>
-</svg>
-</div>
-
-<div style="width: 380px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-TypePathFnInputs"><svg class="railroad" viewbox="0 0 380 100" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect class="railroad_canvas" height="100%" width="100%" />
-<g class="verticalgrid">
-<a class="link" xlink:href="#grammar-summary-TypePathFnInputs">
-<text class="comment" x="71" y="25">
-TypePathFnInputs</text>
-</a>
-<g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
-<g class="sequence">
-<a class="link" xlink:href="#railroad-summary-Type">
-<g class="nonterminal">
-<rect height="22" width="52" x="35" y="55" />
-<text x="61" y="71">
-Type</text>
-</g>
-</a>
-<g class="optional">
-<path d=" M 97 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 114 m -54 0 l -5 -5 m 0 10 l 5 -5 m 54 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<g class="repeat">
-<path d=" M 121 66 h 12 m 90 0 h 12 m -12 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 m 0 0 h -90 m 48 0 l 5 -5 m 0 10 l -5 -5 m -48 0 a 12 12 0 0 1 -12 -12 v 0 a 12 12 0 0 1 12 -12" />
-<g />
-<g class="sequence">
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="133" y="55" />
-<text x="147" y="71">
-,</text>
-</g>
-<a class="link" xlink:href="#railroad-summary-Type">
-<g class="nonterminal">
-<rect height="22" width="52" x="171" y="55" />
-<text x="197" y="71">
-Type</text>
-</g>
-</a>
-<path d=" M 161 66 h 10" />
-</g>
-</g>
-</g>
-<g class="optional">
-<path d=" M 269 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 28 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
-<g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="293" y="55" />
-<text x="307" y="71">
-,</text>
-</g>
-</g>
-<path d=" M 87 66 h 10" />
-<path d=" M 259 66 h 10" />
-</g>
-<path d=" M 355 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 345 66 h 10" />
+<path d=" M 443 78 h 10" />
 </g>
 </g>
 </svg>
@@ -84542,11 +84492,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#application-binary-interface-abi">19. Application binary interface</a></td>
-<td>21</td>
+<td>24</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(111);">21</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(111);">24</a>
 <div id="uncovered-111" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -84591,7 +84541,13 @@ Uncovered rules
 
 <li><a href="#r-abi.used">abi.used</a></li>
 
+<li><a href="#r-abi.used.allowed-positions">abi.used.allowed-positions</a></li>
+
+<li><a href="#r-abi.used.duplicates">abi.used.duplicates</a></li>
+
 <li><a href="#r-abi.used.intro">abi.used.intro</a></li>
+
+<li><a href="#r-abi.used.syntax">abi.used.syntax</a></li>
 
 </ul>
 </div>
@@ -84800,11 +84756,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#glossary">      21.6. Glossary</a></td>
-<td>3</td>
+<td>4</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(119);">3</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(119);">4</a>
 <div id="uncovered-119" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -84815,6 +84771,8 @@ Uncovered rules
 
 <li><a href="#r-glossary.uninhabited">glossary.uninhabited</a></li>
 
+<li><a href="#r-glossary.zst">glossary.zst</a></li>
+
 </ul>
 </div>
 </div>
@@ -84824,9 +84782,9 @@ Uncovered rules
 
 <tr>
 <td><b>Total:</b></td>
-<td>2941</td>
+<td>2945</td>
 <td>0</td>
-<td>2941</td>
+<td>2945</td>
 <td>0.0%</td>
 </tr>
 
@@ -84952,6 +84910,62 @@ let vec = [1, 2, 3].iter().map(|n| n * 2).collect::&lt;Vec&lt;_&gt;&gt;();
 
 <h3 id="uninhabited"><a class="header" href="#uninhabited">Uninhabited</a></h3>
 <p>A type is uninhabited if it has no constructors and therefore can never be instantiated. An uninhabited type is “empty” in the sense that there are no values of the type. The canonical example of an uninhabited type is the <a href="#never-type">never type</a> <code>!</code>, or an enum with no variants <code>enum Never { }</code>. Opposite of <a href="#inhabited">Inhabited</a>.</p>
+<div class="rule" id="r-glossary.zst"><a class="rule-link" href="#r-glossary.zst" title="glossary.zst"><span>[glossary<wbr>.zst]</span></a>
+</div>
+
+<h3 id="zero-sized-type-zst"><a class="header" href="#zero-sized-type-zst">Zero-sized type (ZST)</a></h3>
+<p>A type is zero sized (a ZST) if its size is 0. Such types have at most one possible value. Examples include:</p>
+<ul>
+<li>The <a href="#r-type.tuple.unit">unit type</a> (see <a href="#r-layout.tuple.unit">layout.tuple.unit</a>).</li>
+<li><a href="#r-type.fn-item">Function items</a> (see <a href="#r-type.fn-item.intro">type.fn-item.intro</a>).</li>
+<li>The constructors of <a href="#r-items.struct.tuple">tuple-like structs</a> (see <a href="#r-type.fn-item.intro">type.fn-item.intro</a>).</li>
+<li>The constructors of <a href="#r-items.enum.constructor-namespace">tuple-like enum variants</a> (see <a href="#r-type.fn-item.intro">type.fn-item.intro</a>).</li>
+<li><code>repr(C)</code> <a href="#structs">structs</a> with no fields or where all fields are zero-sized (see <a href="#r-layout.repr.c.struct.size-field-offset">layout.repr.c.struct.size-field-offset</a>).</li>
+<li><code>repr(transparent)</code> <a href="#structs">structs</a> with no fields or where all fields are zero-sized (see <a href="#r-layout.repr.transparent.layout-abi">layout.repr.transparent.layout-abi</a>).</li>
+<li><a href="#r-type.array">Arrays</a> of zero-sized types (see <a href="#r-layout.array">layout.array</a>).</li>
+<li><a href="#r-type.array">Arrays</a> of length zero (see <a href="#r-layout.array">layout.array</a>).</li>
+<li><a href="#unions">Unions</a> of zero-sized types (see <a href="#r-items.union.common-storage">items.union.common-storage</a>).</li>
+</ul>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use core::mem::{size_of, size_of_val};
+</span>fn f() {}
+struct S(u8);
+enum E { V(u8) }
+#[repr(C)]
+struct C1 {}
+#[repr(C)]
+struct C2 {
+    f1: (),
+    f2: [(); 10],
+    f3: [u8; 0],
+    f4: C1,
+}
+#[repr(transparent)]
+struct T1 {}
+#[repr(transparent)]
+struct T2 {
+    f1: (),
+    f2: [(); 10],
+    f3: [u8; 0],
+}
+union U {
+    f1: (),
+    f2: [(); 10],
+    f3: [u8; 0],
+}
+assert_eq!(0, size_of::&lt;()&gt;());
+assert_eq!(0, size_of_val(&amp;f));
+assert_eq!(0, size_of_val(&amp;S));
+assert_eq!(0, size_of_val(&amp;E::V));
+assert_eq!(0, size_of::&lt;C1&gt;());
+assert_eq!(0, size_of::&lt;C2&gt;());
+assert_eq!(0, size_of::&lt;T1&gt;());
+assert_eq!(0, size_of::&lt;T2&gt;());
+assert_eq!(0, size_of::&lt;[(); 10]&gt;());
+assert_eq!(0, size_of::&lt;[u8; 0]&gt;());
+assert_eq!(0, size_of::&lt;U&gt;());
+<span class="boring">}</span></code></pre>
 
                     </main>
 
