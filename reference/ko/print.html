@@ -94,7 +94,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e2a53f48.js";
+            window.path_to_searchindex_js = "searchindex-a3f6e21e.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-20da6b24.js"></script>
@@ -8868,7 +8868,7 @@ foo!(3);
 
 <p>유효한 조각 지정자는 다음과 같습니다.</p>
 <ul>
-<li><code>block</code>: a <a href="#grammar-BlockExpression">BlockExpression</a></li>
+<li><code>block</code>: a <a href="#grammar-BlockExpressionNoInnerAttributes">BlockExpressionNoInnerAttributes</a></li>
 <li><code>expr</code>: an <a href="#grammar-Expression">Expression</a></li>
 <li><code>expr_2021</code>: an <a href="#grammar-Expression">Expression</a> except <a href="#grammar-UnderscoreExpression">UnderscoreExpression</a> and <a href="#grammar-ConstBlockExpression">ConstBlockExpression</a> (see <a href="#r-macro.decl.meta.edition2024">macro.decl.meta.edition2024</a>)</li>
 <li><code>ident</code>: an <a href="#grammar-IDENTIFIER_OR_KEYWORD">IDENTIFIER_OR_KEYWORD</a> except <code>_</code>, <a href="#grammar-RAW_IDENTIFIER">RAW_IDENTIFIER</a>, or <a href="#r-macro.decl.hygiene.crate"><code>$crate</code></a></li>
@@ -11085,6 +11085,34 @@ ConfigurationPredicate</text>
 
 <p>이 cfg가 있으면 관련 원자 너비에 대해 안정적인 <a href="../core/sync/atomic/index.html"><code>core::sync::atomic</code></a> API를 모두 사용할 수 있습니다.</p>
 <div class="rule" id="r-cfg.target_has_atomic.values"><a class="rule-link" href="#r-cfg.target_has_atomic.values" title="cfg.target_has_atomic.values"><span>[cfg<wbr>.target_has_atomic<wbr>.values]</span></a>
+</div>
+
+<p>가능한 값:</p>
+<ul>
+<li><code>"8"</code></li>
+<li><code>"16"</code></li>
+<li><code>"32"</code></li>
+<li><code>"64"</code></li>
+<li><code>"128"</code></li>
+<li><code>"ptr"</code></li>
+</ul>
+<div class="rule" id="r-cfg.target_has_atomic_primitive_alignment"><a class="rule-link" href="#r-cfg.target_has_atomic_primitive_alignment" title="cfg.target_has_atomic_primitive_alignment"><span>[cfg<wbr>.target_has_atomic_primitive_alignment]</span></a>
+</div>
+
+<h3 id="target_has_atomic_primitive_alignment"><a class="header" href="#target_has_atomic_primitive_alignment"><code>target_has_atomic_primitive_alignment</code></a></h3>
+<div class="rule" id="r-cfg.target_has_atomic_primitive_alignment.def"><a class="rule-link" href="#r-cfg.target_has_atomic_primitive_alignment.def" title="cfg.target_has_atomic_primitive_alignment.def"><span>[cfg<wbr>.target_has_atomic_primitive_alignment<wbr>.def]</span></a>
+</div>
+
+<p>Key-value option set for each bit width where the <a href="../core/sync/atomic/index.html">atomic</a> type has the same alignment as the corresponding integer type.</p>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>The alignment is usually the same for a given bit width. However, on some targets such as 32-bit x86, 64-bit atomic types such as <a href="../core/sync/atomic/type.AtomicI64.html"><code>AtomicI64</code></a> have an alignment of 8 bytes while <code>i64</code> is only aligned to 4 bytes. In this situation, <code>target_has_atomic_primitive_alignment = "64"</code> is not set.</p>
+</blockquote>
+</div>
+
+<div class="rule" id="r-cfg.target_has_atomic_primitive_alignment.values"><a class="rule-link" href="#r-cfg.target_has_atomic_primitive_alignment.values" title="cfg.target_has_atomic_primitive_alignment.values"><span>[cfg<wbr>.target_has_atomic_primitive_alignment<wbr>.values]</span></a>
 </div>
 
 <p>가능한 값:</p>
@@ -18606,6 +18634,10 @@ unsafe extern {
 </div>
 
 <p>The <code>link_name</code> attribute uses the <a href="#grammar-MetaNameValueStr">MetaNameValueStr</a> syntax.</p>
+<div class="rule" id="r-items.extern.attributes.link_name.invalid-names"><a class="rule-link" href="#r-items.extern.attributes.link_name.invalid-names" title="items.extern.attributes.link_name.invalid-names"><span>[items<wbr>.extern<wbr>.attributes<wbr>.link_name<wbr>.invalid-names]</span></a>
+</div>
+
+<p>The symbol name must not be the empty string or contain any <code>U+0000</code> (NUL) bytes.</p>
 <div class="rule" id="r-items.extern.attributes.link_name.allowed-positions"><a class="rule-link" href="#r-items.extern.attributes.link_name.allowed-positions" title="items.extern.attributes.link_name.allowed-positions"><span>[items<wbr>.extern<wbr>.attributes<wbr>.link_name<wbr>.allowed-positions]</span></a>
 </div>
 
@@ -22740,6 +22772,7 @@ pub fn example() {}
 </div>
 
 <p>When <code>cold</code> is applied to a function in a <a href="#r-items.traits">trait</a>, it applies only to the code of the <a href="#r-items.traits.associated-item-decls">default definition</a>.</p>
+<!-- template:attributes -->
 <div class="rule" id="r-attributes.codegen.naked"><a class="rule-link" href="#r-attributes.codegen.naked" title="attributes.codegen.naked"><span>[attributes<wbr>.codegen<wbr>.naked]</span></a>
 </div>
 
@@ -22747,51 +22780,104 @@ pub fn example() {}
 <div class="rule" id="r-attributes.codegen.naked.intro"><a class="rule-link" href="#r-attributes.codegen.naked.intro" title="attributes.codegen.naked.intro"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.intro]</span></a>
 </div>
 
-<p>The <em><code>naked</code> <a href="#속성-1">attribute</a></em> prevents the compiler from emitting a function prologue and epilogue for the attributed function.</p>
-<div class="rule" id="r-attributes.codegen.naked.body"><a class="rule-link" href="#r-attributes.codegen.naked.body" title="attributes.codegen.naked.body"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.body]</span></a>
+<p>The <em><code>naked</code> <a href="#속성-1">attribute</a></em> prevents the compiler from emitting a function prologue and epilogue for the attributed function — a <em>naked function</em>.</p>
+<div class="alert alert-example">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>Example</p>
+
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">#[cfg(target_arch = "x86_64")] {
+</span>/// Adds 3 to the given number.
+// SAFETY: The body respects the "sysv64" calling convention,
+// upholds the signature, and does not fall through.
+#[unsafe(naked)]
+pub extern "sysv64" fn add_n(number: u64) -&gt; u64 {
+    core::arch::naked_asm!(
+        "add rdi, {}",
+        "mov rax, rdi",
+        "ret",
+        const 3,
+    )
+}
+<span class="boring">}
+</span><span class="boring">}</span></code></pre>
+</blockquote>
 </div>
 
-<p>The <a href="#function-body">function body</a> must consist of exactly one <a href="#인라인-어셈블리"><code>naked_asm!</code></a> macro invocation.</p>
-<div class="rule" id="r-attributes.codegen.naked.prologue-epilogue"><a class="rule-link" href="#r-attributes.codegen.naked.prologue-epilogue" title="attributes.codegen.naked.prologue-epilogue"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.prologue-epilogue]</span></a>
+<div class="rule" id="r-attributes.codegen.naked.syntax"><a class="rule-link" href="#r-attributes.codegen.naked.syntax" title="attributes.codegen.naked.syntax"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.syntax]</span></a>
 </div>
 
-<p>No function prologue or epilogue is generated for the attributed function. The assembly code in the <code>naked_asm!</code> block constitutes the full body of a naked function.</p>
-<div class="rule" id="r-attributes.codegen.naked.unsafe-attribute"><a class="rule-link" href="#r-attributes.codegen.naked.unsafe-attribute" title="attributes.codegen.naked.unsafe-attribute"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.unsafe-attribute]</span></a>
+<p>The <code>naked</code> attribute uses the <a href="#grammar-MetaWord">MetaWord</a> syntax.</p>
+<div class="rule" id="r-attributes.codegen.naked.allowed-positions"><a class="rule-link" href="#r-attributes.codegen.naked.allowed-positions" title="attributes.codegen.naked.allowed-positions"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.allowed-positions]</span></a>
 </div>
 
-<p>The <code>naked</code> attribute is an <a href="#r-attributes.safety">unsafe attribute</a>. Annotating a function with <code>#[unsafe(naked)]</code> comes with the safety obligation that the body must respect the function’s calling convention, uphold its signature, and either return or diverge (i.e., not fall through past the end of the assembly code).</p>
-<div class="rule" id="r-attributes.codegen.naked.call-stack"><a class="rule-link" href="#r-attributes.codegen.naked.call-stack" title="attributes.codegen.naked.call-stack"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.call-stack]</span></a>
+<p>The <code>naked</code> attribute may only be applied to <a href="#r-items.fn">free functions</a>, <a href="#r-items.associated.fn">associated functions</a> in an <a href="#r-items.impl.inherent">inherent impl</a> or <a href="#r-items.impl.trait">trait impl</a>, and associated functions in a <a href="#r-items.traits">trait definition</a> when those functions have a <a href="#r-items.traits.associated-item-decls">default definition</a>.</p>
+<div class="rule" id="r-attributes.codegen.naked.duplicates"><a class="rule-link" href="#r-attributes.codegen.naked.duplicates" title="attributes.codegen.naked.duplicates"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.duplicates]</span></a>
 </div>
 
-<p>The assembly code may assume that the call stack and register state are valid on entry as per the signature and calling convention of the function.</p>
-<div class="rule" id="r-attributes.codegen.naked.no-duplication"><a class="rule-link" href="#r-attributes.codegen.naked.no-duplication" title="attributes.codegen.naked.no-duplication"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.no-duplication]</span></a>
-</div>
-
-<p>The assembly code may not be duplicated by the compiler except when monomorphizing polymorphic functions.</p>
+<p>Only the first use of <code>naked</code> on a function has effect.</p>
 <div class="alert alert-note">
 <blockquote>
 <p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
 
-<p>Guaranteeing when the assembly code may or may not be duplicated is important for naked functions that define symbols.</p>
+<p><code>rustc</code> lints against any use following the first.</p>
+</blockquote>
+</div>
+
+<div class="rule" id="r-attributes.codegen.naked.unsafe"><a class="rule-link" href="#r-attributes.codegen.naked.unsafe" title="attributes.codegen.naked.unsafe"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.unsafe]</span></a>
+</div>
+
+<p>The <code>naked</code> attribute must be marked with <a href="#r-attributes.safety"><code>unsafe</code></a> because the body must respect the function’s calling convention, uphold its signature, and either return or diverge (i.e., not fall through past the end of the assembly code).</p>
+<div class="rule" id="r-attributes.codegen.naked.body"><a class="rule-link" href="#r-attributes.codegen.naked.body" title="attributes.codegen.naked.body"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.body]</span></a>
+</div>
+
+<p>The <a href="#r-items.fn.body">function body</a> must consist of exactly one <a href="#r-asm"><code>naked_asm!</code></a> macro invocation.</p>
+<div class="rule" id="r-attributes.codegen.naked.prologue-epilogue"><a class="rule-link" href="#r-attributes.codegen.naked.prologue-epilogue" title="attributes.codegen.naked.prologue-epilogue"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.prologue-epilogue]</span></a>
+</div>
+
+<p>The compiler emits no prologue or epilogue for a naked function: the assembly code in the <a href="#r-asm"><code>naked_asm!</code></a> invocation constitutes its entire body.</p>
+<div class="rule" id="r-attributes.codegen.naked.call-stack"><a class="rule-link" href="#r-attributes.codegen.naked.call-stack" title="attributes.codegen.naked.call-stack"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.call-stack]</span></a>
+</div>
+
+<p>On entry the assembly code may assume that the call stack and register state are valid per the function’s signature and calling convention.</p>
+<div class="rule" id="r-attributes.codegen.naked.no-duplication"><a class="rule-link" href="#r-attributes.codegen.naked.no-duplication" title="attributes.codegen.naked.no-duplication"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.no-duplication]</span></a>
+</div>
+
+<p>The compiler may not duplicate the assembly code except when monomorphizing a polymorphic function.</p>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>This guarantee matters for naked functions that define symbols.</p>
 </blockquote>
 </div>
 
 <div class="rule" id="r-attributes.codegen.naked.unused-variables"><a class="rule-link" href="#r-attributes.codegen.naked.unused-variables" title="attributes.codegen.naked.unused-variables"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.unused-variables]</span></a>
 </div>
 
-<p>The <a href="../rustc/lints/listing/warn-by-default.html#unused-variables"><code>unused_variables</code></a> lint is suppressed within naked functions.</p>
+<p>The <a href="../rustc/lints/listing/warn-by-default.html#unused-variables"><code>unused_variables</code> lint</a> is suppressed in naked functions.</p>
 <div class="rule" id="r-attributes.codegen.naked.inline"><a class="rule-link" href="#r-attributes.codegen.naked.inline" title="attributes.codegen.naked.inline"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.inline]</span></a>
 </div>
 
-<p>The <a href="#the-inline-attribute"><code>inline</code></a> attribute cannot by applied to a naked function.</p>
+<p>The <a href="#r-attributes.codegen.inline"><code>inline</code> attribute</a> cannot be applied to a naked function.</p>
 <div class="rule" id="r-attributes.codegen.naked.track_caller"><a class="rule-link" href="#r-attributes.codegen.naked.track_caller" title="attributes.codegen.naked.track_caller"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.track_caller]</span></a>
 </div>
 
-<p>The <a href="#the-track_caller-attribute"><code>track_caller</code></a> attribute cannot be applied to a naked function.</p>
+<p>The <a href="#r-attributes.codegen.track_caller"><code>track_caller</code> attribute</a> cannot be applied to a naked function.</p>
 <div class="rule" id="r-attributes.codegen.naked.testing"><a class="rule-link" href="#r-attributes.codegen.naked.testing" title="attributes.codegen.naked.testing"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.testing]</span></a>
 </div>
 
-<p>The <a href="#테스팅-속성">testing attributes</a> cannot be applied to a naked function.</p>
+<p>The <a href="#r-attributes.testing">testing attributes</a> cannot be applied to a naked function.</p>
+<div class="rule" id="r-attributes.codegen.naked.target_feature"><a class="rule-link" href="#r-attributes.codegen.naked.target_feature" title="attributes.codegen.naked.target_feature"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.target_feature]</span></a>
+</div>
+
+<p>The <a href="#r-attributes.codegen.target_feature"><code>target_feature</code> attribute</a> cannot be applied to a naked function.</p>
+<!-- TODO: Reflexive rules? -->
+<div class="rule" id="r-attributes.codegen.naked.abi"><a class="rule-link" href="#r-attributes.codegen.naked.abi" title="attributes.codegen.naked.abi"><span>[attributes<wbr>.codegen<wbr>.naked<wbr>.abi]</span></a>
+</div>
+
+<p>A naked function cannot use the <a href="#r-items.extern.abi.rust">“Rust” ABI</a>.</p>
 <!-- template:attributes -->
 <div class="rule" id="r-attributes.codegen.no_builtins"><a class="rule-link" href="#r-attributes.codegen.no_builtins" title="attributes.codegen.no_builtins"><span>[attributes<wbr>.codegen<wbr>.no_builtins]</span></a>
 </div>
@@ -24220,12 +24306,12 @@ MacroInvocationSemi</text>
 </div>
 
 <div class="grammar-container">
-<p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-LetStatement" onclick="show_railroad()"><a href="#railroad-LetStatement">LetStatement</a></span> →<br>    <span class="grammar-text"><a href="#grammar-OuterAttribute">OuterAttribute</a></span><sup>*</sup> <span class="grammar-literal">let</span> <span class="grammar-text"><a href="#grammar-PatternNoTopAlt">PatternNoTopAlt</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> )<sup>?</sup><br>    (<br>          <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Expression">Expression</a></span><br>        | <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Expression">Expression</a></span><sub class="grammar-text">except <a href="#grammar-LazyBooleanExpression">LazyBooleanExpression</a> or end with a <code>}</code></sub> <span class="grammar-literal">else</span> <span class="grammar-text"><a href="#grammar-BlockExpression">BlockExpression</a></span><br>    )<sup>?</sup> <span class="grammar-literal">;</span></p>
+<p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-LetStatement" onclick="show_railroad()"><a href="#railroad-LetStatement">LetStatement</a></span> →<br>    <span class="grammar-text"><a href="#grammar-OuterAttribute">OuterAttribute</a></span><sup>*</sup> <span class="grammar-literal">let</span> <span class="grammar-text"><a href="#grammar-PatternNoTopAlt">PatternNoTopAlt</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-Type">Type</a></span> )<sup>?</sup><br>    (<br>          <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Expression">Expression</a></span><br>        | <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Expression">Expression</a></span><sub class="grammar-text">except <a href="#grammar-LazyBooleanExpression">LazyBooleanExpression</a> or end with a <code>}</code></sub><br>              <span class="grammar-literal">else</span> <span class="grammar-text"><a href="#grammar-BlockExpressionNoInnerAttributes">BlockExpressionNoInnerAttributes</a></span><br>    )<sup>?</sup> <span class="grammar-literal">;</span></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 852px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-LetStatement"><svg class="railroad" viewbox="0 0 852 235" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 688px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-LetStatement"><svg class="railroad" viewbox="0 0 688 282" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-LetStatement">
@@ -24286,12 +24372,12 @@ Type</text>
 <path d=" M 305 66 h 10" />
 <path d=" M 455 66 h 10" />
 </g>
-<path d=" M 793 138 h 0 a 12 12 0 0 0 12 -12 v -48 a 12 12 0 0 1 12 -12" />
+<path d=" M 629 138 h 0 a 12 12 0 0 0 12 -12 v -48 a 12 12 0 0 1 12 -12" />
 <g class="sequence">
 <g class="optional">
-<path d=" M 47 138 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 660 m -327 0 l -5 -5 m 0 10 l 5 -5 m 327 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 47 138 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 496 m -245 0 l -5 -5 m 0 10 l 5 -5 m 245 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="choice">
-<path d=" M 71 138 h 24 m 138 0 h 498 m -246 0 l -5 -5 m 0 10 l 5 -5 m 246 0" />
+<path d=" M 71 138 h 24 m 138 0 h 334 m -164 0 l -5 -5 m 0 10 l 5 -5 m 164 0" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="95" y="127" />
@@ -24307,56 +24393,62 @@ Expression</text>
 </a>
 <path d=" M 123 138 h 10" />
 </g>
-<path d=" M 71 138 a 12 12 0 0 1 12 12 v 9 m 636 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 83 159 v 35 a 12 12 0 0 0 12 12 m 612 0 h 0 a 12 12 0 0 0 12 -12 v -35" />
+<path d=" M 71 138 a 12 12 0 0 1 12 12 v 9 m 472 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 83 159 v 35 a 12 12 0 0 0 12 12 m 448 0 h 0 a 12 12 0 0 0 12 -12 v -35" />
+<g class="stack">
+<path d=" M 95 206 h 12" />
+<path d=" M 507 206 a 12 12 0 0 1 12 12 v 7 a 12 12 0 0 1 -12 12 h -400 m 203 0 l 5 -5 m 0 10 l -5 -5 m -203 0 a 12 12 0 0 0 -12 12 v 0 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="95" y="195" />
-<text x="109" y="211">
+<rect height="22" rx="10" ry="10" width="28" x="107" y="195" />
+<text x="121" y="211">
 =</text>
 </g>
 <g class="labeledbox">
-<rect height="66" width="362" x="133" y="159" />
-<path d=" M 133 206 h 8 m 100 0 h 254 m -124 0 l -5 -5 m 0 10 l 5 -5 m 124 0" />
-<text class="comment" x="314" y="182">
+<rect height="66" width="362" x="145" y="159" />
+<path d=" M 145 206 h 8 m 100 0 h 254 m -124 0 l -5 -5 m 0 10 l 5 -5 m 124 0" />
+<text class="comment" x="326" y="182">
 except LazyBooleanExpression or end with a `}`</text>
 <a class="link" xlink:href="#railroad-Expression">
 <g class="nonterminal">
-<rect height="22" width="100" x="141" y="195" />
-<text x="191" y="211">
+<rect height="22" width="100" x="153" y="195" />
+<text x="203" y="211">
 Expression</text>
 </g>
 </a>
 </g>
+<path d=" M 135 206 h 10" />
+</g>
+<path d=" M 453 261 h 66 m -30 0 l -5 -5 m 0 10 l 5 -5 m 30 0 a 12 12 0 0 0 12 -12 v -31 a 12 12 0 0 1 12 -12" />
+<g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="52" x="505" y="195" />
-<text x="531" y="211">
+<rect height="22" rx="10" ry="10" width="52" x="107" y="250" />
+<text x="133" y="266">
 else</text>
 </g>
-<a class="link" xlink:href="#railroad-BlockExpression">
+<a class="link" xlink:href="#railroad-BlockExpressionNoInnerAttributes">
 <g class="nonterminal">
-<rect height="22" width="140" x="567" y="195" />
-<text x="637" y="211">
-BlockExpression</text>
+<rect height="22" width="284" x="169" y="250" />
+<text x="311" y="266">
+BlockExpressionNoInnerAttributes</text>
 </g>
 </a>
-<path d=" M 123 206 h 10" />
-<path d=" M 495 206 h 10" />
-<path d=" M 557 206 h 10" />
+<path d=" M 159 261 h 10" />
+</g>
 </g>
 </g>
 </g>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="765" y="127" />
-<text x="779" y="143">
+<rect height="22" rx="10" ry="10" width="28" x="601" y="127" />
+<text x="615" y="143">
 ;</text>
 </g>
-<path d=" M 755 138 h 10" />
+<path d=" M 591 138 h 10" />
 </g>
 </g>
-<path d=" M 827 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 663 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 817 66 h 10" />
+<path d=" M 653 66 h 10" />
 </g>
 </g>
 </svg>
@@ -26322,6 +26414,7 @@ let slice_reverse = &lt;[i32]&gt;::reverse;
 
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-BlockExpression" onclick="show_railroad()"><a href="#railroad-BlockExpression">BlockExpression</a></span> →<br>    <span class="grammar-literal">{</span><br>        <span class="grammar-text"><a href="#grammar-InnerAttribute">InnerAttribute</a></span><sup>*</sup><br>        <span class="grammar-text"><a href="#grammar-Statements">Statements</a></span><sup>?</sup><br>    <span class="grammar-literal">}</span></p>
+<p><span class="grammar-text grammar-production" id="grammar-BlockExpressionNoInnerAttributes" onclick="show_railroad()"><a href="#railroad-BlockExpressionNoInnerAttributes">BlockExpressionNoInnerAttributes</a></span> →<br>    <span class="grammar-literal">{</span><br>        <span class="grammar-text"><a href="#grammar-Statements">Statements</a></span><sup>?</sup><br>    <span class="grammar-literal">}</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-Statements" onclick="show_railroad()"><a href="#railroad-Statements">Statements</a></span> →<br>      <span class="grammar-text"><a href="#grammar-Statement">Statement</a></span><sup>+</sup><br>    | <span class="grammar-text"><a href="#grammar-Statement">Statement</a></span><sup>+</sup> <span class="grammar-text"><a href="#grammar-ExpressionWithoutBlock">ExpressionWithoutBlock</a></span><br>    | <span class="grammar-text"><a href="#grammar-ExpressionWithoutBlock">ExpressionWithoutBlock</a></span></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
@@ -26378,6 +26471,47 @@ Statements</text>
 <path d=" M 483 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
 <path d=" M 473 66 h 10" />
+</g>
+</g>
+</svg>
+</div>
+
+<div style="width: 294px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-BlockExpressionNoInnerAttributes"><svg class="railroad" viewbox="0 0 294 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect class="railroad_canvas" height="100%" width="100%" />
+<g class="verticalgrid">
+<a class="link" xlink:href="#grammar-BlockExpressionNoInnerAttributes">
+<text class="comment" x="130" y="25">
+BlockExpressionNoInnerAttributes</text>
+</a>
+<g class="sequence">
+<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<g class="sequence">
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="35" y="55" />
+<text x="49" y="71">
+{</text>
+</g>
+<g class="optional">
+<path d=" M 73 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 100 m -47 0 l -5 -5 m 0 10 l 5 -5 m 47 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-Statements">
+<g class="nonterminal">
+<rect height="22" width="100" x="97" y="55" />
+<text x="147" y="71">
+Statements</text>
+</g>
+</a>
+</g>
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="231" y="55" />
+<text x="245" y="71">
+}</text>
+</g>
+<path d=" M 63 66 h 10" />
+<path d=" M 221 66 h 10" />
+</g>
+<path d=" M 269 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 66 h 10" />
+<path d=" M 259 66 h 10" />
 </g>
 </g>
 </svg>
@@ -32970,7 +33104,7 @@ assert_eq!(x, y);
 </div>
 
 <div class="grammar-container">
-<p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-IfExpression" onclick="show_railroad()"><a href="#railroad-IfExpression">IfExpression</a></span> →<br>    <span class="grammar-literal">if</span> <span class="grammar-text"><a href="#grammar-Conditions">Conditions</a></span> <span class="grammar-text"><a href="#grammar-BlockExpression">BlockExpression</a></span><br>    ( <span class="grammar-literal">else</span> ( <span class="grammar-text"><a href="#grammar-BlockExpression">BlockExpression</a></span> | <span class="grammar-text"><a href="#grammar-IfExpression">IfExpression</a></span> ) )<sup>?</sup></p>
+<p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-IfExpression" onclick="show_railroad()"><a href="#railroad-IfExpression">IfExpression</a></span> →<br>    <span class="grammar-literal">if</span> <span class="grammar-text"><a href="#grammar-Conditions">Conditions</a></span> <span class="grammar-text"><a href="#grammar-BlockExpressionNoInnerAttributes">BlockExpressionNoInnerAttributes</a></span><br>    ( <span class="grammar-literal">else</span> ( <span class="grammar-text"><a href="#grammar-BlockExpressionNoInnerAttributes">BlockExpressionNoInnerAttributes</a></span> | <span class="grammar-text"><a href="#grammar-IfExpression">IfExpression</a></span> ) )<sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-Conditions" onclick="show_railroad()"><a href="#railroad-Conditions">Conditions</a></span> →<br>      <span class="grammar-text"><a href="#grammar-Expression">Expression</a></span><sub class="grammar-text">except <a href="#grammar-StructExpression">StructExpression</a></sub><br>    | <span class="grammar-text"><a href="#grammar-LetChain">LetChain</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-LetChain" onclick="show_railroad()"><a href="#railroad-LetChain">LetChain</a></span> → <span class="grammar-text"><a href="#grammar-LetChainCondition">LetChainCondition</a></span> ( <span class="grammar-literal">&amp;&amp;</span> <span class="grammar-text"><a href="#grammar-LetChainCondition">LetChainCondition</a></span> )<sup>*</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-LetChainCondition" onclick="show_railroad()"><a href="#railroad-LetChainCondition">LetChainCondition</a></span> →<br>      <span class="grammar-text"><a href="#grammar-Expression">Expression</a></span><sub class="grammar-text">except <a href="#grammar-ExcludedConditions">ExcludedConditions</a></sub><br>    | <span class="grammar-text"><a href="#grammar-OuterAttribute">OuterAttribute</a></span><sup>*</sup> <span class="grammar-literal">let</span> <span class="grammar-text"><a href="#grammar-Pattern">Pattern</a></span> <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-Scrutinee">Scrutinee</a></span><sub class="grammar-text">except <a href="#grammar-ExcludedConditions">ExcludedConditions</a></sub></p>
@@ -32979,7 +33113,7 @@ assert_eq!(x, y);
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 674px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-IfExpression"><svg class="railroad" viewbox="0 0 674 120" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 548px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-IfExpression"><svg class="railroad" viewbox="0 0 548 167" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-IfExpression">
@@ -32987,64 +33121,70 @@ assert_eq!(x, y);
 IfExpression</text>
 </a>
 <g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<g class="stack">
+<path d=" M 35 53 h 12" />
+<path d=" M 487 53 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -440 m 223 0 l 5 -5 m 0 10 l -5 -5 m -223 0 a 12 12 0 0 0 -12 12 v 12 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="36" x="35" y="55" />
-<text x="53" y="71">
+<rect height="22" rx="10" ry="10" width="36" x="47" y="42" />
+<text x="65" y="58">
 if</text>
 </g>
 <a class="link" xlink:href="#railroad-Conditions">
 <g class="nonterminal">
-<rect height="22" width="100" x="81" y="55" />
-<text x="131" y="71">
+<rect height="22" width="100" x="93" y="42" />
+<text x="143" y="58">
 Conditions</text>
 </g>
 </a>
-<a class="link" xlink:href="#railroad-BlockExpression">
+<a class="link" xlink:href="#railroad-BlockExpressionNoInnerAttributes">
 <g class="nonterminal">
-<rect height="22" width="140" x="191" y="55" />
-<text x="261" y="71">
-BlockExpression</text>
+<rect height="22" width="284" x="203" y="42" />
+<text x="345" y="58">
+BlockExpressionNoInnerAttributes</text>
 </g>
 </a>
+<path d=" M 83 53 h 10" />
+<path d=" M 193 53 h 10" />
+</g>
+<path d=" M 489 113 h 0 a 12 12 0 0 0 12 -12 v -36 a 12 12 0 0 1 12 -12" />
+<g class="sequence">
 <g class="optional">
-<path d=" M 341 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 250 m -122 0 l -5 -5 m 0 10 l 5 -5 m 122 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 47 113 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 394 m -194 0 l -5 -5 m 0 10 l 5 -5 m 194 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="52" x="365" y="55" />
-<text x="391" y="71">
+<rect height="22" rx="10" ry="10" width="52" x="71" y="102" />
+<text x="97" y="118">
 else</text>
 </g>
 <g class="choice">
-<path d=" M 427 66 h 24 m 140 0 h 24" />
-<a class="link" xlink:href="#railroad-BlockExpression">
+<path d=" M 133 113 h 24 m 284 0 h 24" />
+<a class="link" xlink:href="#railroad-BlockExpressionNoInnerAttributes">
 <g class="nonterminal">
-<rect height="22" width="140" x="451" y="55" />
-<text x="521" y="71">
-BlockExpression</text>
+<rect height="22" width="284" x="157" y="102" />
+<text x="299" y="118">
+BlockExpressionNoInnerAttributes</text>
 </g>
 </a>
-<path d=" M 427 66 a 12 12 0 0 1 12 12 v 9 m 164 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 439 87 v 0 a 12 12 0 0 0 12 12 m 116 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 133 113 a 12 12 0 0 1 12 12 v 9 m 308 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 145 134 v 0 a 12 12 0 0 0 12 12 m 116 0 h 168 m -81 0 l -5 -5 m 0 10 l 5 -5 m 81 0 a 12 12 0 0 0 12 -12 v 0" />
 <a class="link" xlink:href="#railroad-IfExpression">
 <g class="nonterminal">
-<rect height="22" width="116" x="451" y="88" />
-<text x="509" y="104">
+<rect height="22" width="116" x="157" y="135" />
+<text x="215" y="151">
 IfExpression</text>
 </g>
 </a>
 </g>
-<path d=" M 417 66 h 10" />
+<path d=" M 123 113 h 10" />
 </g>
 </g>
-<path d=" M 71 66 h 10" />
-<path d=" M 181 66 h 10" />
-<path d=" M 331 66 h 10" />
 </g>
-<path d=" M 649 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 639 66 h 10" />
+</g>
+<path d=" M 523 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 53 h 10" />
+<path d=" M 513 53 h 10" />
 </g>
 </g>
 </svg>
@@ -33498,15 +33638,25 @@ if let E::X(n) | E::Y(n) = v {
 <div class="rule" id="r-expr.if.chains.or"><a class="rule-link" href="#r-expr.if.chains.or" title="expr.if.chains.or"><span>[expr<wbr>.if<wbr>.chains<wbr>.or]</span></a>
 </div>
 
-<p>If any condition operand is a <code>let</code> pattern, then none of the condition operands can be a <code>||</code> <a href="#r-expr.bool-logic">lazy boolean operator expression</a> due to ambiguity and precedence with the <code>let</code> scrutinee. If a <code>||</code> expression is needed, then parentheses can be used. For example:</p>
+<p>If any condition operand is a <code>let</code> pattern, then none of the condition operands can be a <code>||</code> <a href="#r-expr.bool-logic">lazy boolean operator expression</a> due to ambiguity and precedence with the <code>let</code> scrutinee.</p>
+<div class="alert alert-example">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>Example</p>
+
+<p>If a <code>||</code> expression is needed, then parentheses can be used. For example:</p>
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span><span class="boring">let foo = Some(123);
 </span><span class="boring">let condition1 = true;
 </span><span class="boring">let condition2 = false;
-</span>// Parentheses are required here.
-if let Some(x) = foo &amp;&amp; (condition1 || condition2) { /*...*/ }
+</span>if let Some(x) = foo
+    // Parentheses are required here.
+    &amp;&amp; (condition1 || condition2)
+{}
 <span class="boring">}</span></code></pre>
+</blockquote>
+</div>
+
 <div class="rule" id="r-expr.if.edition2024"><a class="rule-link" href="#r-expr.if.edition2024" title="expr.if.edition2024"><span>[expr<wbr>.if<wbr>.edition2024]</span></a>
 </div>
 
@@ -34381,8 +34531,9 @@ match cmd {
 </span><span class="boring">fn main() {
 </span><span class="boring">let foo = Some([123]);
 </span>match foo {
-    // Parentheses are required here.
-    Some(xs) if let [x] = xs &amp;&amp; (x &lt; -100 || x &gt; 20) =&gt; {}
+    Some(xs) if let [x] = xs
+        // Parentheses are required here.
+        &amp;&amp; (x &lt; -100 || x &gt; 20) =&gt; {}
     _ =&gt; {}
 }
 <span class="boring">}</span></code></pre>
@@ -34666,8 +34817,8 @@ let _ = 2 + 2;
 
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-Pattern" onclick="show_railroad()"><a href="#railroad-Pattern">Pattern</a></span> → <span class="grammar-literal">|</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-PatternNoTopAlt">PatternNoTopAlt</a></span> ( <span class="grammar-literal">|</span> <span class="grammar-text"><a href="#grammar-PatternNoTopAlt">PatternNoTopAlt</a></span> )<sup>*</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-PatternNoTopAlt" onclick="show_railroad()"><a href="#railroad-PatternNoTopAlt">PatternNoTopAlt</a></span> →<br>      <span class="grammar-text"><a href="#grammar-PatternWithoutRange">PatternWithoutRange</a></span><br>    | <span class="grammar-text"><a href="#grammar-RangePattern">RangePattern</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-PatternWithoutRange" onclick="show_railroad()"><a href="#railroad-PatternWithoutRange">PatternWithoutRange</a></span> →<br>      <span class="grammar-text"><a href="#grammar-LiteralPattern">LiteralPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-IdentifierPattern">IdentifierPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-WildcardPattern">WildcardPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RestPattern">RestPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-ReferencePattern">ReferencePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-StructPattern">StructPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-TupleStructPattern">TupleStructPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-TuplePattern">TuplePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-GroupedPattern">GroupedPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-SlicePattern">SlicePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-PathPattern">PathPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-MacroInvocation">MacroInvocation</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-PatternNoTopAlt" onclick="show_railroad()"><a href="#railroad-PatternNoTopAlt">PatternNoTopAlt</a></span> →<br>      <span class="grammar-text"><a href="#grammar-PatternWithoutModernRange">PatternWithoutModernRange</a></span><br>    | <span class="grammar-text"><a href="#grammar-ModernRangePattern">ModernRangePattern</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-PatternWithoutModernRange" onclick="show_railroad()"><a href="#railroad-PatternWithoutModernRange">PatternWithoutModernRange</a></span> →<br>      <span class="grammar-text"><a href="#grammar-LiteralPattern">LiteralPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-IdentifierPattern">IdentifierPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-WildcardPattern">WildcardPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RestPattern">RestPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-ReferencePattern">ReferencePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-StructPattern">StructPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-TupleStructPattern">TupleStructPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-TuplePattern">TuplePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-GroupedPattern">GroupedPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-SlicePattern">SlicePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-PathPattern">PathPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-MacroInvocation">MacroInvocation</a></span><br>    | <span class="grammar-text"><a href="#grammar-ObsoleteRangePattern">ObsoleteRangePattern</a></span>​<sup class="footnote-reference" id="fr-obsolete-range-edition-1"><a href="#footnote-obsolete-range-edition">1</a></sup></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
@@ -34730,7 +34881,7 @@ PatternNoTopAlt</text>
 </svg>
 </div>
 
-<div style="width: 290px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-PatternNoTopAlt"><svg class="railroad" viewbox="0 0 290 107" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 346px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-PatternNoTopAlt"><svg class="railroad" viewbox="0 0 346 107" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-PatternNoTopAlt">
@@ -34740,45 +34891,45 @@ PatternNoTopAlt</text>
 <g class="sequence">
 <path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="choice">
-<path d=" M 35 53 h 24 m 172 0 h 24" />
+<path d=" M 35 53 h 24 m 228 0 h 24" />
 <g class="sequence">
-<a class="link" xlink:href="#railroad-PatternWithoutRange">
+<a class="link" xlink:href="#railroad-PatternWithoutModernRange">
 <g class="nonterminal">
-<rect height="22" width="172" x="59" y="42" />
-<text x="145" y="58">
-PatternWithoutRange</text>
+<rect height="22" width="228" x="59" y="42" />
+<text x="173" y="58">
+PatternWithoutModernRange</text>
 </g>
 </a>
 </g>
-<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 196 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 116 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0 a 12 12 0 0 0 12 -12 v 0" />
-<a class="link" xlink:href="#railroad-RangePattern">
+<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 252 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 164 0 h 64 m -29 0 l -5 -5 m 0 10 l 5 -5 m 29 0 a 12 12 0 0 0 12 -12 v 0" />
+<a class="link" xlink:href="#railroad-ModernRangePattern">
 <g class="nonterminal">
-<rect height="22" width="116" x="59" y="75" />
-<text x="117" y="91">
-RangePattern</text>
+<rect height="22" width="164" x="59" y="75" />
+<text x="141" y="91">
+ModernRangePattern</text>
 </g>
 </a>
 </g>
-<path d=" M 265 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 321 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 53 h 10" />
-<path d=" M 255 53 h 10" />
+<path d=" M 311 53 h 10" />
 </g>
 </g>
 </svg>
 </div>
 
-<div style="width: 282px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-PatternWithoutRange"><svg class="railroad" viewbox="0 0 282 437" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 306px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-PatternWithoutModernRange"><svg class="railroad" viewbox="0 0 306 470" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
-<a class="link" xlink:href="#grammar-PatternWithoutRange">
-<text class="comment" x="81" y="25">
-PatternWithoutRange</text>
+<a class="link" xlink:href="#grammar-PatternWithoutModernRange">
+<text class="comment" x="106" y="25">
+PatternWithoutModernRange</text>
 </a>
 <g class="sequence">
 <path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="choice">
-<path d=" M 35 53 h 24 m 132 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0" />
+<path d=" M 35 53 h 24 m 132 0 h 80 m -37 0 l -5 -5 m 0 10 l 5 -5 m 37 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-LiteralPattern">
 <g class="nonterminal">
@@ -34788,18 +34939,19 @@ LiteralPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 188 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 47 74 v 33 m 188 0 v -33" />
-<path d=" M 47 107 v 33 m 188 0 v -33" />
-<path d=" M 47 140 v 33 m 188 0 v -33" />
-<path d=" M 47 173 v 33 m 188 0 v -33" />
-<path d=" M 47 206 v 33 m 188 0 v -33" />
-<path d=" M 47 239 v 33 m 188 0 v -33" />
-<path d=" M 47 272 v 33 m 188 0 v -33" />
-<path d=" M 47 305 v 33 m 188 0 v -33" />
-<path d=" M 47 338 v 33 m 188 0 v -33" />
-<path d=" M 47 371 v 33 m 188 0 v -33" />
-<path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 156 0 h 8 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 212 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 47 74 v 33 m 212 0 v -33" />
+<path d=" M 47 107 v 33 m 212 0 v -33" />
+<path d=" M 47 140 v 33 m 212 0 v -33" />
+<path d=" M 47 173 v 33 m 212 0 v -33" />
+<path d=" M 47 206 v 33 m 212 0 v -33" />
+<path d=" M 47 239 v 33 m 212 0 v -33" />
+<path d=" M 47 272 v 33 m 212 0 v -33" />
+<path d=" M 47 305 v 33 m 212 0 v -33" />
+<path d=" M 47 338 v 33 m 212 0 v -33" />
+<path d=" M 47 371 v 33 m 212 0 v -33" />
+<path d=" M 47 404 v 33 m 212 0 v -33" />
+<path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 156 0 h 32 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-IdentifierPattern">
 <g class="nonterminal">
@@ -34809,7 +34961,7 @@ IdentifierPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 107 v 0 a 12 12 0 0 0 12 12 m 140 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 107 v 0 a 12 12 0 0 0 12 12 m 140 0 h 48 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-WildcardPattern">
 <g class="nonterminal">
@@ -34819,7 +34971,7 @@ WildcardPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 140 v 0 a 12 12 0 0 0 12 12 m 108 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 140 v 0 a 12 12 0 0 0 12 12 m 108 0 h 80 m -37 0 l -5 -5 m 0 10 l 5 -5 m 37 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-RestPattern">
 <g class="nonterminal">
@@ -34829,7 +34981,7 @@ RestPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 173 v 0 a 12 12 0 0 0 12 12 m 148 0 h 16 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 173 v 0 a 12 12 0 0 0 12 12 m 148 0 h 40 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-ReferencePattern">
 <g class="nonterminal">
@@ -34839,7 +34991,7 @@ ReferencePattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 206 v 0 a 12 12 0 0 0 12 12 m 124 0 h 40 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 206 v 0 a 12 12 0 0 0 12 12 m 124 0 h 64 m -29 0 l -5 -5 m 0 10 l 5 -5 m 29 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-StructPattern">
 <g class="nonterminal">
@@ -34849,7 +35001,7 @@ StructPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 239 v 0 a 12 12 0 0 0 12 12 m 164 0 h 0 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 239 v 0 a 12 12 0 0 0 12 12 m 164 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-TupleStructPattern">
 <g class="nonterminal">
@@ -34859,7 +35011,7 @@ TupleStructPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 272 v 0 a 12 12 0 0 0 12 12 m 116 0 h 48 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 272 v 0 a 12 12 0 0 0 12 12 m 116 0 h 72 m -33 0 l -5 -5 m 0 10 l 5 -5 m 33 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-TuplePattern">
 <g class="nonterminal">
@@ -34869,7 +35021,7 @@ TuplePattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 305 v 0 a 12 12 0 0 0 12 12 m 132 0 h 32 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 305 v 0 a 12 12 0 0 0 12 12 m 132 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-GroupedPattern">
 <g class="nonterminal">
@@ -34879,7 +35031,7 @@ GroupedPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 338 v 0 a 12 12 0 0 0 12 12 m 116 0 h 48 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 338 v 0 a 12 12 0 0 0 12 12 m 116 0 h 72 m -33 0 l -5 -5 m 0 10 l 5 -5 m 33 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-SlicePattern">
 <g class="nonterminal">
@@ -34889,7 +35041,7 @@ SlicePattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 371 v 0 a 12 12 0 0 0 12 12 m 108 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 371 v 0 a 12 12 0 0 0 12 12 m 108 0 h 80 m -37 0 l -5 -5 m 0 10 l 5 -5 m 37 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-PathPattern">
 <g class="nonterminal">
@@ -34899,7 +35051,8 @@ PathPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 404 v 0 a 12 12 0 0 0 12 12 m 140 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 404 v 0 a 12 12 0 0 0 12 12 m 140 0 h 48 a 12 12 0 0 0 12 -12 v 0" />
+<g class="sequence">
 <a class="link" xlink:href="#railroad-MacroInvocation">
 <g class="nonterminal">
 <rect height="22" width="140" x="59" y="405" />
@@ -34908,9 +35061,18 @@ MacroInvocation</text>
 </g>
 </a>
 </g>
-<path d=" M 257 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 47 437 v 0 a 12 12 0 0 0 12 12 m 188 0 h 0 a 12 12 0 0 0 12 -12 v 0" />
+<a class="link" xlink:href="#railroad-ObsoleteRangePattern">
+<g class="nonterminal">
+<rect height="22" width="188" x="59" y="438" />
+<text x="153" y="454">
+ObsoleteRangePattern</text>
+</g>
+</a>
+</g>
+<path d=" M 281 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 53 h 10" />
-<path d=" M 247 53 h 10" />
+<path d=" M 271 53 h 10" />
 </g>
 </g>
 </svg>
@@ -35605,7 +35767,7 @@ match tuple {
 </div>
 
 <div class="grammar-container">
-<p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-RangePattern" onclick="show_railroad()"><a href="#railroad-RangePattern">RangePattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-RangeExclusivePattern">RangeExclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RangeInclusivePattern">RangeInclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RangeFromPattern">RangeFromPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RangeToExclusivePattern">RangeToExclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RangeToInclusivePattern">RangeToInclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-ObsoleteRangePattern">ObsoleteRangePattern</a></span>​<sup class="footnote-reference" id="fr-obsolete-range-edition-1"><a href="#footnote-obsolete-range-edition">1</a></sup></p>
+<p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-ModernRangePattern" onclick="show_railroad()"><a href="#railroad-ModernRangePattern">ModernRangePattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-RangeExclusivePattern">RangeExclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RangeInclusivePattern">RangeInclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RangeFromPattern">RangeFromPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RangeToExclusivePattern">RangeToExclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-RangeToInclusivePattern">RangeToInclusivePattern</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-RangeExclusivePattern" onclick="show_railroad()"><a href="#railroad-RangeExclusivePattern">RangeExclusivePattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-RangePatternBound">RangePatternBound</a></span> <span class="grammar-literal">..</span> <span class="grammar-text"><a href="#grammar-RangePatternBound">RangePatternBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-RangeInclusivePattern" onclick="show_railroad()"><a href="#railroad-RangeInclusivePattern">RangeInclusivePattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-RangePatternBound">RangePatternBound</a></span> <span class="grammar-literal">..=</span> <span class="grammar-text"><a href="#grammar-RangePatternBound">RangePatternBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-RangeFromPattern" onclick="show_railroad()"><a href="#railroad-RangeFromPattern">RangeFromPattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-RangePatternBound">RangePatternBound</a></span> <span class="grammar-literal">..</span></p>
@@ -35617,12 +35779,12 @@ match tuple {
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 330px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-RangePattern"><svg class="railroad" viewbox="0 0 330 239" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 330px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-ModernRangePattern"><svg class="railroad" viewbox="0 0 330 206" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
-<a class="link" xlink:href="#grammar-RangePattern">
-<text class="comment" x="57" y="25">
-RangePattern</text>
+<a class="link" xlink:href="#grammar-ModernRangePattern">
+<text class="comment" x="78" y="25">
+ModernRangePattern</text>
 </a>
 <g class="sequence">
 <path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
@@ -35641,7 +35803,6 @@ RangeExclusivePattern</text>
 <path d=" M 47 74 v 33 m 236 0 v -33" />
 <path d=" M 47 107 v 33 m 236 0 v -33" />
 <path d=" M 47 140 v 33 m 236 0 v -33" />
-<path d=" M 47 173 v 33 m 236 0 v -33" />
 <path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 196 0 h 16 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-RangeInclusivePattern">
@@ -35673,21 +35834,11 @@ RangeToExclusivePattern</text>
 </a>
 </g>
 <path d=" M 47 173 v 0 a 12 12 0 0 0 12 12 m 212 0 h 0 a 12 12 0 0 0 12 -12 v 0" />
-<g class="sequence">
 <a class="link" xlink:href="#railroad-RangeToInclusivePattern">
 <g class="nonterminal">
 <rect height="22" width="212" x="59" y="174" />
 <text x="165" y="190">
 RangeToInclusivePattern</text>
-</g>
-</a>
-</g>
-<path d=" M 47 206 v 0 a 12 12 0 0 0 12 12 m 188 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
-<a class="link" xlink:href="#railroad-ObsoleteRangePattern">
-<g class="nonterminal">
-<rect height="22" width="188" x="59" y="207" />
-<text x="153" y="223">
-ObsoleteRangePattern</text>
 </g>
 </a>
 </g>
@@ -36144,12 +36295,12 @@ println!("{}", match 0xfacade {
 </div>
 
 <div class="grammar-container">
-<p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-ReferencePattern" onclick="show_railroad()"><a href="#railroad-ReferencePattern">ReferencePattern</a></span> → ( <span class="grammar-literal">&amp;</span> | <span class="grammar-literal">&amp;&amp;</span> ) <span class="grammar-literal">mut</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-PatternWithoutRange">PatternWithoutRange</a></span></p>
+<p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-ReferencePattern" onclick="show_railroad()"><a href="#railroad-ReferencePattern">ReferencePattern</a></span> → ( <span class="grammar-literal">&amp;</span> | <span class="grammar-literal">&amp;&amp;</span> ) <span class="grammar-literal">mut</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-PatternWithoutModernRange">PatternWithoutModernRange</a></span></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
 
 <div class="grammar-railroad grammar-hidden">
-<div style="width: 438px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-ReferencePattern"><svg class="railroad" viewbox="0 0 438 120" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 494px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-ReferencePattern"><svg class="railroad" viewbox="0 0 494 120" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-ReferencePattern">
@@ -36182,19 +36333,19 @@ ReferencePattern</text>
 mut</text>
 </g>
 </g>
-<a class="link" xlink:href="#railroad-PatternWithoutRange">
+<a class="link" xlink:href="#railroad-PatternWithoutModernRange">
 <g class="nonterminal">
-<rect height="22" width="172" x="231" y="55" />
-<text x="317" y="71">
-PatternWithoutRange</text>
+<rect height="22" width="228" x="231" y="55" />
+<text x="345" y="71">
+PatternWithoutModernRange</text>
 </g>
 </a>
 <path d=" M 119 66 h 10" />
 <path d=" M 221 66 h 10" />
 </g>
-<path d=" M 413 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 469 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 403 66 h 10" />
+<path d=" M 459 66 h 10" />
 </g>
 </g>
 </svg>
@@ -37379,7 +37530,7 @@ PathExpression</text>
 <hr>
 <ol class="footnote-definition">
 <li id="footnote-obsolete-range-edition">
-<p>The <a href="#grammar-ObsoleteRangePattern">ObsoleteRangePattern</a> syntax has been removed in the 2021 edition. <a href="#fr-obsolete-range-edition-1">↩</a></p>
+<p>The <a href="#grammar-ObsoleteRangePattern">ObsoleteRangePattern</a> syntax is semantically invalid in the 2021 edition and beyond. <a href="#fr-obsolete-range-edition-1">↩</a></p>
 </li>
 </ol>
 <div style="break-before: page; page-break-before: always;"></div>
@@ -41069,7 +41220,7 @@ struct AlignedStruct {
 <div class="rule" id="r-layout.repr.c.struct.align"><a class="rule-link" href="#r-layout.repr.c.struct.align" title="layout.repr.c.struct.align"><span>[layout<wbr>.repr<wbr>.c<wbr>.struct<wbr>.align]</span></a>
 </div>
 
-<p>구조체의 정렬은 그 안에 있는 가장 크게 정렬된 필드의 정렬입니다.</p>
+<p>The alignment of the struct is the alignment of the most-aligned field in it, or one if there are no fields.</p>
 <div class="rule" id="r-layout.repr.c.struct.size-field-offset"><a class="rule-link" href="#r-layout.repr.c.struct.size-field-offset" title="layout.repr.c.struct.size-field-offset"><span>[layout<wbr>.repr<wbr>.c<wbr>.struct<wbr>.size-field-offset]</span></a>
 </div>
 
@@ -51458,14 +51609,15 @@ assert_eq!(s, "Hello World!");
 </div>
 
 <ul>
-<li><a href="../std/primitive.pointer.html#method.offset">범위 내 포인터 산술 연산(in-bounds pointer arithmetic)</a> 의 요구 사항을 위반하는 위치 투영(place projection)을 수행하는 것. 위치 투영이란 <a href="#필드-접근-표현식">필드 표현식</a>, <a href="#tuple-indexing-expressions">튜플 인덱스 표현식</a>, 또는 <a href="#array-and-slice-indexing-expressions">배열/슬라이스 인덱스 표현식</a> 을 의미합니다.</li>
+<li>Performing an offsetting place projection that violates the requirements of <a href="../std/primitive.pointer.html#method.offset">in-bounds pointer arithmetic</a>. An offsetting place projection is a <a href="#필드-접근-표현식">field expression</a>, a <a href="#tuple-indexing-expressions">tuple index expression</a>, or an <a href="#array-and-slice-indexing-expressions">array/slice index expression</a>.</li>
 </ul>
 <div class="rule" id="r-undefined.alias"><a class="rule-link" href="#r-undefined.alias" title="undefined.alias"><span>[undefined<wbr>.alias]</span></a>
 </div>
 
 <ul>
 <li>
-<p>Breaking the pointer aliasing rules. The exact aliasing rules are not determined yet, but here is an outline of the general principles: <code>&amp;T</code> must point to memory that is not mutated while they are live (except for data inside an <a href="../core/cell/struct.UnsafeCell.html"><code>UnsafeCell&lt;U&gt;</code></a>), and <code>&amp;mut T</code> must point to memory that is not read or written by any pointer not derived from the reference and that no other reference points to while they are live. <code>Box&lt;T&gt;</code> is treated similar to <code>&amp;'static mut T</code> for the purpose of these rules. The exact liveness duration is not specified, but some bounds exist:</p>
+<p>Breaking the pointer aliasing rules. The exact aliasing rules are not determined yet, but here is an outline of the general principles:</p>
+<p><code>&amp;T</code> must point to memory that is not mutated while they are live (except for data inside an <a href="../core/cell/struct.UnsafeCell.html"><code>UnsafeCell&lt;U&gt;</code></a>), and <code>&amp;mut T</code> must point to memory that is not read or written by any pointer not derived from the reference and that no other reference points to while they are live. <code>Box&lt;T&gt;</code> is treated similar to <code>&amp;'static mut T</code> for the purpose of these rules. The exact liveness duration is not specified, but some bounds exist:</p>
 <ul>
 <li>참조의 경우, 생존 기간의 상한선은 대여 검사기(borrow checker)가 할당한 구문상 라이프타임입니다. 즉, 그 라이프타임보다 <em>더 길게</em> 살아있을 수 없습니다.</li>
 <li>Each time a reference or box is dereferenced or reborrowed, it is considered live.</li>
@@ -60120,6 +60272,7 @@ BLOCK_COMMENT</text>
 <p><span class="grammar-text grammar-production" id="grammar-summary-AssignmentExpression" onclick="show_railroad()"><a href="#railroad-summary-AssignmentExpression">AssignmentExpression</a></span> → <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-CompoundAssignmentExpression" onclick="show_railroad()"><a href="#railroad-summary-CompoundAssignmentExpression">CompoundAssignmentExpression</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">+=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">-=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">*=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">/=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">%=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">&amp;=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">|=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">^=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">&lt;&lt;=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">&gt;&gt;=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-BlockExpression" onclick="show_railroad()"><a href="#railroad-summary-BlockExpression">BlockExpression</a></span> →<br>    <span class="grammar-literal">{</span><br>        <span class="grammar-text"><a href="#grammar-summary-InnerAttribute">InnerAttribute</a></span><sup>*</sup><br>        <span class="grammar-text"><a href="#grammar-summary-Statements">Statements</a></span><sup>?</sup><br>    <span class="grammar-literal">}</span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-BlockExpressionNoInnerAttributes" onclick="show_railroad()"><a href="#railroad-summary-BlockExpressionNoInnerAttributes">BlockExpressionNoInnerAttributes</a></span> →<br>    <span class="grammar-literal">{</span><br>        <span class="grammar-text"><a href="#grammar-summary-Statements">Statements</a></span><sup>?</sup><br>    <span class="grammar-literal">}</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-Statements" onclick="show_railroad()"><a href="#railroad-summary-Statements">Statements</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-Statement">Statement</a></span><sup>+</sup><br>    | <span class="grammar-text"><a href="#grammar-summary-Statement">Statement</a></span><sup>+</sup> <span class="grammar-text"><a href="#grammar-summary-ExpressionWithoutBlock">ExpressionWithoutBlock</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-ExpressionWithoutBlock">ExpressionWithoutBlock</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-AsyncBlockExpression" onclick="show_railroad()"><a href="#railroad-summary-AsyncBlockExpression">AsyncBlockExpression</a></span> → <span class="grammar-literal">async</span> <span class="grammar-literal">move</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-BlockExpression">BlockExpression</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-ConstBlockExpression" onclick="show_railroad()"><a href="#railroad-summary-ConstBlockExpression">ConstBlockExpression</a></span> → <span class="grammar-literal">const</span> <span class="grammar-text"><a href="#grammar-summary-BlockExpression">BlockExpression</a></span></p>
@@ -60130,7 +60283,7 @@ BLOCK_COMMENT</text>
 <p><span class="grammar-text grammar-production" id="grammar-summary-StructBase" onclick="show_railroad()"><a href="#railroad-summary-StructBase">StructBase</a></span> → <span class="grammar-literal">..</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-MethodCallExpression" onclick="show_railroad()"><a href="#railroad-summary-MethodCallExpression">MethodCallExpression</a></span> → <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span> <span class="grammar-literal">.</span> <span class="grammar-text"><a href="#grammar-summary-PathExprSegment">PathExprSegment</a></span> <span class="grammar-literal">(</span> <span class="grammar-text"><a href="#grammar-summary-CallParams">CallParams</a></span><sup>?</sup> <span class="grammar-literal">)</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-PathExpression" onclick="show_railroad()"><a href="#railroad-summary-PathExpression">PathExpression</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-PathInExpression">PathInExpression</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-QualifiedPathInExpression">QualifiedPathInExpression</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-IfExpression" onclick="show_railroad()"><a href="#railroad-summary-IfExpression">IfExpression</a></span> →<br>    <span class="grammar-literal">if</span> <span class="grammar-text"><a href="#grammar-summary-Conditions">Conditions</a></span> <span class="grammar-text"><a href="#grammar-summary-BlockExpression">BlockExpression</a></span><br>    ( <span class="grammar-literal">else</span> ( <span class="grammar-text"><a href="#grammar-summary-BlockExpression">BlockExpression</a></span> | <span class="grammar-text"><a href="#grammar-summary-IfExpression">IfExpression</a></span> ) )<sup>?</sup></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-IfExpression" onclick="show_railroad()"><a href="#railroad-summary-IfExpression">IfExpression</a></span> →<br>    <span class="grammar-literal">if</span> <span class="grammar-text"><a href="#grammar-summary-Conditions">Conditions</a></span> <span class="grammar-text"><a href="#grammar-summary-BlockExpressionNoInnerAttributes">BlockExpressionNoInnerAttributes</a></span><br>    ( <span class="grammar-literal">else</span> ( <span class="grammar-text"><a href="#grammar-summary-BlockExpressionNoInnerAttributes">BlockExpressionNoInnerAttributes</a></span> | <span class="grammar-text"><a href="#grammar-summary-IfExpression">IfExpression</a></span> ) )<sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-Conditions" onclick="show_railroad()"><a href="#railroad-summary-Conditions">Conditions</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><sub class="grammar-text">except <a href="#grammar-summary-StructExpression">StructExpression</a></sub><br>    | <span class="grammar-text"><a href="#grammar-summary-LetChain">LetChain</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-LetChain" onclick="show_railroad()"><a href="#railroad-summary-LetChain">LetChain</a></span> → <span class="grammar-text"><a href="#grammar-summary-LetChainCondition">LetChainCondition</a></span> ( <span class="grammar-literal">&amp;&amp;</span> <span class="grammar-text"><a href="#grammar-summary-LetChainCondition">LetChainCondition</a></span> )<sup>*</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-LetChainCondition" onclick="show_railroad()"><a href="#railroad-summary-LetChainCondition">LetChainCondition</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><sub class="grammar-text">except <a href="#grammar-summary-ExcludedConditions">ExcludedConditions</a></sub><br>    | <span class="grammar-text"><a href="#grammar-summary-OuterAttribute">OuterAttribute</a></span><sup>*</sup> <span class="grammar-literal">let</span> <span class="grammar-text"><a href="#grammar-summary-Pattern">Pattern</a></span> <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Scrutinee">Scrutinee</a></span><sub class="grammar-text">except <a href="#grammar-summary-ExcludedConditions">ExcludedConditions</a></sub></p>
@@ -63700,6 +63853,47 @@ Statements</text>
 </svg>
 </div>
 
+<div style="width: 294px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-BlockExpressionNoInnerAttributes"><svg class="railroad" viewbox="0 0 294 87" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<rect class="railroad_canvas" height="100%" width="100%" />
+<g class="verticalgrid">
+<a class="link" xlink:href="#grammar-summary-BlockExpressionNoInnerAttributes">
+<text class="comment" x="130" y="25">
+BlockExpressionNoInnerAttributes</text>
+</a>
+<g class="sequence">
+<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<g class="sequence">
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="35" y="55" />
+<text x="49" y="71">
+{</text>
+</g>
+<g class="optional">
+<path d=" M 73 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 100 m -47 0 l -5 -5 m 0 10 l 5 -5 m 47 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<a class="link" xlink:href="#railroad-summary-Statements">
+<g class="nonterminal">
+<rect height="22" width="100" x="97" y="55" />
+<text x="147" y="71">
+Statements</text>
+</g>
+</a>
+</g>
+<g class="terminal">
+<rect height="22" rx="10" ry="10" width="28" x="231" y="55" />
+<text x="245" y="71">
+}</text>
+</g>
+<path d=" M 63 66 h 10" />
+<path d=" M 221 66 h 10" />
+</g>
+<path d=" M 269 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 66 h 10" />
+<path d=" M 259 66 h 10" />
+</g>
+</g>
+</svg>
+</div>
+
 <div style="width: 448px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-Statements"><svg class="railroad" viewbox="0 0 448 166" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
@@ -64225,7 +64419,7 @@ QualifiedPathInExpression</text>
 </svg>
 </div>
 
-<div style="width: 674px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-IfExpression"><svg class="railroad" viewbox="0 0 674 120" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 548px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-IfExpression"><svg class="railroad" viewbox="0 0 548 167" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-IfExpression">
@@ -64233,64 +64427,70 @@ QualifiedPathInExpression</text>
 IfExpression</text>
 </a>
 <g class="sequence">
-<path d=" M 10 66 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
+<g class="stack">
+<path d=" M 35 53 h 12" />
+<path d=" M 487 53 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 1 -12 12 h -440 m 223 0 l 5 -5 m 0 10 l -5 -5 m -223 0 a 12 12 0 0 0 -12 12 v 12 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="36" x="35" y="55" />
-<text x="53" y="71">
+<rect height="22" rx="10" ry="10" width="36" x="47" y="42" />
+<text x="65" y="58">
 if</text>
 </g>
 <a class="link" xlink:href="#railroad-summary-Conditions">
 <g class="nonterminal">
-<rect height="22" width="100" x="81" y="55" />
-<text x="131" y="71">
+<rect height="22" width="100" x="93" y="42" />
+<text x="143" y="58">
 Conditions</text>
 </g>
 </a>
-<a class="link" xlink:href="#railroad-summary-BlockExpression">
+<a class="link" xlink:href="#railroad-summary-BlockExpressionNoInnerAttributes">
 <g class="nonterminal">
-<rect height="22" width="140" x="191" y="55" />
-<text x="261" y="71">
-BlockExpression</text>
+<rect height="22" width="284" x="203" y="42" />
+<text x="345" y="58">
+BlockExpressionNoInnerAttributes</text>
 </g>
 </a>
+<path d=" M 83 53 h 10" />
+<path d=" M 193 53 h 10" />
+</g>
+<path d=" M 489 113 h 0 a 12 12 0 0 0 12 -12 v -36 a 12 12 0 0 1 12 -12" />
+<g class="sequence">
 <g class="optional">
-<path d=" M 341 66 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 250 m -122 0 l -5 -5 m 0 10 l 5 -5 m 122 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 47 113 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 394 m -194 0 l -5 -5 m 0 10 l 5 -5 m 194 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="52" x="365" y="55" />
-<text x="391" y="71">
+<rect height="22" rx="10" ry="10" width="52" x="71" y="102" />
+<text x="97" y="118">
 else</text>
 </g>
 <g class="choice">
-<path d=" M 427 66 h 24 m 140 0 h 24" />
-<a class="link" xlink:href="#railroad-summary-BlockExpression">
+<path d=" M 133 113 h 24 m 284 0 h 24" />
+<a class="link" xlink:href="#railroad-summary-BlockExpressionNoInnerAttributes">
 <g class="nonterminal">
-<rect height="22" width="140" x="451" y="55" />
-<text x="521" y="71">
-BlockExpression</text>
+<rect height="22" width="284" x="157" y="102" />
+<text x="299" y="118">
+BlockExpressionNoInnerAttributes</text>
 </g>
 </a>
-<path d=" M 427 66 a 12 12 0 0 1 12 12 v 9 m 164 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 439 87 v 0 a 12 12 0 0 0 12 12 m 116 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 133 113 a 12 12 0 0 1 12 12 v 9 m 308 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 145 134 v 0 a 12 12 0 0 0 12 12 m 116 0 h 168 m -81 0 l -5 -5 m 0 10 l 5 -5 m 81 0 a 12 12 0 0 0 12 -12 v 0" />
 <a class="link" xlink:href="#railroad-summary-IfExpression">
 <g class="nonterminal">
-<rect height="22" width="116" x="451" y="88" />
-<text x="509" y="104">
+<rect height="22" width="116" x="157" y="135" />
+<text x="215" y="151">
 IfExpression</text>
 </g>
 </a>
 </g>
-<path d=" M 417 66 h 10" />
+<path d=" M 123 113 h 10" />
 </g>
 </g>
-<path d=" M 71 66 h 10" />
-<path d=" M 181 66 h 10" />
-<path d=" M 331 66 h 10" />
 </g>
-<path d=" M 649 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
-<path d=" M 25 66 h 10" />
-<path d=" M 639 66 h 10" />
+</g>
+<path d=" M 523 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 25 53 h 10" />
+<path d=" M 513 53 h 10" />
 </g>
 </g>
 </svg>
@@ -73026,7 +73226,7 @@ _</text>
 <h2 id="statements-summary"><a class="header" href="#statements-summary">Statements summary</a></h2>
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-summary-Statement" onclick="show_railroad()"><a href="#railroad-summary-Statement">Statement</a></span> →<br>      <span class="grammar-literal">;</span><br>    | <span class="grammar-text"><a href="#grammar-summary-Item">Item</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-LetStatement">LetStatement</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-ExpressionStatement">ExpressionStatement</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-OuterAttribute">OuterAttribute</a></span><sup>*</sup> <span class="grammar-text"><a href="#grammar-summary-MacroInvocationSemi">MacroInvocationSemi</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-LetStatement" onclick="show_railroad()"><a href="#railroad-summary-LetStatement">LetStatement</a></span> →<br>    <span class="grammar-text"><a href="#grammar-summary-OuterAttribute">OuterAttribute</a></span><sup>*</sup> <span class="grammar-literal">let</span> <span class="grammar-text"><a href="#grammar-summary-PatternNoTopAlt">PatternNoTopAlt</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> )<sup>?</sup><br>    (<br>          <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>        | <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><sub class="grammar-text">except <a href="#grammar-summary-LazyBooleanExpression">LazyBooleanExpression</a> or end with a <code>}</code></sub> <span class="grammar-literal">else</span> <span class="grammar-text"><a href="#grammar-summary-BlockExpression">BlockExpression</a></span><br>    )<sup>?</sup> <span class="grammar-literal">;</span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-LetStatement" onclick="show_railroad()"><a href="#railroad-summary-LetStatement">LetStatement</a></span> →<br>    <span class="grammar-text"><a href="#grammar-summary-OuterAttribute">OuterAttribute</a></span><sup>*</sup> <span class="grammar-literal">let</span> <span class="grammar-text"><a href="#grammar-summary-PatternNoTopAlt">PatternNoTopAlt</a></span> ( <span class="grammar-literal">:</span> <span class="grammar-text"><a href="#grammar-summary-Type">Type</a></span> )<sup>?</sup><br>    (<br>          <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><br>        | <span class="grammar-literal">=</span> <span class="grammar-text"><a href="#grammar-summary-Expression">Expression</a></span><sub class="grammar-text">except <a href="#grammar-summary-LazyBooleanExpression">LazyBooleanExpression</a> or end with a <code>}</code></sub><br>              <span class="grammar-literal">else</span> <span class="grammar-text"><a href="#grammar-summary-BlockExpressionNoInnerAttributes">BlockExpressionNoInnerAttributes</a></span><br>    )<sup>?</sup> <span class="grammar-literal">;</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-ExpressionStatement" onclick="show_railroad()"><a href="#railroad-summary-ExpressionStatement">ExpressionStatement</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-ExpressionWithoutBlock">ExpressionWithoutBlock</a></span> <span class="grammar-literal">;</span><br>    | <span class="grammar-text"><a href="#grammar-summary-ExpressionWithBlock">ExpressionWithBlock</a></span> <span class="grammar-literal">;</span><sup>?</sup></p>
 <p><button class="grammar-toggle-railroad" type="button" title="Toggle railroad display" onclick="toggle_railroad()">Show Railroad</button></p>
 </div>
@@ -73118,7 +73318,7 @@ MacroInvocationSemi</text>
 </svg>
 </div>
 
-<div style="width: 852px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-LetStatement"><svg class="railroad" viewbox="0 0 852 235" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 688px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-LetStatement"><svg class="railroad" viewbox="0 0 688 282" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-LetStatement">
@@ -73179,12 +73379,12 @@ Type</text>
 <path d=" M 305 66 h 10" />
 <path d=" M 455 66 h 10" />
 </g>
-<path d=" M 793 138 h 0 a 12 12 0 0 0 12 -12 v -48 a 12 12 0 0 1 12 -12" />
+<path d=" M 629 138 h 0 a 12 12 0 0 0 12 -12 v -48 a 12 12 0 0 1 12 -12" />
 <g class="sequence">
 <g class="optional">
-<path d=" M 47 138 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 660 m -327 0 l -5 -5 m 0 10 l 5 -5 m 327 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
+<path d=" M 47 138 h 24 m -24 0 a 12 12 0 0 0 12 -12 v 0 a 12 12 0 0 1 12 -12 h 496 m -245 0 l -5 -5 m 0 10 l 5 -5 m 245 0 a 12 12 0 0 1 12 12 v 0 a 12 12 0 0 0 12 12 h -24" />
 <g class="choice">
-<path d=" M 71 138 h 24 m 138 0 h 498 m -246 0 l -5 -5 m 0 10 l 5 -5 m 246 0" />
+<path d=" M 71 138 h 24 m 138 0 h 334 m -164 0 l -5 -5 m 0 10 l 5 -5 m 164 0" />
 <g class="sequence">
 <g class="terminal">
 <rect height="22" rx="10" ry="10" width="28" x="95" y="127" />
@@ -73200,56 +73400,62 @@ Expression</text>
 </a>
 <path d=" M 123 138 h 10" />
 </g>
-<path d=" M 71 138 a 12 12 0 0 1 12 12 v 9 m 636 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 83 159 v 35 a 12 12 0 0 0 12 12 m 612 0 h 0 a 12 12 0 0 0 12 -12 v -35" />
+<path d=" M 71 138 a 12 12 0 0 1 12 12 v 9 m 472 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 83 159 v 35 a 12 12 0 0 0 12 12 m 448 0 h 0 a 12 12 0 0 0 12 -12 v -35" />
+<g class="stack">
+<path d=" M 95 206 h 12" />
+<path d=" M 507 206 a 12 12 0 0 1 12 12 v 7 a 12 12 0 0 1 -12 12 h -400 m 203 0 l 5 -5 m 0 10 l -5 -5 m -203 0 a 12 12 0 0 0 -12 12 v 0 v 0 a 12 12 0 0 0 12 12 h 0" />
 <g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="95" y="195" />
-<text x="109" y="211">
+<rect height="22" rx="10" ry="10" width="28" x="107" y="195" />
+<text x="121" y="211">
 =</text>
 </g>
 <g class="labeledbox">
-<rect height="66" width="362" x="133" y="159" />
-<path d=" M 133 206 h 8 m 100 0 h 254 m -124 0 l -5 -5 m 0 10 l 5 -5 m 124 0" />
-<text class="comment" x="314" y="182">
+<rect height="66" width="362" x="145" y="159" />
+<path d=" M 145 206 h 8 m 100 0 h 254 m -124 0 l -5 -5 m 0 10 l 5 -5 m 124 0" />
+<text class="comment" x="326" y="182">
 except LazyBooleanExpression or end with a `}`</text>
 <a class="link" xlink:href="#railroad-summary-Expression">
 <g class="nonterminal">
-<rect height="22" width="100" x="141" y="195" />
-<text x="191" y="211">
+<rect height="22" width="100" x="153" y="195" />
+<text x="203" y="211">
 Expression</text>
 </g>
 </a>
 </g>
+<path d=" M 135 206 h 10" />
+</g>
+<path d=" M 453 261 h 66 m -30 0 l -5 -5 m 0 10 l 5 -5 m 30 0 a 12 12 0 0 0 12 -12 v -31 a 12 12 0 0 1 12 -12" />
+<g class="sequence">
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="52" x="505" y="195" />
-<text x="531" y="211">
+<rect height="22" rx="10" ry="10" width="52" x="107" y="250" />
+<text x="133" y="266">
 else</text>
 </g>
-<a class="link" xlink:href="#railroad-summary-BlockExpression">
+<a class="link" xlink:href="#railroad-summary-BlockExpressionNoInnerAttributes">
 <g class="nonterminal">
-<rect height="22" width="140" x="567" y="195" />
-<text x="637" y="211">
-BlockExpression</text>
+<rect height="22" width="284" x="169" y="250" />
+<text x="311" y="266">
+BlockExpressionNoInnerAttributes</text>
 </g>
 </a>
-<path d=" M 123 206 h 10" />
-<path d=" M 495 206 h 10" />
-<path d=" M 557 206 h 10" />
+<path d=" M 159 261 h 10" />
+</g>
 </g>
 </g>
 </g>
 <g class="terminal">
-<rect height="22" rx="10" ry="10" width="28" x="765" y="127" />
-<text x="779" y="143">
+<rect height="22" rx="10" ry="10" width="28" x="601" y="127" />
+<text x="615" y="143">
 ;</text>
 </g>
-<path d=" M 755 138 h 10" />
+<path d=" M 591 138 h 10" />
 </g>
 </g>
-<path d=" M 827 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 663 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 817 66 h 10" />
+<path d=" M 653 66 h 10" />
 </g>
 </g>
 </svg>
@@ -73825,13 +74031,13 @@ GenericParams</text>
 <h2 id="patterns-summary"><a class="header" href="#patterns-summary">Patterns summary</a></h2>
 <div class="grammar-container">
 <p><strong><sup>Syntax</sup></strong> <br> <span class="grammar-text grammar-production" id="grammar-summary-Pattern" onclick="show_railroad()"><a href="#railroad-summary-Pattern">Pattern</a></span> → <span class="grammar-literal">|</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-PatternNoTopAlt">PatternNoTopAlt</a></span> ( <span class="grammar-literal">|</span> <span class="grammar-text"><a href="#grammar-summary-PatternNoTopAlt">PatternNoTopAlt</a></span> )<sup>*</sup></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-PatternNoTopAlt" onclick="show_railroad()"><a href="#railroad-summary-PatternNoTopAlt">PatternNoTopAlt</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-PatternWithoutRange">PatternWithoutRange</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RangePattern">RangePattern</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-PatternWithoutRange" onclick="show_railroad()"><a href="#railroad-summary-PatternWithoutRange">PatternWithoutRange</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-LiteralPattern">LiteralPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-IdentifierPattern">IdentifierPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-WildcardPattern">WildcardPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RestPattern">RestPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-ReferencePattern">ReferencePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-StructPattern">StructPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-TupleStructPattern">TupleStructPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-TuplePattern">TuplePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-GroupedPattern">GroupedPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-SlicePattern">SlicePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-PathPattern">PathPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-MacroInvocation">MacroInvocation</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-PatternNoTopAlt" onclick="show_railroad()"><a href="#railroad-summary-PatternNoTopAlt">PatternNoTopAlt</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-PatternWithoutModernRange">PatternWithoutModernRange</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-ModernRangePattern">ModernRangePattern</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-PatternWithoutModernRange" onclick="show_railroad()"><a href="#railroad-summary-PatternWithoutModernRange">PatternWithoutModernRange</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-LiteralPattern">LiteralPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-IdentifierPattern">IdentifierPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-WildcardPattern">WildcardPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RestPattern">RestPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-ReferencePattern">ReferencePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-StructPattern">StructPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-TupleStructPattern">TupleStructPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-TuplePattern">TuplePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-GroupedPattern">GroupedPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-SlicePattern">SlicePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-PathPattern">PathPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-MacroInvocation">MacroInvocation</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-ObsoleteRangePattern">ObsoleteRangePattern</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-LiteralPattern" onclick="show_railroad()"><a href="#railroad-summary-LiteralPattern">LiteralPattern</a></span> → <span class="grammar-literal">-</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-LiteralExpression">LiteralExpression</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-IdentifierPattern" onclick="show_railroad()"><a href="#railroad-summary-IdentifierPattern">IdentifierPattern</a></span> → <span class="grammar-literal">ref</span><sup>?</sup> <span class="grammar-literal">mut</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-IDENTIFIER">IDENTIFIER</a></span> ( <span class="grammar-literal">@</span> <span class="grammar-text"><a href="#grammar-summary-PatternNoTopAlt">PatternNoTopAlt</a></span> )<sup>?</sup></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-WildcardPattern" onclick="show_railroad()"><a href="#railroad-summary-WildcardPattern">WildcardPattern</a></span> → <span class="grammar-literal">_</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-RestPattern" onclick="show_railroad()"><a href="#railroad-summary-RestPattern">RestPattern</a></span> → <span class="grammar-literal">..</span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-RangePattern" onclick="show_railroad()"><a href="#railroad-summary-RangePattern">RangePattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-RangeExclusivePattern">RangeExclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RangeInclusivePattern">RangeInclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RangeFromPattern">RangeFromPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RangeToExclusivePattern">RangeToExclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RangeToInclusivePattern">RangeToInclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-ObsoleteRangePattern">ObsoleteRangePattern</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-ModernRangePattern" onclick="show_railroad()"><a href="#railroad-summary-ModernRangePattern">ModernRangePattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-RangeExclusivePattern">RangeExclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RangeInclusivePattern">RangeInclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RangeFromPattern">RangeFromPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RangeToExclusivePattern">RangeToExclusivePattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-RangeToInclusivePattern">RangeToInclusivePattern</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-RangeExclusivePattern" onclick="show_railroad()"><a href="#railroad-summary-RangeExclusivePattern">RangeExclusivePattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-RangePatternBound">RangePatternBound</a></span> <span class="grammar-literal">..</span> <span class="grammar-text"><a href="#grammar-summary-RangePatternBound">RangePatternBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-RangeInclusivePattern" onclick="show_railroad()"><a href="#railroad-summary-RangeInclusivePattern">RangeInclusivePattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-RangePatternBound">RangePatternBound</a></span> <span class="grammar-literal">..=</span> <span class="grammar-text"><a href="#grammar-summary-RangePatternBound">RangePatternBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-RangeFromPattern" onclick="show_railroad()"><a href="#railroad-summary-RangeFromPattern">RangeFromPattern</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-RangePatternBound">RangePatternBound</a></span> <span class="grammar-literal">..</span></p>
@@ -73839,7 +74045,7 @@ GenericParams</text>
 <p><span class="grammar-text grammar-production" id="grammar-summary-RangeToInclusivePattern" onclick="show_railroad()"><a href="#railroad-summary-RangeToInclusivePattern">RangeToInclusivePattern</a></span> →<br>      <span class="grammar-literal">..=</span> <span class="grammar-text"><a href="#grammar-summary-RangePatternBound">RangePatternBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-ObsoleteRangePattern" onclick="show_railroad()"><a href="#railroad-summary-ObsoleteRangePattern">ObsoleteRangePattern</a></span> →<br>    <span class="grammar-text"><a href="#grammar-summary-RangePatternBound">RangePatternBound</a></span> <span class="grammar-literal">…</span> <span class="grammar-text"><a href="#grammar-summary-RangePatternBound">RangePatternBound</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-RangePatternBound" onclick="show_railroad()"><a href="#railroad-summary-RangePatternBound">RangePatternBound</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-LiteralPattern">LiteralPattern</a></span><br>    | <span class="grammar-text"><a href="#grammar-summary-PathExpression">PathExpression</a></span></p>
-<p><span class="grammar-text grammar-production" id="grammar-summary-ReferencePattern" onclick="show_railroad()"><a href="#railroad-summary-ReferencePattern">ReferencePattern</a></span> → ( <span class="grammar-literal">&amp;</span> | <span class="grammar-literal">&amp;&amp;</span> ) <span class="grammar-literal">mut</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-PatternWithoutRange">PatternWithoutRange</a></span></p>
+<p><span class="grammar-text grammar-production" id="grammar-summary-ReferencePattern" onclick="show_railroad()"><a href="#railroad-summary-ReferencePattern">ReferencePattern</a></span> → ( <span class="grammar-literal">&amp;</span> | <span class="grammar-literal">&amp;&amp;</span> ) <span class="grammar-literal">mut</span><sup>?</sup> <span class="grammar-text"><a href="#grammar-summary-PatternWithoutModernRange">PatternWithoutModernRange</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-StructPattern" onclick="show_railroad()"><a href="#railroad-summary-StructPattern">StructPattern</a></span> →<br>    <span class="grammar-text"><a href="#grammar-summary-PathInExpression">PathInExpression</a></span> <span class="grammar-literal">{</span><br>        <span class="grammar-text"><a href="#grammar-summary-StructPatternElements">StructPatternElements</a></span><sup>?</sup><br>    <span class="grammar-literal">}</span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-StructPatternElements" onclick="show_railroad()"><a href="#railroad-summary-StructPatternElements">StructPatternElements</a></span> →<br>      <span class="grammar-text"><a href="#grammar-summary-StructPatternFields">StructPatternFields</a></span> ( <span class="grammar-literal">,</span> | <span class="grammar-literal">,</span> <span class="grammar-text"><a href="#grammar-summary-StructPatternEtCetera">StructPatternEtCetera</a></span> )<sup>?</sup><br>    | <span class="grammar-text"><a href="#grammar-summary-StructPatternEtCetera">StructPatternEtCetera</a></span></p>
 <p><span class="grammar-text grammar-production" id="grammar-summary-StructPatternFields" onclick="show_railroad()"><a href="#railroad-summary-StructPatternFields">StructPatternFields</a></span> →<br>    <span class="grammar-text"><a href="#grammar-summary-StructPatternField">StructPatternField</a></span> ( <span class="grammar-literal">,</span> <span class="grammar-text"><a href="#grammar-summary-StructPatternField">StructPatternField</a></span> )<sup>*</sup></p>
@@ -73915,7 +74121,7 @@ PatternNoTopAlt</text>
 </svg>
 </div>
 
-<div style="width: 290px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-PatternNoTopAlt"><svg class="railroad" viewbox="0 0 290 107" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 346px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-PatternNoTopAlt"><svg class="railroad" viewbox="0 0 346 107" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-PatternNoTopAlt">
@@ -73925,45 +74131,45 @@ PatternNoTopAlt</text>
 <g class="sequence">
 <path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="choice">
-<path d=" M 35 53 h 24 m 172 0 h 24" />
+<path d=" M 35 53 h 24 m 228 0 h 24" />
 <g class="sequence">
-<a class="link" xlink:href="#railroad-summary-PatternWithoutRange">
+<a class="link" xlink:href="#railroad-summary-PatternWithoutModernRange">
 <g class="nonterminal">
-<rect height="22" width="172" x="59" y="42" />
-<text x="145" y="58">
-PatternWithoutRange</text>
+<rect height="22" width="228" x="59" y="42" />
+<text x="173" y="58">
+PatternWithoutModernRange</text>
 </g>
 </a>
 </g>
-<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 196 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 116 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0 a 12 12 0 0 0 12 -12 v 0" />
-<a class="link" xlink:href="#railroad-summary-RangePattern">
+<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 252 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 164 0 h 64 m -29 0 l -5 -5 m 0 10 l 5 -5 m 29 0 a 12 12 0 0 0 12 -12 v 0" />
+<a class="link" xlink:href="#railroad-summary-ModernRangePattern">
 <g class="nonterminal">
-<rect height="22" width="116" x="59" y="75" />
-<text x="117" y="91">
-RangePattern</text>
+<rect height="22" width="164" x="59" y="75" />
+<text x="141" y="91">
+ModernRangePattern</text>
 </g>
 </a>
 </g>
-<path d=" M 265 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 321 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 53 h 10" />
-<path d=" M 255 53 h 10" />
+<path d=" M 311 53 h 10" />
 </g>
 </g>
 </svg>
 </div>
 
-<div style="width: 282px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-PatternWithoutRange"><svg class="railroad" viewbox="0 0 282 437" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 306px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-PatternWithoutModernRange"><svg class="railroad" viewbox="0 0 306 470" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
-<a class="link" xlink:href="#grammar-summary-PatternWithoutRange">
-<text class="comment" x="81" y="25">
-PatternWithoutRange</text>
+<a class="link" xlink:href="#grammar-summary-PatternWithoutModernRange">
+<text class="comment" x="106" y="25">
+PatternWithoutModernRange</text>
 </a>
 <g class="sequence">
 <path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
 <g class="choice">
-<path d=" M 35 53 h 24 m 132 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0" />
+<path d=" M 35 53 h 24 m 132 0 h 80 m -37 0 l -5 -5 m 0 10 l 5 -5 m 37 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-LiteralPattern">
 <g class="nonterminal">
@@ -73973,18 +74179,19 @@ LiteralPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 188 0 v -9 a 12 12 0 0 1 12 -12" />
-<path d=" M 47 74 v 33 m 188 0 v -33" />
-<path d=" M 47 107 v 33 m 188 0 v -33" />
-<path d=" M 47 140 v 33 m 188 0 v -33" />
-<path d=" M 47 173 v 33 m 188 0 v -33" />
-<path d=" M 47 206 v 33 m 188 0 v -33" />
-<path d=" M 47 239 v 33 m 188 0 v -33" />
-<path d=" M 47 272 v 33 m 188 0 v -33" />
-<path d=" M 47 305 v 33 m 188 0 v -33" />
-<path d=" M 47 338 v 33 m 188 0 v -33" />
-<path d=" M 47 371 v 33 m 188 0 v -33" />
-<path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 156 0 h 8 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 35 53 a 12 12 0 0 1 12 12 v 9 m 212 0 v -9 a 12 12 0 0 1 12 -12" />
+<path d=" M 47 74 v 33 m 212 0 v -33" />
+<path d=" M 47 107 v 33 m 212 0 v -33" />
+<path d=" M 47 140 v 33 m 212 0 v -33" />
+<path d=" M 47 173 v 33 m 212 0 v -33" />
+<path d=" M 47 206 v 33 m 212 0 v -33" />
+<path d=" M 47 239 v 33 m 212 0 v -33" />
+<path d=" M 47 272 v 33 m 212 0 v -33" />
+<path d=" M 47 305 v 33 m 212 0 v -33" />
+<path d=" M 47 338 v 33 m 212 0 v -33" />
+<path d=" M 47 371 v 33 m 212 0 v -33" />
+<path d=" M 47 404 v 33 m 212 0 v -33" />
+<path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 156 0 h 32 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-IdentifierPattern">
 <g class="nonterminal">
@@ -73994,7 +74201,7 @@ IdentifierPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 107 v 0 a 12 12 0 0 0 12 12 m 140 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 107 v 0 a 12 12 0 0 0 12 12 m 140 0 h 48 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-WildcardPattern">
 <g class="nonterminal">
@@ -74004,7 +74211,7 @@ WildcardPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 140 v 0 a 12 12 0 0 0 12 12 m 108 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 140 v 0 a 12 12 0 0 0 12 12 m 108 0 h 80 m -37 0 l -5 -5 m 0 10 l 5 -5 m 37 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-RestPattern">
 <g class="nonterminal">
@@ -74014,7 +74221,7 @@ RestPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 173 v 0 a 12 12 0 0 0 12 12 m 148 0 h 16 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 173 v 0 a 12 12 0 0 0 12 12 m 148 0 h 40 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-ReferencePattern">
 <g class="nonterminal">
@@ -74024,7 +74231,7 @@ ReferencePattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 206 v 0 a 12 12 0 0 0 12 12 m 124 0 h 40 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 206 v 0 a 12 12 0 0 0 12 12 m 124 0 h 64 m -29 0 l -5 -5 m 0 10 l 5 -5 m 29 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-StructPattern">
 <g class="nonterminal">
@@ -74034,7 +74241,7 @@ StructPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 239 v 0 a 12 12 0 0 0 12 12 m 164 0 h 0 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 239 v 0 a 12 12 0 0 0 12 12 m 164 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-TupleStructPattern">
 <g class="nonterminal">
@@ -74044,7 +74251,7 @@ TupleStructPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 272 v 0 a 12 12 0 0 0 12 12 m 116 0 h 48 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 272 v 0 a 12 12 0 0 0 12 12 m 116 0 h 72 m -33 0 l -5 -5 m 0 10 l 5 -5 m 33 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-TuplePattern">
 <g class="nonterminal">
@@ -74054,7 +74261,7 @@ TuplePattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 305 v 0 a 12 12 0 0 0 12 12 m 132 0 h 32 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 305 v 0 a 12 12 0 0 0 12 12 m 132 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-GroupedPattern">
 <g class="nonterminal">
@@ -74064,7 +74271,7 @@ GroupedPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 338 v 0 a 12 12 0 0 0 12 12 m 116 0 h 48 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 338 v 0 a 12 12 0 0 0 12 12 m 116 0 h 72 m -33 0 l -5 -5 m 0 10 l 5 -5 m 33 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-SlicePattern">
 <g class="nonterminal">
@@ -74074,7 +74281,7 @@ SlicePattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 371 v 0 a 12 12 0 0 0 12 12 m 108 0 h 56 m -25 0 l -5 -5 m 0 10 l 5 -5 m 25 0 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 371 v 0 a 12 12 0 0 0 12 12 m 108 0 h 80 m -37 0 l -5 -5 m 0 10 l 5 -5 m 37 0 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-PathPattern">
 <g class="nonterminal">
@@ -74084,7 +74291,8 @@ PathPattern</text>
 </g>
 </a>
 </g>
-<path d=" M 47 404 v 0 a 12 12 0 0 0 12 12 m 140 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
+<path d=" M 47 404 v 0 a 12 12 0 0 0 12 12 m 140 0 h 48 a 12 12 0 0 0 12 -12 v 0" />
+<g class="sequence">
 <a class="link" xlink:href="#railroad-summary-MacroInvocation">
 <g class="nonterminal">
 <rect height="22" width="140" x="59" y="405" />
@@ -74093,9 +74301,18 @@ MacroInvocation</text>
 </g>
 </a>
 </g>
-<path d=" M 257 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 47 437 v 0 a 12 12 0 0 0 12 12 m 188 0 h 0 a 12 12 0 0 0 12 -12 v 0" />
+<a class="link" xlink:href="#railroad-summary-ObsoleteRangePattern">
+<g class="nonterminal">
+<rect height="22" width="188" x="59" y="438" />
+<text x="153" y="454">
+ObsoleteRangePattern</text>
+</g>
+</a>
+</g>
+<path d=" M 281 53 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 53 h 10" />
-<path d=" M 247 53 h 10" />
+<path d=" M 271 53 h 10" />
 </g>
 </g>
 </svg>
@@ -74243,12 +74460,12 @@ RestPattern</text>
 </svg>
 </div>
 
-<div style="width: 330px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-RangePattern"><svg class="railroad" viewbox="0 0 330 239" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 330px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-ModernRangePattern"><svg class="railroad" viewbox="0 0 330 206" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
-<a class="link" xlink:href="#grammar-summary-RangePattern">
-<text class="comment" x="57" y="25">
-RangePattern</text>
+<a class="link" xlink:href="#grammar-summary-ModernRangePattern">
+<text class="comment" x="78" y="25">
+ModernRangePattern</text>
 </a>
 <g class="sequence">
 <path d=" M 10 53 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5 m 10 0 h 5" />
@@ -74267,7 +74484,6 @@ RangeExclusivePattern</text>
 <path d=" M 47 74 v 33 m 236 0 v -33" />
 <path d=" M 47 107 v 33 m 236 0 v -33" />
 <path d=" M 47 140 v 33 m 236 0 v -33" />
-<path d=" M 47 173 v 33 m 236 0 v -33" />
 <path d=" M 47 74 v 0 a 12 12 0 0 0 12 12 m 196 0 h 16 a 12 12 0 0 0 12 -12 v 0" />
 <g class="sequence">
 <a class="link" xlink:href="#railroad-summary-RangeInclusivePattern">
@@ -74299,21 +74515,11 @@ RangeToExclusivePattern</text>
 </a>
 </g>
 <path d=" M 47 173 v 0 a 12 12 0 0 0 12 12 m 212 0 h 0 a 12 12 0 0 0 12 -12 v 0" />
-<g class="sequence">
 <a class="link" xlink:href="#railroad-summary-RangeToInclusivePattern">
 <g class="nonterminal">
 <rect height="22" width="212" x="59" y="174" />
 <text x="165" y="190">
 RangeToInclusivePattern</text>
-</g>
-</a>
-</g>
-<path d=" M 47 206 v 0 a 12 12 0 0 0 12 12 m 188 0 h 24 a 12 12 0 0 0 12 -12 v 0" />
-<a class="link" xlink:href="#railroad-summary-ObsoleteRangePattern">
-<g class="nonterminal">
-<rect height="22" width="188" x="59" y="207" />
-<text x="153" y="223">
-ObsoleteRangePattern</text>
 </g>
 </a>
 </g>
@@ -74579,7 +74785,7 @@ PathExpression</text>
 </svg>
 </div>
 
-<div style="width: 438px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-ReferencePattern"><svg class="railroad" viewbox="0 0 438 120" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<div style="width: 494px; height: auto; max-width: 100%; max-height: 100%" class="railroad-production" id="railroad-summary-ReferencePattern"><svg class="railroad" viewbox="0 0 494 120" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 <rect class="railroad_canvas" height="100%" width="100%" />
 <g class="verticalgrid">
 <a class="link" xlink:href="#grammar-summary-ReferencePattern">
@@ -74612,19 +74818,19 @@ ReferencePattern</text>
 mut</text>
 </g>
 </g>
-<a class="link" xlink:href="#railroad-summary-PatternWithoutRange">
+<a class="link" xlink:href="#railroad-summary-PatternWithoutModernRange">
 <g class="nonterminal">
-<rect height="22" width="172" x="231" y="55" />
-<text x="317" y="71">
-PatternWithoutRange</text>
+<rect height="22" width="228" x="231" y="55" />
+<text x="345" y="71">
+PatternWithoutModernRange</text>
 </g>
 </a>
 <path d=" M 119 66 h 10" />
 <path d=" M 221 66 h 10" />
 </g>
-<path d=" M 413 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
+<path d=" M 469 66 h 5 a 5 5 0 0 1 5 -5 a 5 5 0 0 1 5 5 a 5 5 0 0 1 -5 5 a 5 5 0 0 1 -5 -5" />
 <path d=" M 25 66 h 10" />
-<path d=" M 403 66 h 10" />
+<path d=" M 459 66 h 10" />
 </g>
 </g>
 </svg>
@@ -76972,11 +77178,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#조건부-컴파일">5. Conditional compilation</a></td>
-<td>83</td>
+<td>86</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(14);">83</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(14);">86</a>
 <div id="uncovered-14" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -77126,6 +77332,12 @@ Uncovered rules
 <li><a href="#r-cfg.target_has_atomic.stdlib">cfg.target_has_atomic.stdlib</a></li>
 
 <li><a href="#r-cfg.target_has_atomic.values">cfg.target_has_atomic.values</a></li>
+
+<li><a href="#r-cfg.target_has_atomic_primitive_alignment">cfg.target_has_atomic_primitive_alignment</a></li>
+
+<li><a href="#r-cfg.target_has_atomic_primitive_alignment.def">cfg.target_has_atomic_primitive_alignment.def</a></li>
+
+<li><a href="#r-cfg.target_has_atomic_primitive_alignment.values">cfg.target_has_atomic_primitive_alignment.values</a></li>
 
 <li><a href="#r-cfg.target_os">cfg.target_os</a></li>
 
@@ -78020,11 +78232,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#외부-블록">      6.13. External blocks</a></td>
-<td>91</td>
+<td>92</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(28);">91</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(28);">92</a>
 <div id="uncovered-28" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -78158,6 +78370,8 @@ Uncovered rules
 <li><a href="#r-items.extern.attributes.link_name.duplicates">items.extern.attributes.link_name.duplicates</a></li>
 
 <li><a href="#r-items.extern.attributes.link_name.intro">items.extern.attributes.link_name.intro</a></li>
+
+<li><a href="#r-items.extern.attributes.link_name.invalid-names">items.extern.attributes.link_name.invalid-names</a></li>
 
 <li><a href="#r-items.extern.attributes.link_name.link_ordinal">items.extern.attributes.link_name.link_ordinal</a></li>
 
@@ -78708,11 +78922,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#코드-생성-속성">      7.4. Code generation</a></td>
-<td>67</td>
+<td>72</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(35);">67</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(35);">72</a>
 <div id="uncovered-35" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -78767,9 +78981,15 @@ Uncovered rules
 
 <li><a href="#r-attributes.codegen.naked">attributes.codegen.naked</a></li>
 
+<li><a href="#r-attributes.codegen.naked.abi">attributes.codegen.naked.abi</a></li>
+
+<li><a href="#r-attributes.codegen.naked.allowed-positions">attributes.codegen.naked.allowed-positions</a></li>
+
 <li><a href="#r-attributes.codegen.naked.body">attributes.codegen.naked.body</a></li>
 
 <li><a href="#r-attributes.codegen.naked.call-stack">attributes.codegen.naked.call-stack</a></li>
+
+<li><a href="#r-attributes.codegen.naked.duplicates">attributes.codegen.naked.duplicates</a></li>
 
 <li><a href="#r-attributes.codegen.naked.inline">attributes.codegen.naked.inline</a></li>
 
@@ -78779,11 +78999,15 @@ Uncovered rules
 
 <li><a href="#r-attributes.codegen.naked.prologue-epilogue">attributes.codegen.naked.prologue-epilogue</a></li>
 
+<li><a href="#r-attributes.codegen.naked.syntax">attributes.codegen.naked.syntax</a></li>
+
+<li><a href="#r-attributes.codegen.naked.target_feature">attributes.codegen.naked.target_feature</a></li>
+
 <li><a href="#r-attributes.codegen.naked.testing">attributes.codegen.naked.testing</a></li>
 
 <li><a href="#r-attributes.codegen.naked.track_caller">attributes.codegen.naked.track_caller</a></li>
 
-<li><a href="#r-attributes.codegen.naked.unsafe-attribute">attributes.codegen.naked.unsafe-attribute</a></li>
+<li><a href="#r-attributes.codegen.naked.unsafe">attributes.codegen.naked.unsafe</a></li>
 
 <li><a href="#r-attributes.codegen.naked.unused-variables">attributes.codegen.naked.unused-variables</a></li>
 
@@ -84050,9 +84274,9 @@ Uncovered rules
 
 <tr>
 <td><b>Total:</b></td>
-<td>2945</td>
+<td>2954</td>
 <td>0</td>
-<td>2945</td>
+<td>2954</td>
 <td>0.0%</td>
 </tr>
 
