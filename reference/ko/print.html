@@ -94,7 +94,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-a3f6e21e.js";
+            window.path_to_searchindex_js = "searchindex-262c1a47.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-20da6b24.js"></script>
@@ -23006,6 +23006,10 @@ fn bar_sse2() {
 
 <h3 id="사용-가능한-기능"><a class="header" href="#사용-가능한-기능">사용 가능한 기능</a></h3>
 <p>다음은 사용 가능한 기능 이름의 목록입니다.</p>
+<div class="rule" id="r-attributes.codegen.target_feature.cfg-only"><a class="rule-link" href="#r-attributes.codegen.target_feature.cfg-only" title="attributes.codegen.target_feature.cfg-only"><span>[attributes<wbr>.codegen<wbr>.target_feature<wbr>.cfg-only]</span></a>
+</div>
+
+<p>Target feature names marked as “(cfg only)” in this list may only be used with the <a href="#r-cfg.target_feature"><code>target_feature</code></a> conditional compilation option, not with the <code>target_feature</code> attribute.</p>
 <div class="rule" id="r-attributes.codegen.target_feature.x86"><a class="rule-link" href="#r-attributes.codegen.target_feature.x86" title="attributes.codegen.target_feature.x86"><span>[attributes<wbr>.codegen<wbr>.target_feature<wbr>.x86]</span></a>
 </div>
 
@@ -23189,6 +23193,9 @@ fn bar_sse2() {
 <tr><td><code>a</code></td><td><code>zaamo</code>, <code>zalrsc</code></td><td><a href="https://github.com/riscv/riscv-isa-manual/blob/20250508/src/a-st-ext.adoc">A</a> — Atomic instructions</td></tr>
 <tr><td><code>b</code></td><td><code>zba</code>, <code>zbc</code>, <code>zbs</code></td><td><a href="https://github.com/riscv/riscv-isa-manual/blob/20250508/src/b-st-ext.adoc">B</a> — Bit Manipulation instructions</td></tr>
 <tr><td><code>c</code></td><td><code>zca</code></td><td><a href="https://github.com/riscv/riscv-isa-manual/blob/20250508/src/c-st-ext.adoc">C</a> — Compressed instructions</td></tr>
+<tr><td><code>d</code></td><td><code>f</code></td><td><a href="https://github.com/riscv/riscv-isa-manual/blob/20250508/src/d-st-ext.adoc">D</a> — <a href="#r-attributes.codegen.target_feature.cfg-only">(cfg only)</a> Double-Precision Floating-Point</td></tr>
+<tr><td><code>e</code></td><td></td><td><a href="https://github.com/riscv/riscv-isa-manual/blob/20250508/src/rv32e.adoc">E</a> — <a href="#r-attributes.codegen.target_feature.cfg-only">(cfg only)</a> Embedded Instruction Set with 16 GPRs</td></tr>
+<tr><td><code>f</code></td><td><code>zicsr</code></td><td><a href="https://github.com/riscv/riscv-isa-manual/blob/20250508/src/f-st-ext.adoc">F</a> — <a href="#r-attributes.codegen.target_feature.cfg-only">(cfg only)</a> Single-Precision Floating-Point</td></tr>
 <tr><td><code>m</code></td><td></td><td><a href="https://github.com/riscv/riscv-isa-manual/blob/20250508/src/m-st-ext.adoc">M</a> — Integer Multiplication and Division instructions</td></tr>
 <tr><td><code>za64rs</code></td><td><code>za128rs</code></td><td><a href="https://github.com/riscv/riscv-profiles/blob/rva23-rvb23-ratified/src/rva23-profile.adoc">Za64rs</a> — Platform Behavior: Naturally aligned Reservation sets with ≦ 64 Bytes</td></tr>
 <tr><td><code>za128rs</code></td><td></td><td><a href="https://github.com/riscv/riscv-profiles/blob/v1.0/profiles.adoc">Za128rs</a> — Platform Behavior: Naturally aligned Reservation sets with ≦ 128 Bytes</td></tr>
@@ -51821,7 +51828,7 @@ assert_eq!(s, "Hello World!");
 
 <ul>
 <li>
-<p>만약 타입이 유효한 값의 커스텀 범위를 가지고 있다면, 유효한 값은 반드시 그 범위 내에 있어야 합니다. 표준 라이브러리에서는 <a href="../core/ptr/non_null/struct.NonNull.html"><code>NonNull&lt;T&gt;</code></a> 와 <a href="../core/num/nonzero/struct.NonZero.html"><code>NonZero&lt;T&gt;</code></a> 가 이에 해당합니다.</p>
+<p>If a type has a custom range of valid values, then a valid value must be in that range. In the standard library, this affects <a href="../core/ptr/non_null/struct.NonNull.html"><code>NonNull&lt;T&gt;</code></a> and <a href="../core/num/nonzero/struct.NonZero.html"><code>NonZero&lt;T&gt;</code></a>.</p>
 <div class="alert alert-note">
 <blockquote>
 <p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
@@ -78922,11 +78929,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#코드-생성-속성">      7.4. Code generation</a></td>
-<td>72</td>
+<td>73</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(35);">72</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(35);">73</a>
 <div id="uncovered-35" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -79030,6 +79037,8 @@ Uncovered rules
 <li><a href="#r-attributes.codegen.target_feature.arch">attributes.codegen.target_feature.arch</a></li>
 
 <li><a href="#r-attributes.codegen.target_feature.availability">attributes.codegen.target_feature.availability</a></li>
+
+<li><a href="#r-attributes.codegen.target_feature.cfg-only">attributes.codegen.target_feature.cfg-only</a></li>
 
 <li><a href="#r-attributes.codegen.target_feature.closures">attributes.codegen.target_feature.closures</a></li>
 
@@ -84274,9 +84283,9 @@ Uncovered rules
 
 <tr>
 <td><b>Total:</b></td>
-<td>2954</td>
+<td>2955</td>
 <td>0</td>
-<td>2954</td>
+<td>2955</td>
 <td>0.0%</td>
 </tr>
 
