@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Étendre la concurrence avec les traits Sync et Send - The Rust Programming Language</title>
+        <title>Étendre la concurrence avec les traits Send et Sync - The Rust Programming Language</title>
 
 
         <!-- Custom HTML head -->
@@ -96,10 +96,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-e705db65.js";
+            window.path_to_searchindex_js = "searchindex-f5487a43.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-cf7f76ff.js"></script>
+        <script src="toc-1a54300e.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -240,7 +240,7 @@
                     <main>
                         <!-- Old headings. Do not remove or links may break. -->
 <p><a id="extensible-concurrency-with-the-sync-and-send-traits"></a> <a id="extensible-concurrency-with-the-send-and-sync-traits"></a></p>
-<h2 id="étendre-la-concurrence-avec-les-traits-sync-et-send"><a class="header" href="#étendre-la-concurrence-avec-les-traits-sync-et-send">Étendre la concurrence avec les traits <code>Sync</code> et <code>Send</code></a></h2>
+<h2 id="étendre-la-concurrence-avec-les-traits-send-et-sync"><a class="header" href="#étendre-la-concurrence-avec-les-traits-send-et-sync">Étendre la concurrence avec les traits <code>Send</code> et <code>Sync</code></a></h2>
 <p>Curieusement, la plupart des fonctionnalités de concurrence que nous avons vues précédemment dans ce chapitre font partie de la bibliothèque standard, pas du langage. Vos options pour gérer la concurrence ne sont pas limitées à celles du langage ou de la bibliothèque standard ; vous pouvez aussi écrire vos propres fonctionnalités de concurrence ou utiliser celles qui ont été écrites par d’autres.</p>
 <p>Cependant, parmi les concepts clés de la concurrence qui sont intégrés dans le langage plutôt que dans la bibliothèque standard, on trouve les traits <code>Send</code>  et <code>Sync</code> de <code>std::marker</code>.</p>
 <!-- Old headings. Do not remove or links may break. -->
@@ -253,7 +253,7 @@
 <p><a id="allowing-access-from-multiple-threads-with-sync"></a></p>
 <h3 id="accès-depuis-plusieurs-tâches"><a class="header" href="#accès-depuis-plusieurs-tâches">Accès depuis plusieurs tâches</a></h3>
 <p>Le trait <code>Sync</code> indique qu’il est sûr d’avoir une référence dans plusieurs tâches vers le type qui implémente <code>Sync</code>. Autrement dit, n’importe quel type <code>T</code> implémente <code>Sync</code> si <code>&amp;T</code> (une référence immuable vers <code>T</code>) implémente <code>Send</code>, ce qui signifie que la référence peut être envoyée en toute sécurité à une autre tâche. De la même manière que <code>Send</code>, les types primitifs implémentent tous <code>Sync</code>, et les types composés entièrement d’autres types qui implémentent <code>Sync</code> implémentent eux-mêmes <code>Sync</code>.</p>
-<p>Le pointeur intelligent <code>Rc&lt;T&gt;</code> n’implémente pas non plus <code>Sync</code> pour les mêmes raisons qu’il n’implémente pas <code>Send</code>. Le type <code>RefCell&lt;T&gt;</code> (que nous avons vu au chapitre 15) et la famille liée aux types <code>Cell&lt;T&gt;</code> n’implémentent pas <code>Sync</code>. L’implémentation du vérificateur d’emprunt que <code>RefCell&lt;T&gt;</code> met en oeuvre à l’exécution n’est pas sûre pour le multitâches. Le pointeur intelligent <code>Mutex&lt;T&gt;</code> implémente <code>Sync</code> et peut être utilisé pour partager l’accès entre plusieurs tâches, comme vous l’avez vu dans <a href="ch16-03-shared-state.html#acc%C3%A8s-partag%C3%A9-au-mutext">“Accès partagé au <code>Mutex&lt;T&gt;</code>”</a><!-- ignore -->.</p>
+<p>Le pointeur intelligent <code>Rc&lt;T&gt;</code> n’implémente pas non plus <code>Sync</code> pour les mêmes raisons qu’il n’implémente pas <code>Send</code>. Le type <code>RefCell&lt;T&gt;</code> (que nous avons vu au chapitre 15) et la famille liée aux types <code>Cell&lt;T&gt;</code> n’implémentent pas <code>Sync</code>. L’implémentation du vérificateur d’emprunt que <code>RefCell&lt;T&gt;</code> met en œuvre à l’exécution n’est pas sûre pour le multitâches. Le pointeur intelligent <code>Mutex&lt;T&gt;</code> implémente <code>Sync</code> et peut être utilisé pour partager l’accès entre plusieurs tâches, comme vous l’avez vu dans <a href="ch16-03-shared-state.html#acc%C3%A8s-partag%C3%A9-au-mutext">“Accès partagé au <code>Mutex&lt;T&gt;</code>”</a><!-- ignore -->.</p>
 <h3 id="implémenter-manuellement-send-et-sync-nest-pas-sûr"><a class="header" href="#implémenter-manuellement-send-et-sync-nest-pas-sûr">Implémenter manuellement <code>Send</code> et <code>Sync</code> n’est pas sûr</a></h3>
 <p>Comme les types qui sont entièrement constitués de types implémentant les traits <code>Send</code> et <code>Sync</code> implémentent automatiquement <code>Send</code> et <code>Sync</code>, nous n’avons pas à implémenter manuellement ces traits. Comme ce sont des traits de marquage, ils n’ont même pas de méthodes à implémenter. Ils sont uniquement utiles pour appliquer les règles de concurrence.</p>
 <p>L’implémentation manuelle de ces traits implique de faire du code Rust non sécurisé. Nous allons voir le code Rust non sécurisé dans le chapitre 20 ; pour l’instant l’information à retenir est que construire de nouveaux types pour la concurrence constitués d’éléments qui n’implémentent pas <code>Send</code> et <code>Sync</code> nécessite une réflexion approfondie pour respecter les garanties de sécurité. <a href="../nomicon/index.html">“The Rustonomicon”</a> contient plus d’informations à propos de ces garanties et de la façon de les faire appliquer.</p>
