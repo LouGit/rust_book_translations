@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Importer des chemins dans la portée via le mot-clé use - The Rust Programming Language</title>
+        <title>Import de chemins dans la portée via le mot-clé use - The Rust Programming Language</title>
 
 
         <!-- Custom HTML head -->
@@ -96,10 +96,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5487a43.js";
+            window.path_to_searchindex_js = "searchindex-91b1a108.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-1a54300e.js"></script>
+        <script src="toc-f9eeb798.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -278,7 +278,7 @@ mod client {
 <p>L’erreur du compilateur montre que le raccourci ne s’applique plus à l’intérieur du module <code>client</code> :</p>
 <pre><code class="language-console">$ cargo build
    Compiling restaurant v0.1.0 (file:///projects/restaurant)
-error[E0433]: failed to resolve: use of unresolved module or unlinked crate `accueil`
+error[E0433]: cannot find module or crate `hosting` in this scope
   --&gt; src/lib.rs:11:9
    |
 11 |         accueil::ajouter_a_la_liste_attente();
@@ -296,7 +296,7 @@ warning: unused import: `crate::salle_a_manger::accueil`
 7 | use crate::salle_a_manger::accueil;
   |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
   |
-  = note: `#[warn(unused_imports)]` on by default
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
 
 For more information about this error, try `rustc --explain E0433`.
 warning: `restaurant` (lib) generated 1 warning
@@ -389,29 +389,31 @@ pub fn manger_au_restaurant() {
 <figcaption><a href="#listing-7-17">Listing 7-17</a>: Making a name available for any code to use from a new scope with <code>pub use</code></figcaption>
 </figure>
 <p>Avant ce changement, un code extérieur aurait dû appeler la fonction <code>ajouter_a_la_liste_attente</code> en utilisant le chemin <code>restaurant::salle_a_manger::accueil::ajouter_a_la_liste_attente()</code>, ce qui aurait aussi requis que le module <code>salle_a_manger</code> soit marqué comme <code>pub</code>. Maintenant que ce <code>pub use</code> a réexporté le module <code>accueil</code> depuis le module racine, le code extérieur peut utiliser le chemin <code>restaurant::salle_a_manger::ajouter_a_la_liste_attente()</code> à la place.</p>
-<p>Réexporter est utile quand la structure interne de votre code est différente de la façon dont les développeurs qui utilisent votre code se la représentent. Par exemple, dans cette métaphore du restaurant, les personnes qui font fonctionner le restaurant se structurent en fonction de la “salle à manger” et des “cuisines”. Mais les clients qui utilisent le restaurant ne vont probablement pas voir les choses ainsi. Avec <code>pub use</code>, nous pouvons écrire notre code selon une certaine organisation, mais l’exposer avec une organisation différente. En faisant ainsi, la bibliothèque est bien organisée autant pour les développeurs qui travaillent sur la bibliothèque que pour les développeurs qui utilisent la bibliothèque. Nous verrons un autre exemple de <code>pub use</code> et comment il affecte la documentation de la crate dans <a href="ch14-02-publishing-to-crates-io.html#exporting-a-convenient-public-api">« Exporter une API publique conviviale »</a><!-- ignore --> dans le chapitre 14.</p>
+<p>Réexporter est utile quand la structure interne de votre code est différente de la façon dont les développeurs qui utilisent votre code se la représentent. Par exemple, dans cette métaphore du restaurant, les personnes qui font fonctionner le restaurant se structurent en fonction de la “salle à manger” et des “cuisines”. Mais les clients qui utilisent le restaurant ne vont probablement pas voir les choses ainsi. Avec <code>pub use</code>, nous pouvons écrire notre code selon une certaine organisation, mais l’exposer avec une organisation différente. En faisant ainsi, la bibliothèque est bien organisée autant pour les développeurs qui travaillent sur la bibliothèque que pour les développeurs qui utilisent la bibliothèque. Nous verrons un autre exemple de <code>pub use</code> et comment il affecte la documentation de la crate dans <a href="ch14-02-publishing-to-crates-io.html#export-dune-api-publique-conviviale">« Export d’une API publique conviviale »</a><!-- ignore --> dans le chapitre 14.</p>
 <h3 id="utiliser-des-paquets-externes"><a class="header" href="#utiliser-des-paquets-externes">Utiliser des paquets externes</a></h3>
 <p>Dans le chapitre 2, nous avions développé un projet de jeu du plus ou du moins qui utilisait le paquet externe <code>rand</code> afin d’obtenir des nombres aléatoires. Pour pouvoir utiliser <code>rand</code> dans notre projet, nous avions ajouté cette ligne dans <em>Cargo.toml</em> :</p>
 <!-- When updating the version of `rand` used, also update the version of
 `rand` used in these files so they all match:
+
+* ch01-01-installation.md
 * ch02-00-guessing-game-tutorial.md
 * ch14-03-cargo-workspaces.md
 -->
 <figure class="listing">
 <span class="file-name">Filename: Cargo.toml</span>
-<pre><code class="language-toml">rand = "0.8.5"
+<pre><code class="language-toml">rand = "0.10.1"
 </code></pre>
 </figure>
 <p>L’ajout de <code>rand</code> comme dépendance dans <em>Cargo.toml</em> demande à Cargo de télécharger le paquet <code>rand</code> et toutes ses dépendances à partir de <a href="https://crates.io/">crates.io</a> et rend disponible <code>rand</code> pour notre projet.</p>
-<p>Ensuite, pour importer les définitions de <code>rand</code> dans la portée de notre paquet, nous avions ajouté une ligne <code>use</code> qui commence avec le nom de la crate, <code>rand</code>, et nous avions listé les éléments que nous voulions importer dans notre portée. Dans la section <a href="ch02-00-guessing-game-tutorial.html#generating-a-random-number">“Générer le nombre secret”</a><!-- ignore --> du chapitre 2, nous avions importé le trait <code>Rng</code> dans la portée, puis nous avions appelé la fonction <code>rand::thread_rng</code> :</p>
+<p>Ensuite, pour importer les définitions de <code>rand</code> dans la portée de notre paquet, nous avions ajouté une ligne <code>use</code> qui commence avec le nom de la crate, <code>rand</code>, et nous avions listé les éléments que nous voulions importer dans notre portée. Dans la section <a href="ch02-00-guessing-game-tutorial.html#g%C3%A9n%C3%A9ration-dun-nombre-al%C3%A9atoire">“Génération d’un nombre aléatoire”</a><!-- ignore --> du chapitre 2, nous avions importé les éléments du module <code>rand::prelude</code> dans la portée, puis nous avions appelé la fonction <code>rand::rng</code> :</p>
 <pre><code class="language-rust ignore"><span class="boring">use std::io;
 </span><span class="boring">
-</span>use rand::Rng;
+</span>use rand::prelude::*;
 
 fn main() {
 <span class="boring">    println!("Devinez le nombre !");
 </span><span class="boring">
-</span>    let nombre_secret = rand::thread_rng().gen_range(1..=100);
+</span>    let nombre_secret = rand::rng().random_range(1..=100);
 <span class="boring">
 </span><span class="boring">    println!("Le nombre secret est : {nombre_secret}");
 </span><span class="boring">
@@ -438,16 +440,17 @@ fn main() {
 <p>Si vous utilisez de nombreux éléments définis dans une même crate ou dans un même module, lister chaque élément sur sa propre ligne prendra beaucoup d’espace vertical dans vos fichiers. Par exemple, ces deux instructions <code>use</code>, que nous avions dans le jeu du plus ou du moins dans l’encart 2-4, importaient des éléments de <code>std</code> dans la portée :</p>
 <figure class="listing">
 <span class="file-name">Filename: src/main.rs</span>
-<pre><code class="language-rust ignore"><span class="boring">use rand::Rng;
-</span>// -- partie masquée ici --
+<pre><code class="language-rust ignore">// -- partie masquée ici --
 use std::cmp::Ordering;
 use std::io;
 // -- partie masquée ici --
 <span class="boring">
+</span><span class="boring">use rand::prelude::*;
+</span><span class="boring">
 </span><span class="boring">fn main() {
 </span><span class="boring">    println!("Devinez le nombre !");
 </span><span class="boring">
-</span><span class="boring">    let nombre_secret = rand::thread_rng().gen_range(1..=100);
+</span><span class="boring">    let nombre_secret = rand::rng().random_range(1..=100);
 </span><span class="boring">
 </span><span class="boring">    println!("Le nombre secret est : {nombre_secret}");
 </span><span class="boring">
@@ -464,14 +467,14 @@ use std::io;
 </span><span class="boring">    match supposition.cmp(&amp;nombre_secret) {
 </span><span class="boring">        Ordering::Less =&gt; println!("C'est plus !"),
 </span><span class="boring">        Ordering::Greater =&gt; println!("C'est moins !"),
-</span><span class="boring">        Ordering::Equal =&gt; println!("Vous avez gagné !"),
+</span><span class="boring">        Ordering::Equal =&gt; println!("You win!"),
 </span><span class="boring">    }
 </span><span class="boring">}</span></code></pre>
 </figure>
 <p>À la place, nous pouvons utiliser des chemins imbriqués afin d’importer ces mêmes éléments dans la portée en une seule ligne. Nous pouvons faire cela en indiquant la partie commune du chemin, suivi d’un double deux-points, puis d’accolades autour d’une liste des éléments qui diffèrent entre les chemins, comme dans l’encart 7-18.</p>
 <figure class="listing" id="listing-7-18">
 <span class="file-name">Filename: src/main.rs</span>
-<pre><code class="language-rust ignore"><span class="boring">use rand::Rng;
+<pre><code class="language-rust ignore"><span class="boring">use rand::prelude::*;
 </span>// -- partie masquée ici --
 use std::{cmp::Ordering, io};
 // -- partie masquée ici --
@@ -479,7 +482,7 @@ use std::{cmp::Ordering, io};
 </span><span class="boring">fn main() {
 </span><span class="boring">    println!("Devinez le nombre !");
 </span><span class="boring">
-</span><span class="boring">    let nombre_secret = rand::thread_rng().gen_range(1..=100);
+</span><span class="boring">    let nombre_secret = rand::rng().random_range(1..=100);
 </span><span class="boring">
 </span><span class="boring">    println!("Le nombre secret est : {nombre_secret}");
 </span><span class="boring">
@@ -498,7 +501,7 @@ use std::{cmp::Ordering, io};
 </span><span class="boring">    match supposition.cmp(&amp;nombre_secret) {
 </span><span class="boring">        Ordering::Less =&gt; println!("C'est plus !"),
 </span><span class="boring">        Ordering::Greater =&gt; println!("C'est moins !"),
-</span><span class="boring">        Ordering::Equal =&gt; println!("Vous avez gagné !"),
+</span><span class="boring">        Ordering::Equal =&gt; println!("You win!"),
 </span><span class="boring">    }
 </span><span class="boring">}</span></code></pre>
 <figcaption><a href="#listing-7-18">Listing 7-18</a>: Specifying a nested path to bring multiple items with the same prefix into scope</figcaption>
@@ -527,7 +530,7 @@ use std::io::Write;</code></pre>
 </span>use std::collections::*;
 <span class="boring">}</span></code></pre>
 <p>Cette instruction <code>use</code> va importer tous les éléments publics définis dans <code>std::collections</code> dans la portée courante. Mais soyez prudent quand vous utilisez l’opérateur global ! L’utilisation de l’opérateur global peut rendre difficile l’identification des noms dans la portée et là où un élément utilisé dans notre programme a été défini.</p>
-<p>L’opérateur global est souvent utilisé lorsque nous écrivons des tests, pour importer tout ce qu’il y a à tester dans le module <code>tests</code> ; nous verrons cela dans une section du <a href="ch11-01-writing-tests.html#how-to-write-tests">chapitre 11</a>. L’opérateur global est parfois aussi utilisé pour l’étape préliminaire : rendez-vous dans <a href="https://doc.rust-lang.org/std/prelude/index.html#other-preludes">la documentation de la bibliothèque standard</a><!-- ignore --> pour plus d’informations sur cela.</p>
+<p>L’opérateur global est souvent utilisé lorsque nous écrivons des tests, pour importer tout ce qu’il y a à tester dans le module <code>tests</code> ; nous verrons cela dans une section du <a href="ch11-01-writing-tests.html#comment-%C3%A9crire-des-tests">chapitre 11</a>. L’opérateur global est parfois aussi utilisé pour l’étape préliminaire : rendez-vous dans <a href="https://doc.rust-lang.org/std/prelude/index.html#other-preludes">la documentation de la bibliothèque standard</a><!-- ignore --> pour plus d’informations sur cela.</p>
 
                     </main>
 

@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Transformer notre serveur monotâche en serveur multitâches - The Rust Programming Language</title>
+        <title>Transformation de notre serveur monotâche en serveur multitâches - The Rust Programming Language</title>
 
 
         <!-- Custom HTML head -->
@@ -96,10 +96,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5487a43.js";
+            window.path_to_searchindex_js = "searchindex-91b1a108.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-1a54300e.js"></script>
+        <script src="toc-f9eeb798.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -305,7 +305,7 @@ fn gestion_connexion(mut flux: TcpStream) {
 <p>Plutôt que de générer des fils d’exécution  en quantité illimitée, nous allons donc faire en sorte qu’il y ait un nombre fixe de fils qui seront en attente dans le groupe. Les requêtes entrantes sont envoyées au groupe pour être traitées. Le groupe gèrera une file d’attente pour les requêtes entrantes. Chaque fil dans le groupe va récupérer une requête dans cette liste d’attente, la traiter puis demander une autre requête à la file d’attente. Avec ce fonctionnement, nous pouvons traiter jusqu’à <em><code>N</code></em> requêtes en concurrence, où <em><code>N</code></em> est le nombre de fils d’exécution. Si chaque fil répond à une requête longue à traiter, les requêtes suivantes vont s’accumuler dans la file d’attente, mais nous aurons quand même augmenté le nombre de requêtes longues que nous pouvons traiter avant d’en arriver là.</p>
 <p>Cette technique n’est qu’une des nombreuses manières d’améliorer le débit d’un serveur web. D’autres options que vous devriez envisager sont le modèle fork/join, le modèle d’entrée-sortie asynchrone monotâche, et le modèle d’entrée-sortie asynchrone multifils. Si vous êtes intéressés par ce sujet, vous pouvez aussi en apprendre plus sur ces autres solutions et essayer de les implémenter en Rust ; avec un langage bas niveau comme Rust, toutes les options restent possibles.</p>
 <p>Avant que nous ne commencions l’implémentation du groupe de tâches, parlons de l’utilisation du groupe. Lorsque vous essayez de concevoir du code, commencer par écrire l’interface client peut vous aider à vous guider dans la conception. Ecrivez l’API du code afin qu’il soit structuré de la manière dont vous souhaitez l’appeler ; puis implémentez ensuite la fonctionnalité au sein de cette structure, plutôt que d’implémenter la fonctionnalité puis de concevoir l’API publique.</p>
-<p>De la même manière que nous avons utilisé le développement piloté par les tests dans le projet du chapitre 12, nous allons utiliser ici le développement orienté par le compilateur. Nous allons écrire le code qui appelle les fonctions que nous souhaitons, et ensuite nous analyserons les erreurs du compilateur pour déterminer ce qu’il faut ensuite corriger pour que le code fonctionne. Cependant, avant de faire cela, en guise de point de départ, nous allons explorer la technique que nous allons mettre en œuvre.</p>
+<p>De la même manière que nous avons utilisé le développement piloté par les tests dans le projet du chapitre 12, nous allons utiliser ici le développement orienté par le compilateur. Nous allons écrire le code qui appelle les fonctions que nous souhaitons, et ensuite nous analyserons les erreurs du compilateur pour déterminer ce qu’il faut ensuite corriger pour que le code fonctionne. Cependant, avant de faire cela, en guise de point de départ, nous allons explorer la technique que nous n’allons pas mettre en œuvre.</p>
 <!-- Old headings. Do not remove or links may break. -->
 <p><a id="code-structure-if-we-could-spawn-a-thread-for-each-request"></a></p>
 <h4 id="création-dun-fil-dexécution-par-requête"><a class="header" href="#création-dun-fil-dexécution-par-requête">Création d’un fil d’exécution par requête</a></h4>
@@ -415,10 +415,10 @@ fn gestion_connexion(mut flux: TcpStream) {
 <p>Faites les changements de l’encart 21-12 dans votre <em>src/main.rs</em>, et utilisez ensuite les erreurs du compilateur lors du <code>cargo check</code> pour orienter votre développement. Voici la première erreur que nous obtenons :</p>
 <pre><code class="language-console">$ cargo check
     Checking salutations v0.1.0 (file:///projects/salutations)
-error[E0433]: failed to resolve: use of undeclared type `GroupeTaches`
+error[E0433]: cannot find type `ThreadPool` in this scope
   --&gt; src/main.rs:10:16
    |
-10 |     let groupe = GroupeTaches::new(4);
+11 |     let groupe = GroupeTaches::new(4);
    |                  ^^^^^^^^^^^^ use of undeclared type `GroupeTaches`
 
 For more information about this error, try `rustc --explain E0433`.
@@ -480,11 +480,11 @@ error: could not compile `salutations` (bin "salutations") due to 1 previous err
 <p>Ce code ne fonctionne toujours pas, mais vérifions-le à nouveau pour obtenir l’erreur que nous devons maintenant résoudre :</p>
 <pre><code class="language-console">$ cargo check
     Checking salutations v0.1.0 (file:///projects/salutations)
-error[E0599]: no function or associated item named `new` found for struct `GroupeTaches` in the current scope
+error[E0599]: no associated function or constant named `new` found for struct `GroupeTaches` in the current scope
   --&gt; src/main.rs:12:28
    |
 12 |     let groupe = GroupeTaches::new(4);
-   |                                ^^^ function or associated item not found in `GroupeTaches`
+   |                                ^^^ associated function or constant not found in `GroupeTaches`
 
 For more information about this error, try `rustc --explain E0599`.
 error: could not compile `salutations` (bin "salutations") due to 1 previous error
@@ -702,7 +702,7 @@ impl Operateur {
 <p>Nous avons changé le nom du champ <code>taches</code> de <code>GroupeTaches</code> en <code>operateurs</code> car il stocke maintenant des instances de <code>Operateur</code> plutôt que des instances de <code>JoinHandle&lt;()&gt;</code>. Nous utilisons le compteur de la boucle <code>for</code> comme argument de <code>Operateur::new</code> et nous stockons chacun des nouveaux <code>Operateur</code> dans le vecteur <code>operateurs</code>.</p>
 <p>Le code externe (comme celui de notre serveur dans <em>src/bin/main.rs</em>) n’a pas besoin de connaître les détails de l’implémentation qui utilise une structure <code>Operateur</code> dans <code>GroupeTaches</code>, donc nous faisons en sorte que la structure <code>Operateur</code> et sa fonction <code>new</code> soient privées. La fonction <code>Operateur::new</code> utilise l’ <code>id</code> que nous lui donnons et stocke une instance de <code>JoinHandle&lt;()&gt;</code> qui est créée en instanciant un nouveau fil d’exécution utilisant une fermeture vide.</p>
 <section class="note" aria-role="note">
-<p>Remarque : si le système d’exploitation ne peut pas créer de fil d’exécution faute de ressources systèmes, <code>thread::spawn</code> va paniquer. Ceci va provoquer la panique de l’ensemble de notre serveur, bien que la création de certains fils d’exécution puisse réussir. Par souci de simplicité, ce comportement est acceptable, mais dans une implémentation d’un groupe de fils d’exécution dans le monde réel, vous utiliseriez certainement <a href="../std/thread/struct.Builder.html"><code>std::thread::Builder</code></a><!-- ignore --> et sa méthode <a href="../std/thread/struct.Builder.html#method.spawn"><code>spawn</code></a><!-- ignore --> qui, à la place, renvoie <code>Result</code>.</p>
+<p>Remarque : si le système d’exploitation ne peut pas créer de fil d’exécution faute de ressources systèmes, <code>thread::spawn</code> va paniquer. Ceci va provoquer la panique de l’ensemble de notre serveur, bien que la création de certains fils d’exécution puisse réussir. Par souci de simplicité, ce comportement est acceptable, mais dans une implémentation d’un groupe de fils d’exécution dans le monde réel, vous utiliseriez certainement <a href="https://doc.rust-lang.org/stable/std/thread/struct.Builder.html"><code>std::thread::Builder</code></a><!-- ignore --> et sa méthode <a href="https://doc.rust-lang.org/stable/std/thread/struct.Builder.html#method.spawn"><code>spawn</code></a><!-- ignore --> qui, à la place, renvoie <code>Result</code>.</p>
 </section>
 <p>Ce code va se compiler et stocker le nombre d’instances de <code>Operateur</code> que nous avons renseigné en argument de <code>GroupeTaches::new</code>. Mais nous n’exécutons <em>toujours pas</em> la fermeture que nous obtenons de <code>executer</code>. Voyons maintenant comment faire cela.</p>
 <h4 id="envoyer-des-requêtes-à-des-fils-dexécution-via-des-canaux"><a class="header" href="#envoyer-des-requêtes-à-des-fils-dexécution-via-des-canaux">Envoyer des requêtes à des fils d’exécution via des canaux</a></h4>
@@ -856,12 +856,6 @@ note: consider changing this parameter type in method `new` to borrow instead if
    |
 50 |     fn new(id: usize, reception: mpsc::Receiver&lt;Mission&gt;) -&gt; Operateur {
    |        --- in this method        ^^^^^^^^^^^^^^^^^^^^^^^ this parameter takes ownership of the value
-help: consider moving the expression out of the loop so it is only moved once
-   |
-26 ~         let mut value = Operateur::new(id, reception);
-27 ~         for id in 0..taille {
-28 ~             operateurs.push(value);
-   |
 
 For more information about this error, try `rustc --explain E0382`.
 error: could not compile `salutations` (lib) due to 1 previous error

@@ -93,7 +93,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-af691803.js";
+            window.path_to_searchindex_js = "searchindex-a6d5957a.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-818727da.js"></script>
@@ -3037,6 +3037,9 @@ button next to the function, which, when clicked, shows the dialog.</p>
 implemented as a hard-coded list, these traits have a special marker attribute
 on them: <code>#[doc(notable_trait)]</code>. This means that you can apply this attribute
 to your own trait to include it in the “Notable traits” dialog in documentation.</p>
+<p>In addition to the “Notable traits” dialog, every type that implements a
+<code>#[doc(notable_trait)]</code> trait renders a colored badge for that trait at the top
+of its page, making the relationship easy to spot when browsing the type.</p>
 <p>The <code>#[doc(notable_trait)]</code> attribute currently requires the <code>#![feature(doc_notable_trait)]</code>
 feature gate. For more information, see <a href="../unstable-book/language-features/doc-notable-trait.html">its chapter in the Unstable Book</a>
 and <a href="https://github.com/rust-lang/rust/issues/45040">its tracking issue</a>.</p>
@@ -3126,13 +3129,19 @@ limiting the use of <code>fundamental</code> to when documentation is built.</p>
 themselves marked as unstable. To use any of these options, pass <code>-Z unstable-options</code> as well as
 the flag in question to Rustdoc on the command-line. To do this from Cargo, you can either use the
 <code>RUSTDOCFLAGS</code> environment variable or the <code>cargo rustdoc</code> command.</p>
-<h3 id="--merge---parts-out-dir-and---include-parts-dir"><a class="header" href="#--merge---parts-out-dir-and---include-parts-dir"><code>--merge</code>, <code>--parts-out-dir</code>, and <code>--include-parts-dir</code></a></h3>
+<h3 id="--write-doc-meta-dir-and---read-doc-meta-dir"><a class="header" href="#--write-doc-meta-dir-and---read-doc-meta-dir"><code>--write-doc-meta-dir</code>, and <code>--read-doc-meta-dir</code></a></h3>
 <p>These options control how rustdoc handles files that combine data from multiple crates.</p>
-<p>By default, they act like <code>--merge=shared</code> is set, and <code>--parts-out-dir</code> and <code>--include-parts-dir</code>
-are turned off. The <code>--merge=shared</code> mode causes rustdoc to load the existing data in the out-dir,
-combine the new crate data into it, and write the result. This is very easy to use in scripts that
-manually invoke rustdoc, but it’s also slow, because it performs O(crates) work on
-every crate, meaning it performs O(crates<sup>2</sup>) work.</p>
+<p>By default, rustdoc will read the doc meta from the doc output dir itself and merge them together.
+This is very easy to use in scripts that manually invoke rustdoc, but it’s also slow, because it
+performs O(crates) work on every crate, meaning it performs O(crates<sup>2</sup>) work. When
+<code>--write-doc-meta-dir</code> and/or <code>--read-doc-meta-dir</code> are supplied, this is turned off.</p>
+<p>When <code>--write-doc-meta-dir</code> is supplied, rustdoc will write the crate’s shared metadata to
+that directory. This is an <em>intermediate mode</em> where it may write some files to the doc output
+directory, but some features won’t work until it is finalized.</p>
+<p>When <code>--read-doc-meta-dir</code> is supplied, rustdoc runs in <em>finalize mode</em>. No crate source code is
+passed to rustdoc when it runs in this mode. Multiple <code>--read-doc-meta-dir</code> can be passed to
+rustdoc, so your build system can split the state between multiple directories if that helps.</p>
+<p><code>--write-doc-meta-dir</code> and <code>--read-doc-meta-dir</code> cannot both be passed to the same rustdoc invocation.</p>
 <pre><code class="language-console">$ rustdoc crate1.rs --out-dir=doc
 $ cat doc/search.index/crateNames/*
 rd_("fcrate1")
@@ -3141,11 +3150,26 @@ $ cat doc/search.index/crateNames/*
 rd_("fcrate1fcrate2")
 </code></pre>
 <p>To delay shared-data merging until the end of a build, so that you only have to perform O(crates)
-work, use <code>--merge=none</code> on every crate except the last one, which will use <code>--merge=finalize</code>.</p>
-<pre><code class="language-console">$ rustdoc +nightly crate1.rs --merge=none --parts-out-dir=crate1.d -Zunstable-options
+work, use <code>--write-doc-meta-dir</code> on every crate, and the last will use <code>--read-doc-meta-dir</code>.</p>
+<p>You can use separate metadata directories:</p>
+<pre><code class="language-console">$ rustdoc +nightly crate1.rs --write-doc-meta-dir=crate1.d -Zunstable-options
 $ cat doc/search.index/crateNames/*
 cat: 'doc/search.index/crateNames/*': No such file or directory
-$ rustdoc +nightly crate2.rs --merge=finalize --include-parts-dir=crate1.d -Zunstable-options
+$ rustdoc +nightly crate2.rs --write-doc-meta-dir=crate2.d -Zunstable-options
+$ cat doc/search.index/crateNames/*
+cat: 'doc/search.index/crateNames/*': No such file or directory
+$ rustdoc +nightly --read-doc-meta-dir=crate1.d --read-doc-meta-dir=crate2.d -Zunstable-options
+$ cat doc/search.index/crateNames/*
+rd_("fcrate1fcrate2")
+</code></pre>
+<p>Or you can use a single metadata directory for all of the crates:</p>
+<pre><code class="language-console">$ rustdoc +nightly crate1.rs --write-doc-meta-dir=meta.d -Zunstable-options
+$ cat doc/search.index/crateNames/*
+cat: 'doc/search.index/crateNames/*': No such file or directory
+$ rustdoc +nightly crate2.rs --write-doc-meta-dir=meta.d -Zunstable-options
+$ cat doc/search.index/crateNames/*
+cat: 'doc/search.index/crateNames/*': No such file or directory
+$ rustdoc +nightly --read-doc-meta-dir=meta.d -Zunstable-options
 $ cat doc/search.index/crateNames/*
 rd_("fcrate1fcrate2")
 </code></pre>
@@ -3343,6 +3367,11 @@ items that are not documented can be seen with Clippy’s <code>missing_docs_in_
 <ol start="2">
 <li>If one of the previously listed items has a code example, then it’ll be counted.</li>
 </ol>
+<p>If you use the <code>-o</code> option with it, it will generate the file into the given older name. For example:</p>
+<pre><code class="language-shell">rustdoc foo.rs --show-coverage -o doc
+</code></pre>
+<p>Will generate a <code>foo.txt</code> into the <code>doc</code> folder. If the <code>-o</code> option isn’t passed, it will display
+on stdout.</p>
 <h3 id="json-output"><a class="header" href="#json-output">JSON output</a></h3>
 <p>When using <code>--output-format json</code> with this option, it will display the coverage information in
 JSON format. For example, here is the JSON for a file with one documented item and one

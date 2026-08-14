@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>Traiter une série d&#x27;éléments avec des itérateurs - The Rust Programming Language</title>
+        <title>Traitement d&#x27;une série d&#x27;éléments avec des itérateurs - The Rust Programming Language</title>
 
 
         <!-- Custom HTML head -->
@@ -96,10 +96,10 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-f5487a43.js";
+            window.path_to_searchindex_js = "searchindex-91b1a108.js";
         </script>
         <!-- Start loading toc.js asap -->
-        <script src="toc-1a54300e.js"></script>
+        <script src="toc-f9eeb798.js"></script>
     </head>
     <body>
     <div id="mdbook-help-container">
@@ -238,7 +238,7 @@
 
                 <div id="mdbook-content" class="content">
                     <main>
-                        <h2 id="traiter-une-série-déléments-avec-des-itérateurs"><a class="header" href="#traiter-une-série-déléments-avec-des-itérateurs">Traiter une série d’éléments avec des itérateurs</a></h2>
+                        <h2 id="traitement-dune-série-déléments-avec-des-itérateurs"><a class="header" href="#traitement-dune-série-déléments-avec-des-itérateurs">Traitement d’une série d’éléments avec des itérateurs</a></h2>
 <p>Les itérateurs vous permettent d’effectuer une tâche sur une séquence d’éléments à tour de rôle. Un <em>itérateur</em> est responsable de la logique d’itération sur chaque élément et de déterminer lorsque la séquence est terminée. Lorsque nous utilisons des itérateurs, nous n’avons pas besoin de ré-implémenter cette logique nous-mêmes.</p>
 <p>En Rust, un itérateur est une <em>évaluation paresseuse</em>, ce qui signifie qu’il n’a aucun effet jusqu’à ce que nous appelions des méthodes qui consomment l’itérateur pour l’utiliser. Par exemple, le code dans l’encart 13-10 crée un itérateur sur les éléments du vecteur <code>v1</code> en appelant la méthode <code>iter</code> définie sur <code>Vec&lt;T&gt;</code>. Ce code en lui-même ne fait rien d’utile.</p>
 <figure class="listing" id="listing-13-10">
@@ -345,7 +345,7 @@ warning: unused `Map` that must be used
   |     ^^^^^^^^^^^^^^^^^^^^^^^^
   |
   = note: iterators are lazy and do nothing unless consumed
-  = note: `#[warn(unused_must_use)]` on by default
+  = note: `#[warn(unused_must_use)]` (part of `#[warn(unused)]`) on by default
 help: use `let _ = ...` to ignore the resulting value
   |
 4 |     let _ = v1.iter().map(|x| x + 1);
@@ -375,7 +375,7 @@ warning: `iterators` (bin "iterators") generated 1 warning
 <p><a id="using-closures-that-capture-their-environment"></a></p>
 <h3 id="fermetures-capturant-leur-environnement"><a class="header" href="#fermetures-capturant-leur-environnement">Fermetures capturant leur environnement</a></h3>
 <p>De nombreux adaptateurs d’itération prenent des fermetures comme arguments, et ces fermetures que nous passons comme arguments aux adaptateurs d’itération seront des fermetures qui capturent leur environnement.</p>
-<p>Pour cet exemple, nous utiliserons la méthode <code>filter</code>, qui prend une fermeture. La fermeture prend un élément de l’itérateur et renvoie un <code>bool</code>. Si la fermeture renvoie <code>true</code>, la valeur sera inclue dans l’itération produite par <code>filter</code>. Si la fermeture renvoie <code>false</code>, la valeur ne sera pas inclue.</p>
+<p>Pour cet exemple, nous utiliserons la méthode <code>filter</code>, qui prend une fermeture. La fermeture prend un élément de l’itérateur et renvoie un <code>bool</code>. Si la fermeture renvoie <code>true</code>, la valeur sera inclue dans l’itérateur produit par <code>filter</code>. Si la fermeture renvoie <code>false</code>, la valeur ne sera pas inclue.</p>
 <p>Dans l’encart 13-16, nous utilisons <code>filter</code> avec une fermeture qui capture la variable <code>pointure_chaussure</code> de son environnement pour itérer sur une collection d’instances de la structure <code>Chaussure</code>. Il ne retournera que les chaussures avec la pointure demandée.</p>
 <figure class="listing" id="listing-13-16">
 <span class="file-name">Filename: src/lib.rs</span>
