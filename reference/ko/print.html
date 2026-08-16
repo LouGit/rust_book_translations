@@ -94,7 +94,7 @@
             const path_to_root = "";
             const default_light_theme = "light";
             const default_dark_theme = "navy";
-            window.path_to_searchindex_js = "searchindex-2be49500.js";
+            window.path_to_searchindex_js = "searchindex-0a03923b.js";
         </script>
         <!-- Start loading toc.js asap -->
         <script src="toc-20da6b24.js"></script>
@@ -10800,6 +10800,14 @@ fn invoke4() {}
 <li>Inherent and trait <a href="#구현">implementations</a></li>
 <li><a href="#트레잇">Trait definitions</a></li>
 </ul>
+<div class="rule" id="r-macro.proc.attribute.inner"><a class="rule-link" href="#r-macro.proc.attribute.inner" title="macro.proc.attribute.inner"><span>[macro<wbr>.proc<wbr>.attribute<wbr>.inner]</span></a>
+</div>
+
+<p>Attribute macros cannot be used as an <a href="#r-attributes.inner">inner attribute</a>.</p>
+<div class="rule" id="r-macro.proc.attribute.outline-mod"><a class="rule-link" href="#r-macro.proc.attribute.outline-mod" title="macro.proc.attribute.outline-mod"><span>[macro<wbr>.proc<wbr>.attribute<wbr>.outline-mod]</span></a>
+</div>
+
+<p>For any <a href="#r-items.mod.outlined">outline modules</a> present in the macro’s input, only the tokens of the module declaration are passed; the file contents of the module are not loaded or included in the input.</p>
 <div class="rule" id="r-macro.proc.attribute.behavior"><a class="rule-link" href="#r-macro.proc.attribute.behavior" title="macro.proc.attribute.behavior"><span>[macro<wbr>.proc<wbr>.attribute<wbr>.behavior]</span></a>
 </div>
 
@@ -14969,7 +14977,30 @@ Type</text>
 <div class="rule" id="r-items.fn.params.varargs"><a class="rule-link" href="#r-items.fn.params.varargs" title="items.fn.params.varargs"><span>[items<wbr>.fn<wbr>.params<wbr>.varargs]</span></a>
 </div>
 
-<p><code>...</code> 토큰이 있는 매개변수는 <a href="#variadic-functions">가변 인자 함수</a> 임을 나타내며, 오직 <a href="#외부-블록">외부 블록</a> 함수의 마지막 매개변수로만 사용될 수 있습니다. 가변 인자 매개변수는 <code>args: ...</code> 와 같이 선택적인 식별자를 가질 수 있습니다.</p>
+<p>A parameter with the <code>...</code> token indicates a <a href="#r-items.fn.c-variadic.intro">C-variadic function</a> and may only be used as the last parameter. In a function declaration in an <a href="#외부-블록"><code>extern</code> block</a>, the C-variadic parameter may have a pattern, such as <code>ap: ...</code>, and in a <a href="#r-items.fn.c-variadic.intro">C-variadic function</a> definition or C-variadic associated function declaration in a trait definition, the pattern is mandatory.</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>unsafe extern "C" {
+    unsafe fn f1(...);
+    unsafe fn f2(ap: ...);
+}
+   [식별자](../identifiers.md) `:` [_타입_](../types.md#type-expressions)
+unsafe extern "C" fn f3(ap: ...) {}
+   [식별자](../identifiers.md) `:` [_타입_](../types.md#type-expressions)
+trait Tr {
+    unsafe extern "C" fn f4(ap: ...);
+}
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>unsafe extern "C" fn f(...) {} // ERROR: Missing pattern.
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Tr {
+    unsafe extern "C" fn f(...); // ERROR: Missing pattern.
+}
+<span class="boring">}</span></code></pre>
 <div class="rule" id="r-items.fn.body"><a class="rule-link" href="#r-items.fn.body" title="items.fn.body"><span>[items<wbr>.fn<wbr>.body]</span></a>
 </div>
 
@@ -15230,6 +15261,250 @@ async fn safe_example() {
 <span class="boring">}</span></code></pre>
 <p>이 동작은 <code>impl Future</code> 를 반환하는 함수로의 디슈거링 결과입니다. 이 경우 디슈거링된 함수는 <code>unsafe</code> 함수이지만, 반환 값은 동일하게 유지됩니다.</p>
 <p>Unsafe는 다른 함수에서 사용되는 것과 정확히 동일한 방식으로 비동기 함수에서 사용됩니다. 이는 함수가 건전성을 보장하기 위해 호출자에게 몇 가지 추가적인 의무를 부과함을 나타냅니다. 다른 모든 unsafe 함수와 마찬가지로, 이러한 조건은 초기 호출 자체를 넘어 확장될 수 있습니다. 예를 들어, 위의 스니펫에서 <code>unsafe_example</code> 함수는 포인터 <code>x</code> 를 인자로 받았고, (어웨이트되었을 때) 해당 포인터를 역참조했습니다. 이는 퓨처가 실행을 마칠 때까지 <code>x</code> 가 유효해야 함을 의미하며, 이를 보장하는 것은 호출자의 책임입니다.</p>
+<div class="rule" id="r-items.fn.c-variadic"><a class="rule-link" href="#r-items.fn.c-variadic" title="items.fn.c-variadic"><span>[items<wbr>.fn<wbr>.c-variadic]</span></a>
+</div>
+
+<h2 id="c-variadic-functions"><a class="header" href="#c-variadic-functions">C-variadic functions</a></h2>
+<div class="rule" id="r-items.fn.c-variadic.intro"><a class="rule-link" href="#r-items.fn.c-variadic.intro" title="items.fn.c-variadic.intro"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.intro]</span></a>
+</div>
+
+<p>A <em>C-variadic</em> function accepts a variable argument list <code>pat: ...</code> as its final parameter.</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>unsafe extern "C" fn f(mut ap: ...) -&gt; f64 {
+    unsafe { ap.next_arg::&lt;f64&gt;() }
+}
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>unsafe extern "C" fn f(ap: ..., _: ()) {} // ERROR: `...` must be last.
+<span class="boring">}</span></code></pre>
+<p>This parameter stands in for an arbitrary number of arguments that may be passed by the caller.</p>
+<div class="rule" id="r-items.fn.c-variadic.parameter-type"><a class="rule-link" href="#r-items.fn.c-variadic.parameter-type" title="items.fn.c-variadic.parameter-type"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.parameter-type]</span></a>
+</div>
+
+<p>The type of <code>pat</code> in the function body is <a href="#r-lang-types.va-list"><code>VaList&lt;'_&gt;</code></a>.</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use core::ffi::VaList;
+</span>unsafe extern "C" fn f(ap: ...) {
+    let _: VaList&lt;'_&gt; = ap;
+}
+<span class="boring">}</span></code></pre>
+<div class="rule" id="r-items.fn.c-variadic.lifetime"><a class="rule-link" href="#r-items.fn.c-variadic.lifetime" title="items.fn.c-variadic.lifetime"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.lifetime]</span></a>
+</div>
+
+<p>A C-variadic function definition is implicitly generic over the lifetime of its variadic parameter, as if the parameter had type <code>VaList&lt;'x&gt;</code> for a fresh, unnameable lifetime <code>'x</code>. Because the function must be valid for any such lifetime, the <code>VaList</code> cannot be proved to outlive any caller-provided lifetime (and so cannot escape the call) and no caller-provided lifetime can be proved to outlive it.</p>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use core::ffi::VaList;
+</span>fn b_outlives_a&lt;'a, 'b: 'a&gt;(_: &amp;mut VaList&lt;'a&gt;, _: &amp;mut &amp;'b mut u8) {}
+unsafe extern "C" fn f(mut r: &amp;mut u8, mut ap: ...) {
+    b_outlives_a(&amp;mut ap, &amp;mut r); // ERROR: May not live long enough.
+}
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use core::ffi::VaList;
+</span>fn a_outlives_b&lt;'a: 'b, 'b&gt;(_: &amp;mut VaList&lt;'a&gt;, _: &amp;mut &amp;'b mut u8) {}
+unsafe extern "C" fn f(mut r: &amp;mut u8, mut ap: ...) {
+    a_outlives_b(&amp;mut ap, &amp;mut r); // ERROR: May not live long enough.
+}
+<span class="boring">}</span></code></pre>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>This is different than if the data were a stack variable: any caller-provided lifetime can be proved to outlive a borrow of a callee stack variable.</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>struct MockVaList&lt;'data&gt;(&amp;'data u8);
+fn b_outlives_a&lt;'a, 'b: 'a&gt;(_: &amp;mut MockVaList&lt;'a&gt;, _: &amp;mut &amp;'b mut u8) {}
+unsafe extern "C" fn f(mut r: &amp;mut u8) {
+    let data = 0;
+    let mut ap = MockVaList(&amp;data);
+    b_outlives_a(&amp;mut ap, &amp;mut r); // OK.
+}
+<span class="boring">}</span></code></pre>
+</blockquote>
+</div>
+
+<div class="rule" id="r-items.fn.c-variadic.desugar-brief"><a class="rule-link" href="#r-items.fn.c-variadic.desugar-brief" title="items.fn.c-variadic.desugar-brief"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.desugar-brief]</span></a>
+</div>
+
+<p>A C-variadic function definition is roughly equivalent to a function operating on a <a href="#r-lang-types.va-list"><code>VaList</code></a>.</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>unsafe extern "C" fn f(mut ap: ...) -&gt; i32 {
+    unsafe { ap.next_arg::&lt;i32&gt;() }
+}
+<span class="boring">}</span></code></pre>
+<p>Roughly desugars to:</p>
+<!-- no_run: conceptual desugaring -->
+<pre class="playground"><code class="language-rust no_run edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">#![ feature(core_intrinsics) ]
+</span><span class="boring">#![allow(internal_features)]
+</span><span class="boring">use core::ffi::VaList;
+</span><span class="boring">use core::mem::MaybeUninit;
+</span>use core::intrinsics::{va_arg, va_end};
+// `va_start` is magic and has no intrinsic.
+fn va_start(ap: *mut VaList&lt;'_&gt;) { /* magic */ }
+unsafe extern "C" fn f() -&gt; i32 {
+    unsafe {
+        let mut ap: MaybeUninit&lt;VaList&lt;'_&gt;&gt; = MaybeUninit::uninit();
+        va_start(ap.as_mut_ptr());
+        let mut ap = ap.assume_init();
+        let x = va_arg::&lt;i32&gt;(&amp;mut ap);
+        va_end(&amp;mut ap);
+        x
+    }
+}
+<span class="boring">}</span></code></pre>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>In an actual C-variadic function definition, the lifetime in <code>VaList&lt;'_&gt;</code> is different from what this code would suggest. See <a href="#r-items.fn.c-variadic.lifetime">items.fn.c-variadic.lifetime</a>.</p>
+</blockquote>
+</div>
+
+<div class="rule" id="r-items.fn.c-variadic.next-arg-safety"><a class="rule-link" href="#r-items.fn.c-variadic.next-arg-safety" title="items.fn.c-variadic.next-arg-safety"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.next-arg-safety]</span></a>
+</div>
+
+<p>Calling <code>VaList::next_arg</code> to read an argument of type <code>T</code> is only safe if all of the following conditions are satisfied:</p>
+<ul>
+<li>There is another C-variadic argument to read.</li>
+<li>The actual type of the argument <code>U</code> is compatible with <code>T</code> (as defined below).</li>
+<li>If <code>U</code> and <code>T</code> are both integer types, then the value passed by the caller must be representable in both types.</li>
+</ul>
+<p>Types <code>T</code> and <code>U</code> are compatible when one of the following is true:</p>
+<ul>
+<li><code>T</code> and <code>U</code> are the same type (up to free lifetimes).</li>
+<li><code>T</code> and <code>U</code> are integer types of the same size.</li>
+<li><code>T</code> and <code>U</code> are both pointers and their target types are compatible.</li>
+<li><code>T</code> is a pointer to <code>c_void</code> and <code>U</code> is a pointer to <code>i8</code> or <code>u8</code>, or vice versa.</li>
+</ul>
+<p>Examples of compatible types are:</p>
+<ul>
+<li><code>u32</code> and <code>i32</code> — but UB may still occur if the value is not representable in the target type.</li>
+<li><code>u64</code> and <code>usize</code> — on a 64-bit platform.</li>
+<li><code>*const &amp;'a u32</code> and <code>*mut &amp;'static u32</code> — these types are equal up to free lifetimes.</li>
+</ul>
+<p>Examples of incompatible types are:</p>
+<ul>
+<li><code>usize</code> and <code>*const _</code> — pointers and integers are not compatible.</li>
+<li><code>*const fn(&amp;'static ())</code> and <code>*const for&lt;'a&gt; fn(&amp;'a ())</code> — these types are not equal up to free lifetimes.</li>
+</ul>
+<div class="rule" id="r-items.fn.c-variadic.abi-compatibility"><a class="rule-link" href="#r-items.fn.c-variadic.abi-compatibility" title="items.fn.c-variadic.abi-compatibility"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.abi-compatibility]</span></a>
+</div>
+
+<p><a href="#r-lang-types.va-list"><code>VaList</code></a> is ABI compatible with the C <code>va_list</code> type.</p>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span><span class="boring">use core::ffi::{c_char, c_int, VaList};
+</span>unsafe extern "C" {
+    // The C `vprintf` function is:
+    //
+    //     int vprintf(const char *format, va_list ap);
+    //
+    unsafe fn vprintf(fmt: *const c_char, ap: VaList&lt;'_&gt;) -&gt; c_int;
+}
+   [식별자](../identifiers.md) `:` [_타입_](../types.md#type-expressions)
+unsafe extern "C" fn print(fmt: *const c_char, ap: ...) -&gt; c_int {
+    // The `VaList` is passed directly to the C function.
+    unsafe { vprintf(fmt, ap) }
+}
+<span class="boring">}</span></code></pre>
+<div class="rule" id="r-items.fn.c-variadic.abi"><a class="rule-link" href="#r-items.fn.c-variadic.abi" title="items.fn.c-variadic.abi"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.abi]</span></a>
+</div>
+
+<p>Only <code>extern "C"</code> and <code>extern "C-unwind"</code> function definitions can accept a variable argument list.</p>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>unsafe fn f(ap: ...) {} // ERROR: Not supported.
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>unsafe extern "sysv64" fn f(ap: ...) {} // ERROR: Not supported.
+<span class="boring">}</span></code></pre>
+<div class="rule" id="r-items.fn.c-variadic.safety"><a class="rule-link" href="#r-items.fn.c-variadic.safety" title="items.fn.c-variadic.safety"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.safety]</span></a>
+</div>
+
+<p>When a variable argument list is used in the signature:</p>
+<ul>
+<li>Function definitions must be <code>unsafe</code>.</li>
+<li>Function declarations within trait definitions must be <code>unsafe</code>.</li>
+<li>Function declarations in <code>extern</code> blocks may be <code>safe</code>.</li>
+</ul>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>extern "C" fn f(ap: ...) {} // ERROR: Must be `unsafe`.
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>trait Tr {
+    extern "C" fn f(ap: ...); // ERROR: Must be `unsafe`.
+}
+<span class="boring">}</span></code></pre>
+<pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>unsafe extern "C" {
+    safe fn f(ap: ...); // OK.
+}
+<span class="boring">}</span></code></pre>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>For <code>safe</code> function declarations in an <code>extern</code> block, see the warning in <a href="#r-items.extern.variadic">items.extern.variadic</a>.</p>
+</blockquote>
+</div>
+
+<div class="rule" id="r-items.fn.c-variadic.async"><a class="rule-link" href="#r-items.fn.c-variadic.async" title="items.fn.c-variadic.async"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.async]</span></a>
+</div>
+
+<p>A C-variadic function cannot be <code>async</code>.</p>
+<pre class="playground"><code class="language-rust compile_fail edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>async unsafe extern "C" fn f(ap: ...) {} // ERROR: Cannot be `async`.
+<span class="boring">}</span></code></pre>
+<div class="rule" id="r-items.fn.c-variadic.const"><a class="rule-link" href="#r-items.fn.c-variadic.const" title="items.fn.c-variadic.const"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.const]</span></a>
+</div>
+
+<p>A C-variadic function cannot be <code>const</code>.</p>
+<pre class="playground"><code class="language-rust compile_fail E0658 edition2024"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>const unsafe extern "C" fn f(ap: ...) {} // ERROR: Cannot be `const`.
+<span class="boring">}</span></code></pre>
+<div class="rule" id="r-items.fn.c-variadic.stable-targets"><a class="rule-link" href="#r-items.fn.c-variadic.stable-targets" title="items.fn.c-variadic.stable-targets"><span>[items<wbr>.fn<wbr>.c-variadic<wbr>.stable-targets]</span></a>
+</div>
+
+<p>Support for C-variadic function definitions is stable on the following target architectures:</p>
+<ul>
+<li>x86 및 x86-64</li>
+<li>ARM</li>
+<li>AArch64 및 Arm64EC</li>
+<li>RISC-V 32-bit and 64-bit (except when using the ilp32e ABI)</li>
+<li>LoongArch 32-bit and 64-bit</li>
+<li>s390x</li>
+<li>PowerPC and PowerPC64</li>
+<li>AMDGPU and NVPTX</li>
+<li>Wasm32 and Wasm64</li>
+<li>C-SKY</li>
+<li>Xtensa</li>
+<li>Hexagon</li>
+<li>SPARC64</li>
+<li>MIPS</li>
+</ul>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>Some target architectures (e.g., BPF) do not support C-variadic function definitions. The compiler will emit an error if such a definition is used on an unsupported target.</p>
+</blockquote>
+</div>
+
 <div class="rule" id="r-items.fn.attributes"><a class="rule-link" href="#r-items.fn.attributes" title="items.fn.attributes"><span>[items<wbr>.fn<wbr>.attributes]</span></a>
 </div>
 
@@ -17786,6 +18061,7 @@ trait Example {
 </ul>
 </li>
 <li><code>where Self: Sized</code> 바운드를 갖지 않아야 합니다(<code>Self</code> 수신자 타입(즉, <code>self</code>)은 이를 암시합니다).</li>
+<li>Not have a C-variadic parameter (<code>_: ...</code>).</li>
 </ul>
 </li>
 <li>명시적으로 디스패치 불가능한 함수는 다음을 요구합니다:
@@ -19220,7 +19496,7 @@ unsafe extern "system" { /* ... */ }
 </div>
 
 <h2 id="가변-인자-함수"><a class="header" href="#가변-인자-함수">가변 인자 함수</a></h2>
-<p>외부 블록 내의 함수는 마지막 인수로 <code>...</code> 을 지정하여 가변 인자 함수가 될 수 있습니다. 가변 인자 매개변수는 선택적으로 식별자를 가질 수 있습니다.</p>
+<p>Functions within external blocks may be made variadic by specifying <code>...</code> as the last parameter. The variadic parameter may be specified with a pattern.</p>
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>unsafe extern "C" {
@@ -21289,7 +21565,7 @@ Expression</text>
 <div class="rule" id="r-attributes.inner"><a class="rule-link" href="#r-attributes.inner" title="attributes.inner"><span>[attributes<wbr>.inner]</span></a>
 </div>
 
-<p><em>Inner attributes</em>, written with a bang (<code>!</code>) after the hash (<code>#</code>), apply to the form that the attribute is declared within.</p>
+<p><em>Inner attributes</em> apply to the form that the attribute is declared within.</p>
 <div class="alert alert-example">
 <blockquote>
 <p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>Example</p>
@@ -21314,7 +21590,7 @@ fn some_unused_variables() {
 <div class="rule" id="r-attributes.outer"><a class="rule-link" href="#r-attributes.outer" title="attributes.outer"><span>[attributes<wbr>.outer]</span></a>
 </div>
 
-<p><em>Outer attributes</em>, written without the bang after the hash, apply to the form that follows the attribute.</p>
+<p><em>Outer attributes</em> apply to the form that follows the attribute.</p>
 <div class="alert alert-example">
 <blockquote>
 <p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>Example</p>
@@ -42992,6 +43268,14 @@ struct MyDFields;
 </blockquote>
 </div>
 
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>This representation is quite different from <code>repr(C)</code> for enums with fields.</p>
+</blockquote>
+</div>
+
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>// 이 열거형은 다음 공용체와 동일한 표현을 가집니다 ...
@@ -43038,6 +43322,14 @@ struct MyVariantD(MyEnumDiscriminant);
 
 <h4 id="필드가-있는-열거형의-기본-표현과-reprc-결합하기"><a class="header" href="#필드가-있는-열거형의-기본-표현과-reprc-결합하기">필드가 있는 열거형의 기본 표현과 <code>#[repr(C)]</code> 결합하기</a></h4>
 <p>필드가 있는 열거형의 경우, <code>repr(C)</code> 와 기본 표현을 결합하는 것도 가능합니다(예: <code>repr(C, u8)</code>). 이는 판별자 열거형의 표현을 선택된 기본 타입으로 변경함으로써 <a href="#reprc-enums-with-fields"><code>repr(C)</code></a> 를 수정합니다. 따라서 <code>u8</code> 표현을 선택했다면, 판별자 열거형은 1바이트의 크기와 정렬을 갖게 됩니다.</p>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p>This means <code>repr(C, u8)</code> is quite different from <code>repr(u8)</code>! The former is a struct with two fields (tag and a union of variants), the latter is a union where each field starts with the tag.</p>
+</blockquote>
+</div>
+
 <p><a href="#reprc-enums-with-fields">앞서</a> 나온 예시의 판별자 열거형은 다음과 같이 됩니다:</p>
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
@@ -45751,6 +46043,19 @@ const RESOLVED_STATIC: &amp;dyn Fn(&amp;Foo, &amp;Bar) -&gt; &amp;Baz = &amp;som
 
 <h2 id="phantomdatat"><a class="header" href="#phantomdatat"><code>PhantomData&lt;T&gt;</code></a></h2>
 <p><a href="../core/marker/struct.PhantomData.html"><code>std::marker::PhantomData&lt;T&gt;</code></a> is a <a href="#r-glossary.zst">zero-sized</a>, minimum alignment, type that is considered to own a <code>T</code> for the purposes of <a href="#variance">variance</a>, <a href="../nomicon/dropck.html">drop check</a>, and <a href="#auto-traits">auto traits</a>.</p>
+<div class="rule" id="r-lang-types.va-list"><a class="rule-link" href="#r-lang-types.va-list" title="lang-types.va-list"><span>[lang-types<wbr>.va-list]</span></a>
+</div>
+
+<h2 id="valist_"><a class="header" href="#valist_"><code>VaList&lt;'_&gt;</code></a></h2>
+<p><a href="../core/ffi/va_list/struct.VaList.html"><code>VaList</code></a> is used for <a href="#r-items.fn.c-variadic">C-variadic functions</a>.</p>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p><a href="../core/ffi/va_list/struct.VaList.html"><code>VaList</code></a> is ABI compatible with the C <code>va_list</code> type; see <a href="#r-items.fn.c-variadic.abi-compatibility">items.fn.c-variadic.abi-compatibility</a>.</p>
+</blockquote>
+</div>
+
 <div class="rule" id="r-lang-types.ops"><a class="rule-link" href="#r-lang-types.ops" title="lang-types.ops"><span>[lang-types<wbr>.ops]</span></a>
 </div>
 
@@ -51791,9 +52096,9 @@ unsafe { core::arch::asm!("/* {} */", in(reg) x); }
 <tr><td>x86-32</td><td><code>reg</code></td><td>없음</td><td><code>i16</code>, <code>i32</code>, <code>f32</code></td></tr>
 <tr><td>x86-64</td><td><code>reg</code></td><td>없음</td><td><code>i16</code>, <code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code></td></tr>
 <tr><td>x86</td><td><code>reg_byte</code></td><td>없음</td><td><code>i8</code></td></tr>
-<tr><td>x86</td><td><code>xmm_reg</code></td><td><code>sse</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code></td></tr>
-<tr><td>x86</td><td><code>ymm_reg</code></td><td><code>avx</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code> <br> <code>i8x32</code>, <code>i16x16</code>, <code>i32x8</code>, <code>i64x4</code>, <code>f32x8</code>, <code>f64x4</code></td></tr>
-<tr><td>x86</td><td><code>zmm_reg</code></td><td><code>avx512f</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code> <br> <code>i8x32</code>, <code>i16x16</code>, <code>i32x8</code>, <code>i64x4</code>, <code>f32x8</code>, <code>f64x4</code> <br> <code>i8x64</code>, <code>i16x32</code>, <code>i32x16</code>, <code>i64x8</code>, <code>f32x16</code>, <code>f64x8</code></td></tr>
+<tr><td>x86</td><td><code>xmm_reg</code></td><td><code>sse</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <code>i128</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code></td></tr>
+<tr><td>x86</td><td><code>ymm_reg</code></td><td><code>avx</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <code>i128</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code> <br> <code>i8x32</code>, <code>i16x16</code>, <code>i32x8</code>, <code>i64x4</code>, <code>f32x8</code>, <code>f64x4</code></td></tr>
+<tr><td>x86</td><td><code>zmm_reg</code></td><td><code>avx512f</code></td><td><code>i32</code>, <code>f32</code>, <code>i64</code>, <code>f64</code>, <code>i128</code>, <br> <code>i8x16</code>, <code>i16x8</code>, <code>i32x4</code>, <code>i64x2</code>, <code>f32x4</code>, <code>f64x2</code> <br> <code>i8x32</code>, <code>i16x16</code>, <code>i32x8</code>, <code>i64x4</code>, <code>f32x8</code>, <code>f64x4</code> <br> <code>i8x64</code>, <code>i16x32</code>, <code>i32x16</code>, <code>i64x8</code>, <code>f32x16</code>, <code>f64x8</code></td></tr>
 <tr><td>x86</td><td><code>kreg</code></td><td><code>avx512f</code></td><td><code>i8</code>, <code>i16</code></td></tr>
 <tr><td>x86</td><td><code>kreg</code></td><td><code>avx512bw</code></td><td><code>i32</code>, <code>i64</code></td></tr>
 <tr><td>x86</td><td><code>mmx_reg</code></td><td>해당 없음 (N/A)</td><td>클로버(clobbers) 전용</td></tr>
@@ -53340,7 +53645,8 @@ assert_eq!(s, "Hello World!");
 <ul>
 <li>
 <p>Breaking the pointer aliasing rules. The exact aliasing rules are not determined yet, but here is an outline of the general principles:</p>
-<p><code>&amp;T</code> must point to memory that is not mutated while they are live (except for data inside an <a href="../core/cell/struct.UnsafeCell.html"><code>UnsafeCell&lt;U&gt;</code></a>), and <code>&amp;mut T</code> must point to memory that is not read or written by any pointer not derived from the reference and that no other reference points to while they are live. <code>Box&lt;T&gt;</code> is treated similar to <code>&amp;'static mut T</code> for the purpose of these rules. The exact liveness duration is not specified, but some bounds exist:</p>
+<p><code>&amp;T</code> must point to memory that is not mutated while they are live (except for data inside an <a href="../core/cell/struct.UnsafeCell.html"><code>UnsafeCell&lt;U&gt;</code></a>), and <code>&amp;mut T</code> must point to memory that is not read or written by any pointer not derived from the reference and that no other reference points to while they are live (with no exceptions). <code>Box&lt;T&gt;</code> is treated similar to <code>&amp;'static mut T</code> for the purpose of these rules. These rules apply to <em>all</em> references and <code>Box&lt;T&gt;</code>, including those stored inside private fields (e.g., if your type has a private field of type <code>&amp;mut T</code>, that reference must be unique in the sense described above for as long as values of your type are live).</p>
+<p>The exact liveness duration is not specified, but some bounds exist:</p>
 <ul>
 <li>참조의 경우, 생존 기간의 상한선은 대여 검사기(borrow checker)가 할당한 구문상 라이프타임입니다. 즉, 그 라이프타임보다 <em>더 길게</em> 살아있을 수 없습니다.</li>
 <li>Each time a reference or box is dereferenced or reborrowed, it is considered live.</li>
@@ -54123,20 +54429,81 @@ $ LC_ALL=C nm -C lib.o
 <div class="rule" id="r-abi.no_mangle.intro"><a class="rule-link" href="#r-abi.no_mangle.intro" title="abi.no_mangle.intro"><span>[abi<wbr>.no_mangle<wbr>.intro]</span></a>
 </div>
 
-<p><em><code>no_mangle</code> 속성</em> 은 표준 심볼 이름 맹글링(mangling)을 비활성화하기 위해 모든 <a href="#아이템">아이템</a> 에 사용될 수 있습니다. 해당 아이템의 심볼은 아이템의 이름과 동일한 식별자가 됩니다.</p>
-<div class="rule" id="r-abi.no_mangle.publicly-exported"><a class="rule-link" href="#r-abi.no_mangle.publicly-exported" title="abi.no_mangle.publicly-exported"><span>[abi<wbr>.no_mangle<wbr>.publicly-exported]</span></a>
-</div>
+<p>The <em><code>no_mangle</code> <a href="#속성-1">attribute</a></em> disables the standard symbol name mangling on a <a href="#함수">function</a> or <a href="#정적-아이템">static</a>. The symbol for the item is the item’s identifier.</p>
+<div class="alert alert-example">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Zm4.879-2.773 4.264 2.559a.25.25 0 0 1 0 .428l-4.264 2.559A.25.25 0 0 1 6 10.559V5.442a.25.25 0 0 1 .379-.215Z"></path></svg>Example</p>
 
-<p>또한, <a href="#the-used-attribute"><code>used</code> 속성</a> 과 유사하게, 해당 아이템은 생성된 라이브러리나 목적 파일로부터 공개적으로 내보내집니다.</p>
-<div class="rule" id="r-abi.no_mangle.unsafe"><a class="rule-link" href="#r-abi.no_mangle.unsafe" title="abi.no_mangle.unsafe"><span>[abi<wbr>.no_mangle<wbr>.unsafe]</span></a>
-</div>
-
-<p>맹글링되지 않은 심볼은 동일한 이름을 가진 다른 심볼(또는 잘 알려진 심볼)과 충돌하여 정의되지 않은 동작을 초래할 수 있으므로, 이 속성은 안전하지 않습니다(unsafe).</p>
 <pre class="playground"><code class="language-rust edition2024"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>#[unsafe(no_mangle)]
 extern "C" fn foo() {}
 <span class="boring">}</span></code></pre>
+</blockquote>
+</div>
+
+<div class="rule" id="r-abi.no_mangle.syntax"><a class="rule-link" href="#r-abi.no_mangle.syntax" title="abi.no_mangle.syntax"><span>[abi<wbr>.no_mangle<wbr>.syntax]</span></a>
+</div>
+
+<p>The <code>no_mangle</code> attribute uses the <a href="#grammar-MetaWord">MetaWord</a> syntax.</p>
+<div class="rule" id="r-abi.no_mangle.allowed-positions"><a class="rule-link" href="#r-abi.no_mangle.allowed-positions" title="abi.no_mangle.allowed-positions"><span>[abi<wbr>.no_mangle<wbr>.allowed-positions]</span></a>
+</div>
+
+<p>The <code>no_mangle</code> attribute may only be applied to:</p>
+<ul>
+<li><a href="#r-items.static">Static items</a></li>
+<li><a href="#r-items.fn">Free functions</a></li>
+<li><a href="#r-items.associated.fn">Inherent associated functions</a></li>
+<li><a href="#r-items.impl.trait">Trait impl functions</a></li>
+</ul>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p><code>rustc</code> lints against use in other positions. This may become an error in the future.</p>
+</blockquote>
+</div>
+
+<!-- TODO: Currently it works on a trait function with a body, but generates a warning about being phased out. how do we document that?
+https://github.com/rust-lang/rust/pull/86492#issuecomment-885682960
+-->
+<!-- TODO: should this clarify that external block items are already unmangled?, and thus the attribute does nothing? Currently it is "phased out" warning. -->
+<div class="rule" id="r-abi.no_mangle.closures"><a class="rule-link" href="#r-abi.no_mangle.closures" title="abi.no_mangle.closures"><span>[abi<wbr>.no_mangle<wbr>.closures]</span></a>
+</div>
+
+<p>The <code>no_mangle</code> attribute may not be used with a <a href="#r-expr.closure">closure</a>.</p>
+<div class="rule" id="r-abi.no_mangle.generics"><a class="rule-link" href="#r-abi.no_mangle.generics" title="abi.no_mangle.generics"><span>[abi<wbr>.no_mangle<wbr>.generics]</span></a>
+</div>
+
+<p>The <code>no_mangle</code> attribute may not be used on an item with generic parameters.</p>
+<div class="rule" id="r-abi.no_mangle.duplicates"><a class="rule-link" href="#r-abi.no_mangle.duplicates" title="abi.no_mangle.duplicates"><span>[abi<wbr>.no_mangle<wbr>.duplicates]</span></a>
+</div>
+
+<p>Only the first use of <code>no_mangle</code> on an item has effect.</p>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p><code>rustc</code> lints against any use following the first.</p>
+</blockquote>
+</div>
+
+<div class="rule" id="r-abi.no_mangle.export_name"><a class="rule-link" href="#r-abi.no_mangle.export_name" title="abi.no_mangle.export_name"><span>[abi<wbr>.no_mangle<wbr>.export_name]</span></a>
+</div>
+
+<p>When the <code>no_mangle</code> and <a href="#r-abi.export_name"><code>export_name</code></a> attributes are both applied to the same item, the symbol name from <code>export_name</code> is used, and <code>no_mangle</code> has no effect.</p>
+<div class="alert alert-note">
+<blockquote>
+<p class="alert-title"><svg viewbox="0 0 16 16" width="18" height="18"><path d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8Zm8-6.5a6.5 6.5 0 1 0 0 13 6.5 6.5 0 0 0 0-13ZM6.5 7.75A.75.75 0 0 1 7.25 7h1a.75.75 0 0 1 .75.75v2.75h.25a.75.75 0 0 1 0 1.5h-2a.75.75 0 0 1 0-1.5h.25v-2h-.25a.75.75 0 0 1-.75-.75ZM8 6a1 1 0 1 1 0-2 1 1 0 0 1 0 2Z"></path></svg>Note</p>
+
+<p><code>rustc</code> lints against this combination.</p>
+</blockquote>
+</div>
+
+<div class="rule" id="r-abi.no_mangle.unsafe"><a class="rule-link" href="#r-abi.no_mangle.unsafe" title="abi.no_mangle.unsafe"><span>[abi<wbr>.no_mangle<wbr>.unsafe]</span></a>
+</div>
+
+<p>The <code>no_mangle</code> attribute must be marked with <a href="#r-attributes.safety"><code>unsafe</code></a> because an unmangled symbol may collide with another symbol with the same name (or with a well-known symbol), leading to undefined behavior.</p>
 <div class="rule" id="r-abi.no_mangle.edition2024"><a class="rule-link" href="#r-abi.no_mangle.edition2024" title="abi.no_mangle.edition2024"><span>[abi<wbr>.no_mangle<wbr>.edition2024]</span></a>
 </div>
 
@@ -54144,10 +54511,18 @@ extern "C" fn foo() {}
 <blockquote>
 <p class="alert-title"><span class="alert-title-edition">2024</span> Edition differences</p>
 
-<p>Before the 2024 edition it is allowed to use the <code>no_mangle</code> attribute without the <code>unsafe</code> qualification.</p>
+<p>Before the 2024 edition, it is allowed to use the <code>no_mangle</code> attribute without <code>unsafe</code>.</p>
 </blockquote>
 </div>
 
+<div class="rule" id="r-abi.no_mangle.publicly-exported"><a class="rule-link" href="#r-abi.no_mangle.publicly-exported" title="abi.no_mangle.publicly-exported"><span>[abi<wbr>.no_mangle<wbr>.publicly-exported]</span></a>
+</div>
+
+<p>In addition to disabling name mangling, the <code>no_mangle</code> attribute causes the symbol to be publicly exported from the produced library or object file, similar to the <a href="#r-abi.used"><code>used</code></a> attribute.</p>
+<div class="rule" id="r-abi.no_mangle.ascii-only"><a class="rule-link" href="#r-abi.no_mangle.ascii-only" title="abi.no_mangle.ascii-only"><span>[abi<wbr>.no_mangle<wbr>.ascii-only]</span></a>
+</div>
+
+<p>The <code>no_mangle</code> attribute may only be used on items with a name that contains only ASCII characters.</p>
 <div class="rule" id="r-abi.link_section"><a class="rule-link" href="#r-abi.link_section" title="abi.link_section"><span>[abi<wbr>.link_section]</span></a>
 </div>
 
@@ -80369,11 +80744,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#procedural-macros">      3.2. Procedural macros</a></td>
-<td>45</td>
+<td>47</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(12);">45</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(12);">47</a>
 <div id="uncovered-12" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -80388,9 +80763,13 @@ Uncovered rules
 
 <li><a href="#r-macro.proc.attribute.duplicates">macro.proc.attribute.duplicates</a></li>
 
+<li><a href="#r-macro.proc.attribute.inner">macro.proc.attribute.inner</a></li>
+
 <li><a href="#r-macro.proc.attribute.intro">macro.proc.attribute.intro</a></li>
 
 <li><a href="#r-macro.proc.attribute.namespace">macro.proc.attribute.namespace</a></li>
+
+<li><a href="#r-macro.proc.attribute.outline-mod">macro.proc.attribute.outline-mod</a></li>
 
 <li><a href="#r-macro.proc.attribute.syntax">macro.proc.attribute.syntax</a></li>
 
@@ -80977,11 +81356,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#함수">      6.4. Functions</a></td>
-<td>49</td>
+<td>61</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(19);">49</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(19);">61</a>
 <div id="uncovered-19" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -81019,6 +81398,30 @@ Uncovered rules
 <li><a href="#r-items.fn.body.bodyless">items.fn.body.bodyless</a></li>
 
 <li><a href="#r-items.fn.body.intro">items.fn.body.intro</a></li>
+
+<li><a href="#r-items.fn.c-variadic">items.fn.c-variadic</a></li>
+
+<li><a href="#r-items.fn.c-variadic.abi">items.fn.c-variadic.abi</a></li>
+
+<li><a href="#r-items.fn.c-variadic.abi-compatibility">items.fn.c-variadic.abi-compatibility</a></li>
+
+<li><a href="#r-items.fn.c-variadic.async">items.fn.c-variadic.async</a></li>
+
+<li><a href="#r-items.fn.c-variadic.const">items.fn.c-variadic.const</a></li>
+
+<li><a href="#r-items.fn.c-variadic.desugar-brief">items.fn.c-variadic.desugar-brief</a></li>
+
+<li><a href="#r-items.fn.c-variadic.intro">items.fn.c-variadic.intro</a></li>
+
+<li><a href="#r-items.fn.c-variadic.lifetime">items.fn.c-variadic.lifetime</a></li>
+
+<li><a href="#r-items.fn.c-variadic.next-arg-safety">items.fn.c-variadic.next-arg-safety</a></li>
+
+<li><a href="#r-items.fn.c-variadic.parameter-type">items.fn.c-variadic.parameter-type</a></li>
+
+<li><a href="#r-items.fn.c-variadic.safety">items.fn.c-variadic.safety</a></li>
+
+<li><a href="#r-items.fn.c-variadic.stable-targets">items.fn.c-variadic.stable-targets</a></li>
 
 <li><a href="#r-items.fn.const">items.fn.const</a></li>
 
@@ -85879,11 +86282,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#특수-타입과-트레잇">11. Special types and traits</a></td>
-<td>54</td>
+<td>55</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(92);">54</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(92);">55</a>
 <div id="uncovered-92" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -85995,6 +86398,8 @@ Uncovered rules
 <li><a href="#r-lang-types.unsafe-cell.interior-mut">lang-types.unsafe-cell.interior-mut</a></li>
 
 <li><a href="#r-lang-types.unsafe-cell.read-only-alloc">lang-types.unsafe-cell.read-only-alloc</a></li>
+
+<li><a href="#r-lang-types.va-list">lang-types.va-list</a></li>
 
 </ul>
 </div>
@@ -87345,11 +87750,11 @@ Uncovered rules
 
 <tr>
 <td><a href="#application-binary-interface-abi">19. Application binary interface</a></td>
-<td>24</td>
+<td>31</td>
 <td>0</td>
 <td>
 <div class="popup-container">
-<a href="javascript:void(0)" onclick="spec_toggle_uncovered(111);">24</a>
+<a href="javascript:void(0)" onclick="spec_toggle_uncovered(111);">31</a>
 <div id="uncovered-111" class="uncovered-rules-popup popup-hidden">
 Uncovered rules
                         
@@ -87384,11 +87789,25 @@ Uncovered rules
 
 <li><a href="#r-abi.no_mangle">abi.no_mangle</a></li>
 
+<li><a href="#r-abi.no_mangle.allowed-positions">abi.no_mangle.allowed-positions</a></li>
+
+<li><a href="#r-abi.no_mangle.ascii-only">abi.no_mangle.ascii-only</a></li>
+
+<li><a href="#r-abi.no_mangle.closures">abi.no_mangle.closures</a></li>
+
+<li><a href="#r-abi.no_mangle.duplicates">abi.no_mangle.duplicates</a></li>
+
 <li><a href="#r-abi.no_mangle.edition2024">abi.no_mangle.edition2024</a></li>
+
+<li><a href="#r-abi.no_mangle.export_name">abi.no_mangle.export_name</a></li>
+
+<li><a href="#r-abi.no_mangle.generics">abi.no_mangle.generics</a></li>
 
 <li><a href="#r-abi.no_mangle.intro">abi.no_mangle.intro</a></li>
 
 <li><a href="#r-abi.no_mangle.publicly-exported">abi.no_mangle.publicly-exported</a></li>
+
+<li><a href="#r-abi.no_mangle.syntax">abi.no_mangle.syntax</a></li>
 
 <li><a href="#r-abi.no_mangle.unsafe">abi.no_mangle.unsafe</a></li>
 
@@ -87635,9 +88054,9 @@ Uncovered rules
 
 <tr>
 <td><b>Total:</b></td>
-<td>2957</td>
+<td>2979</td>
 <td>0</td>
-<td>2957</td>
+<td>2979</td>
 <td>0.0%</td>
 </tr>
 
